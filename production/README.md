@@ -55,7 +55,7 @@ Current rules include:
 - a 2+ character Cloze answer must not appear verbatim elsewhere in the visible card;
 - source families represented by included ALPs must not be silently truncated during integration.
 
-FND-00 v1.6 is the general style reference for context-rich integrated cards with short answers. COM-01 v1.8 adds chapter evidence for whole-entry recall, explicit method naming, formula-term reuse, and stronger material-proposition containment.
+FND-00 v1.6 is the general style reference for context-rich integrated cards with short answers. COM-01 v1.8 adds chapter evidence for whole-entry recall, explicit method naming, formula-term reuse, and stronger material-proposition containment. COM-02 ANKI-AUDIT-007 applies the same current-rule precision to revenue-recognition, warranty, and service-accounting mechanics.
 
 See `rules/cloze_rules.md`, `rules/coverage_rules.md`, and especially `rules/exam_yield_rules.md` for the authoritative current wording.
 
@@ -87,9 +87,9 @@ and
 ## Existing commercial batches
 
 - `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 99 Cloze spans / 52 included ALPs; v1.8 precision / ALP-containment audit applied**;
-- `notes/COM-02.tsv` — 17 approved Notes / 17 cards / 32 included ALPs; retains its current audited state until an explicit migration applies newer rules.
+- `notes/COM-02.tsv` — **17 approved Notes / 17 cards / 39 Cloze spans / 32 included ALPs; ANKI-AUDIT-007 current living-rule / ALP-containment migration applied**.
 
-A newer repository rule does not erase the historical chapter audit. It becomes mandatory for an existing batch when the rule is declared a repository-wide invariant or when that batch is explicitly migrated.
+COM-02 retains the historical ANKI-009 v1.2 metrics in Git history and issue #10, while its current production state is governed by the explicit migration in issue #77. Stable IDs and the pinned source baseline were preserved.
 
 ## Lifecycle
 
@@ -99,15 +99,17 @@ A newer repository rule does not erase the historical chapter audit. It becomes 
 
 - `notes/FND-00.tsv` — foundations; audited through ANKI-AUDIT-006 (#70);
 - `notes/COM-01.tsv` — Commercial chapter 01; v1.8 precision / ALP-containment audit applied;
-- `notes/COM-02.tsv` — Commercial chapter 02; original chapter audit state retained pending explicit migration.
+- `notes/COM-02.tsv` — Commercial chapter 02; ANKI-AUDIT-007 (#77) current-rule precision / ALP-containment migration applied.
 
-Migration records include:
+Migration/audit records include:
 
 - `scripts/migrate_fnd00_v1_2.py`
 - `scripts/migrate_fnd00_v1_3.py`
 - `scripts/migrate_fnd00_v1_4.py`
 - `scripts/migrate_fnd00_v1_5.py`
 - `scripts/migrate_fnd00_v1_6.py`
+- issue/PR history and `production/qa/COM-01.md` for COM-01 precision audits;
+- issue #77 and `production/qa/COM-02.md` for the explicit COM-02 living-rule migration.
 
 Validation:
 

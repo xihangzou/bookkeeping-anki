@@ -1,8 +1,10 @@
 # COM-02 Production QA
 
-Task: ANKI-009 / Commercial chapter 02 `収益認識`
+Status: **PASS target — ANKI-AUDIT-007 current living-rule migration**
 
-Governance: `GOVERNANCE.md`. COM-02 retains its explicitly audited chapter state from ANKI-009; current general rules are authoritative for new work, while this existing batch is migrated when a newer rule is explicitly applied to it.
+Task lineage: ANKI-009 / #10 → ANKI-AUDIT-007 / #77
+
+Governance: `GOVERNANCE.md`. This audit explicitly migrates COM-02 from its historical v1.2 authoring state to the latest merged living rules in `rules/cloze_rules.md`, `rules/coverage_rules.md`, and `rules/exam_yield_rules.md`.
 
 Source baseline:
 - repository: `xihangzou/bookkeeping-integrated`
@@ -15,6 +17,7 @@ Source baseline:
 
 - approved production Notes: **17**
 - generated Cloze cards: **17**
+- active Cloze spans: **39** (historical COM-02 state: 32)
 - canonical included COM-02 ALPs: **32**
 - mapped included ALPs: **32**
 - unmapped included ALPs: **0**
@@ -25,72 +28,119 @@ Source baseline:
 - journal-entry Notes reviewed: **5**
 - formula Notes reviewed: **3**
 - approved Notes using more than one Cloze index: **0**
-- exact duplicate Cloze answer spans within an approved Note: **0**
+- exact visible-answer leakage for 2+ character answers: **0**
 - exact rendered-text duplicates: **0**
 - production lifecycle: all rows `Status=approved`, `QA=pass`
 
-No COM-02 pilot IDs existed, so stable production IDs are allocated deterministically as `BK-COM-02-0001`–`BK-COM-02-0017` in primary canonical ALP order.
+Stable IDs remain `BK-COM-02-0001`–`BK-COM-02-0017`; no COM-02 pilot IDs existed. No source provenance, ALP ID, or chapter-local Note ID was renumbered or reassigned.
+
+## Why spans increased without adding cards
+
+The current rules distinguish **review-card count** from **Cloze-span count**. COM-02 retains one `c1` card per Note, but broad answers were decomposed into short answer units on the same card.
+
+Examples:
+
+- recognition bases: one list-like answer became `{{c1::出荷時}}`, `{{c1::到着時}}`, `{{c1::検収時}}`;
+- refund-liability measurement: `売上認識額＝{{c1::販売対価}}－{{c1::将来返金見積額}}`;
+- paid-warranty allocation: `{{c1::保証対価}}×{{c1::当期履行期間}}÷{{c1::総保証期間}}`;
+- partial service completion: formula terms are itemized and the structurally reused `{{c1::履行割合}}` is hidden in both formula positions.
+
+Thus **32 → 39 spans** represents finer same-card recall, not seven extra review rotations.
 
 ## Consolidation map
 
 | Note | ALP mapping | Retrieval unit |
 |---|---|---|
-| `BK-COM-02-0001` | 0001, 0002 | 履行義務の意味と収益認識時点 |
+| `BK-COM-02-0001` | 0001, 0002 | 履行義務の意味・充足・収益認識時点 |
 | `BK-COM-02-0002` | 0003 | 掛売上の認識と後日回収 |
-| `BK-COM-02-0003` | 0004, 0005 | 前受金から商品引渡時の売上認識 |
+| `BK-COM-02-0003` | 0004, 0005 | 前受金と商品引渡時の売上認識 |
 | `BK-COM-02-0004` | 0006 | 売上戻りの逆仕訳 |
 | `BK-COM-02-0005` | 0007 | 当社負担の売上諸掛り |
-| `BK-COM-02-0006` | 0008, 0009 | 出荷・着荷・検収の流れと認識基準 |
-| `BK-COM-02-0007` | 0010, 0014 | 割戻しと変動対価の用語関係 |
+| `BK-COM-02-0006` | 0008, 0009 | 出荷・着荷・検収と認識基準 |
+| `BK-COM-02-0007` | 0010, 0014 | 割戻しと変動対価の用語 |
 | `BK-COM-02-0008` | 0011, 0012, 0013 | 返金負債と売上認識額 |
 | `BK-COM-02-0009` | 0015, 0016 | 仕入割戻しの処理と仕入戻しとの対応 |
 | `BK-COM-02-0010` | 0017, 0024 | 一時点・一定期間の収益認識と先受対価 |
-| `BK-COM-02-0011` | 0018, 0019 | 無料保証と有償保証の会計上の区別 |
-| `BK-COM-02-0012` | 0020, 0021, 0022 | 有償保証の契約負債と期間配分 |
+| `BK-COM-02-0011` | 0018, 0019 | 無料保証と有償保証の区別 |
+| `BK-COM-02-0012` | 0020, 0021, 0022 | 有償保証の繰延べと期間配分 |
 | `BK-COM-02-0013` | 0023 | 商品販売と有償保証の複数履行義務 |
 | `BK-COM-02-0014` | 0025 | サービス業の主要勘定科目 |
-| `BK-COM-02-0015` | 0026, 0027, 0028, 0032 | サービス業の前受・繰延原価・履行時振替の一連処理 |
+| `BK-COM-02-0015` | 0026, 0027, 0028, 0032 | サービス業の基本仕訳フロー |
 | `BK-COM-02-0016` | 0029, 0030 | 部分履行の収益・原価測定 |
 | `BK-COM-02-0017` | 0031 | 仕掛品を経由しない例外 |
 
-The non-contiguous multi-ALP mappings (`0010+0014`, `0017+0024`, `0026+0027+0028+0032`) are intentional. Each pair/group is one coherent accounting retrieval unit; `ALP_IDs` preserves exact source traceability while the first ALP supplies deterministic primary `Section` context.
+The non-contiguous mappings (`0010+0014`, `0017+0024`, `0026+0027+0028+0032`) remain intentional coherent integration units. Each mapped ALP's material proposition is now checked against active `Text`, not merely against the mapping field.
 
-## Cloze / recall QA
+## Current-rule Cloze QA
 
-- Every approved Note generates one review card using only `c1`.
-- Tightly coupled debit/credit pairs, recognition branches, formulas, and ordered service-accounting stages use same-index grouping to avoid sibling-answer leakage.
-- Supporting definitions and examples remain visible or in `Extra` when they do not justify another review rotation.
-- Cloze targets are canonical accounting terms, complete journal-entry patterns, recognition consequences, or short formulas rather than grammatical fragments.
-- No exact Cloze answer span is repeated within the same approved Note.
-- No duplicate rendered Note text exists within COM-02.
+- Every approved Note uses only `c1`, so every Note generates one review card.
+- Normal answers are lexical accounting terms or short discriminators; broad explanatory/list/formula spans from the historical state were removed.
+- Parallel answers use separate same-index spans rather than one joined answer span.
+- Formula operators stay visible and operands are independently masked.
+- Retrieval subjects remain visible after all `c1` spans are hidden.
+- Exact visible-answer repetition for answers of two or more characters is zero.
+- The only long/punctuated answer spans are deliberate compact journal-entry tuples on `0002`, `0004`, `0009`, and `0015`.
+- `BK-COM-02-0016` deliberately repeats `履行割合` inside one coherent formula family; both occurrences are hidden on the same card.
+- Definitions generally leave descriptive context visible and mask the technical term (`履行義務`, `割戻し`, `変動対価`).
+
+## Material ALP-containment QA
+
+All 32 included ALPs were re-read against the inventory summaries and pinned source. Material distinctions retained in active `Text` include:
+
+1. **履行義務** — customer promise, satisfaction terminology, and recognition timing.
+2. **掛売上** — delivery-time sale entry plus no second revenue recognition on collection.
+3. **前受金** — liability before delivery, revenue recognition on delivery, and partial-prepayment settlement.
+4. **返品 / 売上諸掛り** — reverse sale entry and seller-borne selling costs as separate expenses.
+5. **認識基準** — shipment → arrival → acceptance flow, acceptance meaning, and all three recognition timings.
+6. **売上割戻し** — rebate definition, variable consideration, refund liability, revenue-measurement formula, and purchase-rebate treatment.
+7. **一定期間の履行** — partial-progress recognition and pre-revenue contract liability.
+8. **有償保証** — free-versus-paid classification, separate performance obligation, pre-revenue deferral, period-allocation formula, and multiple-obligation treatment.
+9. **サービス業** — `仕掛品` / `役務収益` / `役務原価`, prepayment, cost deferral, completion entries, partial-completion formulas, and direct-cost exception.
+
+`Extra` contains examples and secondary explanation only; it is not the sole location of any mapped ALP's material proposition.
 
 ## Accounting QA
 
-Reviewed against the pinned chapter source:
+Reviewed against the pinned source:
 
-1. **Recognition timing** — revenue is recognized when the relevant performance obligation is satisfied; cash collection alone does not create a second sale.
-2. **Prepayments** — consideration received before delivery/service remains a liability (`前受金` / `契約負債`) until performance.
-3. **Returns and selling costs** — sales returns reverse the relevant sale; seller-borne shipping-type costs are separate expenses.
-4. **Shipment bases** — shipment, arrival, and acceptance bases map to their corresponding recognition points.
-5. **Rebates** — expected sales rebates reduce recognized revenue and create `返金負債`; purchase rebates reduce `仕入` when confirmed.
-6. **Paid warranties** — paid warranty service is a separate performance obligation and is recognized over the service period; the allocation formula is preserved.
-7. **Service businesses** — pre-revenue consideration, deferred service costs, completion entries, partial-completion revenue/cost allocation, and the direct-`役務原価` exception are internally consistent.
+- recognition timing is separated from cash settlement;
+- prepayments remain liabilities until performance;
+- sales returns reverse the relevant sale;
+- seller-borne selling costs remain separate expenses;
+- shipment / arrival / acceptance bases match the stated recognition points;
+- expected sales rebates reduce revenue and create a refund liability;
+- purchase rebates reduce `仕入` when confirmed;
+- paid warranty service is recognized over the guarantee period;
+- service-business prepayments, deferred costs, completion entries, partial-completion allocation, and the direct-`役務原価` exception are internally consistent.
 
-No local debit/credit, recognition-timing, formula, or amount-relationship blocker was found.
+No local debit/credit, recognition-timing, formula, or amount-relationship blocker remains.
 
-## Validation
+## Deterministic validation
 
-`python scripts/validate_com02_production.py` checks:
+`python scripts/validate_com02_production.py` now checks:
 
-- exact field order and stable COM-02 Note-ID set;
+- exact field order and stable Note-ID set;
 - pinned source fields and chapter metadata;
-- canonical included ALP existence and canonical ALP order;
-- exactly-once approved coverage for all 32 included ALPs;
+- canonical included ALP existence, order, and exactly-once active coverage;
 - first-ALP `Section` consistency;
-- required mechanically derived tags;
-- `Status=approved` / `QA=pass` lifecycle;
-- one generated card per approved Note under v1.2;
-- duplicate Cloze-answer and exact rendered-text checks;
-- deterministic chapter metrics.
+- required tags and lifecycle;
+- one-card (`c1`) shape for every approved Note;
+- expected **39** Cloze spans;
+- lexical/short answer shape outside reviewed compact-entry exceptions;
+- formula itemization and approved repeated-term exception;
+- exact visible-answer leakage for 2+ character answers;
+- removal of superseded broad Cloze patterns;
+- explicit material-content requirements for every stable Note;
+- duplicate rendered-text checks and deterministic chapter metrics.
 
-The GitHub Actions production workflow runs this validator together with the existing FND-00 and COM-01 regression validators.
+Expected output:
+
+```text
+COM-02 current-rule production validation: PASS
+notes=17 included_alps=32 mapped=32 unmapped=0
+generated_cards=17 cloze_spans=39 visible_answer_leakage=0 multi_alp_notes=11
+lexical_atomicity=pass formula_itemization=pass compact_entry_exceptions=4 material_containment=pass
+journal_entry_notes=5 formula_notes=3
+```
+
+The production workflow must also keep FND-00 and COM-01 regression validation green before merge.
