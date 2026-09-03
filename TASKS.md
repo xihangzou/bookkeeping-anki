@@ -117,6 +117,13 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - 32/32 included ALPs map exactly once; **11** coherent multi-ALP Notes remove redundant direct recall
   - no prior COM-02 pilot IDs; stable production IDs allocated as `BK-COM-02-0001`–`BK-COM-02-0017`
   - `production/qa/COM-02.md` + `scripts/validate_com02_production.py`; CI validation wired into `validate-production.yml`
+- [x] **ANKI-AUDIT-007** COM-02 current living-rule / ALP-containment migration (#77)
+  - explicitly migrate the historical ANKI-009 v1.2 batch to the latest living authoring and exam-yield rules
+  - retain **17 approved Notes / 17 cards / 32 included ALPs / 11 multi-ALP Notes** and all stable IDs
+  - Cloze spans **32 → 39** through term-level same-card itemization; every Note remains `c1` only
+  - itemize recognition-basis and formula terms; retain compact whole-entry recall only for four reviewed coupled-entry Notes
+  - re-audit all 32 ALPs for material proposition containment in active `Text`; exact visible-answer leakage remains **0**
+  - strengthen `scripts/validate_com02_production.py` for lexical atomicity, formula itemization, compact-entry exceptions, content requirements, and answer-leak detection
 - [ ] **ANKI-010** Commercial chapter03
 - [ ] **ANKI-011** Commercial chapter04
 - [ ] **ANKI-012** Commercial chapter05
