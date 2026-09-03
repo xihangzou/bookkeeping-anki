@@ -1,0 +1,63 @@
+version: 1
+status: in_progress
+issue: ANKI-003
+source:
+  repository: xihangzou/bookkeeping-integrated
+  commit: 569ed7b82e729334e1472286eaca7c4352e6fbdb
+  merged_path: merged/textbook.md
+structure_source: inventory/structure.md
+format:
+  kind: tsv_sharded_dataset
+  directory: inventory/topic_inventory
+  encoding: utf-8
+  delimiter: tab
+  columns:
+    - alp_id
+    - source_part
+    - source_chapter
+    - source_section
+    - source_anchor
+    - summary
+    - type
+    - status
+    - include_reason
+    - exclude_reason
+    - note_ids
+    - qa_status
+shards:
+  - FND-00.tsv
+  - COM-01.tsv
+  - COM-02.tsv
+  - COM-03.tsv
+  - COM-04.tsv
+  - COM-05.tsv
+  - COM-06.tsv
+  - COM-07.tsv
+  - COM-08.tsv
+  - COM-09.tsv
+  - COM-10.tsv
+  - COM-11.tsv
+  - COM-12.tsv
+  - COM-13.tsv
+  - COM-14.tsv
+  - COM-15.tsv
+  - COM-16.tsv
+  - IND-01.tsv
+  - IND-02.tsv
+  - IND-03.tsv
+  - IND-04.tsv
+  - IND-05.tsv
+  - IND-06.tsv
+  - IND-07.tsv
+  - IND-08.tsv
+  - IND-09.tsv
+  - IND-10.tsv
+  - IND-11.tsv
+  - IND-12.tsv
+  - IND-13.tsv
+  - IND-14.tsv
+stage_boundary:
+  note_ids_may_be_empty: true
+  qa_status: pending
+  note_generation_required: false
+  final_note_dedup_required: false
