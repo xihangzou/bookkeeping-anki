@@ -2,7 +2,7 @@
 
 Canonical production Cloze-note batches live under `production/notes/` as UTF-8 TSV files following the **current** schema in `schema/note_schema.yaml`.
 
-Repository-wide governance is defined in `GOVERNANCE.md`. Current authoring, coverage, active-deck, and recall design are governed by the latest merged `SPEC.md` and `rules/*.md`; v1.0 is a historical baseline rather than permanent authority.
+Repository-wide governance is defined in `GOVERNANCE.md`. Current authoring, coverage, active-deck, recall design, wording, and ALP-containment rules are governed by the latest merged `SPEC.md` and `rules/*.md`; v1.0 is a historical baseline rather than permanent authority.
 
 ## Conventions
 
@@ -36,23 +36,28 @@ Card-count control should come primarily from coherent integration:
 3. use separate `{{c1::...}}` spans for parallel answers on the same card;
 4. add another Note only when integration would make the retrieval task incoherent or overloaded.
 
-An ALP mapping alone is not enough: material source content must remain recoverable from the active Note text.
+An ALP mapping alone is not enough: the material proposition should be recoverable from active Note `Text`; `Extra` is secondary support rather than a substitute for source containment.
 
 ## Current Cloze / completeness rules
 
 Current rules include:
 
-- Cloze spans should normally be lexical or short discriminating chunks;
-- arithmetic/formula operators remain visible and each term is Clozed separately, e.g. `{{c1::収益}}－{{c1::費用}}`;
+- normal Cloze spans should be lexical names or short discriminating chunks;
+- arithmetic/formula operators remain visible and formula terms are Clozed separately;
+- repeated same-index formula terms may be hidden in every occurrence when structural reuse would otherwise leak the answer;
 - parallel terms belonging to one retrieval operation use the same `c1`;
-- debit/credit direction uses `{{c1::借}}方` / `{{c1::貸}}方`;
-- the visible text after masking must still identify the topic;
-- a 2+ character Cloze answer must not appear verbatim elsewhere in the same card;
+- debit/credit direction uses `{{c1::借}}方` / `{{c1::貸}}方` when direction itself is the target;
+- a compact whole journal entry may be one Cloze when the entry itself is the retrieval target;
+- method names are stated visibly when an indirect description would make the card ambiguous;
+- terminology-definition cards normally leave the definition visible and Cloze the technical name;
+- function words such as `のみ` normally remain outside the Cloze;
+- the visible text after masking must still identify the retrieval frame;
+- a 2+ character Cloze answer must not appear verbatim elsewhere in the visible card;
 - source families represented by included ALPs must not be silently truncated during integration.
 
-COM-01 additionally applies the FND-00 style reference for short, unique answer spans and visible explanatory context.
+FND-00 v1.6 is the general style reference for context-rich integrated cards with short answers. COM-01 v1.8 adds chapter evidence for whole-entry recall, explicit method naming, formula-term reuse, and stronger material-proposition containment.
 
-See `rules/cloze_rules.md`, `rules/coverage_rules.md`, and `rules/exam_yield_rules.md` for the authoritative current wording.
+See `rules/cloze_rules.md`, `rules/coverage_rules.md`, and especially `rules/exam_yield_rules.md` for the authoritative current wording.
 
 ## FND-00 audit result
 
@@ -81,7 +86,7 @@ and
 
 ## Existing commercial batches
 
-- `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 87 Cloze spans / 52 included ALPs; v1.7 chapter-local precision audit applied**;
+- `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 99 Cloze spans / 52 included ALPs; v1.8 precision / ALP-containment audit applied**;
 - `notes/COM-02.tsv` — 17 approved Notes / 17 cards / 32 included ALPs; retains its current audited state until an explicit migration applies newer rules.
 
 A newer repository rule does not erase the historical chapter audit. It becomes mandatory for an existing batch when the rule is declared a repository-wide invariant or when that batch is explicitly migrated.
@@ -93,7 +98,7 @@ A newer repository rule does not erase the historical chapter audit. It becomes 
 ## Current batches
 
 - `notes/FND-00.tsv` — foundations; audited through ANKI-AUDIT-006 (#70);
-- `notes/COM-01.tsv` — Commercial chapter 01; v1.7 chapter-local Cloze-precision audit applied on top of its current recall-design rules;
+- `notes/COM-01.tsv` — Commercial chapter 01; v1.8 precision / ALP-containment audit applied;
 - `notes/COM-02.tsv` — Commercial chapter 02; original chapter audit state retained pending explicit migration.
 
 Migration records include:

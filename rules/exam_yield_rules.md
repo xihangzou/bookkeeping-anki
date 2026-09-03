@@ -1,10 +1,10 @@
 # Exam-Yield / Active-Deck Rules
 
 Status: **Current authoritative rules — living specification**
-Audit lineage: ANKI-AUDIT-001/002/003/004/005/006 (#56, #58, #62, #66, #68, #70)
+Audit lineage: ANKI-AUDIT-001/002/003/004/005/006 (#56, #58, #62, #66, #68, #70), COM-01 v1.7/v1.8 precision audits
 Governance: `GOVERNANCE.md`
 
-This file is part of the current rule set. It governs active-deck selection, integration, lifecycle, recall design, and audited completeness. It may be revised when later production evidence supports a better rule; newer merged rules supersede older audit states.
+This file is part of the current rule set. It governs active-deck selection, integration, lifecycle, recall design, audited completeness, wording, and ALP containment. It may be revised when later production evidence supports a better rule; newer merged rules supersede older audit states.
 
 ## 1. Primary target
 
@@ -32,27 +32,31 @@ Good integration families include:
 
 Integration must remain semantically coherent. If adding an ALP changes the card into a second unrelated retrieval task, use another Note rather than overloading the first.
 
-Integration is a **compression mechanism, not a license to drop source content**. If an ALP is mapped to an approved Note, the Note text must retain the material proposition needed to recover that ALP, either as direct recall or explicit visible supporting context.
+Integration is a **compression mechanism, not a license to drop source content**. If an ALP is mapped to an approved Note, the Note `Text` should retain the material proposition needed to recover that ALP, either as direct recall or explicit visible supporting context. `Extra` may explain or disambiguate, but should not be the only place where a mapped ALP materially survives.
 
 ## 3. Cloze span design
 
-A Cloze should normally contain one lexical accounting unit or one short syntactic discriminator.
+A Cloze should normally contain one lexical accounting unit, one account/method/document name, or one short syntactic discriminator.
 
 Preferred forms include:
 
 - `{{c1::資産}}`, `{{c1::負債}}`, `{{c1::純資産}}`;
 - `{{c1::仕訳}}`, `{{c1::勘定}}`, `{{c1::転記}}`;
-- `{{c1::借}}方`, `{{c1::貸}}方`;
+- `{{c1::借}}方`, `{{c1::貸}}方` when side direction itself is the target;
 - `{{c1::合計}}試算表`, `{{c1::残高}}試算表`;
 - `{{c1::入金}}伝票`, `{{c1::出金}}伝票`, `{{c1::振替}}伝票`;
-- account/document/ledger names;
+- account/document/ledger/method names;
 - short syntax-sensitive chunks when the particle is part of the distinction, e.g. `{{c1::に終わる}}` and `{{c1::から始まる}}`.
 
-Avoid one Cloze containing a list, several joined answers, a whole explanatory clause, or an entire journal-entry procedure when shorter answer units are possible.
+Avoid one Cloze containing a list, several joined conceptual answers, or a whole explanatory clause when shorter answer units are possible.
+
+Function words and limiting particles such as `のみ` should normally stay **outside** the Cloze unless the particle itself is the distinction being tested. Prefer `{{c1::数量}}のみ` to `{{c1::数量のみ}}`.
+
+When a source gives a definition and a technical name, prefer leaving the definition visible and Clozing the **name** when name retrieval is the useful operation. Example: `帳簿上の在庫数量を{{c1::帳簿棚卸数量}}という`.
 
 ## 4. Formula itemization
 
-Introduced in FND-00 v1.6 and now part of the current general rule: for arithmetic or accounting relationships, keep the operator visible and Cloze the **individual terms**, not the whole expression.
+For arithmetic or accounting relationships, keep operators visible and Cloze the **individual terms**, not the whole expression.
 
 Preferred:
 
@@ -64,7 +68,13 @@ Avoid:
 
 `当期純利益＝{{c1::収益－費用}}`
 
-This makes each component independently retrievable while still producing one card because all spans share `c1`. The same principle applies to conceptual relationships when the terms themselves are the learning targets.
+This makes each component independently retrievable while still producing one card because all spans share `c1`.
+
+If the same term is structurally reused within one coherent formula family, the same answer may appear in more than one same-index Cloze when hiding every occurrence is necessary to avoid answer leakage or to preserve the complete relationship. Example:
+
+`{{c1::売上原価}}＝...、売上総利益＝{{c1::売上高}}－{{c1::売上原価}}`
+
+Repeated same-answer spans are an exception for deliberate formula reuse, not a general duplication pattern.
 
 ## 5. Same-card parallelism
 
@@ -76,13 +86,15 @@ Do not use `{{c1::A・B}}`, and do not introduce `c2+` merely because the card h
 
 Thus card count is the number of distinct Cloze indices; Cloze-span count is tracked separately.
 
-## 6. Visible-context rule
+## 6. Visible-context and method-name rule
 
 After all `c1` answers are hidden, the remaining text must still identify the subject and retrieval frame.
 
-Good visible anchors include `3伝票制では`, `試算表の種類では`, `主要簿では`, `補助簿では`, `証ひょうの種類では`, and other domain cues that do not themselves reveal the answer.
+Good visible anchors include `3伝票制では`, `試算表の種類では`, `主要簿では`, `補助簿では`, `証ひょうの種類では`, and explicit accounting-method names.
 
-Do **not** add a cue that contains the answer being tested. For example, a card whose answer includes `簿記` must not begin with `簿記の基本では、` solely as a topic label.
+When several methods could plausibly fit the same wording, **name the method visibly** rather than relying on an indirect description. For example, use `売上原価対立法では、...` instead of `販売時に収益と原価を同時記録する方式では、...`.
+
+Do **not** add a cue that contains the answer being tested. A card whose answer includes `簿記` must not begin with `簿記の基本では、` solely as a topic label.
 
 ## 7. Visible-answer anti-leak rule
 
@@ -100,36 +112,48 @@ Prefer paraphrased cues:
 
 `各勘定の借貸それぞれの総額を並べるのが {{c1::合計}}試算表…`
 
-For QA, exact visible repetition of a Cloze answer of two or more characters is treated as leakage. One-character discriminators such as `借` / `貸` are exempt from the generic substring check but remain subject to their dedicated formatting rule.
+For QA, exact visible repetition of a Cloze answer of two or more characters is treated as leakage. One-character discriminators such as `借` / `貸` are exempt from the generic substring check but remain subject to their dedicated formatting rule. Deliberately repeated same-index formula terms are not leakage because all occurrences are hidden.
 
-## 8. Debit / credit formatting
+## 8. Journal-entry recall
 
-When the retrieval target is the side `借方` / `貸方`, hide only the first character:
+Choose the Cloze target according to the learning objective.
 
-- `{{c1::借}}方`
-- `{{c1::貸}}方`
+- If the target is only debit/credit **direction**, use `{{c1::借}}方` / `{{c1::貸}}方`.
+- If the target is **account selection**, Cloze the account names.
+- If the target is the **whole compact journal entry**, it is acceptable to Cloze the structured entry itself, e.g. `{{c1::（借）仕入／（貸）繰越商品}}`, when splitting it would reduce the retrieval task to trivial direction guessing or create visible-answer leakage.
 
-The same form applies in compounds such as `{{c1::貸}}方残高`.
+The compact-journal-entry exception may contain standard entry punctuation and exceed the normal lexical-span length. It applies only to a short, conventional journal-entry tuple, not to explanatory prose or a multi-step procedure.
 
 ## 9. Completeness inside integrated cards
 
-Strengthened in FND-00 v1.6 and now part of the current general rule: when several ALPs are compressed into one card, preserve the source distinctions that remain useful for exam reading or mechanics. Do not replace a source family with only one or two examples when the inventory explicitly treats the family as an included learning point.
+When several ALPs are compressed into one card, preserve the source distinctions that remain useful for exam reading or mechanics. Do not replace a source family with only one or two examples when the inventory explicitly treats the family as an included learning point.
 
-Examples for FND-00:
+For each mapped ALP, perform a **material-proposition check** against the inventory summary and source when necessary:
 
-- the expense-account family retains all representative source categories (`給料`, `水道光熱費`, `旅費交通費`, `広告宣伝費`, `消耗品費`, `通信費`, `保険料`, `保管費`, `諸会費`, `雑費`);
-- the general-ledger card retains `標準式` and `残高式` plus their material field differences;
-- the subsidiary-book card retains the material mechanics for cash, current-account, petty-cash, bill, receivable/payable subledgers, and human-name accounts;
-- the posting card states explicitly that subsidiary ledgers are posted from each voucher by `個別転記`;
-- temporary-account cards retain both process and classification (`仮払金` as an asset; `仮受金` as a liability).
+1. identify the proposition that makes the ALP distinct;
+2. verify that proposition is recoverable from the active Note `Text`;
+3. restore omitted distinctions as direct Clozes or concise visible context;
+4. use `Extra` only for secondary explanation, aliases, or rationale.
 
-Visible supporting detail does not need its own Cloze when masking it would add little retrieval value, but it must not disappear merely for brevity.
+Examples of distinctions that should not disappear merely for brevity include:
 
-## 10. Sentence design
+- a method's complete account family;
+- both the general rule and the application consequence of FIFO;
+- recognition timing plus subsequent settlement treatment;
+- a formula and a linked formula that reuses its result;
+- the difference between a physical/quantity phenomenon and the expense account used to record it;
+- classification conditions such as `帳簿棚卸数量＞実地棚卸数量` or `取得原価＞正味売却価額` when those conditions are part of the mapped ALP.
 
-Prefer short declarative clauses. Multiple clauses may share `c1` when they remain one coherent retrieval set. Visible supporting facts may be retained when masking them would create redundant review cost.
+## 10. Sentence design and style
 
-Conciseness never overrides accounting accuracy, source completeness, or answer clarity.
+Use short declarative Japanese. Prefer the terminology used in the source and in bookkeeping questions.
+
+- Put the **accounting subject first**: `三分法では`, `売上原価対立法では`, `商品有高帳は`.
+- Prefer direct wording over indirect descriptions such as `〜する方式では` when the method name is known.
+- Avoid parenthetical classification when it can be written naturally as visible prose: prefer `資産の{{c1::商品}}` to `{{c1::商品}}（資産）`.
+- Avoid overly broad answers such as full explanatory phrases when a short discriminator is enough.
+- Do not make brevity the goal by itself. Concision never overrides accounting accuracy, ALP completeness, or answer clarity.
+- FND-00 v1.6 is the default style reference for integrated, context-rich, short-answer production Notes unless a chapter-specific accounting mechanic requires a justified exception.
 
 ## 11. Lifecycle and stable IDs
 
@@ -164,10 +188,25 @@ These are persistent lineage rules under `GOVERNANCE.md`, not consequences of a 
 - `BK-FND-00-0018` has no answer-leaking `簿記の基本では、` prefix;
 - `BK-FND-00-0027` uses `{{c1::に終わる}}` / `{{c1::から始まる}}`.
 
-These counts are chapter outcomes, not universal quotas. Future chapters should use the current rules, and later audits may improve them further.
+These counts are chapter outcomes, not universal quotas.
 
-## 13. Rule evolution
+## 13. COM-01 precision audit lineage
 
-When later chapter work exposes a better active-deck or recall rule, update this file and the related general rules explicitly. Do not preserve an inferior rule merely because it was part of v1.0 or an earlier audit version.
+COM-01 v1.7 established the FND-style precision baseline: redundant classification Clozes were removed, broad phrase answers shortened, visible method/context cues strengthened, and visible-answer leakage held at zero.
+
+COM-01 v1.8 adds the following generalizable refinements:
+
+- Cloze the three 三分法 account names as well as the `決算整理` timing;
+- when the whole closing entry is the retrieval target, Cloze the compact journal-entry tuple instead of merely `借` / `貸`;
+- state `売上原価対立法` explicitly on its mechanics and sale-entry cards;
+- retain the reused `売上原価` term as a hidden term in the gross-profit formula;
+- keep `のみ` outside a quantity Cloze;
+- replace broad purchase/sale cost phrases with shorter discriminators (`購入`, `販売`, `未販売在庫`);
+- when a definition maps terminology, Cloze the terminology name rather than hiding the descriptive definition;
+- restore mapped-but-compressed ALP distinctions such as prepayment timing, the explicit FIFO premise, complete shrinkage formulas, and lower-of-cost valuation formulas.
+
+## 14. Rule evolution
+
+When later chapter work exposes a better active-deck, wording, containment, or recall rule, update this file and related validators explicitly. Do not preserve an inferior rule merely because it was part of v1.0 or an earlier audit version.
 
 For an existing batch, record whether the new rule applies immediately as a repository-wide invariant or only after an explicit chapter migration. Preserve historical audit metrics as history rather than rewriting them to look as though the newer rule always existed.
