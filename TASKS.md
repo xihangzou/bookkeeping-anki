@@ -32,7 +32,10 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - `pilot/notes.tsv`
   - 40 pilot Notes / 34 canonical included ALPs
   - `Status=pilot`, `QA=pending` until card-level validation
-- [ ] **ANKI-PILOT-003** Validate rendering and recall quality
+- [x] **ANKI-PILOT-003** Validate rendering and recall quality
+  - `pilot/card_validation.tsv`
+  - `pilot/VALIDATION.md`
+  - 40 Notes / 63 rendered Cloze cards reviewed; unresolved findings handed to ANKI-PILOT-004
 - [ ] **ANKI-PILOT-004** Record ambiguity / overload / duplication failures
 - [ ] **ANKI-PILOT-005** Revise Cloze rules v0.9 -> v1.0
 - [ ] **ANKI-PILOT-006** Freeze v1.0 before full generation
