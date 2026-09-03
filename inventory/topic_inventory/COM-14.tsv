@@ -1,0 +1,25 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-14-0001	commercial	14 本支店会計	第1節 1 本支店会計とは	commercial/chapter14.md::1-1	本支店会計は本店と支店それぞれに帳簿を設け支店別業績と会社全体財務諸表を把握する制度である	definition	INCLUDE	core definition			pending
+ALP-COM-14-0002	commercial	14 本支店会計	第1節 1 本支店会計とは	commercial/chapter14.md::1-1	本店・支店はそれぞれ独立して決算整理・後T/B作成を行い、その後会社全体の財務諸表を作る	procedure	INCLUDE	branch accounting workflow			pending
+ALP-COM-14-0003	commercial	14 本支店会計	第1節 2 本支店間取引	commercial/chapter14.md::1-2	本支店間取引は本店側で支店勘定、支店側で本店勘定を用いて記録する	journal_entry	INCLUDE	interoffice account rule			pending
+ALP-COM-14-0004	commercial	14 本支店会計	第1節 2 本支店間取引	commercial/chapter14.md::1-2	支店勘定・本店勘定は5要素に属さない内部的な債権債務を表す照合勘定で財務諸表に表示しない	classification	INCLUDE	interoffice account nature			pending
+ALP-COM-14-0005	commercial	14 本支店会計	第1節 2 本支店間取引	commercial/chapter14.md::1-2	対応する支店勘定と本店勘定の残高は同額で反対側に一致する	ledger	INCLUDE	reciprocal balance rule			pending
+ALP-COM-14-0006	commercial	14 本支店会計	第1節 2 本支店間取引	commercial/chapter14.md::1-2	本支店間取引はまず会社全体の仕訳を考え、その取引を本店側・支店側に分解して相互勘定を補うと整理できる	procedure	INCLUDE	interoffice decomposition method			pending
+ALP-COM-14-0007	commercial	14 本支店会計	第1節 2 本支店間取引	commercial/chapter14.md::1-2	支店が本店債権を回収すると本店は支店を借方・債権を貸方、支店は現金を借方・本店を貸方に記帳する	journal_entry	INCLUDE	collection-on-behalf pattern			pending
+ALP-COM-14-0008	commercial	14 本支店会計	第1節 2 本支店間取引	commercial/chapter14.md::1-2	支店が本店債務を支払うと本店は債務を借方・支店を貸方、支店は本店を借方・現金を貸方に記帳する	journal_entry	INCLUDE	payment-on-behalf pattern			pending
+ALP-COM-14-0009	commercial	14 本支店会計	第1節 2 本支店間取引	commercial/chapter14.md::1-2	本店が支店費用を立替えると本店は支店を借方・現金を貸方、支店は費用を借方・本店を貸方に記帳する	journal_entry	INCLUDE	expense-on-behalf pattern			pending
+ALP-COM-14-0010	commercial	14 本支店会計	第1節 2 本支店間取引	commercial/chapter14.md::1-2	本店から支店へ商品を送付すると本店は支店を借方・仕入を貸方、支店は仕入を借方・本店を貸方に記帳する	journal_entry	INCLUDE	goods transfer pattern			pending
+ALP-COM-14-0011	commercial	14 本支店会計	第1節 2 本支店間取引	commercial/chapter14.md::1-2	取引方向により支店勘定が貸方、本店勘定が借方となる場合もあり、定位置だけで機械的に判断しない	exception	INCLUDE	reciprocal account direction exception			pending
+ALP-COM-14-0012	commercial	14 本支店会計	第2節 1 本支店合併財務諸表	commercial/chapter14.md::2-1	本支店合併財務諸表は本店・支店の後T/Bを合算し会社全体として作成する財務諸表である	definition	INCLUDE	combined statement definition			pending
+ALP-COM-14-0013	commercial	14 本支店会計	第2節 1 本支店合併財務諸表	commercial/chapter14.md::2-1	後T/Bの合算と合併整理仕訳は本店・支店の個別帳簿外で行う	procedure	INCLUDE	worksheet-stage rule			pending
+ALP-COM-14-0014	commercial	14 本支店会計	第2節 2 合併整理仕訳	commercial/chapter14.md::2-2	会社内部の支店勘定と本店勘定は会社全体財務諸表作成時に相殺消去する	journal_entry	INCLUDE	interoffice elimination			pending
+ALP-COM-14-0015	commercial	14 本支店会計	第2節 4 作成手順	commercial/chapter14.md::2-4	合併財務諸表は①各店決算整理・後T/B②本店支店後T/B合算③支店・本店勘定相殺の順で作成する	procedure	INCLUDE	combined statement process			pending
+	commercial	14 本支店会計	第2節 3 総合例	commercial/chapter14.md::2-3	減価償却と本支店勘定消去の総合数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
+ALP-COM-14-0016	commercial	14 本支店会計	第3節 1 支店間取引	commercial/chapter14.md::3-1	複数支店間取引の記帳には支店分散計算制度と本店集中計算制度がある	classification	INCLUDE	interbranch methods			pending
+ALP-COM-14-0017	commercial	14 本支店会計	第3節 1 支店間取引	commercial/chapter14.md::3-1	支店分散計算制度は各支店が相手支店勘定を用いて直接記帳し本店は記帳しない	procedure	INCLUDE	decentralized interbranch method			pending
+ALP-COM-14-0018	commercial	14 本支店会計	第3節 1 支店間取引	commercial/chapter14.md::3-1	本店集中計算制度は支店間取引を本店経由とみなし本店が各支店勘定、各支店が本店勘定を用いる	procedure	INCLUDE	centralized interbranch method			pending
+ALP-COM-14-0019	commercial	14 本支店会計	第3節 1 支店間取引	commercial/chapter14.md::3-1	分散制度では本店仕訳なし、集中制度では本店にも各支店間の振替仕訳が生じる	comparison	INCLUDE	interbranch method distinction			pending
+ALP-COM-14-0020	commercial	14 本支店会計	第3節 2 帳簿締切	commercial/chapter14.md::3-2	本店・支店はそれぞれ収益費用を損益勘定へ振り替え独自利益を計算する	procedure	INCLUDE	branch closing step			pending
+ALP-COM-14-0021	commercial	14 本支店会計	第3節 2 帳簿締切	commercial/chapter14.md::3-2	会社全体利益は本店帳簿の総合損益勘定へ本店利益と支店利益を集約して算定する	procedure	INCLUDE	combined income closing			pending
+ALP-COM-14-0022	commercial	14 本支店会計	第3節 2 帳簿締切	commercial/chapter14.md::3-2	支店利益を本店の総合損益へ送る際、本店は支店勘定借方/総合損益貸方、支店は損益借方/本店貸方とする	journal_entry	INCLUDE	branch profit transfer			pending
+ALP-COM-14-0023	commercial	14 本支店会計	第3節 2 帳簿締切	commercial/chapter14.md::3-2	最終的に本店で総合損益残高を繰越利益剰余金へ振り替える	journal_entry	INCLUDE	combined profit closing			pending
