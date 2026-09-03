@@ -11,6 +11,21 @@ Use representative material from:
 
 Target: **30–50 Notes**. The count is a validation target only, not a production quota.
 
+## Canonical pilot selection
+
+`pilot/selection.tsv` is the deterministic ALP selection contract for the pilot.
+
+Selection rules:
+
+- every selected row must reference a canonical `INCLUDE` ALP from `inventory/topic_inventory/FND-00.tsv` or `inventory/topic_inventory/COM-01.tsv`;
+- source part, chapter, section, and anchor are copied into the selection artifact so every selected ALP remains source-traceable;
+- `recall_dimensions` maps each selected ALP to the recall type(s) the pilot must exercise;
+- `stress_cases` maps each selected ALP to the stress cases below;
+- `planned_note_forms` and `expected_notes` are planning metadata for ANKI-PILOT-002, not a production quota;
+- `stress_fixture` may point to an adjacent canonical `EXCLUDE` example when the purpose is to verify that redundant decorative examples do not become independent Notes.
+
+The current selection contains **34 canonical included ALPs** and is designed to support **40 pilot Notes** if ANKI-PILOT-002 follows the planned note forms. This 40-Note estimate exists only to demonstrate that the selection can support the 30–50 validation window.
+
 ## Required recall types
 
 Pilot must include at least:
@@ -42,6 +57,8 @@ Include examples that test:
 9. cards with possible synonymous answers;
 10. compound entries with multiple debit/credit accounts.
 
+In `pilot/selection.tsv`, these are encoded deterministically as `S1_...` through `S10_...`.
+
 ## Review dimensions
 
 For every pilot note mark:
@@ -71,6 +88,7 @@ Do not start chapter-wide generation until:
 ```text
 pilot/
 ├── PLAN.md
+├── selection.tsv
 ├── notes.tsv
 └── review.md
 ```
