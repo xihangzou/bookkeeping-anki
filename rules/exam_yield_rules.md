@@ -54,6 +54,19 @@ Function words and limiting particles such as `のみ` should normally stay **ou
 
 When a source gives a definition and a technical name, prefer leaving the definition visible and Clozing the **name** when name retrieval is the useful operation. Example: `帳簿上の在庫数量を{{c1::帳簿棚卸数量}}という`.
 
+### Retrieval-subject visibility rule
+
+Do not mechanically Cloze every accounting term in a sentence. If an accounting term functions as the **subject, object, or frame needed to identify what the card is asking about**, keep that term visible and Cloze only the intended answer or discriminator.
+
+Before approving a card, hide all `c1` spans and ask: **Can the learner still tell exactly what must be recalled?** If hiding a term removes the retrieval subject or makes several answers plausible, that term belongs in visible context rather than in the Cloze.
+
+Example:
+
+- Preferred: `三分法では、売上原価は{{c1::決算整理}}で算定する。`
+- Avoid when timing is the target: `三分法では、{{c1::売上原価}}は{{c1::決算整理}}で算定する。`
+
+Here `売上原価` identifies the accounting item whose calculation timing is being tested; `決算整理` is the retrieval target.
+
 ## 4. Formula itemization
 
 For arithmetic or accounting relationships, keep operators visible and Cloze the **individual terms**, not the whole expression.
@@ -152,6 +165,7 @@ Use short declarative Japanese. Prefer the terminology used in the source and in
 - Prefer direct wording over indirect descriptions such as `〜する方式では` when the method name is known.
 - Avoid parenthetical classification when it can be written naturally as visible prose: prefer `資産の{{c1::商品}}` to `{{c1::商品}}（資産）`.
 - Avoid overly broad answers such as full explanatory phrases when a short discriminator is enough.
+- Keep accounting subjects and retrieval frames visible when they are needed to make the intended answer unique; do not turn supporting context into an additional Cloze merely because it is an important term.
 - Do not make brevity the goal by itself. Concision never overrides accounting accuracy, ALP completeness, or answer clarity.
 - FND-00 v1.6 is the default style reference for integrated, context-rich, short-answer production Notes unless a chapter-specific accounting mechanic requires a justified exception.
 
@@ -196,7 +210,7 @@ COM-01 v1.7 established the FND-style precision baseline: redundant classificati
 
 COM-01 v1.8 adds the following generalizable refinements:
 
-- Cloze the three 三分法 account names as well as the `決算整理` timing;
+- Cloze the three 三分法 account names when account selection is itself part of the retrieval target, but keep `売上原価` visible when it identifies the subject of the separate `決算整理` timing question;
 - when the whole closing entry is the retrieval target, Cloze the compact journal-entry tuple instead of merely `借` / `貸`;
 - state `売上原価対立法` explicitly on its mechanics and sale-entry cards;
 - retain the reused `売上原価` term as a hidden term in the gross-profit formula;
