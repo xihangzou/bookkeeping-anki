@@ -45,7 +45,12 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - `rules/coverage_rules.md`: generated-card / retrieval-unit semantic deduplication
   - `pilot/review.md`: evidence-to-rule matrix and explicit schema/tag/source/TSV no-change rationale
   - corrected pilot preserved: 40 Notes / 62 cards, 0 major, 0 blocking
-- [ ] **ANKI-PILOT-006** Freeze v1.0 before full generation
+- [x] **ANKI-PILOT-006** Freeze v1.0 before full generation
+  - `FREEZE.md`: final gate evidence and production authorization
+  - `SPEC.md`, `rules/cloze_rules.md`, `rules/coverage_rules.md`: v1.0 frozen
+  - `schema/note_schema.yaml`: v1.0 / production / frozen; semantic schema contract unchanged
+  - corrected pilot: 40 Notes / 62 cards, 0 accounting failures, 0 source-traceability failures, 0 major, 0 blocking
+  - Phase C / ANKI-007 onward unblocked
 
 ## Phase C — Full note generation
 
