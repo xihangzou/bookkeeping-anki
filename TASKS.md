@@ -40,7 +40,11 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - `pilot/review.md`
   - blocking ambiguity/comparison defects fixed; exact duplicate converted to distinct numeric application
   - corrected pilot: 40 Notes / 62 cards, 0 major, 0 blocking
-- [ ] **ANKI-PILOT-005** Revise Cloze rules v0.9 -> v1.0
+- [x] **ANKI-PILOT-005** Revise Cloze / coverage rules v0.9 -> v1.0 candidate
+  - `rules/cloze_rules.md`: pilot-derived grouping, unique-answer, comparison, formula, journal-entry, answer-equivalence, retrieval-value, and card-level dedup rules
+  - `rules/coverage_rules.md`: generated-card / retrieval-unit semantic deduplication
+  - `pilot/review.md`: evidence-to-rule matrix and explicit schema/tag/source/TSV no-change rationale
+  - corrected pilot preserved: 40 Notes / 62 cards, 0 major, 0 blocking
 - [ ] **ANKI-PILOT-006** Freeze v1.0 before full generation
 
 ## Phase C — Full note generation
