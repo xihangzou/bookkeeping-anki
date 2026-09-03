@@ -88,6 +88,15 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - active Cloze spans **70 → 120** while every approved Note remains one `c1` card
   - exact visible-answer leakage for 2+ character answers **11 Notes → 0**
   - `scripts/migrate_fnd00_v1_5.py` + strengthened v1.5 validator; FND-00 / COM-01 / COM-02 CI **PASS**
+- [x] **ANKI-AUDIT-006** FND-00 content-preservation / formula-itemization audit (#70)
+  - retain **32 approved Notes / 32 cards / 91 active ALPs** while restoring mapped-but-underrepresented source content
+  - active Cloze spans **120 → 150**; increase comes from richer same-card recall, not extra cards
+  - formulas use term-level same-index Clozes, e.g. `{{c1::収益}}－{{c1::費用}}` and term-wise net-sales/net-purchases formulas
+  - restore all ten representative expense accounts from the pinned source
+  - restore general-ledger `標準式` / `残高式`, material field mechanics, and main-book process flow
+  - `BK-FND-00-0084` explicitly states `各伝票から{{c1::個別転記}}する` for subsidiary ledgers
+  - restore other compressed ALP content including residual definition, period vocabulary, temporary-account classification, correction logic, subsidiary-book mechanics, voucher/document details
+  - `scripts/migrate_fnd00_v1_6.py` + strengthened v1.6 validator; visible-answer leakage remains **0**; FND-00 validation **PASS**
 
 ### Commercial bookkeeping
 
@@ -170,6 +179,7 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - 100% included ALPs traceable in production history
   - every retirement/exclusion justified
   - active direct recall justified by exam value and/or coherent integration
+  - mapped active Notes preserve the material proposition of each included ALP
   - no unresolved duplicates/conflicts
 
 ## Phase G — Export
@@ -186,6 +196,7 @@ Project is complete only when all are true:
 
 - source sections reviewed: 100%
 - included ALPs traceable in production history: 100%
+- mapped active ALPs materially represented in active Note text: 100%
 - unexplained exclusions/retirements: 0
 - unresolved accounting QA failures: 0
 - unresolved ambiguous Clozes: 0
