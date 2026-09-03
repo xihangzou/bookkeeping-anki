@@ -4,16 +4,24 @@ on:
   push:
     paths:
       - 'production/notes/**'
+      - 'production/qa/FND-00.md'
+      - 'production/README.md'
       - 'inventory/topic_inventory/FND-00.tsv'
       - 'schema/note_schema.yaml'
+      - 'rules/exam_yield_rules.md'
       - 'scripts/validate_fnd00_production.py'
+      - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   pull_request:
     paths:
       - 'production/notes/**'
+      - 'production/qa/FND-00.md'
+      - 'production/README.md'
       - 'inventory/topic_inventory/FND-00.tsv'
       - 'schema/note_schema.yaml'
+      - 'rules/exam_yield_rules.md'
       - 'scripts/validate_fnd00_production.py'
+      - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   workflow_dispatch:
 
@@ -25,5 +33,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Validate ANKI-007 FND-00 production batch
+      - name: Validate FND-00 production batch
         run: python scripts/validate_fnd00_production.py
