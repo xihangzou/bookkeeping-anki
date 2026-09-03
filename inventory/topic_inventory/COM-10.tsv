@@ -1,0 +1,36 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-10-0001	commercial	10 株式会社会計	株式会社会計の基礎	commercial/chapter10.md::basic	株式会社は投資家から出資を受け株式を発行し、株主からの出資は返済義務のない元手となる	definition	INCLUDE	corporate funding fundamentals			pending
+ALP-COM-10-0002	commercial	10 株式会社会計	株式会社会計の基礎	commercial/chapter10.md::basic	株主は原則として出資額を限度とする有限責任を負う	definition	INCLUDE	shareholder liability concept			pending
+ALP-COM-10-0003	commercial	10 株式会社会計	第1節 1 純資産	commercial/chapter10.md::1-1	純資産＝資産－負債である	formula	INCLUDE	core equity equation			pending
+ALP-COM-10-0004	commercial	10 株式会社会計	第1節 1 純資産	commercial/chapter10.md::1-1	純資産の部は株主資本と評価・換算差額等に区分する	classification	INCLUDE	equity presentation structure			pending
+ALP-COM-10-0005	commercial	10 株式会社会計	第1節 1 純資産	commercial/chapter10.md::1-1	株主資本は資本金・資本剰余金・利益剰余金から構成される	classification	INCLUDE	shareholders equity structure			pending
+ALP-COM-10-0006	commercial	10 株式会社会計	第1節 1 純資産	commercial/chapter10.md::1-1	資本剰余金は資本準備金とその他資本剰余金、利益剰余金は利益準備金・任意積立金・繰越利益剰余金等からなる	classification	INCLUDE	equity subcomponents			pending
+ALP-COM-10-0007	commercial	10 株式会社会計	第1節 1 純資産	commercial/chapter10.md::1-1	その他有価証券評価差額金は純資産だが株主にまだ帰属していない評価・換算差額等として株主資本と区別する	financial_statement	INCLUDE	OCI-equity distinction			pending
+ALP-COM-10-0008	commercial	10 株式会社会計	第2節 1 株式発行	commercial/chapter10.md::2-1	株式発行による払込額は特段の指示がなければ全額資本金とする	journal_entry	INCLUDE	default share issuance rule			pending
+ALP-COM-10-0009	commercial	10 株式会社会計	第2節 1 株式発行	commercial/chapter10.md::2-1	会社法規定の最低額を資本金とする場合でも払込額の1/2以上を資本金とし、残額を資本準備金とする	measurement	INCLUDE	minimum capital rule			pending
+ALP-COM-10-0010	commercial	10 株式会社会計	第2節 2 増資手続	commercial/chapter10.md::2-2	増資申込期間中の申込証拠金は別段預金（資産）と株式申込証拠金（純資産）で処理する	journal_entry	INCLUDE	subscription deposit entry			pending
+ALP-COM-10-0011	commercial	10 株式会社会計	第2節 2 増資手続	commercial/chapter10.md::2-2	払込期日には別段預金を通常預金へ、株式申込証拠金を資本金または資本金・資本準備金へ振り替える	procedure	INCLUDE	capital increase completion process			pending
+ALP-COM-10-0012	commercial	10 株式会社会計	第2節 3 株式発行諸経費	commercial/chapter10.md::2-3	会社設立時の費用は創立費、設立後営業開始までの費用は開業費、増資時の株式発行費用は株式交付費とする	classification	INCLUDE	issuance cost account selection			pending
+ALP-COM-10-0013	commercial	10 株式会社会計	第2節 3 株式発行諸経費	commercial/chapter10.md::2-3	同じ株式発行費用でも会社設立時なら創立費、増資時なら株式交付費となる	comparison	INCLUDE	timing-based cost classification			pending
+ALP-COM-10-0014	commercial	10 株式会社会計	第3節 1 株主資本の計数変動	commercial/chapter10.md::3-1	株主資本内部では資本金・資本剰余金・利益剰余金等の計数を振り替えられる	procedure	INCLUDE	equity reclassification concept			pending
+ALP-COM-10-0015	commercial	10 株式会社会計	第3節 1 株主資本の計数変動	commercial/chapter10.md::3-1	株主資本は元手（資本金・資本剰余金）と利益（利益剰余金）に区分し、原則として両区分をまたぐ振替はできない	classification	INCLUDE	capital-profit separation rule			pending
+ALP-COM-10-0016	commercial	10 株式会社会計	第3節 1 株主資本の計数変動	commercial/chapter10.md::3-1	例外として利益剰余金から資本金への振替と欠損填補のため元手から繰越利益剰余金への振替が認められる	exception	INCLUDE	capital-profit separation exceptions			pending
+ALP-COM-10-0017	commercial	10 株式会社会計	第3節 2 損失処理と欠損填補	commercial/chapter10.md::3-2	当期純損失は決算振替で繰越利益剰余金を減少させる	journal_entry	INCLUDE	net loss closing treatment			pending
+ALP-COM-10-0018	commercial	10 株式会社会計	第3節 2 損失処理と欠損填補	commercial/chapter10.md::3-2	繰越利益剰余金が借方残高となる状態を欠損といい貸借対照表ではマイナス表示する	financial_statement	INCLUDE	deficit presentation			pending
+ALP-COM-10-0019	commercial	10 株式会社会計	第3節 2 損失処理と欠損填補	commercial/chapter10.md::3-2	欠損填補は資本金等を減額し繰越利益剰余金の借方残高を相殺する処理である	journal_entry	INCLUDE	deficit elimination treatment			pending
+ALP-COM-10-0020	commercial	10 株式会社会計	第4節 1 利益剰余金の配当・処分	commercial/chapter10.md::4-1	利益剰余金の配当は株主への利益分配、処分は法定・任意積立金として社内留保することである	comparison	INCLUDE	distribution-versus-retention distinction			pending
+ALP-COM-10-0021	commercial	10 株式会社会計	第4節 1 利益剰余金の配当・処分	commercial/chapter10.md::4-1	配当金総額＝1株当たり配当額×発行済株式総数である	formula	INCLUDE	dividend formula			pending
+ALP-COM-10-0022	commercial	10 株式会社会計	第4節 1 利益剰余金の配当・処分	commercial/chapter10.md::4-1	配当決議時は繰越利益剰余金等を減額して未払配当金（負債）を計上し、支払時に未払配当金を消滅させる	journal_entry	INCLUDE	dividend lifecycle			pending
+ALP-COM-10-0023	commercial	10 株式会社会計	第4節 1 利益剰余金の配当・処分	commercial/chapter10.md::4-1	利益剰余金を財源とする配当に伴う法定準備金は利益準備金として積み立てる	journal_entry	INCLUDE	profit dividend reserve rule			pending
+ALP-COM-10-0024	commercial	10 株式会社会計	第4節 1 利益剰余金の配当・処分	commercial/chapter10.md::4-1	任意積立金の積立は繰越利益剰余金から各積立金へ、取崩しは各積立金から繰越利益剰余金へ振り替える	procedure	INCLUDE	voluntary reserve mechanics			pending
+ALP-COM-10-0025	commercial	10 株式会社会計	第4節 2 その他資本剰余金からの配当	commercial/chapter10.md::4-2	その他資本剰余金を財源とする配当ではその他資本剰余金を減額し、必要な準備金は資本準備金として積み立てる	journal_entry	INCLUDE	capital surplus dividend rule			pending
+ALP-COM-10-0026	commercial	10 株式会社会計	第4節 3 準備金積立額	commercial/chapter10.md::4-3	配当時の準備金積立額は原則配当金の1/10だが資本準備金＋利益準備金が資本金の1/4に達するまでが上限である	measurement	INCLUDE	legal reserve formula rule			pending
+ALP-COM-10-0027	commercial	10 株式会社会計	第4節 3 準備金積立額	commercial/chapter10.md::4-3	必要積立額＝min（配当金×1/10, 資本金×1/4－既存準備金合計）である	formula	INCLUDE	legal reserve formula			pending
+ALP-COM-10-0028	commercial	10 株式会社会計	第4節 3 準備金積立額	commercial/chapter10.md::4-3	配当財源が利益剰余金とその他資本剰余金の両方なら必要準備金を財源割合で利益準備金・資本準備金へ按分する	formula	INCLUDE	mixed-source reserve allocation			pending
+ALP-COM-10-0029	commercial	10 株式会社会計	第5節 1 合併とは	commercial/chapter10.md::5-1	吸収合併では存続会社が消滅会社の資産・負債を受け入れ消滅会社株主へ現金または株式等の対価を支払う	definition	INCLUDE	merger fundamentals			pending
+ALP-COM-10-0030	commercial	10 株式会社会計	第5節 2 合併の会計処理	commercial/chapter10.md::5-2	吸収合併では受入資産・負債を合併時時価で認識し、現金対価なら現金減少、株式対価なら資本金等を増加させる	journal_entry	INCLUDE	merger entry framework			pending
+ALP-COM-10-0031	commercial	10 株式会社会計	第5節 2 合併の会計処理	commercial/chapter10.md::5-2	受入純資産額＝受入資産時価－受入負債時価である	formula	INCLUDE	net assets formula			pending
+ALP-COM-10-0032	commercial	10 株式会社会計	第5節 2 合併の会計処理	commercial/chapter10.md::5-2	のれん＝合併対価－受入純資産額で、対価が純資産額を上回る差額を資産計上する	formula	INCLUDE	goodwill formula			pending
+ALP-COM-10-0033	commercial	10 株式会社会計	第5節 2 合併の会計処理	commercial/chapter10.md::5-2	のれんは無形固定資産として最長20年の期間で償却し、のれん償却を費用計上する	measurement	INCLUDE	goodwill amortization rule			pending
+ALP-COM-10-0034	commercial	10 株式会社会計	第5節 2 合併の会計処理	commercial/chapter10.md::5-2	合併対価が受入純資産額を下回る差額は負ののれん発生益として収益計上する	journal_entry	INCLUDE	negative goodwill treatment			pending
+	commercial	10 株式会社会計	各節 数値例	commercial/chapter10.md::examples	株式発行・配当準備金・合併の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
