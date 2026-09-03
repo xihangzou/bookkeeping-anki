@@ -1,0 +1,35 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-08-0001	industrial	8 総合原価計算	第1節 総合原価計算とは	industrial/chapter08.md::process-costing	総合原価計算は同一規格品を連続・大量生産する市場見込生産に適用し、一定期間の製造原価を完成品と仕掛品へ配分する	definition	INCLUDE	process costing definition			pending
+ALP-IND-08-0002	industrial	8 総合原価計算	第1節 総合原価計算とは	industrial/chapter08.md::continuous-order	総合原価計算では1か月の生産を指示する継続製造指図書を用い、生産量は月末に確定する	definition	INCLUDE	continuous production order			pending
+ALP-IND-08-0003	industrial	8 総合原価計算	第1節 総合原価計算とは	industrial/chapter08.md::comparison	個別原価計算は指図書別に原価集計するのに対し、総合原価計算は期間原価を完成品と月末仕掛品へ按分する	comparison	INCLUDE	job versus process costing			pending
+ALP-IND-08-0004	industrial	8 総合原価計算	第2節 計算手続	industrial/chapter08.md::current-cost	当月製造費用は当月に発生し仕掛品勘定借方へ集計された製造原価である	definition	INCLUDE	current manufacturing cost definition			pending
+ALP-IND-08-0005	industrial	8 総合原価計算	第2節 計算手続	industrial/chapter08.md::conversion-cost	加工費は直接材料費以外の製造原価で、直接労務費・直接経費・製造間接費からなる	classification	INCLUDE	conversion cost definition			pending
+ALP-IND-08-0006	industrial	8 総合原価計算	第2節 計算手続	industrial/chapter08.md::completion-degree	加工進捗度は製造工程全体に対する加工の進み具合を割合で示す	definition	INCLUDE	completion degree definition			pending
+ALP-IND-08-0007	industrial	8 総合原価計算	第2節 計算手続	industrial/chapter08.md::equivalent-units	加工換算量＝実在量×加工進捗度で、仕掛品の加工費が完成品何個分に相当するかを表す	formula	INCLUDE	equivalent units formula			pending
+ALP-IND-08-0008	industrial	8 総合原価計算	第2節 計算手続	industrial/chapter08.md::basic-flow	総合原価計算では当月製造費用を算定し、月末仕掛品原価を求め、残額を完成品原価とする	procedure	INCLUDE	basic process costing workflow			pending
+ALP-IND-08-0009	industrial	8 総合原価計算	第2節 月末仕掛品	industrial/chapter08.md::materials-vs-conversion	始点一括投入の直接材料費は実在量で按分し、加工費は加工換算量で按分する	measurement	INCLUDE	material conversion allocation distinction			pending
+ALP-IND-08-0010	industrial	8 総合原価計算	第2節 月末仕掛品	industrial/chapter08.md::ending-material	始点投入材料の月末仕掛品材料費＝対象材料費×月末仕掛品数量÷対象投入数量である	formula	INCLUDE	ending WIP material formula			pending
+ALP-IND-08-0011	industrial	8 総合原価計算	第2節 月末仕掛品	industrial/chapter08.md::ending-conversion	月末仕掛品加工費＝対象加工費×月末仕掛品加工換算量÷対象加工換算量合計である	formula	INCLUDE	ending WIP conversion formula			pending
+ALP-IND-08-0012	industrial	8 総合原価計算	第2節 月末仕掛品	industrial/chapter08.md::completed-cost	完成品原価＝月初仕掛品原価＋当月製造費用－月末仕掛品原価である	formula	INCLUDE	completed goods process cost formula			pending
+ALP-IND-08-0013	industrial	8 総合原価計算	第2節 月初仕掛品あり	industrial/chapter08.md::fifo	先入先出法は月初仕掛品が先に完成すると仮定し、月初仕掛品原価を完成品へ含め、当月製造費用を当月投入分の完成品と月末仕掛品へ配分する	procedure	INCLUDE	FIFO process costing logic			pending
+ALP-IND-08-0014	industrial	8 総合原価計算	第2節 月初仕掛品あり	industrial/chapter08.md::fifo-ending-material	先入先出法の月末仕掛品材料費は当月材料費を当月投入数量に基づいて按分する	measurement	INCLUDE	FIFO ending material rule			pending
+ALP-IND-08-0015	industrial	8 総合原価計算	第2節 月初仕掛品あり	industrial/chapter08.md::fifo-conversion	先入先出法では当月投入加工換算量から月初仕掛品の前月加工済み部分を除き、当月追加加工分のみを対象とする	measurement	INCLUDE	FIFO equivalent unit rule			pending
+ALP-IND-08-0016	industrial	8 総合原価計算	第2節 月初仕掛品あり	industrial/chapter08.md::average	平均法は月初仕掛品原価と当月製造費用を合算し、完成品と月末仕掛品へ平均的に按分する	procedure	INCLUDE	weighted average process costing logic			pending
+ALP-IND-08-0017	industrial	8 総合原価計算	第2節 月初仕掛品あり	industrial/chapter08.md::average-material	平均法の月末仕掛品材料費は月初材料費＋当月材料費を、月初数量＋当月投入数量を基礎に按分する	measurement	INCLUDE	average ending material rule			pending
+ALP-IND-08-0018	industrial	8 総合原価計算	第2節 月初仕掛品あり	industrial/chapter08.md::average-conversion	平均法の月末仕掛品加工費は月初加工費＋当月加工費を、月初分を含む加工換算量合計で按分する	measurement	INCLUDE	average ending conversion rule			pending
+ALP-IND-08-0019	industrial	8 総合原価計算	第3節 仕損と減損	industrial/chapter08.md::normal-spoilage	正常仕損は通常発生が避けられない不合格品で、正常仕損費＝仕損品原価－仕損品評価額である	formula	INCLUDE	normal spoilage cost formula			pending
+ALP-IND-08-0020	industrial	8 総合原価計算	第3節 仕損と減損	industrial/chapter08.md::loss	正常減損は蒸発・粉散等により原料の実体が減少する正常損失で、評価額は生じない	definition	INCLUDE	normal loss definition			pending
+ALP-IND-08-0021	industrial	8 総合原価計算	第3節 仕損と減損	industrial/chapter08.md::spoilage-vs-loss	仕損は実体が残り売却可能なら評価額を持つが、減損は実体が消失し評価額を持たない	comparison	INCLUDE	spoilage versus shrinkage			pending
+ALP-IND-08-0022	industrial	8 総合原価計算	第3節 仕損と減損	industrial/chapter08.md::neglect-method	度外視法は正常仕損・正常減損を独立計上せず、完成品や月末仕掛品の単位原価へ自動的に負担させる方法である	definition	INCLUDE	neglect method definition			pending
+ALP-IND-08-0023	industrial	8 総合原価計算	第3節 仕損負担先	industrial/chapter08.md::burden-rule	月末仕掛品進捗度が仕損発生点未満なら仕損費は完成品のみ、発生点以上なら完成品と月末仕掛品の両者が負担する	classification	INCLUDE	spoilage burden rule			pending
+ALP-IND-08-0024	industrial	8 総合原価計算	第3節 仕損負担先	industrial/chapter08.md::fifo-spoilage	先入先出法では仕損はすべて当月投入分から発生したものと仮定する	measurement	INCLUDE	FIFO spoilage assumption			pending
+ALP-IND-08-0025	industrial	8 総合原価計算	第3節 完成品のみ負担	industrial/chapter08.md::completed-only	仕損費を完成品のみへ負担する場合は、仕損数量・仕損加工換算量を按分分母に含めて月末仕掛品へ仕損費を負担させない	procedure	INCLUDE	completed-only spoilage method			pending
+ALP-IND-08-0026	industrial	8 総合原価計算	第3節 両者負担	industrial/chapter08.md::both	仕損費を完成品と月末仕掛品の両者へ負担する場合は、仕損数量・仕損加工換算量を按分分母から除外して単位原価へ吸収させる	procedure	INCLUDE	shared spoilage method			pending
+ALP-IND-08-0027	industrial	8 総合原価計算	第3節 評価額あり	industrial/chapter08.md::scrap-value	仕損品評価額がある場合は評価額を貯蔵品として資産計上し、完成品・仕掛品が負担するのは評価額控除後の正常仕損費である	recognition	INCLUDE	scrap value treatment			pending
+ALP-IND-08-0028	industrial	8 総合原価計算	第3節 評価額あり	industrial/chapter08.md::scrap-completed	仕損費を完成品のみが負担する場合、月末仕掛品原価は通常どおり計算し、完成品原価から仕損品評価額を控除する	procedure	INCLUDE	scrap value completed-only method			pending
+ALP-IND-08-0029	industrial	8 総合原価計算	第3節 評価額あり	industrial/chapter08.md::scrap-both	仕損費を両者が負担する場合は仕損品評価額を対象製造費用から先に控除し、仕損を度外視した数量・換算量で按分する	procedure	INCLUDE	scrap value shared method			pending
+ALP-IND-08-0030	industrial	8 総合原価計算	第4節 追加材料	industrial/chapter08.md::added-material	追加材料は工程途中または終点等で追加投入される材料で、投入点と仕掛品進捗度の関係に応じて負担対象を決定する	definition	INCLUDE	added material concept			pending
+ALP-IND-08-0031	industrial	8 総合原価計算	第4節 追加材料	industrial/chapter08.md::endpoint	終点投入材料は完成品だけが負担し、終点未到達の月末仕掛品には配賦しない	measurement	INCLUDE	endpoint material rule			pending
+ALP-IND-08-0032	industrial	8 総合原価計算	第4節 追加材料	industrial/chapter08.md::midpoint	途中点投入材料は、その投入点を通過した月初仕掛品・当月投入品・月末仕掛品だけを投入対象数量に含める	measurement	INCLUDE	midpoint material rule			pending
+ALP-IND-08-0033	industrial	8 総合原価計算	第4節 追加材料	industrial/chapter08.md::uniform	工程を通じて平均的に投入される材料は加工費と同様に加工換算量を用いて按分する	measurement	INCLUDE	uniform material input rule			pending
+	industrial	8 総合原価計算	例題8-1〜8-6	industrial/chapter08.md::examples	先入先出法・平均法・仕損・追加材料の具体的数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
