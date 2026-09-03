@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Apply ANKI-AUDIT-002 FND-00 v1.2 rotation/Cloze migration deterministically."""
+"""Apply ANKI-AUDIT-002 FND-00 v1.2 rotation/Cloze migration deterministically.
+
+The migration is idempotent: running it on the already migrated corpus produces
+no diff and still verifies the intended 58-card shape.
+"""
 
 from __future__ import annotations
 
@@ -9,6 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 NOTES = ROOT / "production" / "notes" / "FND-00.tsv"
+CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 
 SAME_INDEX_IDS = {
     "BK-FND-00-0003",
@@ -86,16 +91,24 @@ def main() -> int:
         if row["Text"] != old:
             changed += 1
 
-    expected_changed = len(SAME_INDEX_IDS | set(TEXT_OVERRIDES))
-    if changed != expected_changed:
-        raise SystemExit(f"expected {expected_changed} changed approved Notes, got {changed}")
+    approved = [row for row in rows if row["Status"] == "approved"]
+    generated_cards = 0
+    for row in approved:
+        indices = {int(index) for index, _ in CLOZE_RE.findall(row["Text"])}
+        expected = {1, 2} if row["ID"] == "BK-FND-00-0091" else {1}
+        if indices != expected:
+            raise SystemExit(f"{row['ID']}: migrated indices {sorted(indices)} != {sorted(expected)}")
+        generated_cards += len(indices)
+
+    if len(approved) != 57 or generated_cards != 58:
+        raise SystemExit(f"unexpected final shape: approved={len(approved)} generated_cards={generated_cards}")
 
     with NOTES.open("w", encoding="utf-8", newline="") as fh:
         writer = csv.DictWriter(fh, fieldnames=FIELDS, delimiter="\t", lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
-    print(f"FND-00 v1.2 migration applied: changed_notes={changed}")
+    print(f"FND-00 v1.2 migration: changed_notes={changed} approved=57 generated_cards=58")
     return 0
 
 
