@@ -1,0 +1,43 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-13-0001	commercial	13 財務諸表	財務諸表と決算の基礎 1 役割	commercial/chapter13.md::basic-1	貸借対照表は期末時点の財政状態、損益計算書は一会計期間の経営成績を報告する	financial_statement	INCLUDE	statement purpose			pending
+ALP-COM-13-0002	commercial	13 財務諸表	財務諸表と決算の基礎 1 役割	commercial/chapter13.md::basic-1	貸借対照表の基本関係は資産＝負債＋純資産、損益計算書は当期純利益＝収益－費用である	formula	INCLUDE	statement equations			pending
+ALP-COM-13-0003	commercial	13 財務諸表	財務諸表と決算の基礎 2 つながり	commercial/chapter13.md::basic-2	配当等がなければ前期末繰越利益剰余金＋当期純利益＝当期末繰越利益剰余金である	formula	INCLUDE	P/L-B/S linkage			pending
+ALP-COM-13-0004	commercial	13 財務諸表	財務諸表と決算の基礎 3 試算表から財務諸表	commercial/chapter13.md::basic-3	決算は前T/B→決算整理→後T/B→帳簿締切→財務諸表作成の順で進む	procedure	INCLUDE	closing workflow			pending
+ALP-COM-13-0005	commercial	13 財務諸表	財務諸表と決算の基礎 3 試算表から財務諸表	commercial/chapter13.md::basic-3	後T/Bの収益・費用はP/L、資産・負債・純資産はB/Sへ振り分ける	classification	INCLUDE	trial-balance mapping			pending
+ALP-COM-13-0006	commercial	13 財務諸表	財務諸表と決算の基礎 4 帳簿締切	commercial/chapter13.md::basic-4	収益・費用は決算振替で損益勘定へ集約し翌期残高ゼロ、資産・負債・純資産は期末残高を翌期へ繰り越す	procedure	INCLUDE	closing distinction			pending
+ALP-COM-13-0007	commercial	13 財務諸表	財務諸表と決算の基礎 4 帳簿締切	commercial/chapter13.md::basic-4	当期純利益なら損益を借方・繰越利益剰余金を貸方、当期純損失なら逆方向へ決算振替する	journal_entry	INCLUDE	income closing entry			pending
+ALP-COM-13-0008	commercial	13 財務諸表	財務諸表と決算の基礎 5 繰越試算表	commercial/chapter13.md::basic-5	繰越試算表は帳簿締切後の資産・負債・純資産の次期繰越額を集計し締切の正確性を確認する	definition	INCLUDE	post-closing trial balance			pending
+ALP-COM-13-0009	commercial	13 財務諸表	財務諸表と決算の基礎 6 経過勘定	commercial/chapter13.md::basic-6	経過勘定は前払費用・前受収益・未払費用・未収収益で、現金収支と期間帰属のずれを決算整理する	definition	INCLUDE	accrual accounts definition			pending
+ALP-COM-13-0010	commercial	13 財務諸表	財務諸表と決算の基礎 6 経過勘定	commercial/chapter13.md::basic-6	前払費用・前受収益は翌期分を当期損益から除く繰延べ、未払費用・未収収益は当期発生分を加える見越しである	comparison	INCLUDE	deferral-accrual distinction			pending
+ALP-COM-13-0011	commercial	13 財務諸表	財務諸表と決算の基礎 6 経過勘定	commercial/chapter13.md::basic-6	前払費用は費用を減額して資産、前受収益は収益を減額して負債を計上する	journal_entry	INCLUDE	deferral entries			pending
+ALP-COM-13-0012	commercial	13 財務諸表	財務諸表と決算の基礎 6 経過勘定	commercial/chapter13.md::basic-6	未払費用は費用と負債、未収収益は資産と収益を見越し計上する	journal_entry	INCLUDE	accrual entries			pending
+ALP-COM-13-0013	commercial	13 財務諸表	財務諸表と決算の基礎 6 経過勘定	commercial/chapter13.md::basic-6	経過勘定の通常の決算整理仕訳は翌期首に再振替する	procedure	INCLUDE	reversing-entry rule			pending
+ALP-COM-13-0014	commercial	13 財務諸表	第1節 1 勘定科目と表示科目	commercial/chapter13.md::1-1	帳簿上の勘定科目と財務諸表上の表示科目は異なる場合があり、売上→売上高、仕入→売上原価等へ表示替えする	financial_statement	INCLUDE	account-to-presentation mapping			pending
+ALP-COM-13-0015	commercial	13 財務諸表	第1節 1 勘定科目と表示科目	commercial/chapter13.md::1-1	為替差損益は貸方残高なら為替差益、借方残高なら為替差損として表示する	financial_statement	INCLUDE	gain-loss display mapping			pending
+ALP-COM-13-0016	commercial	13 財務諸表	第1節 2 勘定式と報告式	commercial/chapter13.md::1-2	勘定式P/Lは借方費用・貸方収益、報告式P/Lは収益費用を区分して段階利益を縦に計算する	comparison	INCLUDE	P/L format distinction			pending
+ALP-COM-13-0017	commercial	13 財務諸表	第1節 3 報告式P/L	commercial/chapter13.md::1-3	売上総利益＝売上高－売上原価である	formula	INCLUDE	gross profit formula			pending
+ALP-COM-13-0018	commercial	13 財務諸表	第1節 3 報告式P/L	commercial/chapter13.md::1-3	営業利益＝売上総利益－販売費及び一般管理費である	formula	INCLUDE	operating profit formula			pending
+ALP-COM-13-0019	commercial	13 財務諸表	第1節 3 報告式P/L	commercial/chapter13.md::1-3	経常利益＝営業利益＋営業外収益－営業外費用である	formula	INCLUDE	ordinary profit formula			pending
+ALP-COM-13-0020	commercial	13 財務諸表	第1節 3 報告式P/L	commercial/chapter13.md::1-3	税引前当期純利益＝経常利益＋特別利益－特別損失、当期純利益＝税引前利益－法人税等である	formula	INCLUDE	net income formulas			pending
+ALP-COM-13-0021	commercial	13 財務諸表	第1節 3 報告式P/L	commercial/chapter13.md::1-3	給料・家賃・減価償却等は販管費、利息・有価証券損益等は営業外、固定資産売却・災害等の臨時損益は特別損益へ分類する	classification	INCLUDE	P/L category mapping			pending
+ALP-COM-13-0022	commercial	13 財務諸表	第1節 3 報告式P/L	commercial/chapter13.md::1-3	商品評価損は原則売上原価、棚卸減耗損は問題指示により売上原価または販管費等へ表示する	financial_statement	INCLUDE	inventory loss presentation			pending
+ALP-COM-13-0023	commercial	13 財務諸表	第1節 3 報告式P/L	commercial/chapter13.md::1-3	貸倒引当金繰入は売上債権対応なら販管費、営業外債権対応なら営業外費用に表示する	financial_statement	INCLUDE	allowance expense presentation			pending
+ALP-COM-13-0024	commercial	13 財務諸表	第2節 1 B/S様式	commercial/chapter13.md::2-1	B/Sは資産を流動資産・固定資産、負債を流動負債・固定負債、純資産を株主資本・評価換算差額等へ区分する	financial_statement	INCLUDE	B/S structure			pending
+ALP-COM-13-0025	commercial	13 財務諸表	第2節 2 B/S詳細	commercial/chapter13.md::2-2	流動・固定分類はまず正常営業循環基準、該当しない項目を一年基準で判定する	procedure	INCLUDE	current/noncurrent classification process			pending
+ALP-COM-13-0026	commercial	13 財務諸表	第2節 2 B/S詳細	commercial/chapter13.md::2-2	正常営業循環にある受取手形・売掛金・商品・前払金、支払手形・買掛金・前受金等は期間が1年超でも原則流動項目となる	classification	INCLUDE	operating-cycle rule			pending
+ALP-COM-13-0027	commercial	13 財務諸表	第2節 2 B/S詳細	commercial/chapter13.md::2-2	正常営業循環外の項目は決算日の翌日から1年以内なら流動、1年超なら固定に分類する	classification	INCLUDE	one-year rule			pending
+ALP-COM-13-0028	commercial	13 財務諸表	第2節 2 B/S詳細	commercial/chapter13.md::2-2	満期保有目的債券は1年以内満期なら有価証券、1年超なら投資有価証券として表示する	financial_statement	INCLUDE	security maturity presentation			pending
+ALP-COM-13-0029	commercial	13 財務諸表	第2節 2 B/S詳細	commercial/chapter13.md::2-2	借入金は1年以内返済なら短期借入金、1年超なら長期借入金として表示する	financial_statement	INCLUDE	loan maturity presentation			pending
+ALP-COM-13-0030	commercial	13 財務諸表	第2節 2 B/S詳細	commercial/chapter13.md::2-2	前払費用のうち1年超先に対応する部分は長期前払費用として固定資産表示する	financial_statement	INCLUDE	long-term prepaid expense rule			pending
+ALP-COM-13-0031	commercial	13 財務諸表	第2節 2 B/S詳細	commercial/chapter13.md::2-2	貸倒引当金・減価償却累計額は資産控除項目として個別控除または対象資産から一括控除表示できる	financial_statement	INCLUDE	contra-asset presentation			pending
+ALP-COM-13-0032	commercial	13 財務諸表	第2節 2 B/S詳細	commercial/chapter13.md::2-2	固定資産は有形固定資産・無形固定資産・投資その他の資産に区分する	classification	INCLUDE	fixed asset categories			pending
+	commercial	13 財務諸表	第2節 3 総合例題	commercial/chapter13.md::2-3	決算整理後B/S総合数値例は既出の決算整理・表示規則の統合適用		EXCLUDE		DECORATIVE_EXAMPLE		pending
+ALP-COM-13-0033	commercial	13 財務諸表	第3節 1 株主資本等変動計算書	commercial/chapter13.md::3-1	株主資本等変動計算書S/Sは一会計期間の純資産各項目の変動理由を報告する財務諸表である	definition	INCLUDE	S/S purpose			pending
+ALP-COM-13-0034	commercial	13 財務諸表	第3節 1 株主資本等変動計算書	commercial/chapter13.md::3-1	S/Sは当期首残高・変動事由別当期変動額・当期変動額合計・当期末残高で純資産各列を追跡する	procedure	INCLUDE	S/S structure			pending
+ALP-COM-13-0035	commercial	13 財務諸表	第3節 1 株主資本等変動計算書	commercial/chapter13.md::3-1	利益剰余金内部の振替は株主資本合計・純資産合計を変えず、配当・増資・当期純利益等は純資産合計を変動させる	financial_statement	INCLUDE	S/S movement effects			pending
+ALP-COM-13-0036	commercial	13 財務諸表	第3節 1 株主資本等変動計算書	commercial/chapter13.md::3-1	株主資本以外の項目の当期変動は純額で表示し、S/S当期末残高はB/S純資産残高と一致する	financial_statement	INCLUDE	S/S reconciliation rule			pending
+ALP-COM-13-0037	commercial	13 財務諸表	第4節 1 月次決算	commercial/chapter13.md::4-1	月次決算は期中に業績を把握するため毎月末に行う簡易決算である	definition	INCLUDE	monthly closing definition			pending
+ALP-COM-13-0038	commercial	13 財務諸表	第4節 1 月次決算	commercial/chapter13.md::4-1	月次減価償却費＝年間見積減価償却費÷12、年度末追加額＝年間確定額－月次計上済額である	formula	INCLUDE	monthly depreciation formulas			pending
+ALP-COM-13-0039	commercial	13 財務諸表	第4節 2 2級の月次決算	commercial/chapter13.md::4-2	売上原価対立法は期中に売上原価を認識するため月次決算を迅速化できる	reasoning	INCLUDE	monthly closing method rationale			pending
+ALP-COM-13-0040	commercial	13 財務諸表	第4節 2 2級の月次決算	commercial/chapter13.md::4-2	月次決算では年額退職給付費用見積額の1/12を毎月退職給付費用・引当金として計上できる	journal_entry	INCLUDE	monthly retirement provision			pending
+ALP-COM-13-0041	commercial	13 財務諸表	第4節 2 2級の月次決算	commercial/chapter13.md::4-2	月次前払費用方式では支払時に全額前払費用とし毎月当月分を費用へ振り替え、翌月初の再振替は行わない	procedure	INCLUDE	monthly prepaid expense method			pending
