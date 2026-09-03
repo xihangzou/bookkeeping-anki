@@ -62,32 +62,32 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - `scripts/validate_fnd00_production.py` + `validate-production.yml`: deterministic production validation
   - 16 pilot Note IDs promoted without renumbering; `BK-FND-00-0016` remains reserved pilot-only evidence
 - [x] **ANKI-AUDIT-001** FND-00 recall-quality / exam-yield audit (#56)
-  - `rules/exam_yield_rules.md`: v1.1 post-freeze active-deck overlay
   - 91 historical rows retained; active approved Notes **91 → 57**; deprecated audit rows **34**
   - low-yield terminology/list recall consolidated; transaction-duality wording corrected
   - GitHub Actions v1.1 production validation: **PASS**
 - [x] **ANKI-AUDIT-002** FND-00 rotation-efficiency / Cloze-atomicity audit (#58)
-  - `rules/exam_yield_rules.md`: v1.2 generated-card-cost and standalone-answer rules
-  - active approved Notes remain **57**
-  - generated Cloze cards **110 → 58**
-  - `scripts/migrate_fnd00_v1_2.py`: idempotent reviewed migration record
+  - active approved Notes remain **57**; generated Cloze cards **110 → 58**
+  - same-index grouping and standalone-answer rules introduced
   - GitHub Actions v1.2 production validation: **PASS**
 - [x] **ANKI-AUDIT-003** FND-00 minimal active deck / lexical same-card Cloze audit (#62)
-  - `rules/exam_yield_rules.md`: v1.3 separates source-reviewed coverage from active direct recall
-  - historical rows **91**; source-reviewed ALPs **91/91**
-  - active approved Notes **57 → 18**; deprecated rows **73**; active direct-recall ALPs **36/91**
+  - active approved Notes **57 → 18**; active direct-recall ALPs **36/91**
   - generated active cards **58 → 18**; active lexical Cloze spans **36**
-  - parallel/conjunction answers use separate lexical spans on the same card, e.g. `{{c1::A}}・{{c1::B}}`
-  - every approved FND-00 Note uses only `c1`; `c2+` is reserved for genuinely independent future retrieval operations
-  - `scripts/migrate_fnd00_v1_3.py` + strengthened validator; PR #65 CI **PASS**
+  - parallel answers use separate lexical spans on the same `c1`
+  - PR #65 CI **PASS**
 - [x] **ANKI-AUDIT-004** FND-00 balanced active-deck / visible-context audit (#66)
-  - `rules/exam_yield_rules.md`: v1.4 uses moderately permissive importance screening and integration-first card control
-  - active approved Notes/cards **18 → 29**; deprecated rows **62**; active direct-recall ALPs **36 → 61 / 91**
-  - active lexical Cloze spans **70**; all approved FND-00 Notes remain one generated card using only `c1`
-  - visible topic/retrieval context must remain after Cloze masking; `3伝票制` card keeps `伝票` visible
-  - debit/credit direction uses first-character Clozes: `{{c1::借}}方` / `{{c1::貸}}方`
-  - main-book/reference and subsidiary-book/subledger facts are coherently integrated to control card growth
-  - PR #67 squash merge `26a547ef2e2b48f9c93433e9e25d56e0939a743e`; FND-00 / COM-01 / COM-02 CI **PASS**
+  - importance screening relaxed; integration-first card control adopted
+  - active approved Notes/cards **18 → 29**; active direct-recall ALPs **36 → 61 / 91**
+  - active Cloze spans **70**; all approved Notes use only `c1`
+  - visible retrieval context enforced; debit/credit uses `{{c1::借}}方` / `{{c1::貸}}方`
+  - PR #67 squash merge `26a547ef2e2b48f9c93433e9e25d56e0939a743e`; CI **PASS**
+- [x] **ANKI-AUDIT-005** FND-00 maximal ALP integration / answer-leak audit (#68)
+  - user correction: remove `簿記の基本では、` from `BK-FND-00-0018`
+  - user correction: `BK-FND-00-0027` uses `{{c1::に終わる}}` / `{{c1::から始まる}}`
+  - all remaining inactive ALPs re-audited; active coverage **61/91 → 91/91**
+  - card count increases only **29 → 32** through three coherent reactivations: `0048`, `0084`, `0091`
+  - active Cloze spans **70 → 120** while every approved Note remains one `c1` card
+  - exact visible-answer leakage for 2+ character answers **11 Notes → 0**
+  - `scripts/migrate_fnd00_v1_5.py` + strengthened v1.5 validator; FND-00 / COM-01 / COM-02 CI **PASS**
 
 ### Commercial bookkeeping
 
@@ -162,13 +162,14 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - context sufficiency
   - lexical atomicity
   - same-card grouping quality
+  - visible-answer leakage
   - over-deletion
   - trivial clozes
 - [ ] **ANKI-042** Coverage QA
   - 100% source sections reviewed
   - 100% included ALPs traceable in production history
   - every retirement/exclusion justified
-  - active direct recall independently justified by exam yield
+  - active direct recall justified by exam value and/or coherent integration
   - no unresolved duplicates/conflicts
 
 ## Phase G — Export
