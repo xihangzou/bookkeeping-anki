@@ -1,0 +1,32 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-01-0001	industrial	1 工業簿記の基礎	第1節 工業簿記総論	industrial/chapter01.md::overview	工業簿記は製造業の購買・製造・販売活動を記録し、製造活動を含む点で商品売買業の商業簿記と異なる	definition	INCLUDE	industrial bookkeeping scope			pending
+ALP-IND-01-0002	industrial	1 工業簿記の基礎	第1節 工業簿記総論	industrial/chapter01.md::cost-accounting	原価計算は製品の製造に要した費用である製造原価を計算する手続である	definition	INCLUDE	cost accounting definition			pending
+ALP-IND-01-0003	industrial	1 工業簿記の基礎	第1節 工業簿記総論	industrial/chapter01.md::workflow	製造業では原価計算で原価を算定し、工業簿記で帳簿に記録し、その結果を財務諸表で報告する	procedure	INCLUDE	cost-to-ledger-to-statements flow			pending
+ALP-IND-01-0004	industrial	1 工業簿記の基礎	第1節 工業簿記総論	industrial/chapter01.md::purpose	原価計算の主要目的は売上原価・材料・仕掛品・製品など財務諸表計上額を適切に算定することである	reasoning	INCLUDE	financial statement purpose			pending
+ALP-IND-01-0005	industrial	1 工業簿記の基礎	第1節 工業簿記総論	industrial/chapter01.md::manufacturing-cost	製造原価は製品を製造するためにかかった費用であり、販売費・一般管理費とは区別する	classification	INCLUDE	manufacturing cost boundary			pending
+ALP-IND-01-0006	industrial	1 工業簿記の基礎	第1節 工業簿記総論	industrial/chapter01.md::total-cost	総原価＝製造原価＋販売費及び一般管理費である	formula	INCLUDE	total cost formula			pending
+ALP-IND-01-0007	industrial	1 工業簿記の基礎	第1節 工業簿記総論	industrial/chapter01.md::profit	利益＝売上高－総原価である	formula	INCLUDE	profit formula			pending
+ALP-IND-01-0008	industrial	1 工業簿記の基礎	第1節 工業簿記総論	industrial/chapter01.md::noncost	支払利息等の製造・販売・管理活動外の費用や異常な原因による製造費用は非原価項目であり製造原価に算入しない	exception	INCLUDE	non-cost item boundary			pending
+ALP-IND-01-0009	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::elements	発生形態別に製造原価は材料費・労務費・経費の3区分に分類する	classification	INCLUDE	cost element classification			pending
+ALP-IND-01-0010	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::materials	材料費は製品製造のために材料を消費した額である	definition	INCLUDE	material cost definition			pending
+ALP-IND-01-0011	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::labor	労務費は製品製造のために労働力を消費した額である	definition	INCLUDE	labor cost definition			pending
+ALP-IND-01-0012	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::expense	経費は製造原価のうち材料費・労務費以外の原価である	definition	INCLUDE	expense cost definition			pending
+ALP-IND-01-0013	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::direct	製造直接費は特定製品に直接集計できる原価で、直接材料費・直接労務費・直接経費からなる	classification	INCLUDE	direct manufacturing cost classification			pending
+ALP-IND-01-0014	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::indirect	製造間接費は複数製品に共通して発生し特定製品に直接集計できない原価で、間接材料費・間接労務費・間接経費からなる	classification	INCLUDE	indirect manufacturing cost classification			pending
+ALP-IND-01-0015	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::assignment	製造直接費を特定製品へ直接集計する手続を賦課という	definition	INCLUDE	direct assignment term			pending
+ALP-IND-01-0016	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::allocation	製造間接費を一定基準で各製品へ按分する手続を配賦という	definition	INCLUDE	overhead allocation term			pending
+ALP-IND-01-0017	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::cost-equations	製造原価＝材料費＋労務費＋経費＝製造直接費＋製造間接費である	formula	INCLUDE	manufacturing cost identity			pending
+ALP-IND-01-0018	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::sales-price	販売価格＝総原価＋利益である	formula	INCLUDE	sales price formula			pending
+ALP-IND-01-0019	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::variable-fixed	操業度との関連では原価を変動費と固定費に分類する	classification	INCLUDE	behavior classification			pending
+ALP-IND-01-0020	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::variable	変動費は操業度の増減に応じて比例的に増減する原価である	definition	INCLUDE	variable cost definition			pending
+ALP-IND-01-0021	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::fixed	固定費は操業度の増減にかかわらず一定範囲で総額が変化しない原価である	definition	INCLUDE	fixed cost definition			pending
+ALP-IND-01-0022	industrial	1 工業簿記の基礎	第2節 製造原価の分類	industrial/chapter01.md::classification-purpose	発生形態・製品関連による分類は財務諸表作成、変動費・固定費分類は利益管理・原価管理に主として用いる	comparison	INCLUDE	classification purpose distinction			pending
+ALP-IND-01-0023	industrial	1 工業簿記の基礎	第3節 工業簿記の一巡	industrial/chapter01.md::period	原価計算期間は製品原価を計算する期間で、通常は1か月である	definition	INCLUDE	cost accounting period			pending
+ALP-IND-01-0024	industrial	1 工業簿記の基礎	第3節 工業簿記の一巡	industrial/chapter01.md::accounts	工業簿記では材料・労務費・経費・製造間接費・仕掛品・製品・売上原価等の勘定で原価の流れを記録する	ledger	INCLUDE	industrial ledger architecture			pending
+ALP-IND-01-0025	industrial	1 工業簿記の基礎	第3節 工業簿記の一巡	industrial/chapter01.md::three-stage	原価計算手続は第1次の費目別計算、第2次の部門別計算、第3次の製品別計算の3段階で行う	procedure	INCLUDE	three-stage costing process			pending
+ALP-IND-01-0026	industrial	1 工業簿記の基礎	第3節 工業簿記の一巡	industrial/chapter01.md::primary	費目別計算では材料費・労務費・経費を直接費と間接費に分類し、直接費を仕掛品、間接費を製造間接費へ集計する	cost_accounting	INCLUDE	primary costing procedure			pending
+ALP-IND-01-0027	industrial	1 工業簿記の基礎	第3節 工業簿記の一巡	industrial/chapter01.md::secondary	部門別計算では製造間接費を必要に応じ部門別に集計・配賦し、最終的に仕掛品へ振り替える	cost_accounting	INCLUDE	departmental costing role			pending
+ALP-IND-01-0028	industrial	1 工業簿記の基礎	第3節 工業簿記の一巡	industrial/chapter01.md::product-costing	製品別計算では仕掛品に集計した原価を完成品と月末仕掛品へ配分する	cost_accounting	INCLUDE	product costing role			pending
+ALP-IND-01-0029	industrial	1 工業簿記の基礎	第3節 工業簿記の一巡	industrial/chapter01.md::production-type	個別受注生産には個別原価計算、大量反復生産には総合原価計算を適用する	classification	INCLUDE	production type costing method			pending
+ALP-IND-01-0030	industrial	1 工業簿記の基礎	第3節 工業簿記の一巡	industrial/chapter01.md::cost-flow	直接費は仕掛品へ賦課し、間接費は製造間接費へ集計後に仕掛品へ配賦し、完成時に製品、販売時に売上原価へ振り替える	procedure	INCLUDE	end-to-end cost flow			pending
+	industrial	1 工業簿記の基礎	例題1-1	industrial/chapter01.md::example-1-1	具体的数値による原価分類・販売価格の計算例		EXCLUDE		DECORATIVE_EXAMPLE		pending
