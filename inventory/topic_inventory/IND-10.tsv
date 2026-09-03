@@ -1,0 +1,20 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-10-0001	industrial	10 決算と財務諸表	第1節 工業簿記の決算	industrial/chapter10.md::closing-types	工業簿記では会計期末の年次決算に加え、原価計算期末ごとに製品原価・営業損益を把握する月次決算を行うことがある	comparison	INCLUDE	monthly annual closing distinction			pending
+ALP-IND-10-0002	industrial	10 決算と財務諸表	第1節 月次決算	industrial/chapter10.md::monthly-flow	月次決算では売上・売上原価・販売費及び一般管理費を月次損益へ振り替え、月次営業損益を年次損益へ振り替える	procedure	INCLUDE	monthly closing flow			pending
+ALP-IND-10-0003	industrial	10 決算と財務諸表	第1節 月次決算	industrial/chapter10.md::monthly-profit	月次損益勘定は借方に売上原価・販売費及び一般管理費、貸方に売上を集計して月次営業損益を算定する	ledger	INCLUDE	monthly P&L ledger structure			pending
+ALP-IND-10-0004	industrial	10 決算と財務諸表	第1節 年次決算	industrial/chapter10.md::annual-flow	月次決算を行う場合、年次損益には12か月の営業損益と営業外損益・特別損益を集計して当期純利益を算定する	procedure	INCLUDE	annual closing flow			pending
+ALP-IND-10-0005	industrial	10 決算と財務諸表	第1節 年次決算	industrial/chapter10.md::no-monthly	月次決算を行わない場合は年次決算で原価・損益のすべての決算手続を行う	exception	INCLUDE	annual-only closing rule			pending
+ALP-IND-10-0006	industrial	10 決算と財務諸表	第1節 販売費及び一般管理費	industrial/chapter10.md::selling-admin	販売費は製品販売のための費用、一般管理費は企業経営全般の管理のための費用である	classification	INCLUDE	selling administrative expense distinction			pending
+ALP-IND-10-0007	industrial	10 決算と財務諸表	第2節 財務諸表の作成	industrial/chapter10.md::statements	製造業は損益計算書・貸借対照表に加えて、当期製品製造原価の内訳を示す製造原価報告書を作成する	financial_statement	INCLUDE	manufacturing financial statements			pending
+ALP-IND-10-0008	industrial	10 決算と財務諸表	第2節 損益計算書	industrial/chapter10.md::cogs	原価差異調整前売上原価＝期首製品棚卸高＋当期製品製造原価－期末製品棚卸高である	formula	INCLUDE	manufacturing COGS formula			pending
+ALP-IND-10-0009	industrial	10 決算と財務諸表	第2節 損益計算書	industrial/chapter10.md::variance-adjustment	損益計算書では不利原価差異を売上原価へ加算し、有利原価差異を売上原価から減算する	financial_statement	INCLUDE	cost variance P&L adjustment			pending
+ALP-IND-10-0010	industrial	10 決算と財務諸表	第2節 損益計算書	industrial/chapter10.md::gross-operating	売上総利益＝売上高－売上原価、営業利益＝売上総利益－販売費及び一般管理費である	formula	INCLUDE	manufacturing profit formulas			pending
+ALP-IND-10-0011	industrial	10 決算と財務諸表	第2節 貸借対照表	industrial/chapter10.md::inventories	製造業の貸借対照表では原材料・仕掛品・製品を棚卸資産として計上する	financial_statement	INCLUDE	manufacturing inventory presentation			pending
+ALP-IND-10-0012	industrial	10 決算と財務諸表	第2節 貸借対照表	industrial/chapter10.md::inventory-balances	原材料は材料勘定次期繰越、仕掛品は月末仕掛品原価、製品は月末製品原価を期末棚卸資産として表示する	financial_statement	INCLUDE	inventory balance mapping			pending
+ALP-IND-10-0013	industrial	10 決算と財務諸表	第2節 製造原価報告書	industrial/chapter10.md::cost-report	製造原価報告書は一会計期間に完成した製品の当期製品製造原価の内訳を示す	definition	INCLUDE	manufacturing cost report definition			pending
+ALP-IND-10-0014	industrial	10 決算と財務諸表	第2節 製造原価報告書	industrial/chapter10.md::cogm	当期製品製造原価＝当期総製造費用＋期首仕掛品原価－期末仕掛品原価である	formula	INCLUDE	cost of goods manufactured formula			pending
+ALP-IND-10-0015	industrial	10 決算と財務諸表	第2節 製造原価報告書	industrial/chapter10.md::material-cost	材料費＝期首材料棚卸高＋当期材料仕入高－期末材料棚卸高である	formula	INCLUDE	material cost report formula			pending
+ALP-IND-10-0016	industrial	10 決算と財務諸表	第2節 製造原価報告書	industrial/chapter10.md::presentation-methods	製造原価報告書は材料費・労務費・経費の費目別表示、または製造直接費・製造間接費の区分で表示できる	financial_statement	INCLUDE	cost report presentation methods			pending
+ALP-IND-10-0017	industrial	10 決算と財務諸表	第2節 製造原価報告書	industrial/chapter10.md::planned-basis	製造原価報告書では原価差異を除いた予定価格ベースの当期製品製造原価を示し、損益計算書で原価差異を反映して実際価格ベースの売上原価へ調整する	comparison	INCLUDE	cost report versus P&L variance basis			pending
+ALP-IND-10-0018	industrial	10 決算と財務諸表	第2節 製造原価報告書	industrial/chapter10.md::cost-flow	当期製造費用は仕掛品、完成部分は製品、販売部分は売上原価へ振り替え、原価差異を売上原価へ反映して損益計算書へつながる	procedure	INCLUDE	statement cost flow linkage			pending
+	industrial	10 決算と財務諸表	例題10-1	industrial/chapter10.md::example	製造原価報告書・財務諸表の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
