@@ -1,0 +1,15 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-14-0001	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::independent	工場会計の独立は本社と工場の会計帳簿を分け、製造活動に関する記録を工場側で行う制度である	definition	INCLUDE	independent factory accounting definition			pending
+ALP-IND-14-0002	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::ledgers	工場会計独立時は工場に工場元帳、本社に本社元帳（一般元帳）を設ける	ledger	INCLUDE	head office factory ledgers			pending
+ALP-IND-14-0003	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::account-split	原則として材料・労務費・経費・製造間接費・仕掛品等の製造活動勘定は工場、現金預金・債権債務・売上・販売管理費等は本社に設ける	classification	INCLUDE	account location classification			pending
+ALP-IND-14-0004	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::finished-goods-option	製品勘定は工場側ではなく本社側に設定する場合もある	exception	INCLUDE	finished goods account placement option			pending
+ALP-IND-14-0005	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::reciprocal-accounts	本社工場間の内部取引は本社側で工場勘定、工場側で本社勘定を用いて記録する	ledger	INCLUDE	reciprocal head office factory accounts			pending
+ALP-IND-14-0006	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::elimination	本社勘定と工場勘定は内部的な債権債務であり、会社全体の財務諸表では相殺される	financial_statement	INCLUDE	internal account elimination			pending
+ALP-IND-14-0007	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::one-side	本社または工場だけで完結する取引は、その取引を担当する側だけで通常どおり仕訳する	procedure	INCLUDE	one-side transaction rule			pending
+ALP-IND-14-0008	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::both-sides	本社と工場の双方に関係する取引は会社全体の仕訳を両者へ分割し、本社の相手を工場、工場の相手を本社として記帳する	procedure	INCLUDE	two-side transaction rule			pending
+ALP-IND-14-0009	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::material-purchase	本社が材料を購入して工場へ送る場合、本社は工場／買掛金等、工場は材料／本社と記帳する	journal_entry	INCLUDE	material purchase transfer entry			pending
+ALP-IND-14-0010	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::factory-consumption	材料消費・労務費消費・製造間接費配賦・製品完成など工場内部だけの製造取引は工場帳簿のみで処理する	procedure	INCLUDE	factory internal production transactions			pending
+ALP-IND-14-0011	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::head-office-payment	本社が工場負担の賃金・製造経費等を支払う場合、本社は工場勘定へ計上し、工場は対応する原価勘定／本社で受け入れる	journal_entry	INCLUDE	head office payment for factory costs			pending
+ALP-IND-14-0012	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::sale	工場側に製品勘定がある場合、販売時に本社は売上を計上するとともに売上原価／工場、工場は本社／製品として製品原価を本社へ移す	journal_entry	INCLUDE	factory product sale transfer			pending
+ALP-IND-14-0013	industrial	14 本社工場会計	第1節 本社工場会計	industrial/chapter14.md::analogy	本社の工場勘定と工場の本社勘定の関係は、本支店会計の本店勘定・支店勘定と同様の照合関係にある	comparison	INCLUDE	head-office factory branch analogy			pending
+	industrial	14 本社工場会計	例題14-1	industrial/chapter14.md::example	本社・工場間取引の一連の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
