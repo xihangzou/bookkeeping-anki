@@ -1,103 +1,173 @@
 # FND-00 Production QA
 
-Issue: ANKI-007 / #8
+Issues: ANKI-007 / #8; post-production audit ANKI-AUDIT-001 / #56
 
-Contract: frozen v1.0 (`FREEZE.md`, `rules/cloze_rules.md`, `rules/coverage_rules.md`, `schema/note_schema.yaml`).
+Contracts:
+- frozen v1.0 source/schema/Cloze baseline (`FREEZE.md`, `rules/cloze_rules.md`, `rules/coverage_rules.md`, `schema/note_schema.yaml`)
+- v1.1 post-freeze active-deck overlay (`rules/exam_yield_rules.md`)
 
-## Batch summary
+## Audit objective
 
-- production path: `production/notes/FND-00.tsv`
-- production Notes: **91**
-- canonical included FND-00 ALPs: **91**
-- mapped included ALPs: **91**
-- unmapped included ALPs: **0**
-- mapped excluded decorative examples: **0**
-- production lifecycle: every row `Status=approved`, `QA=pass`
-- source baseline: `xihangzou/bookkeeping-integrated@569ed7b82e729334e1472286eaca7c4352e6fbdb`, `merged/textbook.md`
+ANKI-007 established complete Part 0 source coverage, but the first 91-Note production pass still contained several Notes that were technically correct yet inefficient for exam preparation:
 
-Rows are serialized in canonical ALP source order. Stable Note IDs are not reordered to match the rows.
+- low-retrieval-value introductory terminology;
+- repeated general rules represented as separate cards;
+- direct label association that did not test an accounting decision;
+- oversized memorization lists for expense accounts / ledger fields;
+- fragmented definitions that were better tested as one recognition or comparison unit;
+- one transaction-duality wording that could mislead learners when they later encounter compound entries.
 
-## Pilot Note promotion
+ANKI-AUDIT-001 therefore optimizes the **active approved deck** while preserving the complete canonical ALP inventory and all stable Note-ID history.
 
-Sixteen FND pilot Note IDs were promoted into the production batch while preserving their stable IDs and canonical ALP mappings:
+## Before / after
 
-`BK-FND-00-0001`–`0015` except no gap within that range, plus `BK-FND-00-0017`, corresponding to ALPs 0003, 0012, 0017, 0022, 0024, 0026, 0027, 0029, 0035, 0038, 0040, 0041, 0052, 0053, 0058, and 0072.
+| Metric | ANKI-007 | v1.1 audit |
+|---|---:|---:|
+| historical production rows | 91 | 91 |
+| active `approved` Notes | 91 | **57** |
+| `deprecated` audit rows | 0 | **34** |
+| canonical included FND-00 ALPs | 91 | **91** |
+| ALPs mapped to an approved Note | 91 | **91** |
+| active unmapped ALPs | 0 | **0** |
+| approved multi-ALP Notes | 0 | **25** |
+| stable IDs reused / renumbered | 0 | **0** |
 
-`BK-FND-00-0016` is intentionally **not** production-approved. It is the pilot-only synthetic numeric application of ALP-FND-00-0058. The ID remains reserved and is not reused. New production IDs therefore begin at `BK-FND-00-0018` and continue deterministically through `BK-FND-00-0092` for previously unmapped ALPs.
+The approved Note count is an audit outcome, not a quota.
 
-The ALP-FND-00-0058 production wording is tightened to the algebraic relation `誤仕訳＋訂正仕訳＝正しい仕訳` so it remains distinct from the procedural ALP-FND-00-0057 Note.
+## Active-deck targeting decision
 
-## Mechanical validation
+Direct Cloze recall is prioritized when it materially supports:
 
-`python scripts/validate_fnd00_production.py` checks:
+- account selection / classification;
+- debit-credit direction;
+- recognition timing;
+- journal-entry construction and settlement;
+- formula/calculation use;
+- testable ledger / voucher mechanics;
+- discrimination between similar treatments;
+- exam-document interpretation;
+- terminology and notation needed to parse normal bookkeeping questions;
+- durable causal accounting structure useful for later 2級 / CPA study.
 
-- exact frozen v1.0 TSV header and fixed source fields;
-- Note-ID and ALP-ID syntax;
-- stable pilot-ID promotion and reservation of `BK-FND-00-0016`;
-- deterministic new-ID allocation from `0018` onward;
-- exactly one canonical included ALP per ANKI-007 production row;
-- 91/91 included-ALP coverage and zero excluded mappings;
-- valid Cloze syntax on every Note;
-- mechanically derived required tags, uniqueness, and lexical ordering;
-- `Status=approved` / `QA=pass` on every production row;
-- no production use of the pilot-only lifecycle marker;
-- no exact rendered-text duplicate.
+Source propositions with lower independent exam yield remain traceable, but are placed in the visible context or `ALP_IDs` of a coherent higher-yield approved Note rather than generating a separate active card.
 
-Expected validator result:
+## Deprecated Notes and replacements
+
+The following 34 stable IDs are retained as `Status=deprecated`, `QA=pass`. Their IDs remain permanently reserved.
+
+| Deprecated Note | Active replacement |
+|---|---|
+| `BK-FND-00-0001` | `BK-FND-00-0019` |
+| `BK-FND-00-0006`, `BK-FND-00-0007` | `BK-FND-00-0037` |
+| `BK-FND-00-0020`, `BK-FND-00-0021` | `BK-FND-00-0018` |
+| `BK-FND-00-0023` | `BK-FND-00-0003` |
+| `BK-FND-00-0031` | `BK-FND-00-0002` |
+| `BK-FND-00-0033`, `BK-FND-00-0034`, `BK-FND-00-0035` | `BK-FND-00-0004` |
+| `BK-FND-00-0036` | `BK-FND-00-0005` |
+| `BK-FND-00-0038` | `BK-FND-00-0025` |
+| `BK-FND-00-0040` | `BK-FND-00-0039` |
+| `BK-FND-00-0041` | `BK-FND-00-0026` |
+| `BK-FND-00-0042` | `BK-FND-00-0043` |
+| `BK-FND-00-0045`, `BK-FND-00-0046` | `BK-FND-00-0044` |
+| `BK-FND-00-0052` | `BK-FND-00-0053` |
+| `BK-FND-00-0056` | `BK-FND-00-0055` |
+| `BK-FND-00-0057` | `BK-FND-00-0014` |
+| `BK-FND-00-0059` | `BK-FND-00-0058` |
+| `BK-FND-00-0060`, `BK-FND-00-0061` | `BK-FND-00-0015` |
+| `BK-FND-00-0063`, `BK-FND-00-0065` | `BK-FND-00-0062` |
+| `BK-FND-00-0066` | `BK-FND-00-0064` |
+| `BK-FND-00-0067` | `BK-FND-00-0068` |
+| `BK-FND-00-0076` | `BK-FND-00-0074` |
+| `BK-FND-00-0077` | `BK-FND-00-0078` |
+| `BK-FND-00-0081`, `BK-FND-00-0082`, `BK-FND-00-0083` | `BK-FND-00-0084` |
+| `BK-FND-00-0085` | `BK-FND-00-0086` |
+| `BK-FND-00-0087` | `BK-FND-00-0088` |
+
+## Material quality corrections
+
+### 1. Transaction duality accuracy
+
+Old `BK-FND-00-0036` stated that one transaction changes multiple accounts by the same amount. That wording is potentially misleading for compound entries, where individual account amounts can differ.
+
+The active `BK-FND-00-0005` now teaches the durable rule:
+
+- one transaction is recorded on both debit and credit sides; and
+- **total debits equal total credits**.
+
+ALP-FND-00-0023 and ALP-FND-00-0024 are both mapped to that approved Note.
+
+### 2. Expense-account memorization
+
+Old `BK-FND-00-0047` required direct recall of a long list of expense-account names.
+
+The revised card tests **account selection from transaction content** with representative cases (travel fare, communications, advertising); the remaining textbook examples stay visible in `Extra`. This tests the accounting operation that exam questions actually require instead of list recitation.
+
+### 3. Debit-credit fragmentation
+
+Separate Notes for:
+
+- asset/liability/equity normal position;
+- debit=left / credit=right;
+- increase on normal side / decrease on opposite side;
+- all-five-element increase direction
+
+were consolidated into `BK-FND-00-0004`. The active card now asks one complete five-element debit-credit rule rather than four overlapping fragments.
+
+### 4. Transaction recognition
+
+Definition + fire/theft positive case + contract-only negative case were consolidated into `BK-FND-00-0037`. The card now tests the actual recognition criterion: whether the five elements change.
+
+### 5. Trial-balance controls
+
+Trial-balance definition, purpose, and aggregate debit-credit equality were consolidated into `BK-FND-00-0044`. The important limitation (balanced totals do not detect every error) remains a separate exception Note `BK-FND-00-0011`.
+
+### 6. Payroll and temporary accounts
+
+- withholding mechanism was merged into the gross-pay / income-tax liability Note;
+- employee vs employer social-insurance treatment is now one comparison-like journal-entry Note;
+- 仮払金 classification is embedded in its settlement procedure;
+- 仮受金 classification is embedded in its settlement procedure;
+- correction procedure, formula, and warning are one coherent correction-entry rule.
+
+### 7. Bookkeeping forms and vouchers
+
+Long form-field and label lists were reduced or consolidated:
+
+- journal/general-ledger definitions are one time-order vs account-order Note;
+- `元丁` vs `仕丁` is directly tested instead of memorizing every form column;
+- subsidiary-book definition is merged into the subsidiary-journal vs subsidiary-ledger distinction;
+- hand-note fields emphasize maturity / payment location / disposition rather than every column;
+- individual/aggregate posting, aggregation tables, processing order, and subsidiary-ledger exception are one workflow Note;
+- document definition is merged into document discrimination; document limitations are merged into document-to-entry reasoning.
+
+## v1.1 mechanical validation
+
+GitHub Actions `Validate production notes` executed `python scripts/validate_fnd00_production.py` successfully on PR #57.
+
+Validator result:
 
 ```text
-FND-00 production validation: PASS
-notes=91 included_alps=91 mapped=91 unmapped=0
-promoted_pilot_ids=16 reserved_pilot_only_id=BK-FND-00-0016
-journal_entry_notes=10 formula_notes=3
+FND-00 v1.1 production validation: PASS
+rows=91 approved=57 deprecated=34 included_alps=91 approved_mapped=91 unmapped=0
+approved_multi_alp_notes=25 reserved_pilot_only_id=BK-FND-00-0016
+approved_journal_entry_notes=8 approved_formula_notes=3
 ```
 
-## Local Cloze / ambiguity QA
+The validator enforces:
 
-Every Note was reviewed against the frozen v1.0 retrieval rules with the following checks:
+- the original **91-row stable Note-ID history** remains present;
+- `BK-FND-00-0016` remains reserved and unused;
+- exactly **57 approved / 34 deprecated** rows;
+- deprecated IDs equal the reviewed retirement set;
+- approved Notes may map multiple ALPs in canonical source order;
+- every one of the **91 included ALPs maps to exactly one approved Note**;
+- deprecated mappings do not count as active coverage;
+- primary `Section` matches the first mapped ALP;
+- source fields remain pinned;
+- tags follow the row's approved/deprecated lifecycle;
+- every row has valid Cloze syntax and `QA=pass`;
+- approved Notes contain no exact rendered-text duplicates.
 
-- the visible context identifies the accounting proposition being tested;
-- each Cloze has a unique or materially unique semantic answer class;
-- journal-entry sides are grouped when splitting would leak the coupled answer;
-- amounts copied directly from a transaction are not separately Clozed;
-- sequence Notes use multiple groups only where the missing stage still requires substantive recall;
-- parallel relations are grouped or reframed when a visible sibling would disclose the answer;
-- no placeholder such as `本来の勘定科目` is used as an underdetermined target.
+## Downstream effect
 
-The known pilot warning families remain handled under the frozen v1.0 rules: low-retrieval-value stakeholder matching, positional sequence cues, and large coupled answers are retained only where coverage or accounting coherence gives them retrieval value.
-
-## Local duplicate review
-
-No exact rendered-text duplicates remain. High-similarity pairs were manually checked and retained because they test different retrieval operations or contexts:
-
-- ALP 0019 vs 0022: B/S three-element **定位置** vs all-five-element **増加側** classification;
-- ALP 0024 vs 0039: one-entry debit/credit equality vs aggregate trial-balance equality after posting;
-- ALP 0053 vs 0055: temporary **payment/asset** process vs temporary **receipt/liability** process;
-- ALP 0054 vs 0056: 仮払金 asset classification vs 仮受金 liability classification;
-- ALP 0057 vs 0058: correction **procedure** vs correction **algebraic relation**;
-- ALP 0041 vs 0052: simple cash salary payment vs compound gross-pay/withholding entry.
-
-These are intentional contrasts rather than semantic duplicates.
-
-## Accounting and formula QA
-
-Journal-entry Notes reviewed: **10**. Formula Notes reviewed: **3**.
-
-Checks performed locally:
-
-- debit/credit direction is consistent with the five-element rules;
-- salary expense is recorded gross when employee deductions are withheld;
-- employee income-tax and social-insurance deductions are liabilities, not company expenses;
-- employer social-insurance burden is `法定福利費`;
-- settlement of `所得税預り金` reduces the liability on the debit side;
-- `仮払金` is an asset and is removed on the credit side when settled;
-- `仮受金` is a liability and is removed on the debit side when settled;
-- correction-entry relation is internally consistent;
-- `当期純利益＝収益－費用` is correct for the stated profit case;
-- `純売上高＝総売上高－売上戻り高` and `純仕入高＝総仕入高－仕入戻し高` are internally consistent.
-
-Result: **PASS — no local accounting, formula, ambiguity, or source-traceability blocker identified.**
-
-## Downstream status
-
-This QA is chapter-local production approval for ANKI-007. Corpus-wide normalization, journal-entry QA, formula QA, recall QA, final coverage audit, and Anki export remain the later ANKI-038–043 gates.
+FND-00 now distinguishes **canonical source coverage** from **active study-card count**. Downstream export must include `Status=approved` rows only. The same exam-yield audit rule should be applied during ANKI-008 onward generation rather than waiting for a later cleanup pass.
