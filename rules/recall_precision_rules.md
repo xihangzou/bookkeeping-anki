@@ -1,7 +1,7 @@
 # Recall Precision Rules
 
 Status: **Current authoritative specialization**
-Issue: **ANKI-AUDIT-008 / #79**
+Issue: **ANKI-AUDIT-008 / #79; ANKI-AUDIT-009 / #81**
 Governance: `GOVERNANCE.md`
 
 This file specializes `rules/cloze_rules.md` and `rules/exam_yield_rules.md` for answer precision. Where an older generic rule allows a broader form, this more specific reviewed rule takes precedence for new work and explicitly migrated batches.
@@ -39,9 +39,23 @@ Prefer the smallest accounting answer that captures the material proposition:
 
 Avoid approximate prose such as `果たした時点`, `売上を再計上しない`, `仕入を減額する`, or a whole explanatory clause when a canonical accounting term or exact timing discriminator can be recalled instead.
 
-For recognition rules, keep the accounting subject visible and Cloze the timing concept. Example:
+For recognition rules, keep the accounting subject visible and Cloze the timing concept when the **timing itself** is the learning target. Example:
 
 `本業収益は、その約束を{{c1::充足した時点}}に認識する。`
+
+### Canonical-label priority
+
+When a visible fact, description, example, timing point, or treatment maps one-to-one to a named accounting concept, **prefer the canonical accounting label as the Cloze answer** when identifying that label is the useful retrieval operation.
+
+Preferred:
+
+`売上を認識する時点が出荷時なら{{c1::出荷基準}}、到着時なら{{c1::着荷基準}}、検収時なら{{c1::検収基準}}という。`
+
+Avoid when the real target is method/basis identification:
+
+`出荷基準では{{c1::出荷時}}、着荷基準では{{c1::到着時}}、検収基準では{{c1::検収時}}に認識する。`
+
+Apply the same principle to method names, document names, classifications, account names, and other conventional labels. Do not mechanically reverse every definition: if the timing, calculation result, or treatment itself has the higher independent exam value, keep that as the target instead.
 
 ## 3. Essential-recall test
 
@@ -60,6 +74,6 @@ An included ALP still must remain materially represented in active `Text`; this 
 
 ## 4. Reference style
 
-Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history.
+Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history. ANKI-AUDIT-009 adds canonical-label priority when a description-to-label mapping is the intended retrieval task.
 
 Existing chapters are migrated deliberately under `GOVERNANCE.md`; historical audit states remain reproducible through Git history.
