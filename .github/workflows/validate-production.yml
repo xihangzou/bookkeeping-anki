@@ -4,25 +4,29 @@ on:
   push:
     paths:
       - 'production/notes/**'
-      - 'production/qa/FND-00.md'
+      - 'production/qa/**'
       - 'production/README.md'
       - 'inventory/topic_inventory/FND-00.tsv'
+      - 'inventory/topic_inventory/COM-01.tsv'
       - 'schema/note_schema.yaml'
       - 'rules/exam_yield_rules.md'
       - 'scripts/migrate_fnd00_v1_2.py'
       - 'scripts/validate_fnd00_production.py'
+      - 'scripts/validate_com01_production.py'
       - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   pull_request:
     paths:
       - 'production/notes/**'
-      - 'production/qa/FND-00.md'
+      - 'production/qa/**'
       - 'production/README.md'
       - 'inventory/topic_inventory/FND-00.tsv'
+      - 'inventory/topic_inventory/COM-01.tsv'
       - 'schema/note_schema.yaml'
       - 'rules/exam_yield_rules.md'
       - 'scripts/migrate_fnd00_v1_2.py'
       - 'scripts/validate_fnd00_production.py'
+      - 'scripts/validate_com01_production.py'
       - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   workflow_dispatch:
@@ -37,3 +41,13 @@ jobs:
           python-version: '3.12'
       - name: Validate FND-00 production batch
         run: python scripts/validate_fnd00_production.py
+
+  validate-com01:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate COM-01 production batch
+        run: python scripts/validate_com01_production.py
