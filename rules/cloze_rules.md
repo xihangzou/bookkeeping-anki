@@ -1,6 +1,6 @@
 # Cloze Rules
 
-Status: **v0.9 — pilot後に一度だけ改訂可**
+Status: **v0.9 — representative pilot後に一度だけv1.0へ改訂可**
 
 ## 1. Objective
 
@@ -13,6 +13,8 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 3. 会計上重要な情報を想起させる
 4. 不要な暗記負荷を増やさない
 5. 後続の2級・CPA学習でも崩れない理解を作る
+
+本ルールは `SPEC.md`、`rules/coverage_rules.md`、`schema/note_schema.yaml`、`pilot/PLAN.md` と整合して運用する。矛盾を発見した場合はローカル判断で補完せず、明示的に解消する。
 
 ## 2. Atomicity
 
@@ -35,12 +37,14 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 
 - 一連の手続順序
 - 財務諸表の構造
-- 同一仕訳内の相互依存要素
+- 同一ルール内の不可分な複数要素
 - 比較表の1行をまとめて覚える場合
 
 カード数を増やすためだけに `c1`, `c2`, `c3` を分けない。
 
-## 4. Same cloze number vs different numbers
+## 4. Anki Cloze semantics and numbering
+
+Ankiでは、異なるCloze番号は原則として異なるカードを生成する。同じ番号を複数箇所に使うと、その箇所は同じカード上で同時に隠れる。
 
 ### Same number
 
@@ -59,6 +63,8 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 ```text
 売掛金は {{c1::資産}} であり、通常は {{c2::借方}} 残高を持つ。
 ```
+
+ただし、別番号にすると他のClozeの正答が表示される。したがって、**各 `cN` が実際にカード化された状態を想定し、残りの表示情報が答えを実質的に漏らしていないか確認する**。
 
 ## 5. Context sufficiency
 
@@ -87,27 +93,42 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 {{c1::借方 仕入100 / 貸方 買掛金100}}
 ```
 
-標準：
-
-```text
-商品100円を掛けで仕入れた。
-借方：{{c1::仕入}} 100
-貸方：{{c2::買掛金}} 100
-```
-
-ただし「仕訳全体を一括再生できること」自体が学習目標の場合は、別の統合カードを作るのではなく、まずpilotで必要性を検証する。
+ただし、複数要素が1つの不可分なretrieval targetである場合は、必要な要素を同じCloze番号で隠すことがある。重要なのは「隠す範囲を大きくすること」ではなく、「何を一体として再生すべきか」を先に決めることである。
 
 ## 7. Journal-entry rules
 
-### Account names
+仕訳ALPでは、作成前にretrieval targetを次のいずれかとして明確化する。
 
-勘定科目は原則Cloze対象。
+1. 仕訳全体の組合せ
+2. 独立して想起する価値がある一方の勘定科目
+3. 金額・計算要素
+4. 借貸方向そのもの
+
+### Whole coupled entry
+
+借方・貸方の組合せ全体を再生することが目標なら、片側だけ表示されて他方の答えを漏らす構造を避ける。
+
+標準例：
+
+```text
+商品100円を掛けで仕入れた。
+借方：{{c1::仕入}} 100
+貸方：{{c1::買掛金}} 100
+```
+
+これにより、同一カード上で両方の勘定科目を同時に再生する。
+
+### Independent side recall
+
+一方の勘定科目だけを独立して問うこと自体にretrieval価値がある場合は別番号を使ってよい。
 
 ```text
 商品100円を掛けで仕入れた。
 借方：{{c1::仕入}} 100
 貸方：{{c2::買掛金}} 100
 ```
+
+ただしこの場合、`c1`カードでは貸方、`c2`カードでは借方が見える。その表示が正答をほぼ決定してしまう場合は採用しない。
 
 ### Amounts
 
@@ -164,7 +185,19 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 
 支払・入金と収益費用認識を混同しやすい論点は優先的にカード化する。
 
-## 11. Formula cards
+## 11. Measurement cards
+
+`measurement` は、金額・評価額・配賦額などの決定ルールそのものを想起対象にする。
+
+```text
+期末商品の取得原価が120、正味売却価額が100の場合、評価額は {{c1::100}} となる。
+```
+
+単なる数値代入ではなく、どの測定ルールを使うか、どの金額を採用するか、どの差額を認識するかにretrieval価値がある場合に作成する。
+
+公式を使うだけの問題は `formula`、認識時点が主題なら `recognition`、仕訳再生が主題なら `journal_entry` をprimary typeとする。
+
+## 12. Formula cards
 
 公式全体を一度に隠すより、意味構造を残す。
 
@@ -178,7 +211,7 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 
 数値例は公式適用に追加の判断がある場合のみ別Note化する。
 
-## 12. Procedure cards
+## 13. Procedure cards
 
 順序自体が論点の場合は系列として出す。
 
@@ -189,7 +222,7 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 
 単なる箇条書き一覧は、順序が試験・理解上重要でなければ無理に順序カードにしない。
 
-## 13. Comparison cards
+## 14. Comparison cards
 
 比較対象と比較軸を明示する。
 
@@ -199,7 +232,7 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 
 「AとBの違いは？」のような自由回答型をClozeへ無理に変換しない。比較軸ごとに必要十分な文へ分解する。
 
-## 14. Exception / condition cards
+## 15. Exception / condition cards
 
 条件を必ず見える側に残し、結論をClozeにする。
 
@@ -209,7 +242,7 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 
 条件まで隠して、何の例外を答えるのか不明にしてはいけない。
 
-## 15. Reasoning cards
+## 16. Reasoning cards
 
 丸暗記では後続論点が崩れる場合、因果関係をCloze化する。
 
@@ -219,7 +252,49 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 
 すべての説明文をreasoning cardにする必要はない。
 
-## 16. Tables
+## 17. Ledger cards
+
+`ledger` は、仕訳後の転記、勘定記入、残高判定、帳簿上の機械的処理などを扱う。
+
+例：
+
+```text
+仕訳を勘定へ転記するとき、各勘定には取引日・{{c1::相手科目}}・金額を記入する。
+```
+
+```text
+借方合計が貸方合計を上回る勘定は {{c1::借方残高}} となる。
+```
+
+仕訳そのものを再生する場合は `journal_entry`、帳簿上の転記・集計・残高処理が主題なら `ledger` とする。
+
+## 18. Financial-statement cards
+
+`financial_statement` は、財務諸表上の表示位置、構造、項目間関係、報告目的を扱う。
+
+例：
+
+```text
+貸借対照表では、資産は {{c1::借方側}}、負債・純資産は {{c2::貸方側}} に表示する。
+```
+
+構造全体の相互関係を一体として覚える必要がある場合は同じ番号にまとめる。独立して問う場合は別番号にしてよいが、各カードで他方の表示が答えを漏らさないか確認する。
+
+## 19. Cost-accounting cards
+
+`cost_accounting` は、工業簿記に固有の原価の集計・配賦・振替・原価流れ・部門/製品間関係を扱う。
+
+単一の数式だけが主題なら `formula`、単一の配賦額決定が主題なら `measurement`、仕訳再生が主題なら `journal_entry` を優先する。`cost_accounting` は、原価計算固有の流れや関係性がprimary retrieval targetである場合に使用する。
+
+例：
+
+```text
+製造原価の流れでは、材料・労務費・経費を集計した後、仕掛品を経て {{c1::製品}} へ振り替える。
+```
+
+工業簿記の複雑な原価流れを1 Noteに過剰集約せず、判断単位ごとに分解する。
+
+## 20. Tables
 
 表をそのまま大量Cloze化しない。
 
@@ -228,7 +303,7 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 - 行間の関係が重要なら統合Note
 - 列見出しを残して答えの種類を明確化
 
-## 17. Numerical examples
+## 21. Numerical examples
 
 数値だけ変えた同型例は原則1つに統合する。
 
@@ -239,7 +314,7 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 - 端数・配賦・差額など新しい判断が加わる
 - 誤りやすい境界条件を示す
 
-## 18. Extra field
+## 22. Extra field
 
 `Extra` は以下に使用できる。
 
@@ -252,7 +327,7 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 
 禁止：Cloze側で問うべき答えをExtraだけに置くこと。
 
-## 19. Duplicate control
+## 23. Duplicate control
 
 意味的に同じRecall Unitを、語順や数値だけ変えて複数Noteにしない。
 
@@ -262,7 +337,7 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 2. 同じ事実・異なる文脈 → retrieval価値を比較
 3. 異なる判断を要求 → 別Noteとして保持
 
-## 20. Ambiguity test
+## 24. Ambiguity and rendered-card leakage test
 
 Note作成時に次を確認する。
 
@@ -272,20 +347,71 @@ Note作成時に次を確認する。
 - 同義語を不当に誤答扱いしないか
 - 単位・期間・主体が明確か
 
-## 21. Pilot validation checklist
+さらに、異なるCloze番号を含むNoteでは、**生成される各 `cN` カードを個別に確認する**。
 
-v1.0確定前に最低30〜50 Notesで確認する。
+各カードについて：
 
-- 定義
-- 分類
-- 単純仕訳
-- 複合仕訳
-- 認識時点
-- 公式
-- 数値計算
-- 手続
-- 比較
-- 例外
+- 他のClozeの表示答えが対象Clozeを実質的に漏らしていないか
+- 文法・語尾・レイアウトだけで答えが推測できないか
+- 片側が見えることで仕訳・比較・構造の答えが一意に決まってしまわないか
+- 隠した範囲が大きすぎず、かつ断片的すぎないか
+
+answer leakageがある場合は、同一番号への統合、文面再設計、Note分割、または不要カードの削除で解消する。
+
+## 25. Canonical ALP-type mapping check
+
+`schema/note_schema.yaml` のprimary typeは以下の13種類であり、すべて本ルールでauthoring可能でなければならない。
+
+- `definition` → §8
+- `classification` → §9
+- `recognition` → §10
+- `measurement` → §11
+- `journal_entry` → §7
+- `formula` → §12
+- `procedure` → §13
+- `comparison` → §14
+- `exception` → §15
+- `reasoning` → §16
+- `ledger` → §17
+- `financial_statement` → §18
+- `cost_accounting` → §19
+
+secondary characteristicsはTagsに置き、ad-hoc primary typeを追加しない。
+
+## 26. Pilot validation checklist
+
+v1.0確定前に、`SPEC.md` と `pilot/PLAN.md` に従う **30〜50 representative Notes** のpilotで検証する。
+
+pilotはPart 0だけに限定せず、**Part 0 + early commercial bookkeeping** の代表サンプルを含む。
+
+最低限確認するrecall types：
+
+- definition
+- classification
+- recognition
+- measurement / numerical application
+- simple journal entry
+- compound journal entry
+- formula
+- procedure/order
+- comparison
+- exception/condition
 - reasoning
+- ledger
+- financial_statement
+- cost_accounting はPart II本番前にルール適用可能性を確認し、pilot時点で教材範囲外なら型マッピングのレビューで代替する
 
-pilotで発見したルール問題は `qa/pilot_review.md` に記録し、v1.0への改訂理由を残す。
+pilotでは `pilot/PLAN.md` のstress casesとreview dimensionsを使用し、実際のAnki renderingを確認する。
+
+pilotで発見したルール問題は **`pilot/review.md`** に記録し、v1.0への改訂理由を残す。
+
+v1.0へ進む条件：
+
+- pilot上の会計誤りが0
+- ambiguous promptが0
+- rendered-card answer leakageが0
+- recurring failure patternが明文化済み
+- `rules/cloze_rules.md` をv1.0へ一度だけ改訂
+- v1.0をfreeze
+
+ANKI-007の完了だけでは、上記のPart 0 + early-commercial representative pilot要件を満たした証拠がない限り、pilot gate PASSとはみなさない。
