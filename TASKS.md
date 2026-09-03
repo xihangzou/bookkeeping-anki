@@ -67,7 +67,14 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - 91/91 included ALPs map exactly once to an approved Note; active unmapped = **0**
   - low-yield terminology/list recall consolidated; transaction-duality wording corrected
   - GitHub Actions v1.1 production validation: **PASS**
-  - apply the same exam-yield target during ANKI-008 onward generation
+- [x] **ANKI-AUDIT-002** FND-00 rotation-efficiency / Cloze-atomicity audit (#58)
+  - `rules/exam_yield_rules.md`: v1.2 same-index, rotation-cost, standalone-answer rules
+  - active approved Notes remain **57**; 91/91 included ALPs remain mapped exactly once
+  - generated Cloze cards **110 → 58**; only `BK-FND-00-0091` remains a two-card Note
+  - 43 approved Notes rewritten for same-index grouping and/or canonical standalone Cloze targets
+  - `scripts/migrate_fnd00_v1_2.py`: idempotent reviewed migration record
+  - GitHub Actions v1.2 production validation: **PASS**
+  - apply v1.2 exam-yield + generated-card-efficiency rules during ANKI-008 onward generation
 
 ### Commercial bookkeeping
 
