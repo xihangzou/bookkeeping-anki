@@ -1,0 +1,29 @@
+name: Validate production notes
+
+on:
+  push:
+    paths:
+      - 'production/notes/**'
+      - 'inventory/topic_inventory/FND-00.tsv'
+      - 'schema/note_schema.yaml'
+      - 'scripts/validate_fnd00_production.py'
+      - '.github/workflows/validate-production.yml'
+  pull_request:
+    paths:
+      - 'production/notes/**'
+      - 'inventory/topic_inventory/FND-00.tsv'
+      - 'schema/note_schema.yaml'
+      - 'scripts/validate_fnd00_production.py'
+      - '.github/workflows/validate-production.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-fnd00:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate ANKI-007 FND-00 production batch
+        run: python scripts/validate_fnd00_production.py
