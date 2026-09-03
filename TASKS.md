@@ -35,8 +35,11 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 - [x] **ANKI-PILOT-003** Validate rendering and recall quality
   - `pilot/card_validation.tsv`
   - `pilot/VALIDATION.md`
-  - 40 Notes / 63 rendered Cloze cards reviewed; unresolved findings handed to ANKI-PILOT-004
-- [ ] **ANKI-PILOT-004** Record ambiguity / overload / duplication failures
+  - initial 40 Notes / 63 rendered Cloze cards reviewed; findings handed to ANKI-PILOT-004
+- [x] **ANKI-PILOT-004** Record ambiguity / overload / duplication failures
+  - `pilot/review.md`
+  - blocking ambiguity/comparison defects fixed; exact duplicate converted to distinct numeric application
+  - corrected pilot: 40 Notes / 62 cards, 0 major, 0 blocking
 - [ ] **ANKI-PILOT-005** Revise Cloze rules v0.9 -> v1.0
 - [ ] **ANKI-PILOT-006** Freeze v1.0 before full generation
 

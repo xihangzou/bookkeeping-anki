@@ -19,27 +19,26 @@ BK-FND-00-0010	c3	借方・貸方の合計と残高の両方	c1:各勘定の借�
 BK-FND-00-0011	c1	発見できない	-	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-FND-00-0012	c1	給料 | 現金	-	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-FND-00-0013	c1	給料 | 所得税預り金 | 社会保険料預り金 | 現金	-	acct=P;amb=P;ctx=P;atom=P;ans=W;num=P;dup=P;src=P;repeat=P;leak=P	LARGE_COUPLED_ANSWER	minor	Four account names are masked together; coherent for one compound entry, but answer load is near the upper useful limit.
-BK-FND-00-0014	c1	仮払金	c2:本来の勘定科目	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
-BK-FND-00-0014	c2	本来の勘定科目	c1:仮払金	acct=P;amb=F;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=F;leak=P	ANSWER_FORM_AMBIGUITY	blocking	「本来の勘定科目」 is a generic answer form; multiple semantically valid phrasings/accounts fit without a concrete transaction.
+BK-FND-00-0014	c1	仮払金	c2:貸方に計上して取り崩す	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
+BK-FND-00-0014	c2	貸方に計上して取り崩す	c1:仮払金	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-FND-00-0015	c1	誤仕訳の逆仕訳	c2:正しい仕訳	acct=P;amb=P;ctx=P;atom=P;ans=P;num=W;dup=P;src=P;repeat=P;leak=W	PARALLEL_RELATION_CUE	minor	The visible counterpart exposes half of the correction-entry decomposition and materially narrows the hidden term.
 BK-FND-00-0015	c2	正しい仕訳	c1:誤仕訳の逆仕訳	acct=P;amb=P;ctx=P;atom=P;ans=P;num=W;dup=P;src=P;repeat=P;leak=W	PARALLEL_RELATION_CUE	minor	The visible counterpart exposes half of the correction-entry decomposition and materially narrows the hidden term.
 BK-FND-00-0016	c1	180円	-	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
-BK-FND-00-0017	c1	総売上高－売上戻り高	c2:総仕入高－仕入戻し高	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=W;src=P;repeat=W;leak=W	PARALLEL_FORMULA_CUE;NOTE_PARTIAL_DUPLICATE	minor	Visible pure-purchase formula cues the parallel pure-sales formula; sibling c2 duplicates BK-COM-01-0004.
-BK-FND-00-0017	c2	総仕入高－仕入戻し高	c1:総売上高－売上戻り高	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=F;src=P;repeat=F;leak=W	SEMANTIC_DUPLICATE;PARALLEL_FORMULA_CUE	major	Target is the same pure-purchase formula as BK-COM-01-0004, while the visible pure-sales formula also cues the answer structure.
+BK-FND-00-0017	c1	総売上高－売上戻り高	c2:総仕入高－仕入戻し高	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=W;leak=W	PARALLEL_FORMULA_CUE	minor	Visible pure-purchase formula cues the parallel pure-sales formula; retained as a rule-design warning after cross-Note duplication was removed.
+BK-FND-00-0017	c2	総仕入高－仕入戻し高	c1:総売上高－売上戻り高	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=W;leak=W	PARALLEL_FORMULA_CUE	minor	Visible pure-sales formula cues the parallel pure-purchase formula; the former semantic duplicate was removed by converting BK-COM-01-0004 to numeric application.
 BK-COM-01-0001	c1	販売目的	-	acct=P;amb=W;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	SYNONYM_VARIANT	minor	「販売目的」 and natural equivalents such as 「販売する目的」 are semantically interchangeable; canonical wording should not be treated as the only acceptable answer.
 BK-COM-01-0002	c1	商品を受け入れた時点	c2:再計上しない	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0002	c2	再計上しない	c1:商品を受け入れた時点	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0003	c1	仕入 | 前払金（前渡金） | 買掛金	-	acct=P;amb=P;ctx=P;atom=P;ans=W;num=P;dup=P;src=P;repeat=P;leak=P	LARGE_COUPLED_ANSWER	minor	Three account names are recalled together; justified by the coupled compound entry and explicit synonym display for 前払金（前渡金）.
-BK-COM-01-0004	c1	総仕入高－仕入戻し高	-	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=F;src=P;repeat=F;leak=P	SEMANTIC_DUPLICATE	major	Exact retrieval proposition is already present as BK-FND-00-0017 c2; the commercial context does not add a new judgment in the current wording.
+BK-COM-01-0004	c1	480,000円	-	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0005	c1	購入代価	c2:当社負担の仕入諸掛り	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0005	c2	当社負担の仕入諸掛り	c1:購入代価	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0006	c1	128,000円	-	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0007	c1	三分法 | 分記法 | 売上原価対立法	-	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0008	c1	仕入 | 繰越商品 | 繰越商品 | 仕入	-	acct=P;amb=P;ctx=P;atom=P;ans=W;num=P;dup=P;src=P;repeat=P;leak=P	LARGE_COUPLED_ANSWER	minor	Four account positions across paired closing entries are masked together; coherent but high answer load.
 BK-COM-01-0009	c1	売掛金 | 売上 | 売上原価 | 商品	-	acct=P;amb=P;ctx=P;atom=P;ans=W;num=P;dup=P;src=P;repeat=P;leak=P	LARGE_COUPLED_ANSWER	minor	Four account names across revenue recognition and cost transfer are masked together; coherent but high answer load.
-BK-COM-01-0010	c1	決算時	c2:商品売買益 | c3:売上時	acct=P;amb=P;ctx=F;atom=F;ans=P;num=P;dup=P;src=P;repeat=F;leak=P	COMPARISON_AXIS_MISMATCH	blocking	Lead-in says 「売上原価を把握する時点」, but the 分記法 branch recalls 商品売買益, mixing timing and object. Source table compares 売上原価・利益の算定時点.
-BK-COM-01-0010	c2	商品売買益	c1:決算時 | c3:売上時	acct=P;amb=F;ctx=F;atom=F;ans=P;num=P;dup=P;src=P;repeat=F;leak=P	COMPARISON_AXIS_MISMATCH	blocking	Lead-in says 「売上原価を把握する時点」, but the 分記法 branch recalls 商品売買益, mixing timing and object. Source table compares 売上原価・利益の算定時点.
-BK-COM-01-0010	c3	売上時	c1:決算時 | c2:商品売買益	acct=P;amb=P;ctx=F;atom=F;ans=P;num=P;dup=P;src=P;repeat=F;leak=P	COMPARISON_AXIS_MISMATCH	blocking	Lead-in says 「売上原価を把握する時点」, but the 分記法 branch recalls 商品売買益, mixing timing and object. Source table compares 売上原価・利益の算定時点.
+BK-COM-01-0010	c1	決算時	c2:売上時	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
+BK-COM-01-0010	c2	売上時	c1:決算時	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0011	c1	先入先出法	-	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0012	c1	その時点の在庫金額	c2:その時点の在庫数量 | c3:次の払出単価	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
 BK-COM-01-0012	c2	その時点の在庫数量	c1:その時点の在庫金額 | c3:次の払出単価	acct=P;amb=P;ctx=P;atom=P;ans=P;num=P;dup=P;src=P;repeat=P;leak=P	NONE	none	-
