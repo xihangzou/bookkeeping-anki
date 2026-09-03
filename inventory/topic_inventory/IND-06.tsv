@@ -1,0 +1,25 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-06-0001	industrial	6 部門別計算	第1節 部門別計算とは	industrial/chapter06.md::departmental	部門別計算は製造間接費を作業の性質・責任に基づく原価部門ごとに集計・配賦する方法である	definition	INCLUDE	departmental costing definition			pending
+ALP-IND-06-0002	industrial	6 部門別計算	第1節 部門別計算とは	industrial/chapter06.md::purpose	部門別計算の主要目的は製品原価の正確化と部門別の原価管理である	reasoning	INCLUDE	departmental costing purposes			pending
+ALP-IND-06-0003	industrial	6 部門別計算	第1節 部門別計算とは	industrial/chapter06.md::simple-vs-departmental	部門別計算を行わず工場全体で総括配賦する個別原価計算を単純個別原価計算、部門別に配賦するものを部門別個別原価計算という	comparison	INCLUDE	simple versus departmental job costing			pending
+ALP-IND-06-0004	industrial	6 部門別計算	第1節 部門別計算とは	industrial/chapter06.md::manufacturing-dept	製造部門は加工・組立等の製造作業を直接行う原価部門である	definition	INCLUDE	manufacturing department definition			pending
+ALP-IND-06-0005	industrial	6 部門別計算	第1節 部門別計算とは	industrial/chapter06.md::service-dept	補助部門は製造作業を直接行わず製造部門へ動力・修繕・運搬・事務等のサービスを提供する原価部門である	definition	INCLUDE	service department definition			pending
+ALP-IND-06-0006	industrial	6 部門別計算	第1節 部門別計算とは	industrial/chapter06.md::subclasses	製造部門は主経営部門・副経営部門、補助部門は補助経営部門・工場管理部門に細分できる	classification	INCLUDE	department subclassification			pending
+ALP-IND-06-0007	industrial	6 部門別計算	第2節 計算手続	industrial/chapter06.md::three-stage	部門別計算は第1次集計、第2次集計、第3次集計の3段階で行う	procedure	INCLUDE	departmental three-stage process			pending
+ALP-IND-06-0008	industrial	6 部門別計算	第2節 第1次集計	industrial/chapter06.md::department-specific	部門個別費は特定部門で発生したことが明らかな製造間接費で、その部門へ直接賦課する	classification	INCLUDE	department-specific overhead			pending
+ALP-IND-06-0009	industrial	6 部門別計算	第2節 第1次集計	industrial/chapter06.md::common	部門共通費は複数部門に共通して発生する製造間接費で、適切な配賦基準により各部門へ配賦する	classification	INCLUDE	common departmental overhead			pending
+ALP-IND-06-0010	industrial	6 部門別計算	第2節 第1次集計	industrial/chapter06.md::common-formula	部門共通費の各部門配賦額＝部門共通費×各部門の配賦基準量÷配賦基準量合計である	formula	INCLUDE	common cost allocation formula			pending
+ALP-IND-06-0011	industrial	6 部門別計算	第2節 第1次集計	industrial/chapter06.md::department-cost	第1次集計で部門個別費と部門共通費配賦額を合計した各原価部門の原価を部門費という	definition	INCLUDE	department cost definition			pending
+ALP-IND-06-0012	industrial	6 部門別計算	第2節 第2次集計	industrial/chapter06.md::service-allocation	第2次集計では補助部門費を製造部門へ配賦し、補助サービスの原価を最終的に製造部門へ集約する	procedure	INCLUDE	service department allocation stage			pending
+ALP-IND-06-0013	industrial	6 部門別計算	第2節 直接配賦法	industrial/chapter06.md::direct-method	直接配賦法は補助部門相互間の用役提供を無視し、補助部門費を製造部門にのみ配賦する	definition	INCLUDE	direct method definition			pending
+ALP-IND-06-0014	industrial	6 部門別計算	第2節 直接配賦法	industrial/chapter06.md::direct-denominator	直接配賦法では補助部門費の配賦基準から他の補助部門への用役提供量を除外する	measurement	INCLUDE	direct method denominator rule			pending
+ALP-IND-06-0015	industrial	6 部門別計算	第2節 相互配賦法	industrial/chapter06.md::reciprocal	相互配賦法は補助部門相互間の用役提供を考慮して補助部門費を配賦する	definition	INCLUDE	reciprocal allocation definition			pending
+ALP-IND-06-0016	industrial	6 部門別計算	第2節 相互配賦法	industrial/chapter06.md::reciprocal-first	簡便法の第1次配賦では各補助部門費を自部門以外の製造部門・補助部門へ用役提供量に基づき配賦する	procedure	INCLUDE	reciprocal first allocation			pending
+ALP-IND-06-0017	industrial	6 部門別計算	第2節 相互配賦法	industrial/chapter06.md::self-service	相互配賦法の第1次配賦では自部門への自家消費を無視する	exception	INCLUDE	self-service exclusion			pending
+ALP-IND-06-0018	industrial	6 部門別計算	第2節 相互配賦法	industrial/chapter06.md::reciprocal-second	簡便法の第2次配賦では第1次配賦で補助部門へ配賦された額を製造部門にのみ再配賦する	procedure	INCLUDE	reciprocal second allocation			pending
+ALP-IND-06-0019	industrial	6 部門別計算	第2節 第3次集計	industrial/chapter06.md::third-stage	第3次集計では第2次集計後の製造部門費を部門別配賦率により各製品へ配賦する	procedure	INCLUDE	third-stage product allocation			pending
+ALP-IND-06-0020	industrial	6 部門別計算	第2節 製造部門費の実際配賦	industrial/chapter06.md::actual-rate	部門別実際配賦率＝当月実際製造部門費÷当月部門別実際配賦基準数値である	formula	INCLUDE	department actual rate formula			pending
+ALP-IND-06-0021	industrial	6 部門別計算	第2節 製造部門費の実際配賦	industrial/chapter06.md::actual-product	各製品への実際配賦額＝部門別実際配賦率×製品別実際配賦基準数値である	formula	INCLUDE	department actual allocation formula			pending
+ALP-IND-06-0022	industrial	6 部門別計算	第2節 製造部門費の予定配賦	industrial/chapter06.md::planned	製造部門費も原則として部門別予定配賦率を期首に設定し、各月の実際操業度に予定配賦する	procedure	INCLUDE	department planned allocation			pending
+ALP-IND-06-0023	industrial	6 部門別計算	第2節 製造部門費の予定配賦	industrial/chapter06.md::planned-flow	部門別予定配賦では期首に予定配賦率設定、月中に予定配賦、月末に実際部門費集計と差異算定、年度末に差異処理を行う	procedure	INCLUDE	department planned allocation workflow			pending
+	industrial	6 部門別計算	計算例	industrial/chapter06.md::examples	総括配賦・直接配賦法・相互配賦法・部門別配賦の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
