@@ -1,0 +1,27 @@
+name: Validate topic inventory
+
+on:
+  push:
+    paths:
+      - 'inventory/topic_inventory/**'
+      - 'inventory/topic_inventory.yaml'
+      - 'scripts/validate_topic_inventory.py'
+      - '.github/workflows/validate-topic-inventory.yml'
+  pull_request:
+    paths:
+      - 'inventory/topic_inventory/**'
+      - 'inventory/topic_inventory.yaml'
+      - 'scripts/validate_topic_inventory.py'
+      - '.github/workflows/validate-topic-inventory.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate ANKI-003 dataset
+        run: python scripts/validate_topic_inventory.py
