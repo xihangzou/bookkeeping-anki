@@ -1,0 +1,33 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-11-0001	industrial	11 標準原価計算	第1節 標準原価計算とは	industrial/chapter11.md::standard-costing	標準原価計算はあらかじめ設定した標準原価で仕掛品・完成品等を計算し、実際原価との差異を原価管理に利用する方法である	definition	INCLUDE	standard costing definition			pending
+ALP-IND-11-0002	industrial	11 標準原価計算	第1節 標準原価計算とは	industrial/chapter11.md::actual-vs-standard	実際原価計算の予定価格は主に価格面の目標であるのに対し、標準原価計算は数量・作業時間にも標準を設定して不能率を分析できる	comparison	INCLUDE	actual versus standard costing			pending
+ALP-IND-11-0003	industrial	11 標準原価計算	第1節 標準原価計算とは	industrial/chapter11.md::flow	標準原価計算は原価標準設定→標準原価計算→実際原価計算→差異算定・分析→報告改善→年度末差異処理の順で行う	procedure	INCLUDE	standard costing workflow			pending
+ALP-IND-11-0004	industrial	11 標準原価計算	第1節 標準原価計算とは	industrial/chapter11.md::cost-standard	原価標準は製品1単位あたりの目標原価、標準原価は原価標準を実際生産量等に適用した期間全体の目標原価である	comparison	INCLUDE	cost standard versus standard cost			pending
+ALP-IND-11-0005	industrial	11 標準原価計算	第1節 標準原価計算とは	industrial/chapter11.md::standard-total	標準原価＝原価標準×実際生産量である	formula	INCLUDE	standard cost formula			pending
+ALP-IND-11-0006	industrial	11 標準原価計算	第2節 原価標準	industrial/chapter11.md::standard-material	標準直接材料費＝標準価格×標準消費数量である	formula	INCLUDE	standard direct material formula			pending
+ALP-IND-11-0007	industrial	11 標準原価計算	第2節 原価標準	industrial/chapter11.md::standard-labor	標準直接労務費＝標準賃率×標準直接作業時間である	formula	INCLUDE	standard direct labor formula			pending
+ALP-IND-11-0008	industrial	11 標準原価計算	第2節 原価標準	industrial/chapter11.md::standard-overhead	標準製造間接費＝標準配賦率×標準操業度である	formula	INCLUDE	standard overhead formula			pending
+ALP-IND-11-0009	industrial	11 標準原価計算	第2節 原価標準	industrial/chapter11.md::attainable	原価管理に用いる原価標準は科学的・統計的調査に基づき客観的で、努力すれば達成可能な水準に設定する	reasoning	INCLUDE	standard setting quality			pending
+ALP-IND-11-0010	industrial	11 標準原価計算	第2節 標準原価	industrial/chapter11.md::completed	完成品標準原価＝製品1個あたり原価標準×完成品数量である	formula	INCLUDE	completed standard cost formula			pending
+ALP-IND-11-0011	industrial	11 標準原価計算	第2節 標準原価	industrial/chapter11.md::wip	仕掛品標準原価は材料費と加工費に分け、始点投入材料は実在量、労務費・製造間接費は加工換算量で計算する	measurement	INCLUDE	standard WIP measurement			pending
+ALP-IND-11-0012	industrial	11 標準原価計算	第2節 標準原価	industrial/chapter11.md::uniform-material	材料を工程全体で平均投入する場合、標準直接材料費も加工費と同様に完成品換算量で計算する	exception	INCLUDE	uniform material standard WIP rule			pending
+ALP-IND-11-0013	industrial	11 標準原価計算	第3節 差異分析	industrial/chapter11.md::variance-classification	標準原価差異は直接材料費を価格差異・数量差異、直接労務費を賃率差異・作業時間差異、製造間接費を予算差異・操業度差異・能率差異に分析する	classification	INCLUDE	standard variance classification			pending
+ALP-IND-11-0014	industrial	11 標準原価計算	第3節 直接材料費差異	industrial/chapter11.md::material-total	直接材料費差異＝標準直接材料費－実際直接材料費である	formula	INCLUDE	direct material variance formula			pending
+ALP-IND-11-0015	industrial	11 標準原価計算	第3節 直接材料費差異	industrial/chapter11.md::price-variance	材料価格差異＝（標準価格－実際価格）×実際消費量である	formula	INCLUDE	material price variance formula			pending
+ALP-IND-11-0016	industrial	11 標準原価計算	第3節 直接材料費差異	industrial/chapter11.md::quantity-variance	材料数量差異＝（標準消費量－実際消費量）×標準価格である	formula	INCLUDE	material quantity variance formula			pending
+ALP-IND-11-0017	industrial	11 標準原価計算	第3節 直接労務費差異	industrial/chapter11.md::labor-total	直接労務費差異＝標準直接労務費－実際直接労務費である	formula	INCLUDE	direct labor variance formula			pending
+ALP-IND-11-0018	industrial	11 標準原価計算	第3節 直接労務費差異	industrial/chapter11.md::labor-rate	賃率差異＝（標準賃率－実際賃率）×実際直接作業時間である	formula	INCLUDE	labor rate variance formula			pending
+ALP-IND-11-0019	industrial	11 標準原価計算	第3節 直接労務費差異	industrial/chapter11.md::labor-efficiency	作業時間差異＝（標準直接作業時間－実際直接作業時間）×標準賃率である	formula	INCLUDE	labor efficiency variance formula			pending
+ALP-IND-11-0020	industrial	11 標準原価計算	第3節 製造間接費差異	industrial/chapter11.md::overhead-budget	製造間接費の予算差異＝予算許容額－実際発生額である	formula	INCLUDE	standard overhead budget variance			pending
+ALP-IND-11-0021	industrial	11 標準原価計算	第3節 製造間接費差異	industrial/chapter11.md::overhead-volume	公式法変動予算の操業度差異＝（実際操業度－基準操業度）×固定費率である	formula	INCLUDE	standard overhead volume variance			pending
+ALP-IND-11-0022	industrial	11 標準原価計算	第3節 製造間接費差異	industrial/chapter11.md::overhead-efficiency	能率差異＝（標準操業度－実際操業度）×標準配賦率である	formula	INCLUDE	overhead efficiency variance			pending
+ALP-IND-11-0023	industrial	11 標準原価計算	第3節 製造間接費差異	industrial/chapter11.md::variable-efficiency	変動費能率差異＝（標準操業度－実際操業度）×変動費率である	formula	INCLUDE	variable overhead efficiency variance			pending
+ALP-IND-11-0024	industrial	11 標準原価計算	第3節 製造間接費差異	industrial/chapter11.md::fixed-efficiency	固定費能率差異＝（標準操業度－実際操業度）×固定費率である	formula	INCLUDE	fixed overhead efficiency variance			pending
+ALP-IND-11-0025	industrial	11 標準原価計算	第3節 製造間接費差異	industrial/chapter11.md::fixed-budget	固定予算では予算許容額＝標準配賦率×基準操業度、操業度差異＝（実際操業度－基準操業度）×標準配賦率となる	formula	INCLUDE	fixed budget overhead variance formulas			pending
+ALP-IND-11-0026	industrial	11 標準原価計算	第3節 製造間接費差異	industrial/chapter11.md::four-way	公式法変動予算で能率差異を変動費能率差異と固定費能率差異に分け、予算差異・操業度差異と合わせる分析を4分法という	definition	INCLUDE	four-way variance analysis			pending
+ALP-IND-11-0027	industrial	11 標準原価計算	第3節 製造間接費差異	industrial/chapter11.md::three-way	3分法では能率差異を標準配賦率で一括計算する方法、または固定費能率差異を操業度差異へ統合する方法がある	classification	INCLUDE	three-way variance analysis			pending
+ALP-IND-11-0028	industrial	11 標準原価計算	第3節 差異表示	industrial/chapter11.md::disposal	標準原価差異は年度末に売上原価へ賦課し、不利差異は加算、有利差異は減算する	financial_statement	INCLUDE	standard variance P&L treatment			pending
+ALP-IND-11-0029	industrial	11 標準原価計算	第4節 勘定記入	industrial/chapter11.md::single	シングル・プランでは仕掛品借方を原価要素別標準原価で記録し、標準原価差異を各原価要素勘定に記録する	ledger	INCLUDE	single plan ledger rule			pending
+ALP-IND-11-0030	industrial	11 標準原価計算	第4節 勘定記入	industrial/chapter11.md::partial	パーシャル・プランでは仕掛品借方を実際原価で記録し、完成品・月末仕掛品を標準原価で貸方記録して差異を仕掛品勘定に認識する	ledger	INCLUDE	partial plan ledger rule			pending
+ALP-IND-11-0031	industrial	11 標準原価計算	第4節 勘定記入	industrial/chapter11.md::comparison	シングル・プランとパーシャル・プランはいずれも完成品・月末仕掛品を標準原価で記録するが、当月投入原価と差異の記録場所が異なる	comparison	INCLUDE	single partial plan comparison			pending
+	industrial	11 標準原価計算	例題11-1〜11-5	industrial/chapter11.md::examples	標準原価・差異分析・勘定記入の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
