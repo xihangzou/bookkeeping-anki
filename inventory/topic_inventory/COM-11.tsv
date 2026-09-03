@@ -1,0 +1,23 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-11-0001	commercial	11 外貨建取引	第1節 1 外貨建取引と換算	commercial/chapter11.md::1-1	外貨建取引は外国通貨による取引で、帳簿記録のため外国通貨額を円貨額へ換算する	definition	INCLUDE	core definition			pending
+ALP-COM-11-0002	commercial	11 外貨建取引	第1節 1 外貨建取引と換算	commercial/chapter11.md::1-1	取引時の直物為替相場をHR、決算時の直物為替相場をCRという	definition	INCLUDE	FX rate terminology			pending
+ALP-COM-11-0003	commercial	11 外貨建取引	第1節 1 外貨建取引と換算	commercial/chapter11.md::1-1	円貨額＝外国通貨額×為替相場である	formula	INCLUDE	translation formula			pending
+ALP-COM-11-0004	commercial	11 外貨建取引	第2節 1 取引発生時	commercial/chapter11.md::2-1	通常の外貨建商品売買は取引発生時HRで円換算して仕入・売上と買掛金・売掛金を計上する	recognition	INCLUDE	initial recognition rule			pending
+ALP-COM-11-0005	commercial	11 外貨建取引	第2節 1 取引発生時	commercial/chapter11.md::2-1	外貨建手付金は授受時HRで前払金・前受金を計上し、その円貨額を商品受渡時にもそのまま取り崩す	measurement	INCLUDE	advance payment fixed-rate treatment			pending
+ALP-COM-11-0006	commercial	11 外貨建取引	第2節 1 取引発生時	commercial/chapter11.md::2-1	手付金一部充当取引では手付金部分を授受時HR、残額債権債務を商品受渡時HRで換算して仕入・売上額を合計する	formula	INCLUDE	mixed-rate measurement			pending
+ALP-COM-11-0007	commercial	11 外貨建取引	第2節 2 決済時	commercial/chapter11.md::2-2	外貨建金銭債権債務の帳簿円貨額と決済時円貨額との差は為替差損益として処理する	journal_entry	INCLUDE	settlement FX difference rule			pending
+ALP-COM-11-0008	commercial	11 外貨建取引	第2節 2 決済時	commercial/chapter11.md::2-2	買掛金は円安で決済額が増えると為替差損、円高で決済額が減ると為替差益となる	reasoning	INCLUDE	payable FX direction			pending
+ALP-COM-11-0009	commercial	11 外貨建取引	第2節 2 決済時	commercial/chapter11.md::2-2	売掛金は円高で回収額が減ると為替差損、円安で回収額が増えると為替差益となる	reasoning	INCLUDE	receivable FX direction			pending
+ALP-COM-11-0010	commercial	11 外貨建取引	第2節 3 決算時	commercial/chapter11.md::2-3	決算日に残る外貨建現金・売掛金・買掛金等は決算時CRで換算替えする	measurement	INCLUDE	year-end translation rule			pending
+ALP-COM-11-0011	commercial	11 外貨建取引	第2節 3 決算時	commercial/chapter11.md::2-3	外貨建金銭債権債務のCR換算額と決算整理前帳簿額との差は為替差損益で処理する	journal_entry	INCLUDE	year-end FX difference entry			pending
+ALP-COM-11-0012	commercial	11 外貨建取引	第2節 3 決算時	commercial/chapter11.md::2-3	決算換算で資産が増加または負債が減少すれば為替差益、資産が減少または負債が増加すれば為替差損となる	classification	INCLUDE	FX gain-loss direction matrix			pending
+ALP-COM-11-0013	commercial	11 外貨建取引	第2節 3 決算時	commercial/chapter11.md::2-3	外貨建金銭債権債務は決算後CR換算額で貸借対照表に表示する	financial_statement	INCLUDE	year-end presentation			pending
+ALP-COM-11-0014	commercial	11 外貨建取引	第3節 1 為替予約総論	commercial/chapter11.md::3-1	為替予約は将来の外貨建債権債務の決済円貨額を先物為替相場であらかじめ確定して為替変動リスクを回避する取引である	definition	INCLUDE	forward contract definition			pending
+ALP-COM-11-0015	commercial	11 外貨建取引	第3節 1 為替予約総論	commercial/chapter11.md::3-1	為替予約で定める将来の為替相場を先物為替相場FRという	definition	INCLUDE	forward rate terminology			pending
+ALP-COM-11-0016	commercial	11 外貨建取引	第3節 2 為替予約の会計処理	commercial/chapter11.md::3-2	為替予約した外貨建金銭債権債務をFRで換算する処理を振当処理という	definition	INCLUDE	allocation method definition			pending
+ALP-COM-11-0017	commercial	11 外貨建取引	第3節 2 為替予約の会計処理	commercial/chapter11.md::3-2	独立処理は日商簿記2級範囲外で本テキストでは振当処理を扱う	exception	INCLUDE	scope boundary			pending
+ALP-COM-11-0018	commercial	11 外貨建取引	第3節 2 為替予約の会計処理	commercial/chapter11.md::3-2	取引発生以前に為替予約済みなら取引発生時からFRで仕入・売上と債権債務を換算し為替差損益は生じない	journal_entry	INCLUDE	pre-transaction forward treatment			pending
+ALP-COM-11-0019	commercial	11 外貨建取引	第3節 2 為替予約の会計処理	commercial/chapter11.md::3-2	取引発生後に為替予約した場合は取引時HRで計上済みの債権債務を予約時FRへ換算替えし差額を為替差損益とする	journal_entry	INCLUDE	post-transaction forward treatment			pending
+ALP-COM-11-0020	commercial	11 外貨建取引	第3節 2 為替予約の会計処理	commercial/chapter11.md::3-2	為替予約後に決算日が到来しても決済額はFRで確定済みのためCRへの換算替えを行わず決算整理仕訳はない	exception	INCLUDE	forward year-end exception			pending
+ALP-COM-11-0021	commercial	11 外貨建取引	第3節 2 為替予約の会計処理	commercial/chapter11.md::3-2	為替予約前後の処理差は、取引前予約なら当初からFR・差損益なし、取引後予約なら予約時にHRからFRへ換算し差損益を認識する点にある	comparison	INCLUDE	forward timing distinction			pending
+	commercial	11 外貨建取引	各節 数値例	commercial/chapter11.md::examples	外貨換算・決済・決算・為替予約の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
