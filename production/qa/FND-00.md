@@ -29,6 +29,7 @@ ANKI-AUDIT-001 therefore optimizes the **active approved deck** while preserving
 | canonical included FND-00 ALPs | 91 | **91** |
 | ALPs mapped to an approved Note | 91 | **91** |
 | active unmapped ALPs | 0 | **0** |
+| approved multi-ALP Notes | 0 | **25** |
 | stable IDs reused / renumbered | 0 | **0** |
 
 The approved Note count is an audit outcome, not a quota.
@@ -141,7 +142,18 @@ Long form-field and label lists were reduced or consolidated:
 
 ## v1.1 mechanical validation
 
-`python scripts/validate_fnd00_production.py` now enforces:
+GitHub Actions `Validate production notes` executed `python scripts/validate_fnd00_production.py` successfully on PR #57.
+
+Validator result:
+
+```text
+FND-00 v1.1 production validation: PASS
+rows=91 approved=57 deprecated=34 included_alps=91 approved_mapped=91 unmapped=0
+approved_multi_alp_notes=25 reserved_pilot_only_id=BK-FND-00-0016
+approved_journal_entry_notes=8 approved_formula_notes=3
+```
+
+The validator enforces:
 
 - the original **91-row stable Note-ID history** remains present;
 - `BK-FND-00-0016` remains reserved and unused;
@@ -155,15 +167,6 @@ Long form-field and label lists were reduced or consolidated:
 - tags follow the row's approved/deprecated lifecycle;
 - every row has valid Cloze syntax and `QA=pass`;
 - approved Notes contain no exact rendered-text duplicates.
-
-Expected success output:
-
-```text
-FND-00 v1.1 production validation: PASS
-rows=91 approved=57 deprecated=34 included_alps=91 approved_mapped=91 unmapped=0
-approved_multi_alp_notes=<derived> reserved_pilot_only_id=BK-FND-00-0016
-approved_journal_entry_notes=<derived> approved_formula_notes=<derived>
-```
 
 ## Downstream effect
 
