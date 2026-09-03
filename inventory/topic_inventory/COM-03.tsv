@@ -1,0 +1,41 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-03-0001	commercial	03 現金預金	第1節 1 現金の範囲	commercial/chapter03.md::1-1	簿記上の現金＝通貨＋すぐ換金できる通貨代用証券である	definition	INCLUDE	cash definition			pending
+ALP-COM-03-0002	commercial	03 現金預金	第1節 1 現金の範囲	commercial/chapter03.md::1-1	他人振出小切手・送金小切手・郵便為替証書・配当金領収証・期限到来利札は通貨代用証券として現金に含む	classification	INCLUDE	cash-equivalent classification			pending
+ALP-COM-03-0003	commercial	03 現金預金	第1節 1 現金の範囲	commercial/chapter03.md::1-1	郵便切手は通貨代用証券でなく現金に含めない	exception	INCLUDE	cash-scope exception			pending
+ALP-COM-03-0004	commercial	03 現金預金	第1節 2 現金過不足	commercial/chapter03.md::1-2	現金過不足は帳簿残高と実際有高の差額を原因判明まで記録する仮勘定である	definition	INCLUDE	core definition			pending
+ALP-COM-03-0005	commercial	03 現金預金	第1節 2 現金過不足	commercial/chapter03.md::1-2	期中の現金不足は現金を実際有高まで減額し借方に現金過不足、超過は現金を増額し貸方に現金過不足を計上する	journal_entry	INCLUDE	cash discrepancy entry			pending
+ALP-COM-03-0006	commercial	03 現金預金	第1節 2 現金過不足	commercial/chapter03.md::1-2	原因判明時は正しい勘定科目へ振り替えて現金過不足を取り消す	procedure	INCLUDE	resolution process			pending
+ALP-COM-03-0007	commercial	03 現金預金	第1節 3 現金過不足の決算整理	commercial/chapter03.md::1-3	期中発生の現金過不足が決算まで残る場合は仮勘定をゼロにし不足は雑損、超過は雑益へ振り替える	journal_entry	INCLUDE	closing treatment			pending
+ALP-COM-03-0008	commercial	03 現金預金	第1節 3 現金過不足の決算整理	commercial/chapter03.md::1-3	決算日に新たに差額が判明した場合は現金過不足を使わず現金を実際有高へ直接修正する	exception	INCLUDE	closing-date distinction			pending
+ALP-COM-03-0009	commercial	03 現金預金	第1節 3 現金過不足の決算整理	commercial/chapter03.md::1-3	決算日新規差額の原因判明部分は該当科目、不明不足は雑損、不明超過は雑益で現金を直接調整する	journal_entry	INCLUDE	closing-date entry pattern			pending
+ALP-COM-03-0010	commercial	03 現金預金	第1節 4 現金実査	commercial/chapter03.md::1-4	現金実査額は通貨と通貨代用証券の合計であり郵便切手等は除外する	measurement	INCLUDE	cash count measurement			pending
+ALP-COM-03-0011	commercial	03 現金預金	第1節 5 郵便切手	commercial/chapter03.md::1-5	期中に通信費処理した未使用郵便切手は決算で通信費から貯蔵品（資産）へ振り替える	journal_entry	INCLUDE	unused-stamp adjustment			pending
+ALP-COM-03-0012	commercial	03 現金預金	第2節 1 当座預金	commercial/chapter03.md::2-1	当座預金は小切手・手形決済に用いる口座残高を表す資産で、入金は増加・支払は減少として処理する	definition	INCLUDE	deposit account mechanics			pending
+ALP-COM-03-0013	commercial	03 現金預金	第2節 2 小切手	commercial/chapter03.md::2-2	小切手を振り出して支払うと振出人の当座預金を減少させる	journal_entry	INCLUDE	check issuance treatment			pending
+ALP-COM-03-0014	commercial	03 現金預金	第2節 2 小切手	commercial/chapter03.md::2-2	他人振出小切手を受け取れば現金、直ちに当座預金へ入金すれば現金を経由せず当座預金を増加させる	comparison	INCLUDE	received-check treatment			pending
+ALP-COM-03-0015	commercial	03 現金預金	第2節 2 小切手	commercial/chapter03.md::2-2	自己振出小切手を受け取った場合は振出時の当座預金減少を取り消すため当座預金を増加させる	exception	INCLUDE	self-issued-check treatment			pending
+ALP-COM-03-0016	commercial	03 現金預金	第2節 3 普通預金・定期預金	commercial/chapter03.md::2-3	普通預金・定期預金は各口座残高を表す資産で必要に応じ銀行名―口座種類の勘定で個別管理できる	classification	INCLUDE	deposit classification			pending
+ALP-COM-03-0017	commercial	03 現金預金	第2節 3 普通預金・定期預金	commercial/chapter03.md::2-3	銀行振込手数料は支払手数料（費用）、預金利息は受取利息（収益）として処理する	journal_entry	INCLUDE	bank-related incidental treatment			pending
+ALP-COM-03-0018	commercial	03 現金預金	第2節 4 当座借越	commercial/chapter03.md::2-4	当座借越契約は一定限度まで当座預金をマイナス残高にできる契約で実質的に銀行借入を意味する	definition	INCLUDE	core definition			pending
+ALP-COM-03-0019	commercial	03 現金預金	第2節 4 当座借越	commercial/chapter03.md::2-4	期中の当座借越は当座預金勘定を継続使用し貸方残高として表す	journal_entry	INCLUDE	interim treatment			pending
+ALP-COM-03-0020	commercial	03 現金預金	第2節 4 当座借越	commercial/chapter03.md::2-4	決算日に当座預金が貸方残高なら当座借越または借入金（負債）へ振り替える	financial_statement	INCLUDE	balance-sheet presentation			pending
+ALP-COM-03-0021	commercial	03 現金預金	第2節 4 当座借越	commercial/chapter03.md::2-4	翌期首は決算振替の逆仕訳で当座借越を当座預金貸方残高へ戻す	procedure	INCLUDE	reversing-entry process			pending
+ALP-COM-03-0022	commercial	03 現金預金	第3節 1 銀行勘定調整表	commercial/chapter03.md::3-1	銀行勘定調整表は企業帳簿と銀行残高の不一致原因を調査・調整する内部表である	definition	INCLUDE	core definition			pending
+ALP-COM-03-0023	commercial	03 現金預金	第3節 1 銀行勘定調整表	commercial/chapter03.md::3-1	不一致原因が当社側なら仕訳で当社残高を修正し、時間差だけなら仕訳せず銀行側を調整する	classification	INCLUDE	central reconciliation rule			pending
+ALP-COM-03-0024	commercial	03 現金預金	第3節 1 銀行勘定調整表	commercial/chapter03.md::3-1	当社側と銀行側の修正後残高は一致し、その金額が貸借対照表上の当座預金額となる	financial_statement	INCLUDE	reconciliation outcome			pending
+ALP-COM-03-0025	commercial	03 現金預金	第3節 2 不一致原因	commercial/chapter03.md::3-2	未渡小切手は振出したが相手へ渡していない小切手、未取付は相手へ渡したが銀行未呈示、未取立は銀行に取立依頼済だが未換金である	comparison	INCLUDE	critical terminology distinction			pending
+ALP-COM-03-0026	commercial	03 現金預金	第3節 2 不一致原因	commercial/chapter03.md::3-2	銀行からの自動引落等の未通知や当社の誤記入は当社側修正項目で仕訳が必要である	journal_entry	INCLUDE	company-side adjustment			pending
+ALP-COM-03-0027	commercial	03 現金預金	第3節 2 不一致原因	commercial/chapter03.md::3-2	未渡小切手は当座預金減少を取り消し、商品仕入代金なら買掛金、その他支払なら未払金を貸方計上する	journal_entry	INCLUDE	outstanding-undelivered check entry			pending
+ALP-COM-03-0028	commercial	03 現金預金	第3節 2 不一致原因	commercial/chapter03.md::3-2	未渡小切手で費用自体は発生済みなら費用を取り消さず支払義務を未払金等として残す	reasoning	INCLUDE	liability-versus-expense distinction			pending
+ALP-COM-03-0029	commercial	03 現金預金	第3節 2 不一致原因	commercial/chapter03.md::3-2	時間外預入は銀行側残高へ加算し仕訳しない	procedure	INCLUDE	bank-side timing adjustment			pending
+ALP-COM-03-0030	commercial	03 現金預金	第3節 2 不一致原因	commercial/chapter03.md::3-2	未取付小切手は銀行側残高から減算し仕訳しない	procedure	INCLUDE	bank-side timing adjustment			pending
+ALP-COM-03-0031	commercial	03 現金預金	第3節 2 不一致原因	commercial/chapter03.md::3-2	未取立小切手は銀行側残高へ加算し仕訳しない	procedure	INCLUDE	bank-side timing adjustment			pending
+ALP-COM-03-0032	commercial	03 現金預金	第3節 2 不一致原因	commercial/chapter03.md::3-2	未渡小切手は当社修正・仕訳あり、未取付小切手は銀行修正・仕訳なしという違いは相手へ渡したかで決まる	comparison	INCLUDE	frequent exam distinction			pending
+	commercial	03 現金預金	第3節 総合例	commercial/chapter03.md::3-example	銀行勘定調整表の複合数値例は各不一致分類の適用		EXCLUDE		DECORATIVE_EXAMPLE		pending
+ALP-COM-03-0033	commercial	03 現金預金	第4節 1 小口現金	commercial/chapter03.md::4-1	小口現金は少額支払用に担当者へ前渡す現金で小口現金（資産）として処理する	definition	INCLUDE	core definition			pending
+ALP-COM-03-0034	commercial	03 現金預金	第4節 1 小口現金	commercial/chapter03.md::4-1	定額資金前渡制度（インプレスト）は一定期間の支払額と同額を補給し小口現金を一定額に保つ制度である	definition	INCLUDE	imprest definition			pending
+ALP-COM-03-0035	commercial	03 現金預金	第4節 1 小口現金	commercial/chapter03.md::4-1	小口現金処理は前渡→日々の支払→報告→費用仕訳→同額補給の順で行う	procedure	INCLUDE	ordered petty-cash flow			pending
+ALP-COM-03-0036	commercial	03 現金預金	第4節 2 小口現金の会計処理	commercial/chapter03.md::4-2	前渡時は小口現金を増加、支払報告時は各費用を計上して小口現金を減少、補給時は小口現金を再増加させる	journal_entry	INCLUDE	petty-cash entries			pending
+ALP-COM-03-0037	commercial	03 現金預金	第4節 3 複数支払い	commercial/chapter03.md::4-3	複数の小口支払報告は費用科目別に借方計上し合計額を小口現金から一括減額する	journal_entry	INCLUDE	compound petty-cash entry			pending
+ALP-COM-03-0038	commercial	03 現金預金	第4節 3 複数支払い	commercial/chapter03.md::4-3	定額資金前渡制度では報告済支払合計と同額を補給して元の定額へ戻す	measurement	INCLUDE	imprest replenishment rule			pending
+	commercial	03 現金預金	各節 数値例	commercial/chapter03.md::examples	現金過不足・当座借越・小口現金の単純数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
