@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate COM-01 after the v1.6 recall-design / formula-itemization audit."""
+"""Validate COM-01 after the v1.7 FND-style Cloze-precision audit."""
 
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ NOTE_RE = re.compile(r"^BK-COM-01-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-COM-01-[0-9]{4}$")
 CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NUMERIC_ANSWER_RE = re.compile(r"^[0-9,]+円?$")
-BANNED_ANSWER_PUNCTUATION = set("。、，；;／/→＋+・－−-=＝")
+BANNED_ANSWER_PUNCTUATION = set("。、，；;／/→＋+・－−-=＝（）()")
 
 ALLOWED_TYPES = {
     "definition", "classification", "recognition", "measurement",
@@ -59,27 +59,36 @@ EXPECTED_NOTE_COUNT = 38
 EXPECTED_INCLUDED_ALP_COUNT = 52
 EXPECTED_GENERATED_CARD_COUNT = 38
 EXPECTED_MULTI_ALP_NOTE_COUNT = 14
-EXPECTED_CLOZE_SPANS = 92
+EXPECTED_CLOZE_SPANS = 87
 
 CONTENT_REQUIREMENTS = {
     "BK-COM-01-0024": (
-        "{{c1::仕入}}", "{{c1::費用}}", "{{c1::売上}}", "{{c1::収益}}",
+        "商品購入時は {{c1::仕入}}", "販売時は {{c1::売上}}",
+    ),
+    "BK-COM-01-0002": (
+        "認識時点は {{c1::商品受入時}}", "仕入を再計上しない",
+    ),
+    "BK-COM-01-0003": (
+        "{{c1::仕入}}", "{{c1::前払金}}", "{{c1::買掛金}}",
     ),
     "BK-COM-01-0004": (
         "純仕入高＝{{c1::総仕入高}}－{{c1::仕入戻し高}}",
     ),
     "BK-COM-01-0005": (
         "運送料・保険料・梱包代",
-        "仕入金額＝{{c1::購入代価}}＋{{c1::当社負担の仕入諸掛り}}",
+        "仕入金額＝{{c1::購入代価}}＋当社負担の{{c1::仕入諸掛り}}",
     ),
     "BK-COM-01-0007": (
         "{{c1::三分法}}", "{{c1::分記法}}", "{{c1::売上原価対立法}}",
+    ),
+    "BK-COM-01-0026": (
+        "売上原価は {{c1::決算整理}} で算定する",
     ),
     "BK-COM-01-0008": (
         "{{c1::借}}方：仕入", "{{c1::貸}}方：仕入",
     ),
     "BK-COM-01-0027": (
-        "{{c1::商品}}（資産）", "{{c1::商品売買益}}（収益）",
+        "資産の {{c1::商品}}", "収益の {{c1::商品売買益}}",
         "利益額＝{{c1::販売価格}}－{{c1::商品原価}}",
     ),
     "BK-COM-01-0028": (
@@ -90,27 +99,30 @@ CONTENT_REQUIREMENTS = {
         "{{c1::売掛金}}", "{{c1::売上}}", "{{c1::売上原価}}", "{{c1::商品}}",
     ),
     "BK-COM-01-0010": (
-        "{{c1::決算時}}", "{{c1::売上の都度}}", "{{c1::売上時}}",
+        "{{c1::決算時}}", "{{c1::売上時}}",
     ),
     "BK-COM-01-0030": (
         "{{c1::補助簿}}", "{{c1::原価}}",
     ),
     "BK-COM-01-0031": (
-        "{{c1::仮定計算}}", "{{c1::先入先出法}}",
+        "仮定計算で決め", "{{c1::先入先出法}}",
         "{{c1::移動平均法}}", "{{c1::総平均法}}",
     ),
     "BK-COM-01-0011": (
-        "{{c1::先に仕入れた商品}}", "{{c1::古い原価層}}", "{{c1::新しい原価層}}",
+        "{{c1::古い原価層}}", "{{c1::新しい原価層}}",
     ),
     "BK-COM-01-0012": (
         "平均単価＝{{c1::在庫金額}}÷{{c1::在庫数量}}",
     ),
     "BK-COM-01-0032": (
-        "{{c1::払出額}}・{{c1::残高額}}",
+        "{{c1::払出額}} と {{c1::残高額}}",
     ),
     "BK-COM-01-0014": (
         "総平均単価＝（{{c1::期首商品金額}}＋{{c1::期中仕入金額}}）"
         "÷（{{c1::期首商品数量}}＋{{c1::期中仕入数量}}）",
+    ),
+    "BK-COM-01-0033": (
+        "移動平均法が {{c1::仕入の都度}}", "総平均法が {{c1::期間末}}",
     ),
     "BK-COM-01-0034": (
         "月末数量＝{{c1::期首数量}}＋{{c1::仕入数量}}－{{c1::販売数量}}",
@@ -120,34 +132,50 @@ CONTENT_REQUIREMENTS = {
         "売上原価＝{{c1::期首商品}}＋{{c1::当期仕入}}－{{c1::期末商品}}",
         "売上総利益＝{{c1::売上高}}－売上原価",
     ),
+    "BK-COM-01-0016": (
+        "仕入は {{c1::当期購入商品の原価}}",
+        "売上原価は {{c1::当期販売商品の原価}}",
+    ),
     "BK-COM-01-0039": (
         "期末帳簿棚卸高＝{{c1::取得単価}}×{{c1::帳簿棚卸数量}}",
     ),
     "BK-COM-01-0017": (
-        "{{c1::売上原価の算定}}→{{c1::棚卸減耗損の計上}}→{{c1::商品評価損の計上}}",
+        "{{c1::売上原価}}→{{c1::棚卸減耗損}}→{{c1::商品評価損}}",
     ),
     "BK-COM-01-0041": (
-        "{{c1::繰越商品}}→商品", "売上→{{c1::売上高}}", "仕入→{{c1::売上原価}}",
+        "{{c1::繰越商品}}", "売上勘定は {{c1::売上高}}",
+        "仕入勘定は {{c1::売上原価}}",
     ),
     "BK-COM-01-0019": (
         "棚卸減耗数量＝{{c1::帳簿棚卸数量}}－{{c1::実地棚卸数量}}",
         "棚卸減耗損＝{{c1::取得単価}}×棚卸減耗数量",
     ),
     "BK-COM-01-0021": (
-        "原則取得原価", "評価後期末在庫額＝{{c1::正味売却価額}}×{{c1::実地棚卸数量}}",
+        "原則取得原価", "{{c1::正味売却価額}}",
+        "この単価×{{c1::実地棚卸数量}}",
     ),
     "BK-COM-01-0022": (
         "商品評価損＝（{{c1::取得単価}}－{{c1::正味売却価額}}）×{{c1::実地棚卸数量}}",
     ),
 }
 
+FORBIDDEN_TEXT = {
+    "BK-COM-01-0024": ("{{c1::費用}}", "{{c1::収益}}"),
+    "BK-COM-01-0002": ("{{c1::商品を受け入れた時点}}",),
+    "BK-COM-01-0005": ("{{c1::当社負担の仕入諸掛り}}",),
+    "BK-COM-01-0026": ("{{c1::決算整理で算定する}}",),
+    "BK-COM-01-0027": ("（資産）", "（収益）"),
+}
+
 VISIBLE_CONTEXT_CUES = {
+    "BK-COM-01-0002": "認識時点",
     "BK-COM-01-0004": "純仕入高＝",
     "BK-COM-01-0005": "仕入金額＝",
     "BK-COM-01-0007": "商品売買の代表的な記帳方法",
+    "BK-COM-01-0026": "売上原価は",
     "BK-COM-01-0008": "三分法の売上原価算定",
     "BK-COM-01-0027": "分記法",
-    "BK-COM-01-0028": "3勘定方式",
+    "BK-COM-01-0028": "販売時に収益と原価を同時記録する方式",
     "BK-COM-01-0009": "100,000円販売",
     "BK-COM-01-0031": "払出単価",
     "BK-COM-01-0012": "移動平均法",
@@ -156,7 +184,7 @@ VISIBLE_CONTEXT_CUES = {
     "BK-COM-01-0035": "売上原価＝",
     "BK-COM-01-0039": "期末帳簿棚卸高＝",
     "BK-COM-01-0019": "棚卸減耗数量＝",
-    "BK-COM-01-0021": "評価後期末在庫額＝",
+    "BK-COM-01-0021": "評価後期末在庫額",
     "BK-COM-01-0022": "商品評価損＝",
 }
 
@@ -228,7 +256,7 @@ def main() -> int:
         if indices != {1}:
             fail(
                 errors,
-                f"{note_id}: v1.6 COM-01 approved Note must use only c1; "
+                f"{note_id}: v1.7 COM-01 approved Note must use only c1; "
                 f"found Cloze indices {sorted(indices)}",
             )
         generated_card_count += len(indices)
@@ -252,8 +280,8 @@ def main() -> int:
                 if any(ch in answer for ch in BANNED_ANSWER_PUNCTUATION):
                     fail(
                         errors,
-                        f"{note_id}: compound/list/formula-like Cloze answer {answer!r}; "
-                        "split into same-index lexical spans",
+                        f"{note_id}: compound/list/formula/bracket-like Cloze answer {answer!r}; "
+                        "use a shorter lexical span",
                     )
             if len(answer) > 14:
                 fail(errors, f"{note_id}: overly long Cloze answer {answer!r}")
@@ -284,7 +312,10 @@ def main() -> int:
 
         for required in CONTENT_REQUIREMENTS.get(note_id, ()):
             if required not in text:
-                fail(errors, f"{note_id}: required v1.6 content missing: {required!r}")
+                fail(errors, f"{note_id}: required v1.7 content missing: {required!r}")
+        for forbidden in FORBIDDEN_TEXT.get(note_id, ()):
+            if forbidden in text:
+                fail(errors, f"{note_id}: forbidden pre-v1.7 pattern remains: {forbidden!r}")
 
         plain = CLOZE_RE.sub(lambda m: m.group(2), text).strip()
         plain_text_counter[plain] += 1
@@ -380,7 +411,7 @@ def main() -> int:
     if cloze_span_count != EXPECTED_CLOZE_SPANS:
         fail(
             errors,
-            f"expected {EXPECTED_CLOZE_SPANS} v1.6 Cloze spans, got {cloze_span_count}",
+            f"expected {EXPECTED_CLOZE_SPANS} v1.7 Cloze spans, got {cloze_span_count}",
         )
     if multi_alp_note_count != EXPECTED_MULTI_ALP_NOTE_COUNT:
         fail(
@@ -411,7 +442,7 @@ def main() -> int:
         fail(errors, "excluded COM-01 rows unexpectedly carry canonical ALP IDs")
 
     if errors:
-        print("COM-01 v1.6 production validation: FAIL", file=sys.stderr)
+        print("COM-01 v1.7 production validation: FAIL", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
@@ -419,7 +450,7 @@ def main() -> int:
     journal_count = sum(1 for r in notes if r.get("Type") == "journal_entry")
     formula_count = sum(1 for r in notes if r.get("Type") == "formula")
 
-    print("COM-01 v1.6 production validation: PASS")
+    print("COM-01 v1.7 production validation: PASS")
     print(
         f"notes={len(notes)} included_alps={len(included_alps)} "
         f"mapped={len(alp_to_notes)} unmapped=0"
