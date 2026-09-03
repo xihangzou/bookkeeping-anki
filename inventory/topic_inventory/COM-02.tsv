@@ -1,0 +1,35 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-02-0001	commercial	02 収益認識	第1節 1 履行義務	commercial/chapter02.md::1-1	履行義務は顧客との約束であり、その約束を果たすことを履行義務の充足という	definition	INCLUDE	core revenue-recognition terminology			pending
+ALP-COM-02-0002	commercial	02 収益認識	第1節 1 履行義務	commercial/chapter02.md::1-1	本業収益は履行義務を充足した時点で認識する	recognition	INCLUDE	fundamental recognition rule			pending
+ALP-COM-02-0003	commercial	02 収益認識	商品販売の基礎処理	commercial/chapter02.md::1-basic	掛売上では商品引渡時に売上・売掛金を計上し、代金回収時には売上を再計上しない	journal_entry	INCLUDE	recognition and settlement pattern			pending
+ALP-COM-02-0004	commercial	02 収益認識	商品販売の基礎処理	commercial/chapter02.md::1-basic	前受金は商品引渡前に受け取った対価に対応する引渡義務を表す負債で、引渡前は売上を計上しない	definition	INCLUDE	prepayment recognition rule			pending
+ALP-COM-02-0005	commercial	02 収益認識	商品販売の基礎処理	commercial/chapter02.md::1-basic	商品引渡時は前受金を減少させ売上を認識し、前受金が一部なら残額を現金または売掛金で処理する	journal_entry	INCLUDE	prepayment settlement entry			pending
+ALP-COM-02-0006	commercial	02 収益認識	商品販売の基礎処理	commercial/chapter02.md::1-basic	売上戻りは返品部分について販売時の逆仕訳を行い売上と売掛金等を減少させる	journal_entry	INCLUDE	return treatment			pending
+ALP-COM-02-0007	commercial	02 収益認識	商品販売の基礎処理	commercial/chapter02.md::1-basic	当社負担の売上諸掛りは発送費等の費用として売上取引と別に処理する	journal_entry	INCLUDE	selling-cost treatment			pending
+ALP-COM-02-0008	commercial	02 収益認識	第1節 2 出荷基準等	commercial/chapter02.md::1-2	商品販売の流れは出荷→着荷→検収で、検収は顧客が注文どおりか確認することをいう	procedure	INCLUDE	transaction flow			pending
+ALP-COM-02-0009	commercial	02 収益認識	第1節 2 出荷基準等	commercial/chapter02.md::1-2	出荷基準・着荷基準・検収基準はそれぞれ出荷・到着・検収時に売上を認識する	recognition	INCLUDE	recognition-basis discrimination			pending
+ALP-COM-02-0010	commercial	02 収益認識	第1節 3 売上割戻し	commercial/chapter02.md::1-3	割戻し（リベート）は一定期間の購入実績等に応じ代金の一部を還元することをいう	definition	INCLUDE	core terminology			pending
+ALP-COM-02-0011	commercial	02 収益認識	第1節 3 売上割戻し	commercial/chapter02.md::1-3	返金負債は将来リベート支払・代金減額が見込まれる金額を表す負債である	definition	INCLUDE	liability definition			pending
+ALP-COM-02-0012	commercial	02 収益認識	第1節 3 売上割戻し	commercial/chapter02.md::1-3	将来の売上割戻し見積額は収益から控除し返金負債として計上する	journal_entry	INCLUDE	variable-consideration treatment			pending
+ALP-COM-02-0013	commercial	02 収益認識	第1節 3 売上割戻し	commercial/chapter02.md::1-3	売上認識額＝販売対価－将来返金見積額である	formula	INCLUDE	revenue measurement formula			pending
+ALP-COM-02-0014	commercial	02 収益認識	第1節 3 売上割戻し	commercial/chapter02.md::1-3	変動対価は事後的に対価が変わる可能性のある対価をいう	definition	INCLUDE	core terminology			pending
+ALP-COM-02-0015	commercial	02 収益認識	第1節 3 売上割戻し	commercial/chapter02.md::1-3	仕入割戻しを受ける側は仕入時に全額を仕入計上し、割戻し確定時に仕入を減額する	journal_entry	INCLUDE	purchase rebate treatment			pending
+ALP-COM-02-0016	commercial	02 収益認識	第1節 3 売上割戻し	commercial/chapter02.md::1-3	仕入割戻しの仕訳形は仕入戻しと同様である	comparison	INCLUDE	entry-pattern linkage			pending
+	commercial	02 収益認識	第1節 数値例	commercial/chapter02.md::1-examples	掛売上・前受金・売上戻り・リベートの単純数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
+ALP-COM-02-0017	commercial	02 収益認識	第2節 総論	commercial/chapter02.md::2	サービス等は履行義務を一定期間にわたって充足する場合がある	recognition	INCLUDE	period-over-time recognition			pending
+ALP-COM-02-0018	commercial	02 収益認識	第2節 1 有償保証	commercial/chapter02.md::2-1	無料保証は当然付随し対価を受け取らない保証、有償保証は追加保証で対価を受け取る保証である	comparison	INCLUDE	warranty classification			pending
+ALP-COM-02-0019	commercial	02 収益認識	第2節 1 有償保証	commercial/chapter02.md::2-1	無料保証は収益認識処理の対象でなく商品保証引当金の論点、有償保証は独立した履行義務となる	classification	INCLUDE	warranty accounting distinction			pending
+ALP-COM-02-0020	commercial	02 収益認識	第2節 1 有償保証	commercial/chapter02.md::2-1	収益認識前に受け取った有償保証対価は契約負債（または前受金）として処理する	journal_entry	INCLUDE	pre-revenue liability treatment			pending
+ALP-COM-02-0021	commercial	02 収益認識	第2節 1 有償保証	commercial/chapter02.md::2-1	一定期間の保証サービス収益は履行済期間に応じて期間配分し契約負債から売上へ振り替える	measurement	INCLUDE	over-time revenue allocation			pending
+ALP-COM-02-0022	commercial	02 収益認識	第2節 1 有償保証	commercial/chapter02.md::2-1	有償保証の当期収益＝保証対価×当期履行期間÷総保証期間である	formula	INCLUDE	revenue allocation formula			pending
+ALP-COM-02-0023	commercial	02 収益認識	第2節 1 有償保証	commercial/chapter02.md::2-1	商品販売と有償保証を同時に販売した場合は履行義務ごとに区分し商品分は販売時、保証分は期間にわたり認識する	recognition	INCLUDE	multiple-obligation treatment			pending
+ALP-COM-02-0024	commercial	02 収益認識	第2節 1 有償保証	commercial/chapter02.md::2-1	収益認識の基本は①履行義務充足時に認識、②一時点または一定期間、③先受対価は契約負債である	reasoning	INCLUDE	integrated recognition framework			pending
+ALP-COM-02-0025	commercial	02 収益認識	第2節 2 サービス業	commercial/chapter02.md::2-2	サービス業では仕掛品（資産）・役務収益（収益）・役務原価（費用）を用いる	classification	INCLUDE	service-account taxonomy			pending
+ALP-COM-02-0026	commercial	02 収益認識	第2節 2 サービス業	commercial/chapter02.md::2-2	サービス提供前の前受代金は契約負債または前受金で処理する	journal_entry	INCLUDE	service prepayment treatment			pending
+ALP-COM-02-0027	commercial	02 収益認識	第2節 2 サービス業	commercial/chapter02.md::2-2	サービス関連費用は提供前・提供途中ならいったん仕掛品として資産計上する	journal_entry	INCLUDE	cost deferral rule			pending
+ALP-COM-02-0028	commercial	02 収益認識	第2節 2 サービス業	commercial/chapter02.md::2-2	役務提供時に契約負債を役務収益へ、対応する仕掛品を役務原価へ振り替える	journal_entry	INCLUDE	service completion entry			pending
+ALP-COM-02-0029	commercial	02 収益認識	第2節 2 サービス業	commercial/chapter02.md::2-2	決算時にサービスが一部完了していれば履行割合に応じ役務収益と役務原価を認識する	measurement	INCLUDE	partial-completion treatment			pending
+ALP-COM-02-0030	commercial	02 収益認識	第2節 2 サービス業	commercial/chapter02.md::2-2	部分履行収益＝契約対価×履行割合、対応原価＝繰延費用×履行割合である	formula	INCLUDE	progress measurement formulas			pending
+ALP-COM-02-0031	commercial	02 収益認識	第2節 2 サービス業	commercial/chapter02.md::2-2	役務収益発生と役務費用発生の時点差がほぼなければ仕掛品を経由せず直接役務原価を計上できる	exception	INCLUDE	cost-deferral exception			pending
+ALP-COM-02-0032	commercial	02 収益認識	第2節 2 サービス業	commercial/chapter02.md::2-2	サービス業の基本処理は前受対価→契約負債、事前費用→仕掛品、履行時→役務収益・役務原価への振替である	procedure	INCLUDE	ordered service accounting flow			pending
+	commercial	02 収益認識	第2節 数値例	commercial/chapter02.md::2-examples	有償保証・セミナー・イベントの数値例は期間配分と振替ルールの適用		EXCLUDE		DECORATIVE_EXAMPLE		pending
