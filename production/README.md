@@ -44,7 +44,7 @@ When one inventory ALP represents a source family, integration must not silently
 - temporary-account classifications and later reclassification;
 - source-required formula terms, period vocabulary, correction logic, and document/voucher mechanics.
 
-COM-01 applies the same rules to commercial bookkeeping, including acquisition-cost details, cost-flow method families, journal-entry mechanics, inventory valuation, and term-level formula recall.
+COM-01 applies the same rules to commercial bookkeeping, including acquisition-cost details, cost-flow method families, journal-entry mechanics, inventory valuation, and term-level formula recall. Its chapter-local precision audit also uses FND-00 as the style reference for short, unique answer spans and visible explanatory context.
 
 ## FND-00 audit result
 
@@ -73,10 +73,10 @@ and
 
 ## Existing commercial batches
 
-- `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 92 Cloze spans / 52 included ALPs; v1.6 audited**;
+- `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 87 Cloze spans / 52 included ALPs; v1.7 chapter precision audit under v1.6 overlay**;
 - `notes/COM-02.tsv` — 17 approved Notes / 17 cards / 32 included ALPs.
 
-COM-01 now follows the v1.6 recall-design overlay. COM-02 retains its audited generation state until an explicit chapter audit migrates it to the newer recall-design rules.
+COM-01 follows the v1.6 recall-design overlay and has additionally been normalized to FND-00-style answer precision. COM-02 retains its audited generation state until an explicit chapter audit migrates it to the newer recall-design rules.
 
 ## Lifecycle
 
@@ -85,7 +85,7 @@ COM-01 now follows the v1.6 recall-design overlay. COM-02 retains its audited ge
 ## Current batches
 
 - `notes/FND-00.tsv` — foundations; current overlay v1.6 / ANKI-AUDIT-006 (#70);
-- `notes/COM-01.tsv` — Commercial chapter 01; current overlay v1.6;
+- `notes/COM-01.tsv` — Commercial chapter 01; v1.7 chapter precision audit under current v1.6 overlay;
 - `notes/COM-02.tsv` — Commercial chapter 02.
 
 Migration records:
