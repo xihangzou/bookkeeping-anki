@@ -1,0 +1,21 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-09-0001	industrial	9 その他の総合原価計算	第1節 工程別総合原価計算	industrial/chapter09.md::process-stage	工程別総合原価計算は複数工程を経て製造する場合に工程ごとに仕掛品勘定を設け、工程別に製品原価を計算する	definition	INCLUDE	process-stage costing definition			pending
+ALP-IND-09-0002	industrial	9 その他の総合原価計算	第1節 工程別総合原価計算	industrial/chapter09.md::cumulative	累加法は各工程の完成品原価を次工程へ順次振り替える方法である	definition	INCLUDE	cumulative method definition			pending
+ALP-IND-09-0003	industrial	9 その他の総合原価計算	第1節 工程別総合原価計算	industrial/chapter09.md::prior-process	次工程へ振り替えられた前工程の完成品原価を前工程費という	definition	INCLUDE	prior process cost definition			pending
+ALP-IND-09-0004	industrial	9 その他の総合原価計算	第1節 工程別総合原価計算	industrial/chapter09.md::flow	累加法では第1工程完成品原価を前工程費として第2工程へ振替し、第2工程加工費を加えて最終完成品原価を計算する	procedure	INCLUDE	cumulative cost flow			pending
+ALP-IND-09-0005	industrial	9 その他の総合原価計算	第1節 工程別総合原価計算	industrial/chapter09.md::prior-process-allocation	前工程費は次工程の始点で投入される材料と同様に扱い、実在量を基準に完成品・仕掛品へ按分する	measurement	INCLUDE	prior process cost allocation			pending
+ALP-IND-09-0006	industrial	9 その他の総合原価計算	第1節 工程別総合原価計算	industrial/chapter09.md::per-process-method	各工程の月末仕掛品評価には工程ごとに先入先出法・平均法等を適用できる	procedure	INCLUDE	per-process WIP method			pending
+ALP-IND-09-0007	industrial	9 その他の総合原価計算	第2節 組別総合原価計算	industrial/chapter09.md::group-costing	組別総合原価計算は種類の異なる複数製品を大量生産する場合に組製品ごとに原価を計算する方法である	definition	INCLUDE	group process costing definition			pending
+ALP-IND-09-0008	industrial	9 その他の総合原価計算	第2節 組別総合原価計算	industrial/chapter09.md::group-direct	組直接費は組製品ごとの消費額を把握できる原価で、各組へ直接賦課する	classification	INCLUDE	group direct cost definition			pending
+ALP-IND-09-0009	industrial	9 その他の総合原価計算	第2節 組別総合原価計算	industrial/chapter09.md::group-indirect	組間接費は各組に共通して発生し組製品別に直接把握できない原価で、適切な配賦基準で各組へ配賦する	classification	INCLUDE	group indirect cost definition			pending
+ALP-IND-09-0010	industrial	9 その他の総合原価計算	第2節 組別総合原価計算	industrial/chapter09.md::group-procedure	組別総合原価計算では組直接費の賦課・組間接費の配賦で各組の当月投入原価を集計し、その後各組ごとに総合原価計算を行う	procedure	INCLUDE	group costing procedure			pending
+ALP-IND-09-0011	industrial	9 その他の総合原価計算	第2節 組別総合原価計算	industrial/chapter09.md::classification-not-fixed	組直接費・組間接費の区分は一律ではなく、原価を各組へ直接跡付けできるかで判断する	exception	INCLUDE	group cost classification principle			pending
+ALP-IND-09-0012	industrial	9 その他の総合原価計算	第2節 組別総合原価計算	industrial/chapter09.md::debit-side	組別総合原価計算は仕掛品勘定の借方側、すなわち各組への当月投入原価の集計に着目する方法である	reasoning	INCLUDE	group costing conceptual location			pending
+ALP-IND-09-0013	industrial	9 その他の総合原価計算	第3節 等級別総合原価計算	industrial/chapter09.md::grade-costing	等級別総合原価計算は同種製品で大きさ・重量・品質等が異なる等級製品を大量生産する場合に用いる	definition	INCLUDE	grade costing definition			pending
+ALP-IND-09-0014	industrial	9 その他の総合原価計算	第3節 等級別総合原価計算	industrial/chapter09.md::equivalent-coefficient	等価係数は各等級製品が負担すべき原価の相対的割合で、製品の大きさ・重量・品質等を基礎に設定する	definition	INCLUDE	equivalent coefficient definition			pending
+ALP-IND-09-0015	industrial	9 その他の総合原価計算	第3節 等級別総合原価計算	industrial/chapter09.md::weighted-units	積数＝各等級製品の生産量×等価係数である	formula	INCLUDE	weighted units formula			pending
+ALP-IND-09-0016	industrial	9 その他の総合原価計算	第3節 等級別総合原価計算	industrial/chapter09.md::grade-allocation	各等級製品完成品原価＝完成品総合原価×各等級製品の積数÷積数合計である	formula	INCLUDE	grade cost allocation formula			pending
+ALP-IND-09-0017	industrial	9 その他の総合原価計算	第3節 等級別総合原価計算	industrial/chapter09.md::unit-cost	各等級製品の完成品単位原価＝各等級製品完成品原価÷各等級製品生産量である	formula	INCLUDE	grade unit cost formula			pending
+ALP-IND-09-0018	industrial	9 その他の総合原価計算	第3節 等級別総合原価計算	industrial/chapter09.md::procedure	等級別総合原価計算ではまず完成品総合原価を計算し、積数比で各等級へ配分する	procedure	INCLUDE	grade costing procedure			pending
+ALP-IND-09-0019	industrial	9 その他の総合原価計算	第3節 等級別総合原価計算	industrial/chapter09.md::credit-side	等級別総合原価計算は仕掛品勘定の貸方側、すなわち完成品総合原価を各等級製品へ配分する方法である	reasoning	INCLUDE	grade costing conceptual location			pending
+	industrial	9 その他の総合原価計算	例題9-1〜9-3	industrial/chapter09.md::examples	工程別・組別・等級別総合原価計算の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
