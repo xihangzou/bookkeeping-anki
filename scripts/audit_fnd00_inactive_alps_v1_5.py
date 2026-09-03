@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import csv
+import re
 from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 NOTES = ROOT / 'production' / 'notes' / 'FND-00.tsv'
 INV = ROOT / 'inventory' / 'topic_inventory' / 'FND-00.tsv'
+CLOZE_RE = re.compile(r'\{\{c([1-9][0-9]*)::(.+?)\}\}')
 
 with NOTES.open(encoding='utf-8', newline='') as fh:
     notes = list(csv.DictReader(fh, delimiter='\t'))
@@ -31,3 +33,21 @@ for r in missing:
         print('note:', n['ID'], 'status=', n['Status'])
         print('text:', n['Text'])
         print('extra:', n['Extra'])
+
+print('\n=== VISIBLE ANSWER LEAKS (answers length >= 2) ===')
+leak_count = 0
+for n in notes:
+    if n['Status'] != 'approved':
+        continue
+    matches = CLOZE_RE.findall(n['Text'])
+    visible = CLOZE_RE.sub('□', n['Text'])
+    leaks = []
+    for _, answer in matches:
+        answer = answer.strip()
+        if len(answer) >= 2 and answer in visible:
+            leaks.append(answer)
+    if leaks:
+        leak_count += 1
+        print(n['ID'], '->', sorted(set(leaks)))
+        print('visible:', visible)
+print('leak_notes=', leak_count)
