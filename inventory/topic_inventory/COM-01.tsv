@@ -1,0 +1,56 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-01-0001	commercial	01 商品売買	第1節 1 商品売買の基礎	commercial/chapter01.md::1-1	商品は販売目的で仕入れた物品であり同じ物品でも購入目的で勘定科目が変わる	classification	INCLUDE	account-selection rule			pending
+ALP-COM-01-0002	commercial	01 商品売買	第1節 1 商品売買の基礎	commercial/chapter01.md::1-1	三分法では商品仕入時に仕入（費用）、販売時に売上（収益）を計上する	journal_entry	INCLUDE	core merchandising entries			pending
+ALP-COM-01-0003	commercial	01 商品売買	第1節 1 商品売買の基礎	commercial/chapter01.md::1-1	掛仕入は商品受入時に仕入と買掛金を計上し支払時に仕入を再計上しない	recognition	INCLUDE	recognition timing			pending
+ALP-COM-01-0004	commercial	01 商品売買	第1節 1 商品売買の基礎	commercial/chapter01.md::1-1	商品引渡前の手付金・内金は仕入でなく前払金（資産）とし受取時に仕入へ充当する	journal_entry	INCLUDE	prepayment treatment			pending
+ALP-COM-01-0005	commercial	01 商品売買	第1節 1 商品売買の基礎	commercial/chapter01.md::1-1	仕入返品は返品額について仕入時の逆仕訳を行い仕入と買掛金を減少させる	journal_entry	INCLUDE	return treatment			pending
+ALP-COM-01-0006	commercial	01 商品売買	第1節 1 商品売買の基礎	commercial/chapter01.md::1-1	純仕入高は総仕入高から仕入戻し高を控除して求める	formula	INCLUDE	core relationship			pending
+ALP-COM-01-0007	commercial	01 商品売買	第1節 1 商品売買の基礎	commercial/chapter01.md::1-1	当社負担の運送料・保険料・梱包代等の仕入諸掛りは仕入に含める	measurement	INCLUDE	acquisition-cost rule			pending
+ALP-COM-01-0008	commercial	01 商品売買	第1節 1 商品売買の基礎	commercial/chapter01.md::1-1	仕入金額＝購入代価＋当社負担の仕入諸掛りである	formula	INCLUDE	measurement formula			pending
+ALP-COM-01-0009	commercial	01 商品売買	第1節 2 記帳方法	commercial/chapter01.md::1-2	商品売買の記帳方法には三分法・分記法・売上原価対立法がある	classification	INCLUDE	method taxonomy			pending
+ALP-COM-01-0010	commercial	01 商品売買	第1節 2 記帳方法	commercial/chapter01.md::1-2	三分法は仕入・売上・繰越商品を用い決算整理で売上原価を算定する	procedure	INCLUDE	method mechanics			pending
+ALP-COM-01-0011	commercial	01 商品売買	第1節 2 記帳方法	commercial/chapter01.md::1-2	三分法の決算整理では期首商品を繰越商品から仕入へ、期末商品を仕入から繰越商品へ振り替える	journal_entry	INCLUDE	closing entry pattern			pending
+ALP-COM-01-0012	commercial	01 商品売買	第1節 2 記帳方法	commercial/chapter01.md::1-2	分記法は商品（資産）と商品売買益（収益）を用い売上の都度原価と利益を把握する	journal_entry	INCLUDE	method mechanics			pending
+ALP-COM-01-0013	commercial	01 商品売買	第1節 2 記帳方法	commercial/chapter01.md::1-2	分記法の商品売買益＝販売価格－商品原価である	formula	INCLUDE	profit formula			pending
+ALP-COM-01-0014	commercial	01 商品売買	第1節 3 売上原価対立法	commercial/chapter01.md::1-3	売上原価対立法は商品・売上原価・売上の3勘定を用いる	classification	INCLUDE	method accounts			pending
+ALP-COM-01-0015	commercial	01 商品売買	第1節 3 売上原価対立法	commercial/chapter01.md::1-3	売上原価対立法では仕入時に商品資産を増加させる	journal_entry	INCLUDE	purchase entry			pending
+ALP-COM-01-0016	commercial	01 商品売買	第1節 3 売上原価対立法	commercial/chapter01.md::1-3	売上時は売上収益を計上すると同時に販売商品の原価を商品から売上原価へ振り替える	journal_entry	INCLUDE	sale and cost entry			pending
+ALP-COM-01-0017	commercial	01 商品売買	第1節 3 売上原価対立法	commercial/chapter01.md::1-3	売上原価対立法では期中に売上原価を算定するため商品売買に関する決算整理仕訳は不要である	comparison	INCLUDE	method consequence			pending
+ALP-COM-01-0018	commercial	01 商品売買	第1節 4 記帳方法比較	commercial/chapter01.md::1-4	三分法は決算時、分記法は売上の都度商品売買益、売上原価対立法は売上時に売上原価を把握する	comparison	INCLUDE	method discrimination			pending
+	commercial	01 商品売買	第1節 数値例	commercial/chapter01.md::1-examples	各記帳方法の単純な数値代入例		EXCLUDE		DECORATIVE_EXAMPLE		pending
+ALP-COM-01-0019	commercial	01 商品売買	第2節 1 商品有高帳	commercial/chapter01.md::2-1	商品有高帳は商品別に増減を原価で記録し手持商品の数量・原価を把握する補助簿である	ledger	INCLUDE	inventory ledger definition			pending
+ALP-COM-01-0020	commercial	01 商品売買	第2節 1 商品有高帳	commercial/chapter01.md::2-1	商品有高帳では販売時も売価ではなく原価で払出を記録する	ledger	INCLUDE	inventory ledger rule			pending
+ALP-COM-01-0021	commercial	01 商品売買	第2節 2 払出単価	commercial/chapter01.md::2-2	仕入単価が異なる同一商品は仮定計算により払出単価を決定する	measurement	INCLUDE	cost-flow premise			pending
+ALP-COM-01-0022	commercial	01 商品売買	第2節 2 払出単価	commercial/chapter01.md::2-2	払出単価決定方法は先入先出法・移動平均法・総平均法である	classification	INCLUDE	cost-flow methods			pending
+ALP-COM-01-0023	commercial	01 商品売買	第2節 3 先入先出法	commercial/chapter01.md::2-3	先入先出法は先に仕入れた商品から先に払い出したと仮定する	definition	INCLUDE	FIFO rule			pending
+ALP-COM-01-0024	commercial	01 商品売買	第2節 3 先入先出法	commercial/chapter01.md::2-3	FIFOでは払出が複数仕入層にまたがる場合古い原価層から順に使用し期末在庫は新しい原価層が残る	procedure	INCLUDE	FIFO application			pending
+ALP-COM-01-0025	commercial	01 商品売買	第2節 4 移動平均法	commercial/chapter01.md::2-4	移動平均法は仕入の都度その時点の在庫金額÷在庫数量で平均単価を再計算し次の払出単価とする	formula	INCLUDE	moving-average formula			pending
+ALP-COM-01-0026	commercial	01 商品売買	第2節 4 移動平均法	commercial/chapter01.md::2-4	同じ数量取引でも先入先出法と移動平均法では払出額・残高額が異なり得る	comparison	INCLUDE	method consequence			pending
+ALP-COM-01-0027	commercial	01 商品売買	第2節 5 総平均法	commercial/chapter01.md::2-5	総平均法は一定期間全体の平均単価を一括計算し払出単価とする	definition	INCLUDE	weighted-average definition			pending
+ALP-COM-01-0028	commercial	01 商品売買	第2節 5 総平均法	commercial/chapter01.md::2-5	総平均単価＝（期首金額＋期中仕入金額）÷（期首数量＋期中仕入数量）である	formula	INCLUDE	weighted-average formula			pending
+ALP-COM-01-0029	commercial	01 商品売買	第2節 5 総平均法	commercial/chapter01.md::2-5	移動平均法は仕入都度、総平均法は一定期間終了時に平均単価を計算する	comparison	INCLUDE	method timing distinction			pending
+ALP-COM-01-0030	commercial	01 商品売買	第2節 月末棚卸高と売上総利益	commercial/chapter01.md::2-monthend	月末数量＝期首数量＋仕入数量－販売数量である	formula	INCLUDE	inventory quantity formula			pending
+ALP-COM-01-0031	commercial	01 商品売買	第2節 月末棚卸高と売上総利益	commercial/chapter01.md::2-monthend	月末商品棚卸高＝月末数量×払出単価である	formula	INCLUDE	ending inventory formula			pending
+ALP-COM-01-0032	commercial	01 商品売買	第2節 月末棚卸高と売上総利益	commercial/chapter01.md::2-monthend	売上原価＝期首商品＋当期仕入－期末商品である	formula	INCLUDE	COGS formula			pending
+ALP-COM-01-0033	commercial	01 商品売買	第2節 月末棚卸高と売上総利益	commercial/chapter01.md::2-monthend	売上総利益＝売上高－売上原価である	formula	INCLUDE	gross-profit formula			pending
+ALP-COM-01-0034	commercial	01 商品売買	第2節 総平均法の商品有高帳	commercial/chapter01.md::2-ledger	総平均法では期間末まで単価未確定のため期中の払出・残高は数量のみ記録し期間末に単価・金額を確定する	ledger	INCLUDE	ledger mechanics			pending
+ALP-COM-01-0035	commercial	01 商品売買	第2節 6 商品有高帳と売上原価	commercial/chapter01.md::2-6	仕入は当期購入商品の原価、売上原価は当期販売商品の原価で在庫分だけ異なる	comparison	INCLUDE	cost concept distinction			pending
+ALP-COM-01-0036	commercial	01 商品売買	第2節 6 商品有高帳と売上原価	commercial/chapter01.md::2-6	売上高と対応させるのは仕入高ではなく販売済商品の売上原価である	reasoning	INCLUDE	matching logic			pending
+	commercial	01 商品売買	第2節 計算例	commercial/chapter01.md::2-examples	FIFO・移動平均・総平均の具体数値例は各方法のルールを反復する		EXCLUDE		DECORATIVE_EXAMPLE		pending
+ALP-COM-01-0037	commercial	01 商品売買	第3節 1 総論	commercial/chapter01.md::3-1	資産の評価は資産の貸借対照表計上額を決定することである	definition	INCLUDE	valuation definition			pending
+ALP-COM-01-0038	commercial	01 商品売買	第3節 1 総論	commercial/chapter01.md::3-1	帳簿棚卸数量は帳簿上在庫、実地棚卸数量は実際保有在庫である	comparison	INCLUDE	inventory quantity distinction			pending
+ALP-COM-01-0039	commercial	01 商品売買	第3節 1 総論	commercial/chapter01.md::3-1	期末帳簿棚卸高＝取得単価×帳簿棚卸数量である	formula	INCLUDE	book inventory formula			pending
+ALP-COM-01-0040	commercial	01 商品売買	第3節 1 総論	commercial/chapter01.md::3-1	帳簿数量＞実地数量は棚卸減耗、取得原価＞期末時価・正味売却価額は価格下落を表す	classification	INCLUDE	inventory loss causes			pending
+ALP-COM-01-0041	commercial	01 商品売買	第3節 1 総論	commercial/chapter01.md::3-1	商品評価の決算整理は売上原価算定→棚卸減耗損→商品評価損の順で行う	procedure	INCLUDE	ordered closing process			pending
+ALP-COM-01-0042	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	棚卸減耗損は数量減少による費用、商品評価損は正味売却価額下落による価値減少費用である	definition	INCLUDE	loss-account definitions			pending
+ALP-COM-01-0043	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	売上原価算定に使う期末商品は実地棚卸高でなく期末帳簿棚卸高である	exception	INCLUDE	critical measurement rule			pending
+ALP-COM-01-0044	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	三分法の売上原価算定では期首商品を仕入へ加え期末帳簿棚卸高を仕入から除外する	journal_entry	INCLUDE	closing entry logic			pending
+ALP-COM-01-0045	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	財務諸表では繰越商品→商品、売上→売上高、仕入→売上原価と表示する	financial_statement	INCLUDE	presentation mapping			pending
+ALP-COM-01-0046	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	棚卸減耗数量＝帳簿棚卸数量－実地棚卸数量である	formula	INCLUDE	shrinkage quantity formula			pending
+ALP-COM-01-0047	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	棚卸減耗損＝取得単価×（帳簿棚卸数量－実地棚卸数量）である	formula	INCLUDE	shrinkage loss formula			pending
+ALP-COM-01-0048	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	棚卸減耗時は棚卸減耗損を費用計上し繰越商品を同額減少させる	journal_entry	INCLUDE	shrinkage entry			pending
+ALP-COM-01-0049	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	商品は原則取得原価評価だが収益性低下で正味売却価額が取得原価を下回れば正味売却価額で評価する	measurement	INCLUDE	lower-of-cost rule			pending
+ALP-COM-01-0050	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	商品評価損＝（取得単価－正味売却価額）×実地棚卸数量である	formula	INCLUDE	valuation-loss formula			pending
+ALP-COM-01-0051	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	商品評価損計上時は商品評価損を費用計上し繰越商品を同額減少させる	journal_entry	INCLUDE	valuation-loss entry			pending
+ALP-COM-01-0052	commercial	01 商品売買	第3節 2 決算整理仕訳	commercial/chapter01.md::3-2	正味売却価額が取得原価を下回る場合、評価後期末在庫額＝正味売却価額×実地棚卸数量である	formula	INCLUDE	ending inventory valuation			pending
+	commercial	01 商品売買	第3節 総合例	commercial/chapter01.md::3-example	棚卸減耗と商品評価損の総合数値例は既存公式・仕訳の適用		EXCLUDE		DECORATIVE_EXAMPLE		pending
