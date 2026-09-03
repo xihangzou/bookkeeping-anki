@@ -10,7 +10,7 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 - [x] **ANKI-002** Extract complete textbook structure
   - `inventory/structure.md`
   - enumerate Part / chapter / section hierarchy from pinned source
-- [ ] **ANKI-003** Atomic Learning Point inventory
+- [x] **ANKI-003** Atomic Learning Point inventory
   - decompose every source section
   - assign ALP IDs
   - include/exclude decision for every candidate proposition
