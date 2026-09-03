@@ -1,0 +1,29 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-05-0001	industrial	5 製造間接費	第1節 実際配賦	industrial/chapter05.md::allocation	製造間接費は特定製品へ直接跡付けできないため、製造間接費勘定へ集計後、配賦基準を用いて各製品へ配賦する	procedure	INCLUDE	overhead allocation necessity			pending
+ALP-IND-05-0002	industrial	5 製造間接費	第1節 実際配賦	industrial/chapter05.md::cost-flow	間接材料費・間接労務費・間接経費は製造間接費へ集計し、配賦額合計を仕掛品へ振り替える	journal_entry	INCLUDE	overhead ledger flow			pending
+ALP-IND-05-0003	industrial	5 製造間接費	第1節 実際配賦	industrial/chapter05.md::bases	製造間接費の配賦基準には直接材料費・直接労務費・直接作業時間・機械稼働時間・生産量等がある	classification	INCLUDE	overhead allocation bases			pending
+ALP-IND-05-0004	industrial	5 製造間接費	第1節 実際配賦	industrial/chapter05.md::actual-rate	実際配賦率＝当月製造間接費実際発生額÷当月実際配賦基準数値総額である	formula	INCLUDE	actual overhead rate formula			pending
+ALP-IND-05-0005	industrial	5 製造間接費	第1節 実際配賦	industrial/chapter05.md::actual-allocation	各製品への実際配賦額＝実際配賦率×各製品の実際配賦基準数値である	formula	INCLUDE	actual overhead allocation formula			pending
+ALP-IND-05-0006	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::planned-definition	予定配賦は期首に設定した予定配賦率を用いて製造間接費を製品へ配賦する方法である	definition	INCLUDE	planned overhead allocation definition			pending
+ALP-IND-05-0007	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::planned-benefit	予定配賦は実際発生額集計前に製品原価を計算でき、月ごとの操業度変動による配賦率・製品原価の変動を抑えられる	reasoning	INCLUDE	planned overhead allocation benefits			pending
+ALP-IND-05-0008	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::principle	個別原価計算では製造間接費は原則として予定配賦する	procedure	INCLUDE	planned allocation default rule			pending
+ALP-IND-05-0009	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::standard-capacity	基準操業度は予定配賦率算定の基礎となる年間予定配賦基準である	definition	INCLUDE	standard capacity definition			pending
+ALP-IND-05-0010	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::planned-rate	予定配賦率＝年間製造間接費予定額÷年間基準操業度である	formula	INCLUDE	planned overhead rate formula			pending
+ALP-IND-05-0011	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::planned-amount	予定配賦額＝予定配賦率×実際操業度である	formula	INCLUDE	planned overhead amount formula			pending
+ALP-IND-05-0012	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::planned-entry	予定配賦時は仕掛品を借方、製造間接費を貸方として予定配賦額を振り替える	journal_entry	INCLUDE	planned overhead entry			pending
+ALP-IND-05-0013	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::variance	製造間接費配賦差異＝予定配賦額－実際発生額である	formula	INCLUDE	overhead allocation variance formula			pending
+ALP-IND-05-0014	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::variance-direction	予定配賦額＜実際発生額なら不利な借方差異、予定配賦額＞実際発生額なら有利な貸方差異となる	classification	INCLUDE	overhead variance direction			pending
+ALP-IND-05-0015	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::variance-entry	不利差異は製造間接費配賦差異／製造間接費、有利差異は製造間接費／製造間接費配賦差異で処理する	journal_entry	INCLUDE	overhead variance entry			pending
+ALP-IND-05-0016	industrial	5 製造間接費	第2節 予定配賦	industrial/chapter05.md::variance-disposal	年度末に不利な製造間接費配賦差異は売上原価へ加算し、有利差異は売上原価から減算する	journal_entry	INCLUDE	overhead variance disposal			pending
+ALP-IND-05-0017	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::cost-control	原価管理は目標原価と実際原価を比較し、差異原因を分析して原価低減へつなげる活動である	definition	INCLUDE	cost control definition			pending
+ALP-IND-05-0018	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::budget-allowance	予算許容額は実際操業度等に対応して設定される製造間接費の目標額である	definition	INCLUDE	budget allowance definition			pending
+ALP-IND-05-0019	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::budget-variance	予算差異＝予算許容額－実際発生額である	formula	INCLUDE	budget variance formula			pending
+ALP-IND-05-0020	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::volume-variance	操業度差異＝予定配賦額－予算許容額である	formula	INCLUDE	volume variance formula			pending
+ALP-IND-05-0021	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::variance-reconcile	製造間接費配賦差異＝予算差異＋操業度差異となる	formula	INCLUDE	overhead variance reconciliation			pending
+ALP-IND-05-0022	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::flexible-budget	公式法変動予算では予算許容額＝変動費率×実際操業度＋固定費予算である	formula	INCLUDE	flexible budget formula			pending
+ALP-IND-05-0023	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::fixed-rate	固定費率＝固定費予算÷基準操業度である	formula	INCLUDE	fixed overhead rate formula			pending
+ALP-IND-05-0024	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::volume-alt	公式法変動予算の操業度差異＝（実際操業度－基準操業度）×固定費率で求められる	formula	INCLUDE	volume variance alternate formula			pending
+ALP-IND-05-0025	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::planned-rate-components	公式法変動予算では予定配賦率＝変動費率＋固定費率となる	formula	INCLUDE	planned rate decomposition			pending
+ALP-IND-05-0026	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::fixed-budget	固定予算では操業度に応じて予算許容額を変化させず、基準操業度における製造間接費予算を用いる	comparison	INCLUDE	fixed versus flexible budget			pending
+ALP-IND-05-0027	industrial	5 製造間接費	第3節 差異分析	industrial/chapter05.md::capacity-choice	基準操業度は予定配賦率・操業度差異を左右するため、原価管理上の前提として適切に設定する必要がある	reasoning	INCLUDE	standard capacity significance			pending
+	industrial	5 製造間接費	例題5-1〜5-3	industrial/chapter05.md::examples	実際配賦・予定配賦・差異分析の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
