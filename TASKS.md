@@ -28,7 +28,10 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - `pilot/selection.tsv`
   - 34 canonical included ALPs / 40 planned pilot Notes
   - all required recall types and stress cases mapped
-- [ ] **ANKI-PILOT-002** Generate 30–50 pilot Cloze Notes
+- [x] **ANKI-PILOT-002** Generate 30–50 pilot Cloze Notes
+  - `pilot/notes.tsv`
+  - 40 pilot Notes / 34 canonical included ALPs
+  - `Status=pilot`, `QA=pending` until card-level validation
 - [ ] **ANKI-PILOT-003** Validate rendering and recall quality
 - [ ] **ANKI-PILOT-004** Record ambiguity / overload / duplication failures
 - [ ] **ANKI-PILOT-005** Revise Cloze rules v0.9 -> v1.0
