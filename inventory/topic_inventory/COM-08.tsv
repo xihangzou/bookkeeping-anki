@@ -1,0 +1,23 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-08-0001	commercial	08 リース取引	第1節 固定資産賃貸借の基礎	commercial/chapter08.md::1-basic	通常賃貸借では建物借主は支払家賃、土地借主は支払地代を費用、貸主側は受取家賃・受取地代を収益計上する	classification	INCLUDE	rental account selection			pending
+ALP-COM-08-0002	commercial	08 リース取引	第1節 固定資産賃貸借の基礎	commercial/chapter08.md::1-basic	返還される敷金は差入保証金（資産）、返還されない仲介手数料は支払手数料（費用）とする	comparison	INCLUDE	contract-payment classification			pending
+ALP-COM-08-0003	commercial	08 リース取引	第1節 1 リース取引とは	commercial/chapter08.md::1-1	リース取引は貸手が一定期間物件使用権を与え借手がリース料を支払う取引である	definition	INCLUDE	core definition			pending
+ALP-COM-08-0004	commercial	08 リース取引	第1節 1 リース取引とは	commercial/chapter08.md::1-1	リース取引は実質購入型のファイナンス・リースと単純賃貸型のオペレーティング・リースに分類する	classification	INCLUDE	lease taxonomy			pending
+ALP-COM-08-0005	commercial	08 リース取引	第1節 2 ファイナンス・リース	commercial/chapter08.md::1-2	ファイナンス・リースはリース料総額が購入価額と同程度でリース期間も耐用年数と同程度となるなど実質的に借入購入と考える	reasoning	INCLUDE	substance-over-form rationale			pending
+ALP-COM-08-0006	commercial	08 リース取引	第1節 3 オペレーティング・リース	commercial/chapter08.md::1-3	ファイナンス・リース以外の単なるレンタル取引をオペレーティング・リースという	definition	INCLUDE	operating lease definition			pending
+ALP-COM-08-0007	commercial	08 リース取引	第1節 3 オペレーティング・リース	commercial/chapter08.md::1-3	実務上ファイナンス・リースはフルペイアウト要件と解約不能要件の双方を満たす	classification	INCLUDE	classification criteria			pending
+ALP-COM-08-0008	commercial	08 リース取引	第2節 1 ファイナンス・リース	commercial/chapter08.md::2-1	ファイナンス・リース開始時は通常の売買取引同様にリース資産（資産）とリース債務（負債）を計上する	journal_entry	INCLUDE	lease commencement entry			pending
+ALP-COM-08-0009	commercial	08 リース取引	第2節 1 ファイナンス・リース	commercial/chapter08.md::2-1	リース料総額＝見積現金購入価額＋利息相当額である	formula	INCLUDE	lease total formula			pending
+ALP-COM-08-0010	commercial	08 リース取引	第2節 1 ファイナンス・リース	commercial/chapter08.md::2-1	利子込み法はリース料総額をリース資産・債務計上額とし支払額全額をリース債務返済とする	procedure	INCLUDE	gross-interest method			pending
+ALP-COM-08-0011	commercial	08 リース取引	第2節 1 ファイナンス・リース	commercial/chapter08.md::2-1	利子抜き法は見積現金購入価額をリース資産・債務計上額とし支払時に元本返済と支払利息を区分する	procedure	INCLUDE	net-interest method			pending
+ALP-COM-08-0012	commercial	08 リース取引	第2節 1 ファイナンス・リース	commercial/chapter08.md::2-1	利子抜き法の年額支払利息＝（リース料総額－見積現金購入価額）÷リース期間である	formula	INCLUDE	lease interest formula			pending
+ALP-COM-08-0013	commercial	08 リース取引	第2節 1 ファイナンス・リース	commercial/chapter08.md::2-1	利子抜き法のリース債務元本減少額＝リース料支払額－支払利息である	formula	INCLUDE	principal reduction formula			pending
+ALP-COM-08-0014	commercial	08 リース取引	第2節 1 ファイナンス・リース	commercial/chapter08.md::2-1	ファイナンス・リース資産はリース期間を耐用年数、残存価額ゼロとして減価償却する	measurement	INCLUDE	lease asset depreciation rule			pending
+ALP-COM-08-0015	commercial	08 リース取引	第2節 1 ファイナンス・リース	commercial/chapter08.md::2-1	利子込み法ではリース資産計上額が総額なので減価償却費も大きくなり支払利息は別計上しない	comparison	INCLUDE	method consequence			pending
+ALP-COM-08-0016	commercial	08 リース取引	第2節 1 ファイナンス・リース	commercial/chapter08.md::2-1	利子抜き法では見積現金購入価額を減価償却し利息相当額を支払利息として期間配分する	comparison	INCLUDE	method consequence			pending
+ALP-COM-08-0017	commercial	08 リース取引	第2節 2 オペレーティング・リース	commercial/chapter08.md::2-2	オペレーティング・リースは開始時にリース資産・リース債務を計上せず、支払時に支払リース料を費用計上する	journal_entry	INCLUDE	operating lease treatment			pending
+ALP-COM-08-0018	commercial	08 リース取引	支払日と決算日が異なる場合	commercial/chapter08.md::2-accrual	リース料支払日と決算日が異なる場合は当期経過分について未払費用を計上する	procedure	INCLUDE	accrual rule			pending
+ALP-COM-08-0019	commercial	08 リース取引	支払日と決算日が異なる場合	commercial/chapter08.md::2-accrual	ファイナンス・リースの利子抜き法では経過期間分の支払利息を未払利息として計上する	journal_entry	INCLUDE	finance lease accrued interest			pending
+ALP-COM-08-0020	commercial	08 リース取引	支払日と決算日が異なる場合	commercial/chapter08.md::2-accrual	利子込み法では支払利息を分離しないため決算時に未払利息を計上しない	exception	INCLUDE	gross-interest accrual exception			pending
+ALP-COM-08-0021	commercial	08 リース取引	支払日と決算日が異なる場合	commercial/chapter08.md::2-accrual	オペレーティング・リースは決算までの経過期間分を支払リース料・未払リース料として計上する	journal_entry	INCLUDE	operating lease accrual			pending
+	commercial	08 リース取引	各節 数値例	commercial/chapter08.md::examples	利子込み法・利子抜き法・未払リース料の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
