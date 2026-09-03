@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the FND-00 production batch after the v1.1 exam-yield audit."""
+"""Validate the FND-00 production batch after the v1.2 rotation/Cloze audit."""
 
 from __future__ import annotations
 
@@ -53,6 +53,21 @@ DEPRECATED_IDS = {
 EXPECTED_APPROVED_COUNT = 57
 EXPECTED_DEPRECATED_COUNT = 34
 
+# v1.2 makes generated-card count an explicit QA metric. Every approved Note
+# uses one retrieval card except the two coherent abbreviation families in 0091.
+EXPECTED_GENERATED_CARD_COUNT = 58
+EXPECTED_MULTI_CARD_APPROVED = {"BK-FND-00-0091": {1, 2}}
+
+# These were concrete weak answer spans identified in the v1.1 corpus. They
+# are grammatical fragments rather than canonical accounting answer units.
+BANNED_APPROVED_ANSWERS = {
+    "運用形態",
+    "ある調達源泉",
+    "ない調達源泉",
+    "増減するか",
+    "発見できない",
+}
+
 
 def fail(errors: list[str], message: str) -> None:
     errors.append(message)
@@ -90,6 +105,8 @@ def main() -> int:
     approved_plain_text_counter: Counter[str] = Counter()
     approved_count = 0
     deprecated_count = 0
+    generated_card_count = 0
+    multi_card_approved: dict[str, set[int]] = {}
 
     for row_no, row in enumerate(notes, start=2):
         note_id = row.get("ID", "")
@@ -121,8 +138,27 @@ def main() -> int:
         if not matches:
             fail(errors, f"{note_id}: Text has no valid Cloze")
         plain = CLOZE_RE.sub(lambda m: m.group(2), text).strip()
+
         if status == "approved":
             approved_plain_text_counter[plain] += 1
+
+            indices = {int(index) for index, _ in matches}
+            expected_indices = EXPECTED_MULTI_CARD_APPROVED.get(note_id, {1})
+            if indices != expected_indices:
+                fail(errors, f"{note_id}: v1.2 Cloze indices {sorted(indices)}; expected {sorted(expected_indices)}")
+            generated_card_count += len(indices)
+            if len(indices) > 1:
+                multi_card_approved[note_id] = indices
+
+            answers = [answer.strip() for _, answer in matches]
+            if any(not answer for answer in answers):
+                fail(errors, f"{note_id}: empty/whitespace Cloze answer")
+            duplicates = [answer for answer, count in Counter(answers).items() if count > 1]
+            if duplicates:
+                fail(errors, f"{note_id}: duplicate exact Cloze answer span(s): {duplicates}")
+            weak = sorted(set(answers) & BANNED_APPROVED_ANSWERS)
+            if weak:
+                fail(errors, f"{note_id}: weak/non-standalone v1.1 Cloze answer span(s) remain: {weak}")
 
         raw_alp_ids = row.get("ALP_IDs", "")
         alp_ids = raw_alp_ids.split(" ") if raw_alp_ids else []
@@ -191,6 +227,10 @@ def main() -> int:
         fail(errors, f"expected {EXPECTED_APPROVED_COUNT} approved Notes, got {approved_count}")
     if deprecated_count != EXPECTED_DEPRECATED_COUNT:
         fail(errors, f"expected {EXPECTED_DEPRECATED_COUNT} deprecated Notes, got {deprecated_count}")
+    if generated_card_count != EXPECTED_GENERATED_CARD_COUNT:
+        fail(errors, f"expected {EXPECTED_GENERATED_CARD_COUNT} approved generated cards, got {generated_card_count}")
+    if multi_card_approved != EXPECTED_MULTI_CARD_APPROVED:
+        fail(errors, f"unexpected multi-card approved Notes: {multi_card_approved!r}")
 
     missing = [alp for alp in included_alps if not approved_alp_to_notes.get(alp)]
     multiply_mapped = [alp for alp in included_alps if len(approved_alp_to_notes.get(alp, [])) != 1]
@@ -199,15 +239,15 @@ def main() -> int:
     if multiply_mapped:
         fail(errors, f"ALPs not mapped exactly once to approved Notes: {multiply_mapped}")
 
-    duplicates = [text for text, count in approved_plain_text_counter.items() if count > 1]
-    if duplicates:
-        fail(errors, f"exact rendered-text duplicates among approved Notes: {duplicates}")
+    rendered_duplicates = [text for text, count in approved_plain_text_counter.items() if count > 1]
+    if rendered_duplicates:
+        fail(errors, f"exact rendered-text duplicates among approved Notes: {rendered_duplicates}")
 
     if any(r.get("alp_id") for r in excluded):
         fail(errors, "excluded FND-00 rows unexpectedly carry canonical ALP IDs")
 
     if errors:
-        print("FND-00 v1.1 production validation: FAIL", file=sys.stderr)
+        print("FND-00 v1.2 production validation: FAIL", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
@@ -217,12 +257,15 @@ def main() -> int:
     formula_count = sum(1 for r in approved_rows if r.get("Type") == "formula")
     multi_alp_count = sum(1 for r in approved_rows if len(r.get("ALP_IDs", "").split()) > 1)
 
-    print("FND-00 v1.1 production validation: PASS")
+    print("FND-00 v1.2 production validation: PASS")
     print(
         f"rows={len(notes)} approved={approved_count} deprecated={deprecated_count} "
         f"included_alps={len(included_alps)} approved_mapped={len(approved_alp_to_notes)} unmapped=0"
     )
-    print(f"approved_multi_alp_notes={multi_alp_count} reserved_pilot_only_id={RESERVED_PILOT_ONLY_ID}")
+    print(
+        f"generated_cards={generated_card_count} multi_card_approved_notes={len(multi_card_approved)} "
+        f"approved_multi_alp_notes={multi_alp_count} reserved_pilot_only_id={RESERVED_PILOT_ONLY_ID}"
+    )
     print(f"approved_journal_entry_notes={journal_count} approved_formula_notes={formula_count}")
     return 0
 
