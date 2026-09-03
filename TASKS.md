@@ -72,14 +72,14 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - generated Cloze cards **110 → 58**
   - `scripts/migrate_fnd00_v1_2.py`: idempotent reviewed migration record
   - GitHub Actions v1.2 production validation: **PASS**
-- [-] **ANKI-AUDIT-003** FND-00 minimal active deck / lexical same-card Cloze audit (#62)
+- [x] **ANKI-AUDIT-003** FND-00 minimal active deck / lexical same-card Cloze audit (#62)
   - `rules/exam_yield_rules.md`: v1.3 separates source-reviewed coverage from active direct recall
   - historical rows **91**; source-reviewed ALPs **91/91**
   - active approved Notes **57 → 18**; deprecated rows **73**; active direct-recall ALPs **36/91**
   - generated active cards **58 → 18**; active lexical Cloze spans **36**
   - parallel/conjunction answers use separate lexical spans on the same card, e.g. `{{c1::A}}・{{c1::B}}`
   - every approved FND-00 Note uses only `c1`; `c2+` is reserved for genuinely independent future retrieval operations
-  - `scripts/migrate_fnd00_v1_3.py` + strengthened validator; branch CI **PASS**
+  - `scripts/migrate_fnd00_v1_3.py` + strengthened validator; PR #65 CI **PASS**
 
 ### Commercial bookkeeping
 
