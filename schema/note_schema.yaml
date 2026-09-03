@@ -1,11 +1,11 @@
-version: 0.9
+version: 1.0
 model: Cloze
 source_of_truth: repository_text
 
 lifecycle:
-  phase: pre_pilot
-  frozen: false
-  revision_gate: representative_pilot_then_v1.0
+  phase: production
+  frozen: true
+  revision_gate: frozen_after_representative_pilot
 
 source:
   repository: xihangzou/bookkeeping-integrated
