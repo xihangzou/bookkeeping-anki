@@ -1,0 +1,51 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-05-0001	commercial	05 有価証券	第1節 1 有価証券の概要	commercial/chapter05.md::1-1	有価証券には主に株式と公社債があり、株式は出資、公社債は貸付に近い性質を持つ	classification	INCLUDE	instrument fundamentals			pending
+ALP-COM-05-0002	commercial	05 有価証券	第1節 1 有価証券の概要	commercial/chapter05.md::1-1	株式は原則返済されず配当・売却で回収し、公社債は利息を受け取り満期に額面金額が償還される	comparison	INCLUDE	stock-bond distinction			pending
+ALP-COM-05-0003	commercial	05 有価証券	第1節 1 有価証券の概要	commercial/chapter05.md::1-1	株式保有割合に応じ議決権が与えられ、過半数保有は支配を意味する	reasoning	INCLUDE	ownership-control relationship			pending
+ALP-COM-05-0004	commercial	05 有価証券	第1節 1 有価証券の概要	commercial/chapter05.md::1-1	市場金利と固定利率公社債の時価は逆方向に動く	reasoning	INCLUDE	bond-price relationship			pending
+ALP-COM-05-0005	commercial	05 有価証券	第1節 1 有価証券の概要	commercial/chapter05.md::1-1	公社債の額面金額は満期償還額で、額面と取得価額の差が金利調整目的なら金利調整差額となる	definition	INCLUDE	bond valuation terminology			pending
+ALP-COM-05-0006	commercial	05 有価証券	第1節 2 保有目的	commercial/chapter05.md::1-2	有価証券は売買目的・満期保有目的債券・子会社/関連会社株式・その他有価証券の4保有目的に分類する	classification	INCLUDE	core holding-purpose taxonomy			pending
+ALP-COM-05-0007	commercial	05 有価証券	第1節 2 保有目的	commercial/chapter05.md::1-2	売買目的有価証券は短期時価変動益を目的とする株式・公社債である	definition	INCLUDE	holding-purpose definition			pending
+ALP-COM-05-0008	commercial	05 有価証券	第1節 2 保有目的	commercial/chapter05.md::1-2	満期保有目的の債券は満期まで保有し利息と額面償還を目的とする公社債である	definition	INCLUDE	holding-purpose definition			pending
+ALP-COM-05-0009	commercial	05 有価証券	第1節 2 保有目的	commercial/chapter05.md::1-2	発行済株式50%超の保有は子会社株式、20%以上50%以下は関連会社株式として扱う	classification	INCLUDE	control/influence thresholds			pending
+ALP-COM-05-0010	commercial	05 有価証券	第1節 2 保有目的	commercial/chapter05.md::1-2	その他有価証券は売買目的・満期保有・子会社/関連会社のいずれにも該当しない長期投資等である	definition	INCLUDE	residual holding-purpose definition			pending
+ALP-COM-05-0011	commercial	05 有価証券	第1節 2 保有目的	commercial/chapter05.md::1-2	株式には満期がないため満期保有目的にできず、公社債には議決権がないため子会社・関連会社株式にできない	exception	INCLUDE	instrument-purpose constraints			pending
+ALP-COM-05-0012	commercial	05 有価証券	第1節 2 保有目的	commercial/chapter05.md::1-2	有価証券の勘定科目は株式か債券かではなく保有目的によって決まる	classification	INCLUDE	account-selection rule			pending
+ALP-COM-05-0013	commercial	05 有価証券	取得と売却	commercial/chapter05.md::1-acquisition-sale	有価証券の取得原価は購入代価に証券会社手数料等の付随費用を加えた金額である	measurement	INCLUDE	acquisition-cost rule			pending
+ALP-COM-05-0014	commercial	05 有価証券	取得と売却	commercial/chapter05.md::1-acquisition-sale	株式の購入代価＝1株当たり購入価額×株数である	formula	INCLUDE	purchase-price formula			pending
+ALP-COM-05-0015	commercial	05 有価証券	取得と売却	commercial/chapter05.md::1-acquisition-sale	同一銘柄を複数回取得した場合の平均単価＝取得原価合計÷保有株式数合計である	formula	INCLUDE	average-cost formula			pending
+ALP-COM-05-0016	commercial	05 有価証券	取得と売却	commercial/chapter05.md::1-acquisition-sale	売却原価＝売却株式数×平均単価、売却損益＝売却代金－売却原価である	formula	INCLUDE	sale-cost and gain/loss formula			pending
+ALP-COM-05-0017	commercial	05 有価証券	取得と売却	commercial/chapter05.md::1-acquisition-sale	公社債の売買価額は額面金額÷100×100円当たりの売買単価で算定する	formula	INCLUDE	bond quotation formula			pending
+ALP-COM-05-0018	commercial	05 有価証券	取得と売却	commercial/chapter05.md::1-acquisition-sale	売却損益勘定は保有目的により有価証券売却損益・投資有価証券売却損益・関係会社株式売却損益等を使い分ける	classification	INCLUDE	gain-loss account selection			pending
+ALP-COM-05-0019	commercial	05 有価証券	保有に伴う収益	commercial/chapter05.md::1-income	株式配当は受取配当金、公社債クーポン利息は有価証券利息として収益計上する	classification	INCLUDE	investment-income accounts			pending
+ALP-COM-05-0020	commercial	05 有価証券	保有に伴う収益	commercial/chapter05.md::1-income	配当金領収証と利払日到来済み公社債利札は通貨代用証券として現金で処理する	classification	INCLUDE	cash-equivalent treatment			pending
+ALP-COM-05-0021	commercial	05 有価証券	保有に伴う収益	commercial/chapter05.md::1-income	公社債クーポン利息＝額面金額×年利率×対象月数/12で算定する	formula	INCLUDE	coupon formula			pending
+ALP-COM-05-0022	commercial	05 有価証券	端数利息を伴う公社債売買	commercial/chapter05.md::1-accrued-interest	端数利息は利払日以外の債券売買で直前利払日の翌日から売買日までの売主保有期間に対応する利息である	definition	INCLUDE	accrued-interest definition			pending
+ALP-COM-05-0023	commercial	05 有価証券	端数利息を伴う公社債売買	commercial/chapter05.md::1-accrued-interest	利払日以外の売買では買主が売主へ端数利息を支払い、次回利払時に受け取る利息と期間対応させる	reasoning	INCLUDE	interest allocation logic			pending
+ALP-COM-05-0024	commercial	05 有価証券	端数利息を伴う公社債売買	commercial/chapter05.md::1-accrued-interest	売却側の売却損益は端数利息を除く裸相場で計算し、端数利息は有価証券利息として別途収益計上する	journal_entry	INCLUDE	seller accrued-interest treatment			pending
+ALP-COM-05-0025	commercial	05 有価証券	端数利息を伴う公社債売買	commercial/chapter05.md::1-accrued-interest	購入側が支払う端数利息は有価証券利息の借方に計上し、次回利払時の受取利息と相殺する	journal_entry	INCLUDE	buyer accrued-interest treatment			pending
+	commercial	05 有価証券	第1節 数値例	commercial/chapter05.md::1-examples	株式平均原価・債券売買・配当・端数利息の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
+ALP-COM-05-0026	commercial	05 有価証券	第2節 1 決算総論	commercial/chapter05.md::2-1	時価評価とは貸借対照表計上額を期末時価にすることである	definition	INCLUDE	valuation definition			pending
+ALP-COM-05-0027	commercial	05 有価証券	第2節 1 決算総論	commercial/chapter05.md::2-1	売買目的は時価・差額を損益、満期保有は取得原価/償却原価、子会社関連会社は取得原価、その他有価証券は時価・差額を純資産で処理する	comparison	INCLUDE	core year-end valuation matrix			pending
+ALP-COM-05-0028	commercial	05 有価証券	第2節 2 売買目的有価証券	commercial/chapter05.md::2-2	売買目的有価証券は短期売買目的のため決算で時価評価し評価差額を当期損益へ認識する	measurement	INCLUDE	trading-security valuation rule			pending
+ALP-COM-05-0029	commercial	05 有価証券	第2節 2 売買目的有価証券	commercial/chapter05.md::2-2	時価＞帳簿価額なら有価証券評価益＝時価－帳簿価額を計上し資産を増額する	formula	INCLUDE	valuation-gain formula			pending
+ALP-COM-05-0030	commercial	05 有価証券	第2節 2 売買目的有価証券	commercial/chapter05.md::2-2	時価＜帳簿価額なら有価証券評価損＝帳簿価額－時価を計上し資産を減額する	formula	INCLUDE	valuation-loss formula			pending
+ALP-COM-05-0031	commercial	05 有価証券	第2節 2 売買目的有価証券	commercial/chapter05.md::2-2	複数の売買目的銘柄の評価益・評価損は相殺し純額で当期損益に計上する	measurement	INCLUDE	net valuation rule			pending
+ALP-COM-05-0032	commercial	05 有価証券	第2節 2 売買目的有価証券	commercial/chapter05.md::2-2	売買目的の評価損益は当期純利益を通じて純資産を増減させる	reasoning	INCLUDE	profit-to-equity linkage			pending
+ALP-COM-05-0033	commercial	05 有価証券	第2節 3 満期保有目的債券	commercial/chapter05.md::2-3	満期保有目的債券は売却を想定しないため時価評価しない	measurement	INCLUDE	HTM valuation rule			pending
+ALP-COM-05-0034	commercial	05 有価証券	第2節 3 満期保有目的債券	commercial/chapter05.md::2-3	額面と取得価額の差が金利調整差額なら償却原価法を適用し帳簿価額を満期の額面へ近づける	procedure	INCLUDE	amortized-cost method			pending
+ALP-COM-05-0035	commercial	05 有価証券	第2節 3 満期保有目的債券	commercial/chapter05.md::2-3	定額法の毎期償却額＝（額面金額－取得価額）÷償還期間で、期中取得時は月割する	formula	INCLUDE	amortization formula			pending
+ALP-COM-05-0036	commercial	05 有価証券	第2節 3 満期保有目的債券	commercial/chapter05.md::2-3	償却額は満期保有目的債券を増加させ有価証券利息（収益）を計上する	journal_entry	INCLUDE	amortization entry			pending
+ALP-COM-05-0037	commercial	05 有価証券	第2節 3 満期保有目的債券	commercial/chapter05.md::2-3	償却原価＝決算整理前帳簿価額＋当期償却額で貸借対照表計上額となる	formula	INCLUDE	amortized-cost carrying amount			pending
+ALP-COM-05-0038	commercial	05 有価証券	第2節 4 子会社・関連会社株式	commercial/chapter05.md::2-4	子会社株式・関連会社株式は長期保有目的のため時価評価せず取得原価のまま計上し決算整理仕訳をしない	measurement	INCLUDE	affiliate-share valuation rule			pending
+ALP-COM-05-0039	commercial	05 有価証券	第2節 5 その他有価証券	commercial/chapter05.md::2-5	その他有価証券は決算で時価評価するが差額を当期損益にせず純資産へ直接計上する（全部純資産直入法）	measurement	INCLUDE	AFS valuation rule			pending
+ALP-COM-05-0040	commercial	05 有価証券	第2節 5 その他有価証券	commercial/chapter05.md::2-5	その他有価証券の値上がりは資産増加とその他有価証券評価差額金（純資産）増加、値下がりはその逆で処理する	journal_entry	INCLUDE	AFS valuation entries			pending
+ALP-COM-05-0041	commercial	05 有価証券	第2節 5 その他有価証券	commercial/chapter05.md::2-5	全部純資産直入法ではその他有価証券を期末時価、評価差額を純資産に表示し損益計算書へ計上しない	financial_statement	INCLUDE	AFS presentation			pending
+ALP-COM-05-0042	commercial	05 有価証券	第2節 5 その他有価証券	commercial/chapter05.md::2-5	その他有価証券の公社債で金利調整差額がある場合は先に償却原価法を適用し、その償却原価と期末時価との差額を評価差額金とする	procedure	INCLUDE	bond AFS ordering rule			pending
+	commercial	05 有価証券	第2節 数値例	commercial/chapter05.md::2-examples	時価評価・償却原価法の単純数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
+ALP-COM-05-0043	commercial	05 有価証券	第3節 売買目的の翌期	commercial/chapter05.md::3-trading	売買目的有価証券の翌期処理には洗替方式と切放方式の2方式が認められる	classification	INCLUDE	next-period methods			pending
+ALP-COM-05-0044	commercial	05 有価証券	第3節 売買目的の翌期	commercial/chapter05.md::3-trading	洗替方式は翌期首に前期末評価仕訳を再振替して帳簿価額を取得原価へ戻す	procedure	INCLUDE	wash method mechanics			pending
+ALP-COM-05-0045	commercial	05 有価証券	第3節 売買目的の翌期	commercial/chapter05.md::3-trading	切放方式は前期末時価を翌期の帳簿価額としてそのまま引き継ぐ	procedure	INCLUDE	carry-forward method mechanics			pending
+ALP-COM-05-0046	commercial	05 有価証券	第3節 売買目的の翌期	commercial/chapter05.md::3-trading	洗替方式の翌期売却損益は取得原価との差、切放方式は前期末時価との差で算定するが累計損益は一致する	comparison	INCLUDE	method consequence			pending
+ALP-COM-05-0047	commercial	05 有価証券	第3節 その他有価証券の翌期	commercial/chapter05.md::3-other	その他有価証券は翌期首に洗替方式のみを用い切放方式は認められない	exception	INCLUDE	AFS next-period restriction			pending
+ALP-COM-05-0048	commercial	05 有価証券	第3節 その他有価証券の翌期	commercial/chapter05.md::3-other	その他有価証券は前期評価差額を損益にしていないため取得原価基準の売却損益を維持すべく翌期首に評価差額を洗い替える	reasoning	INCLUDE	wash-method rationale			pending
