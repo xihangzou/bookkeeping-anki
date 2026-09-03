@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate FND-00 after the v1.5 maximal-integration / anti-leak audit."""
+"""Validate FND-00 after the v1.6 completeness / itemized-formula audit."""
 from __future__ import annotations
 
 import csv
@@ -43,10 +43,25 @@ EXPECTED_ACTIVE_IDS = {
 EXPECTED_APPROVED_COUNT = 32
 EXPECTED_DEPRECATED_COUNT = 59
 EXPECTED_GENERATED_CARDS = 32
-EXPECTED_CLOZE_SPANS = 120
+EXPECTED_CLOZE_SPANS = 150
 EXPECTED_ACTIVE_ALPS = 91
 ALLOWED_NONLEXICAL = {"ならない", "に終わる", "から始まる"}
-BANNED_ANSWER_PUNCTUATION = set("。、，；;／/→＋+・")
+BANNED_ANSWER_PUNCTUATION = set("。、，；;／/→＋+・－−-=＝")
+CONTENT_REQUIREMENTS = {
+    "BK-FND-00-0002": ("当期純利益＝{{c1::収益}}－{{c1::費用}}",),
+    "BK-FND-00-0047": (
+        "{{c1::給料}}", "{{c1::水道光熱費}}", "{{c1::旅費交通費}}",
+        "{{c1::広告宣伝費}}", "{{c1::消耗品費}}", "{{c1::通信費}}",
+        "{{c1::保険料}}", "{{c1::保管費}}", "{{c1::諸会費}}", "{{c1::雑費}}",
+    ),
+    "BK-FND-00-0062": ("{{c1::標準式}}", "{{c1::残高式}}", "日付・摘要・{{c1::仕丁}}・借方金額・貸方金額"),
+    "BK-FND-00-0075": (
+        "純売上高＝{{c1::総売上高}}－{{c1::売上戻り高}}",
+        "純仕入高＝{{c1::総仕入高}}－{{c1::仕入戻り高}}",
+    ),
+    "BK-FND-00-0084": ("各伝票から{{c1::個別転記}}する",),
+}
+
 VISIBLE_CONTEXT_CUES = {
     "BK-FND-00-0018": "会社の取引を記録する媒体",
     "BK-FND-00-0003": "資金調達・運用",
@@ -135,7 +150,7 @@ def main() -> int:
         if status == "approved":
             indices = {int(i) for i, _ in matches}
             if indices != {1}:
-                fail(errors, f"{note_id}: approved v1.5 Note must use only c1, got {sorted(indices)}")
+                fail(errors, f"{note_id}: approved v1.6 Note must use only c1, got {sorted(indices)}")
             generated_cards += len(indices)
             cloze_spans += len(matches)
             answers = [a.strip() for _, a in matches]
@@ -168,6 +183,10 @@ def main() -> int:
                 fail(errors, f"{note_id}: 借 direction must use {{c1::借}}方 shape")
             if "貸" in answers and "{{c1::貸}}方" not in text:
                 fail(errors, f"{note_id}: 貸 direction must use {{c1::貸}}方 shape")
+
+            for required in CONTENT_REQUIREMENTS.get(note_id, ()):
+                if required not in text:
+                    fail(errors, f"{note_id}: required v1.6 content missing: {required!r}")
 
             if note_id == "BK-FND-00-0018" and text.startswith("簿記の基本では、"):
                 fail(errors, "BK-FND-00-0018: answer-leaking prefix must be removed")
@@ -251,12 +270,12 @@ def main() -> int:
         fail(errors, "excluded FND-00 rows unexpectedly carry ALP IDs")
 
     if errors:
-        print("FND-00 v1.5 production validation: FAIL", file=sys.stderr)
+        print("FND-00 v1.6 production validation: FAIL", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
 
-    print("FND-00 v1.5 production validation: PASS")
+    print("FND-00 v1.6 production validation: PASS")
     print(
         f"rows=91 approved={approved_count} deprecated={deprecated_count} "
         f"source_reviewed_alps=91 active_recall_alps={len(active_alp_to_notes)}"
