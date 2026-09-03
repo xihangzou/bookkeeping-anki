@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'scripts/migrate_fnd00_v1_6.py'
+      - 'scripts/patch_fnd00_validator_v1_6.py'
       - '.github/workflows/apply-fnd00-v1-6.yml'
 
 permissions:
@@ -20,17 +21,20 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Apply migration
-        run: python scripts/migrate_fnd00_v1_6.py
-      - name: Commit migrated FND-00
+      - name: Apply migration and validator patch
+        run: |
+          python scripts/migrate_fnd00_v1_6.py
+          python scripts/patch_fnd00_validator_v1_6.py
+          python scripts/validate_fnd00_production.py
+      - name: Commit migrated FND-00 and validator
         shell: bash
         run: |
-          if git diff --quiet -- production/notes/FND-00.tsv; then
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/notes/FND-00.tsv scripts/validate_fnd00_production.py
+          if git diff --cached --quiet; then
             echo 'No migration diff.'
             exit 0
           fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add production/notes/FND-00.tsv
-          git commit -m 'ANKI-AUDIT-006 apply FND-00 v1.6 completeness migration'
+          git commit -m 'ANKI-AUDIT-006 apply FND-00 v1.6 completeness validation'
           git push origin HEAD:${GITHUB_REF_NAME}
