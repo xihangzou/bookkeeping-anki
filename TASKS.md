@@ -83,7 +83,11 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - 52/52 included ALPs map exactly once; **14** coherent multi-ALP Notes remove redundant direct recall
   - **18** reviewed pilot IDs promoted; **5** pilot-only duplicate-application IDs remain reserved
   - `production/qa/COM-01.md` + `scripts/validate_com01_production.py`; CI validation wired into `validate-production.yml`
-- [ ] **ANKI-009** Commercial chapter02
+- [x] **ANKI-009** Commercial chapter02
+  - `production/notes/COM-02.tsv`: **17 approved Notes / 17 generated cards / 32 included ALPs / 0 unmapped**
+  - 32/32 included ALPs map exactly once; **11** coherent multi-ALP Notes remove redundant direct recall
+  - no prior COM-02 pilot IDs; stable production IDs allocated as `BK-COM-02-0001`–`BK-COM-02-0017`
+  - `production/qa/COM-02.md` + `scripts/validate_com02_production.py`; CI validation wired into `validate-production.yml`
 - [ ] **ANKI-010** Commercial chapter03
 - [ ] **ANKI-011** Commercial chapter04
 - [ ] **ANKI-012** Commercial chapter05

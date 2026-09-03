@@ -28,6 +28,8 @@ For FND-00 v1.2, 57 approved Notes generate **58 cards**. `BK-FND-00-0091` is th
 
 For COM-01, v1.2 efficiency is applied at generation time: **38 approved Notes / 38 generated cards** cover all **52 included ALPs** exactly once. Fourteen coherent multi-ALP Notes remove redundant direct recall without sacrificing source traceability.
 
+For COM-02, v1.2 efficiency is applied at generation time: **17 approved Notes / 17 generated cards** cover all **32 included ALPs** exactly once. Eleven coherent multi-ALP Notes consolidate revenue-recognition terminology, linked recognition/settlement rules, warranty allocation, and the service-accounting flow without losing canonical ALP traceability.
+
 ## Lifecycle
 
 ### `Status=approved`
@@ -49,9 +51,12 @@ Deprecated rows are retained only as auditable production history after consolid
 
 - `notes/FND-00.tsv` — Part 0 / bookkeeping foundations (ANKI-007; audited by ANKI-AUDIT-001 #56 and ANKI-AUDIT-002 #58)
 - `notes/COM-01.tsv` — Commercial chapter 01 / 商品売買 (ANKI-008; generated directly under frozen v1.0 + v1.2 overlay)
+- `notes/COM-02.tsv` — Commercial chapter 02 / 収益認識 (ANKI-009; generated directly under frozen v1.0 + v1.2 overlay)
 
 Run `python scripts/validate_fnd00_production.py` to validate FND-00 source traceability, lifecycle, stable IDs, tags, multi-ALP mappings, 100% active approved ALP coverage, generated-card count, reviewed Cloze-index shape, and Cloze-answer uniqueness checks.
 
 Run `python scripts/validate_com01_production.py` to validate COM-01 stable IDs, pinned source fields, canonical ALP mappings, exactly-once active coverage, single-card v1.2 rotation shape, tags, Cloze-answer uniqueness, and deterministic chapter metrics.
+
+Run `python scripts/validate_com02_production.py` to validate COM-02 stable IDs, pinned source fields, canonical ALP mappings, exactly-once active coverage, single-card v1.2 rotation shape, tags, Cloze-answer uniqueness, and deterministic chapter metrics.
 
 `python scripts/migrate_fnd00_v1_2.py` is the idempotent migration record for the ANKI-AUDIT-002 wording/index changes.
