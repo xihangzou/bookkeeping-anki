@@ -1,0 +1,46 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-06-0001	commercial	06 有形固定資産	第1節 取得原価と付随費用	commercial/chapter06.md::1-basic	有形固定資産の取得原価＝購入代価＋使用可能となるまでの付随費用である	formula	INCLUDE	acquisition-cost formula			pending
+ALP-COM-06-0002	commercial	06 有形固定資産	第1節 取得原価と付随費用	commercial/chapter06.md::1-basic	購入手数料・運送費・荷役費・据付費・試運転費・登記料等は取得時費用でなく固定資産取得原価に含める	measurement	INCLUDE	capitalization rule			pending
+ALP-COM-06-0003	commercial	06 有形固定資産	第1節 1 建設仮勘定	commercial/chapter06.md::1-1	固定資産建設の完成前支払額は建設仮勘定（資産）で処理する	journal_entry	INCLUDE	construction-in-progress treatment			pending
+ALP-COM-06-0004	commercial	06 有形固定資産	第1節 1 建設仮勘定	commercial/chapter06.md::1-1	完成・引渡時に建設仮勘定を建物等へ振り替え付随費用も取得原価に含める	journal_entry	INCLUDE	completion transfer			pending
+ALP-COM-06-0005	commercial	06 有形固定資産	第1節 1 建設仮勘定	commercial/chapter06.md::1-1	建設途中の建設仮勘定は減価償却の対象としない	exception	INCLUDE	depreciation boundary			pending
+ALP-COM-06-0006	commercial	06 有形固定資産	第1節 2 割賦購入	commercial/chapter06.md::1-2	割賦価格＝現金正価＋利息であり固定資産の取得原価は現金正価とする	measurement	INCLUDE	installment acquisition rule			pending
+ALP-COM-06-0007	commercial	06 有形固定資産	第1節 2 割賦購入	commercial/chapter06.md::1-2	割賦購入時は未払金を支払総額で計上し現金正価との差額を前払利息として資産計上できる	journal_entry	INCLUDE	installment initial entry			pending
+ALP-COM-06-0008	commercial	06 有形固定資産	第1節 2 割賦購入	commercial/chapter06.md::1-2	前払利息方式では各支払期間に対応する利息を前払利息から支払利息へ振り替える	journal_entry	INCLUDE	interest allocation entry			pending
+ALP-COM-06-0009	commercial	06 有形固定資産	第1節 2 割賦購入	commercial/chapter06.md::1-2	定額配分なら1回当たり支払利息＝前払利息計上額÷支払回数である	formula	INCLUDE	installment interest formula			pending
+ALP-COM-06-0010	commercial	06 有形固定資産	第1節 2 割賦購入	commercial/chapter06.md::1-2	購入時に利息総額を支払利息計上する方法では決算時に翌期対応分を前払利息へ振り替える	procedure	INCLUDE	alternative interest treatment			pending
+ALP-COM-06-0011	commercial	06 有形固定資産	第1節 3 圧縮記帳	commercial/chapter06.md::1-3	圧縮記帳は国庫補助金受贈益と同額の固定資産圧縮損を計上し固定資産帳簿価額を減額して課税を繰り延べる処理である	definition	INCLUDE	compression accounting definition			pending
+ALP-COM-06-0012	commercial	06 有形固定資産	第1節 3 圧縮記帳	commercial/chapter06.md::1-3	国庫補助金受取時は国庫補助金受贈益（収益）を計上する	journal_entry	INCLUDE	grant receipt entry			pending
+ALP-COM-06-0013	commercial	06 有形固定資産	第1節 3 圧縮記帳	commercial/chapter06.md::1-3	直接減額方式の圧縮記帳では固定資産圧縮損を費用計上し固定資産を補助金相当額だけ減額する	journal_entry	INCLUDE	compression entry			pending
+ALP-COM-06-0014	commercial	06 有形固定資産	第1節 3 圧縮記帳	commercial/chapter06.md::1-3	圧縮記帳後の減価償却は圧縮後の帳簿価額を取得原価として行う	measurement	INCLUDE	post-compression depreciation base			pending
+ALP-COM-06-0015	commercial	06 有形固定資産	第1節 3 圧縮記帳	commercial/chapter06.md::1-3	圧縮記帳は課税免除ではなく減価償却費減少を通じて将来年度へ課税を延期する仕組みである	reasoning	INCLUDE	tax-deferral logic			pending
+ALP-COM-06-0016	commercial	06 有形固定資産	第2節 基礎 固定資産の売却	commercial/chapter06.md::2-basic	固定資産売却損益＝売却代金－売却時帳簿価額で、帳簿価額＝取得原価－減価償却累計額である	formula	INCLUDE	disposal gain/loss formula			pending
+ALP-COM-06-0017	commercial	06 有形固定資産	第2節 基礎 固定資産の売却	commercial/chapter06.md::2-basic	固定資産売却代金を後日受け取る場合は売掛金でなく未収入金を用いる	classification	INCLUDE	nontrade receivable rule			pending
+ALP-COM-06-0018	commercial	06 有形固定資産	第2節 基礎 固定資産の売却	commercial/chapter06.md::2-basic	固定資産売却は売却額等を総額表示せず固定資産売却損益のみ純額で損益表示する	financial_statement	INCLUDE	presentation rule			pending
+ALP-COM-06-0019	commercial	06 有形固定資産	第2節 1 買換え	commercial/chapter06.md::2-1	固定資産の買換えは旧資産の売却と新資産の購入の2取引に分け、その仕訳を合算して考える	procedure	INCLUDE	trade-in decomposition			pending
+ALP-COM-06-0020	commercial	06 有形固定資産	第2節 2 除却と廃棄	commercial/chapter06.md::2-2	除却は事業用途から外すこと、廃棄は捨てることである	comparison	INCLUDE	disposal terminology			pending
+ALP-COM-06-0021	commercial	06 有形固定資産	第2節 2 除却と廃棄	commercial/chapter06.md::2-2	除却時に処分可能価額があれば貯蔵品として資産計上し、除却損＝帳簿価額－処分可能価額とする	formula	INCLUDE	retirement loss formula			pending
+ALP-COM-06-0022	commercial	06 有形固定資産	第2節 2 除却と廃棄	commercial/chapter06.md::2-2	廃棄損＝廃棄時帳簿価額＋廃棄費用で、廃棄には処分可能価額を見込まない	formula	INCLUDE	discard loss formula			pending
+ALP-COM-06-0023	commercial	06 有形固定資産	第2節 3 滅失	commercial/chapter06.md::2-3	保険なしで固定資産が滅失した場合は帳簿価額を火災損失として固定資産を除去する	journal_entry	INCLUDE	uninsured casualty treatment			pending
+ALP-COM-06-0024	commercial	06 有形固定資産	第2節 3 滅失	commercial/chapter06.md::2-3	保険ありの火災発生時は保険金未確定のため滅失資産帳簿価額を未決算（資産）へ振り替える	journal_entry	INCLUDE	insured casualty interim entry			pending
+ALP-COM-06-0025	commercial	06 有形固定資産	第2節 3 滅失	commercial/chapter06.md::2-3	保険金確定時は未決算を取り消し未収入金を計上し、確定額が未決算を下回れば火災損失、上回れば保険差益とする	journal_entry	INCLUDE	insurance settlement entry			pending
+ALP-COM-06-0026	commercial	06 有形固定資産	第2節 3 滅失	commercial/chapter06.md::2-3	商品が火災滅失し仕入勘定で処理済みなら仕入を取り消して火災損失へ振り替える	exception	INCLUDE	inventory casualty treatment			pending
+ALP-COM-06-0027	commercial	06 有形固定資産	補論 固定資産の修繕	commercial/chapter06.md::repair	原状回復・現状維持の収益的支出は修繕費、価値を高める資本的支出は固定資産へ資産計上する	classification	INCLUDE	repair-versus-improvement distinction			pending
+ALP-COM-06-0028	commercial	06 有形固定資産	補論 固定資産の修繕	commercial/chapter06.md::repair	1回の修理に収益的支出と資本的支出が混在する場合は区分して費用・資産に配分する	measurement	INCLUDE	mixed repair allocation			pending
+ALP-COM-06-0029	commercial	06 有形固定資産	第3節 1 減価償却とは	commercial/chapter06.md::3-1	減価償却は土地・建設仮勘定以外の有形固定資産の取得原価を使用期間にわたり費用配分する手続である	definition	INCLUDE	depreciation definition			pending
+ALP-COM-06-0030	commercial	06 有形固定資産	第3節 1 減価償却とは	commercial/chapter06.md::3-1	減価償却費は当期費用、減価償却累計額は過年度を含む累計額で資産の控除項目である	classification	INCLUDE	depreciation accounts			pending
+ALP-COM-06-0031	commercial	06 有形固定資産	第3節 1 減価償却とは	commercial/chapter06.md::3-1	帳簿価額＝取得原価－減価償却累計額である	formula	INCLUDE	carrying amount formula			pending
+ALP-COM-06-0032	commercial	06 有形固定資産	第3節 2 直接法と間接法	commercial/chapter06.md::3-2	直接法は固定資産勘定を直接減額し、間接法は減価償却累計額で取得原価を間接控除する	comparison	INCLUDE	depreciation recording methods			pending
+ALP-COM-06-0033	commercial	06 有形固定資産	第3節 2 直接法と間接法	commercial/chapter06.md::3-2	間接法では固定資産勘定に取得原価を残し累計額を控除して帳簿価額を表示する	financial_statement	INCLUDE	indirect-method presentation			pending
+ALP-COM-06-0034	commercial	06 有形固定資産	第3節 3 減価償却方法	commercial/chapter06.md::3-3	定額法・定率法・生産高比例法はそれぞれ均等額・期首帳簿価額比例・利用量比例で減価償却する	comparison	INCLUDE	method discrimination			pending
+ALP-COM-06-0035	commercial	06 有形固定資産	第3節 3 定額法	commercial/chapter06.md::3-3-straight	定額法減価償却費＝（取得原価－残存価額）÷耐用年数である	formula	INCLUDE	straight-line formula			pending
+ALP-COM-06-0036	commercial	06 有形固定資産	第3節 3 定額法	commercial/chapter06.md::3-3-straight	期中取得の定額法は1年分償却費×使用月数/12で月割し、使用した月は1日でも1か月と数える	measurement	INCLUDE	partial-year depreciation			pending
+ALP-COM-06-0037	commercial	06 有形固定資産	第3節 3 定率法	commercial/chapter06.md::3-3-declining	定率法減価償却費＝期首帳簿価額×償却率、期首帳簿価額＝取得原価－期首累計額である	formula	INCLUDE	declining-balance formula			pending
+ALP-COM-06-0038	commercial	06 有形固定資産	第3節 3 定率法	commercial/chapter06.md::3-3-declining	定率法も期中取得なら使用月数に応じ月割計算する	measurement	INCLUDE	partial-year rule			pending
+ALP-COM-06-0039	commercial	06 有形固定資産	第3節 3 生産高比例法	commercial/chapter06.md::3-3-units	生産高比例法減価償却費＝（取得原価－残存価額）×当期利用量÷総利用可能量である	formula	INCLUDE	units-of-production formula			pending
+ALP-COM-06-0040	commercial	06 有形固定資産	第3節 3 生産高比例法	commercial/chapter06.md::3-3-units	生産高比例法は総利用可能量を把握できる資産に限り、期中取得でも月割せず実際利用量で計算する	exception	INCLUDE	applicability and proration rule			pending
+ALP-COM-06-0041	commercial	06 有形固定資産	第3節 4 定率法の諸論点	commercial/chapter06.md::3-4	残存価額10%の定率法では所定償却率自体が10%残存を織り込むため別途90%を掛けない	exception	INCLUDE	declining-balance residual rule			pending
+ALP-COM-06-0042	commercial	06 有形固定資産	第3節 4 定率法の諸論点	commercial/chapter06.md::3-4	200%定率法の償却率＝（1÷耐用年数）×200%である	formula	INCLUDE	200-percent rate formula			pending
+ALP-COM-06-0043	commercial	06 有形固定資産	第3節 4 定率法の諸論点	commercial/chapter06.md::3-4	200%定率法では通常の定率法償却額と償却保証額を比較し通常額が下回る時点から改定償却額へ切り替える	procedure	INCLUDE	guarantee-switch rule			pending
+ALP-COM-06-0044	commercial	06 有形固定資産	第3節 4 定率法の諸論点	commercial/chapter06.md::3-4	償却保証額＝取得原価×保証率、改定償却額＝切替時期首帳簿価額×改定償却率である	formula	INCLUDE	revised depreciation formulas			pending
+	commercial	06 有形固定資産	各節 数値例	commercial/chapter06.md::examples	取得・割賦・圧縮・売却・減価償却の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
