@@ -1,0 +1,48 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-15-0001	commercial	15 連結会計	第1節 1 連結財務諸表とは	commercial/chapter15.md::1-1	連結財務諸表は親会社と子会社からなる企業集団を一体として報告する財務諸表で、各社の個別財務諸表も別途作成する	definition	INCLUDE	consolidated statement definition			pending
+ALP-COM-15-0002	commercial	15 連結会計	第1節 1 連結財務諸表とは	commercial/chapter15.md::1-1	発行済株式の50%超を保有して他社を支配する会社を親会社、支配される会社を子会社という	classification	INCLUDE	parent-subsidiary criterion			pending
+ALP-COM-15-0003	commercial	15 連結会計	第1節 2 基本的な作成方法	commercial/chapter15.md::1-2	連結財務諸表は親子会社の個別財務諸表を単純合算し連結修正仕訳を反映して作成する	procedure	INCLUDE	consolidation workflow			pending
+ALP-COM-15-0004	commercial	15 連結会計	第1節 2 基本的な作成方法	commercial/chapter15.md::1-2	連結精算表は個別財務諸表の単純合算額に連結修正を反映して連結財務諸表額を算定するために用いる	procedure	INCLUDE	consolidation worksheet purpose			pending
+ALP-COM-15-0005	commercial	15 連結会計	第1節 3 連結財務諸表の特徴	commercial/chapter15.md::1-3	連結P/Lでは売上原価等の内訳を省略し税引前当期純利益を税金等調整前当期純利益と表示する	financial_statement	INCLUDE	consolidated P/L presentation			pending
+ALP-COM-15-0006	commercial	15 連結会計	第1節 3 連結財務諸表の特徴	commercial/chapter15.md::1-3	親会社株主に帰属する当期純利益＝当期純利益－非支配株主に帰属する当期純利益である	formula	INCLUDE	parent-attributable income formula			pending
+ALP-COM-15-0007	commercial	15 連結会計	第1節 3 連結財務諸表の特徴	commercial/chapter15.md::1-3	連結B/Sの純資産には親会社株主分に加えて非支配株主持分を表示する	financial_statement	INCLUDE	noncontrolling interest presentation			pending
+ALP-COM-15-0008	commercial	15 連結会計	第2節 1 支配獲得時	commercial/chapter15.md::2-1	完全所有の支配獲得時は親会社の子会社株式と子会社の資本金・資本剰余金・利益剰余金を投資と資本の相殺消去で消去する	journal_entry	INCLUDE	investment-equity elimination			pending
+ALP-COM-15-0009	commercial	15 連結会計	第2節 1 支配獲得時	commercial/chapter15.md::2-1	完全所有ののれん＝子会社株式取得原価－支配獲得時子会社資本合計である	formula	INCLUDE	full-ownership goodwill formula			pending
+ALP-COM-15-0010	commercial	15 連結会計	第2節 1 支配獲得時	commercial/chapter15.md::2-1	投資消去差額が正ならのれん（資産）として計上する	journal_entry	INCLUDE	goodwill recognition			pending
+ALP-COM-15-0011	commercial	15 連結会計	第2節 翌期以降	commercial/chapter15.md::2-subsequent	支配獲得翌期以降は支配獲得時の連結修正を開始仕訳として再現し、当期分の連結修正仕訳を別途行う	procedure	INCLUDE	beginning-entry concept			pending
+ALP-COM-15-0012	commercial	15 連結会計	第2節 翌期以降	commercial/chapter15.md::2-subsequent	のれんは所定期間で償却し当期ののれん償却を費用計上してのれんを減額する	journal_entry	INCLUDE	goodwill amortization			pending
+ALP-COM-15-0013	commercial	15 連結会計	第2節 翌期以降	commercial/chapter15.md::2-subsequent	前期以前の連結上の損益修正は翌期開始仕訳では利益剰余金の修正として引き継ぐ	procedure	INCLUDE	prior-period consolidation carryforward			pending
+ALP-COM-15-0014	commercial	15 連結会計	第2節 翌期以降	commercial/chapter15.md::2-subsequent	子会社から親会社への配当は企業集団内部のため親会社の受取配当金と子会社の利益剰余金減少を連結上修正する	journal_entry	INCLUDE	intragroup dividend elimination			pending
+ALP-COM-15-0015	commercial	15 連結会計	第3節 1 非支配株主	commercial/chapter15.md::3-1	非支配株主は親会社以外の子会社株主で、その持分を非支配株主持分として純資産に計上する	definition	INCLUDE	noncontrolling interest definition			pending
+ALP-COM-15-0016	commercial	15 連結会計	第3節 2 部分所有の支配獲得時	commercial/chapter15.md::3-2	非支配株主持分＝支配獲得時子会社資本合計×非支配株主持分比率である	formula	INCLUDE	NCI initial measurement			pending
+ALP-COM-15-0017	commercial	15 連結会計	第3節 2 部分所有の支配獲得時	commercial/chapter15.md::3-2	部分所有ののれん＝子会社株式取得原価－子会社資本合計×親会社持分比率であり親会社持分相当額のみ認識する	formula	INCLUDE	partial-ownership goodwill formula			pending
+ALP-COM-15-0018	commercial	15 連結会計	第3節 2 部分所有の支配獲得時	commercial/chapter15.md::3-2	部分所有の投資資本消去では子会社資本全額を消去し、親会社以外に帰属する部分を非支配株主持分へ振り替える	journal_entry	INCLUDE	partial-ownership elimination			pending
+ALP-COM-15-0019	commercial	15 連結会計	第3節 3 翌期の修正	commercial/chapter15.md::3-3	非支配株主に帰属する当期純利益＝子会社当期純利益×非支配株主持分比率である	formula	INCLUDE	NCI income attribution			pending
+ALP-COM-15-0020	commercial	15 連結会計	第3節 3 翌期の修正	commercial/chapter15.md::3-3	子会社当期純利益の非支配株主分は非支配株主に帰属する当期純利益を借方、非支配株主持分を貸方として振り替える	journal_entry	INCLUDE	NCI income entry			pending
+ALP-COM-15-0021	commercial	15 連結会計	第3節 3 翌期の修正	commercial/chapter15.md::3-3	子会社配当の親会社分は受取配当金を相殺し、非支配株主分は非支配株主持分の減少として処理する	journal_entry	INCLUDE	NCI dividend treatment			pending
+ALP-COM-15-0022	commercial	15 連結会計	第3節 翌々期以降	commercial/chapter15.md::3-subsequent	前期までの子会社利益の非支配株主帰属累積額は翌期開始仕訳で利益剰余金を減額し非支配株主持分を増額して引き継ぐ	journal_entry	INCLUDE	NCI cumulative carryforward			pending
+ALP-COM-15-0023	commercial	15 連結会計	第3節 非支配株主持分	commercial/chapter15.md::3-nci	アップストリーム等の追加修正がなければ期末非支配株主持分は子会社期末資本×非支配株主持分比率で確認できる	formula	INCLUDE	NCI ending balance check			pending
+ALP-COM-15-0024	commercial	15 連結会計	第4節 1 内部取引高の相殺	commercial/chapter15.md::4-1	親子会社間の商品売買による売上高と売上原価、売掛金と買掛金、受取手形と支払手形は連結上相殺する	journal_entry	INCLUDE	intragroup sales and balance elimination			pending
+ALP-COM-15-0025	commercial	15 連結会計	第4節 1 内部取引高の相殺	commercial/chapter15.md::4-1	親子会社間の資金貸借は貸付金と借入金、受取利息と支払利息、対応する未収収益と未払費用を相殺する	journal_entry	INCLUDE	intragroup financing elimination			pending
+ALP-COM-15-0026	commercial	15 連結会計	第4節 1 内部取引高の相殺	commercial/chapter15.md::4-1	当期の内部取引高・期末債権債務の相殺は翌期個別財務諸表に残らないため原則開始仕訳を行わない	exception	INCLUDE	no beginning entry for ordinary elimination			pending
+ALP-COM-15-0027	commercial	15 連結会計	第4節 2 商品未実現利益	commercial/chapter15.md::4-2	親会社→子会社の販売をダウンストリーム、子会社→親会社をアップストリームという	definition	INCLUDE	transaction-direction terminology			pending
+ALP-COM-15-0028	commercial	15 連結会計	第4節 2 商品未実現利益	commercial/chapter15.md::4-2	内部販売商品が企業集団外へ販売済みなら内部利益は実現済みだが期末内部在庫に含まれる利益は未実現利益として消去する	recognition	INCLUDE	unrealized profit recognition condition			pending
+ALP-COM-15-0029	commercial	15 連結会計	第4節 2 商品未実現利益	commercial/chapter15.md::4-2	ダウンストリームの期末商品未実現利益は売上原価を増加し商品を減額して消去する	journal_entry	INCLUDE	ending inventory profit elimination			pending
+ALP-COM-15-0030	commercial	15 連結会計	第4節 2 商品未実現利益	commercial/chapter15.md::4-2	販売価額基準の利益率が与えられる場合の未実現利益＝内部在庫額×利益率である	formula	INCLUDE	profit-rate unrealized profit formula			pending
+ALP-COM-15-0031	commercial	15 連結会計	第4節 2 商品未実現利益	commercial/chapter15.md::4-2	原価に対する利益加算率が与えられる場合の未実現利益＝内部在庫額÷（1＋利益加算率）×利益加算率である	formula	INCLUDE	markup unrealized profit formula			pending
+ALP-COM-15-0032	commercial	15 連結会計	第4節 2 商品未実現利益	commercial/chapter15.md::4-2	前期末商品未実現利益が当期外部販売で実現すると開始仕訳を経て利益剰余金を借方、売上原価を貸方として当期利益へ戻す	journal_entry	INCLUDE	beginning inventory profit realization			pending
+ALP-COM-15-0033	commercial	15 連結会計	第4節 3 土地未実現利益	commercial/chapter15.md::4-3	親子会社間の土地売却益は外部売却まで未実現で、土地売却益を消去し土地を企業集団の元帳簿価額まで減額する	journal_entry	INCLUDE	land unrealized profit elimination			pending
+ALP-COM-15-0034	commercial	15 連結会計	第4節 3 土地未実現利益	commercial/chapter15.md::4-3	土地未実現利益＝内部売却価額－売却会社の売却時帳簿価額である	formula	INCLUDE	land unrealized profit formula			pending
+ALP-COM-15-0035	commercial	15 連結会計	第4節 3 土地未実現利益	commercial/chapter15.md::4-3	土地が翌期も企業集団内に残る場合は未実現利益が実現しないため翌期開始仕訳で利益剰余金を減額し土地を減額した状態を維持する	procedure	INCLUDE	land carryforward treatment			pending
+ALP-COM-15-0036	commercial	15 連結会計	第4節 4 貸倒引当金の消去	commercial/chapter15.md::4-4	連結上消去した親子会社間債権に対応する貸倒引当金も不要となるため貸倒引当金を借方、貸倒引当金繰入を貸方として消去する	journal_entry	INCLUDE	allowance elimination			pending
+ALP-COM-15-0037	commercial	15 連結会計	第4節 4 貸倒引当金の消去	commercial/chapter15.md::4-4	翌期の貸倒引当金消去では前期消去額を利益剰余金に引き継ぎ当期必要消去額との差額を当期貸倒引当金繰入の修正とする	procedure	INCLUDE	allowance elimination carryforward			pending
+ALP-COM-15-0038	commercial	15 連結会計	第5節 1 アップストリーム	commercial/chapter15.md::5-1	アップストリームでも未実現利益の基本消去仕訳は同じだが利益変動が子会社に生じるため非支配株主帰属分を追加調整する	comparison	INCLUDE	upstream distinction			pending
+ALP-COM-15-0039	commercial	15 連結会計	第5節 1 アップストリーム	commercial/chapter15.md::5-1	アップストリーム期末商品未実現利益の非支配株主分は非支配株主持分を減額し非支配株主に帰属する当期純利益を減額方向へ修正する	journal_entry	INCLUDE	upstream inventory NCI adjustment			pending
+ALP-COM-15-0040	commercial	15 連結会計	第5節 1 アップストリーム	commercial/chapter15.md::5-1	アップストリームの土地未実現利益や貸倒引当金消去も子会社利益を変動させるため非支配株主持分比率に応じた追加修正が必要である	journal_entry	INCLUDE	upstream NCI adjustment scope			pending
+ALP-COM-15-0041	commercial	15 連結会計	第5節 2 割引手形	commercial/chapter15.md::5-2	親子会社間手形を受取側が銀行で割り引いた部分は連結上外部銀行からの借入とみなし支払手形から借入金へ振り替える	journal_entry	INCLUDE	discounted intragroup note treatment			pending
+ALP-COM-15-0042	commercial	15 連結会計	第5節 2 割引手形	commercial/chapter15.md::5-2	内部手形のうち銀行割引済部分は借入金へ、受取側が手元保有する部分は受取手形と支払手形で相殺する	classification	INCLUDE	partial discount treatment			pending
+ALP-COM-15-0043	commercial	15 連結会計	第6節 1 連結株主資本等変動計算書	commercial/chapter15.md::6-1	連結S/Sは資本金・資本剰余金・利益剰余金・非支配株主持分等の連結純資産変動を報告する	financial_statement	INCLUDE	consolidated S/S purpose			pending
+ALP-COM-15-0044	commercial	15 連結会計	第6節 1 連結株主資本等変動計算書	commercial/chapter15.md::6-1	連結S/Sでは非支配株主持分は株主資本以外の項目として当期変動額を純額表示する	financial_statement	INCLUDE	NCI S/S presentation			pending
+ALP-COM-15-0045	commercial	15 連結会計	第6節 1 連結株主資本等変動計算書	commercial/chapter15.md::6-1	連結P/Lの親会社株主に帰属する当期純利益は連結S/Sの利益剰余金変動に反映され、連結S/S期末残高は連結B/S純資産へつながる	financial_statement	INCLUDE	consolidated statement linkage			pending
+ALP-COM-15-0046	commercial	15 連結会計	第6節 2 連結S/Sの修正仕訳	commercial/chapter15.md::6-2	連結S/Sを作成する場合は純資産の連結修正を資本金・当期首残高、利益剰余金・剰余金の配当、非支配株主持分・当期変動額等のS/S科目で表す	procedure	INCLUDE	consolidated S/S adjustment accounts			pending
+	commercial	15 連結会計	各節 例題	commercial/chapter15.md::examples	支配獲得・非支配株主・成果連結・連結S/Sの具体数値総合例		EXCLUDE		DECORATIVE_EXAMPLE		pending
