@@ -1,6 +1,6 @@
 # Anki Deck Specification
 
-Status: **v0.9 (pilot validation pending)**
+Status: **v1.0 — frozen after representative pilot (ANKI-PILOT-006)**
 
 ## 1. Scope
 
@@ -122,6 +122,8 @@ Before full production:
 4. record failure patterns;
 5. revise rules from v0.9 to v1.0 once;
 6. freeze v1.0 before chapter-wide generation.
+
+ANKI-PILOT-001〜006 completed this gate. The frozen pilot evidence is 40 corrected Notes / 62 generated cards with 0 accounting failures, 0 source-traceability failures, 0 major findings, and 0 blocking findings. Phase C generation is authorized under the frozen v1.0 contract.
 
 ## 8. Quality dimensions
 
