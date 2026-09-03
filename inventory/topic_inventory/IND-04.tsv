@@ -1,0 +1,19 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-04-0001	industrial	4 経費	第1節 経費とは	industrial/chapter04.md::expense	経費は製品製造のために消費した原価のうち材料費・労務費以外のものをいう	definition	INCLUDE	expense definition			pending
+ALP-IND-04-0002	industrial	4 経費	第2節 経費の分類	industrial/chapter04.md::direct-indirect	直接経費は特定製品別の消費額を把握できる経費、間接経費は把握できない経費である	classification	INCLUDE	direct indirect expense distinction			pending
+ALP-IND-04-0003	industrial	4 経費	第2節 経費の分類	industrial/chapter04.md::types	外注加工賃・特許権使用料・旅費交通費・減価償却費・水道光熱費・賃借料・棚卸減耗費などが経費に含まれる	classification	INCLUDE	expense categories			pending
+ALP-IND-04-0004	industrial	4 経費	第2節 経費の分類	industrial/chapter04.md::direct-expense	外注加工賃や特許権使用料など特定製品へ跡付けできる経費は直接経費となる	classification	INCLUDE	direct expense examples			pending
+ALP-IND-04-0005	industrial	4 経費	第2節 経費の分類	industrial/chapter04.md::expense-flow	直接経費は仕掛品、間接経費は製造間接費へ振り替える	journal_entry	INCLUDE	expense cost flow			pending
+ALP-IND-04-0006	industrial	4 経費	第3節 経費の消費	industrial/chapter04.md::four-types	経費は消費額の計算方法により支払経費・月割経費・測定経費・発生経費に分類する	classification	INCLUDE	expense measurement classification			pending
+ALP-IND-04-0007	industrial	4 経費	第3節 経費の消費	industrial/chapter04.md::paid-accrual	未払を伴う支払経費の消費額＝当月支払額－前月未払額＋当月未払額である	formula	INCLUDE	paid expense accrual formula			pending
+ALP-IND-04-0008	industrial	4 経費	第3節 経費の消費	industrial/chapter04.md::paid-prepaid	前払を伴う支払経費の消費額＝当月支払額＋前月前払額－当月前払額である	formula	INCLUDE	paid expense prepayment formula			pending
+ALP-IND-04-0009	industrial	4 経費	第3節 経費の消費	industrial/chapter04.md::paid-adjustment	支払経費では前月の未払・前払を月初再振替し、当月末の未払・前払を月末に計上して当月消費額へ調整する	procedure	INCLUDE	paid expense adjustment procedure			pending
+ALP-IND-04-0010	industrial	4 経費	第3節 経費の消費	industrial/chapter04.md::monthly	月割経費は年間等の支払額・計上額を月数で按分し、年間額なら当月消費額＝年間額÷12で求める	measurement	INCLUDE	monthly expense measurement			pending
+ALP-IND-04-0011	industrial	4 経費	第3節 経費の消費	industrial/chapter04.md::measured	測定経費はメーター等の当月測定量に基づき、基本料金があれば基本料金＋当月測定量に基づく金額で消費額を求める	measurement	INCLUDE	metered expense measurement			pending
+ALP-IND-04-0012	industrial	4 経費	第3節 経費の消費	industrial/chapter04.md::incurred	発生経費は当月の実際発生額をそのまま当月消費額とする	measurement	INCLUDE	incurred expense measurement			pending
+ALP-IND-04-0013	industrial	4 経費	第4節 経費の会計処理	industrial/chapter04.md::three-methods	経費の記帳には個別経費勘定を設ける方法、経費勘定に一括する方法、経費勘定自体を設けず直接振り替える方法がある	classification	INCLUDE	expense bookkeeping methods			pending
+ALP-IND-04-0014	industrial	4 経費	第4節 経費の会計処理	industrial/chapter04.md::individual-accounts	個別経費勘定方式では発生時に各経費勘定へ計上し、消費時に直接経費を仕掛品、間接経費を製造間接費へ振り替える	procedure	INCLUDE	individual expense account method			pending
+ALP-IND-04-0015	industrial	4 経費	第4節 経費の会計処理	industrial/chapter04.md::expense-account	経費勘定方式では各経費の発生額を経費勘定へ集計し、消費時に直接経費・間接経費へ振り分ける	procedure	INCLUDE	single expense account method			pending
+ALP-IND-04-0016	industrial	4 経費	第4節 経費の会計処理	industrial/chapter04.md::no-expense-account	経費勘定を設けない方式では、発生・消費時に仕掛品または製造間接費へ直接計上する	procedure	INCLUDE	no expense account method			pending
+ALP-IND-04-0017	industrial	4 経費	第4節 経費の会計処理	industrial/chapter04.md::same-result	3つの記帳方式は経費勘定の経由方法が異なるが、最終的に仕掛品・製造間接費へ集計される原価は同じである	comparison	INCLUDE	bookkeeping method equivalence			pending
+	industrial	4 経費	例題4-1〜4-4	industrial/chapter04.md::examples	支払・月割・測定・発生経費の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
