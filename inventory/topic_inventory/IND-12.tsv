@@ -1,0 +1,22 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-12-0001	industrial	12 直接原価計算	第1節 直接原価計算とは	industrial/chapter12.md::full-costing	全部原価計算はすべての製造原価を製品原価とし、すべての販売費及び一般管理費を期間原価とする	definition	INCLUDE	full costing definition			pending
+ALP-IND-12-0002	industrial	12 直接原価計算	第1節 直接原価計算とは	industrial/chapter12.md::direct-costing	直接原価計算は変動製造原価のみを製品原価とし、固定製造原価とすべての販売費及び一般管理費を期間原価とする	definition	INCLUDE	direct costing definition			pending
+ALP-IND-12-0003	industrial	12 直接原価計算	第1節 直接原価計算とは	industrial/chapter12.md::product-period	製品原価は販売されるまで棚卸資産として繰り延べられ、期間原価は発生した期間に全額費用処理する	comparison	INCLUDE	product versus period cost			pending
+ALP-IND-12-0004	industrial	12 直接原価計算	第1節 直接原価計算とは	industrial/chapter12.md::purpose	直接原価計算は企業外部向け財務諸表作成ではなく、売上高・利益関係を分析する企業内部の利益計画に主として用いる	reasoning	INCLUDE	direct costing management purpose			pending
+ALP-IND-12-0005	industrial	12 直接原価計算	第1節 直接原価計算とは	industrial/chapter12.md::classification	直接原価計算では原価を変動費と固定費に区分し、売上高から変動費を控除して貢献利益、さらに固定費を控除して営業利益を求める	procedure	INCLUDE	direct costing income structure			pending
+ALP-IND-12-0006	industrial	12 直接原価計算	第1節 直接原価計算とは	industrial/chapter12.md::fixed-manufacturing	全部原価計算と直接原価計算の主要な相違は固定製造原価を製品原価に含めるか期間原価にするかである	comparison	INCLUDE	fixed manufacturing cost distinction			pending
+ALP-IND-12-0007	industrial	12 直接原価計算	第1節 損益計算書	industrial/chapter12.md::full-cogs	全部原価計算の売上原価＝期首製品棚卸高＋当期製品製造原価－期末製品棚卸高である	formula	INCLUDE	full costing COGS formula			pending
+ALP-IND-12-0008	industrial	12 直接原価計算	第1節 損益計算書	industrial/chapter12.md::full-profit	全部原価計算では売上総利益＝売上高－売上原価、営業利益＝売上総利益－販売費及び一般管理費である	formula	INCLUDE	full costing profit formulas			pending
+ALP-IND-12-0009	industrial	12 直接原価計算	第1節 損益計算書	industrial/chapter12.md::variable-cogs	直接原価計算の変動売上原価＝期首製品棚卸高（変動原価）＋当期製品製造原価（変動原価）－期末製品棚卸高（変動原価）である	formula	INCLUDE	variable COGS formula			pending
+ALP-IND-12-0010	industrial	12 直接原価計算	第1節 損益計算書	industrial/chapter12.md::variable-margin	変動製造マージン＝売上高－変動売上原価である	formula	INCLUDE	variable manufacturing margin formula			pending
+ALP-IND-12-0011	industrial	12 直接原価計算	第1節 損益計算書	industrial/chapter12.md::contribution	貢献利益＝変動製造マージン－変動販売費である	formula	INCLUDE	contribution margin formula			pending
+ALP-IND-12-0012	industrial	12 直接原価計算	第1節 損益計算書	industrial/chapter12.md::operating-profit	直接原価計算の営業利益＝貢献利益－固定費であり、固定費には固定製造原価と固定販売費及び一般管理費を含む	formula	INCLUDE	direct costing operating profit formula			pending
+ALP-IND-12-0013	industrial	12 直接原価計算	第1節 利益相違	industrial/chapter12.md::expense-timing	全部原価計算では固定製造原価を棚卸資産へ繰り延べ販売時に費用化するが、直接原価計算では発生期に全額費用化する	comparison	INCLUDE	fixed cost expense timing			pending
+ALP-IND-12-0014	industrial	12 直接原価計算	第1節 利益相違	industrial/chapter12.md::fixed-expense-relation	全部原価計算の固定製造費用化額＝直接原価計算の固定製造費用化額＋期首棚卸資産固定製造費－期末棚卸資産固定製造費である	formula	INCLUDE	fixed manufacturing expense relation			pending
+ALP-IND-12-0015	industrial	12 直接原価計算	第1節 利益相違	industrial/chapter12.md::profit-relation	全部原価計算営業利益＝直接原価計算営業利益－期首棚卸資産固定製造費＋期末棚卸資産固定製造費である	formula	INCLUDE	operating profit reconciliation			pending
+ALP-IND-12-0016	industrial	12 直接原価計算	第1節 利益相違	industrial/chapter12.md::profit-difference	全部原価計算営業利益－直接原価計算営業利益＝期末棚卸資産固定製造費－期首棚卸資産固定製造費である	formula	INCLUDE	profit difference formula			pending
+ALP-IND-12-0017	industrial	12 直接原価計算	第2節 固定費調整	industrial/chapter12.md::fixed-adjustment	固定費調整は直接原価計算で算定した営業利益を全部原価計算ベースの営業利益へ修正する手続である	definition	INCLUDE	fixed cost adjustment definition			pending
+ALP-IND-12-0018	industrial	12 直接原価計算	第2節 固定費調整	industrial/chapter12.md::public-reporting	公表用財務諸表は全部原価計算に基づく必要があるため、内部管理に直接原価計算を用いる場合は固定費調整が必要となる	reasoning	INCLUDE	fixed adjustment necessity			pending
+ALP-IND-12-0019	industrial	12 直接原価計算	第2節 固定費調整	industrial/chapter12.md::adjustment-formula	固定費調整後営業利益＝直接原価計算営業利益＋期末棚卸資産固定製造費－期首棚卸資産固定製造費である	formula	INCLUDE	fixed cost adjustment formula			pending
+ALP-IND-12-0020	industrial	12 直接原価計算	第2節 固定費調整	industrial/chapter12.md::inventory-fixed	固定費調整では月末仕掛品・月末製品等の期末棚卸資産に含まれる固定製造原価を把握して加算し、期首棚卸資産固定製造原価を減算する	procedure	INCLUDE	inventory fixed cost adjustment procedure			pending
+	industrial	12 直接原価計算	Case Study・例題12-1	industrial/chapter12.md::examples	全部原価計算・直接原価計算・固定費調整の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
