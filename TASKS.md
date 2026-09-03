@@ -124,7 +124,12 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - itemize recognition-basis and formula terms; retain compact whole-entry recall only for four reviewed coupled-entry Notes
   - re-audit all 32 ALPs for material proposition containment in active `Text`; exact visible-answer leakage remains **0**
   - strengthen `scripts/validate_com02_production.py` for lexical atomicity, formula itemization, compact-entry exceptions, content requirements, and answer-leak detection
-- [ ] **ANKI-010** Commercial chapter03
+- [x] **ANKI-010** Commercial chapter03
+  - `production/notes/COM-03.tsv`: **25 approved Notes / 25 generated cards / 70 Cloze spans / 38 included ALPs / 0 unmapped**
+  - 38/38 included ALPs map exactly once; **9** coherent multi-ALP Notes; **2** decorative numerical-example rows remain excluded by canonical inventory status
+  - current recall-precision rules applied at initial generation: account-level same-`c1` journal Clozes, canonical-label priority, visible-answer leakage **0**
+  - stable production IDs allocated deterministically as `BK-COM-03-0001`–`BK-COM-03-0025`
+  - `production/qa/COM-03.md` + `scripts/validate_com03_production.py`; CI validation wired into `validate-production.yml`
 - [ ] **ANKI-011** Commercial chapter04
 - [ ] **ANKI-012** Commercial chapter05
 - [ ] **ANKI-013** Commercial chapter06
