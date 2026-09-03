@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate FND-00 after the v1.3 minimal/lexical-Cloze audit."""
+"""Validate FND-00 after the v1.4 balanced/context-preserving audit."""
 
 from __future__ import annotations
 
@@ -34,33 +34,72 @@ EXPECTED_NOTE_IDS = {
 }
 
 EXPECTED_ACTIVE_IDS = {
+    "BK-FND-00-0018",
     "BK-FND-00-0022",
+    "BK-FND-00-0003",
+    "BK-FND-00-0024",
+    "BK-FND-00-0025",
+    "BK-FND-00-0026",
+    "BK-FND-00-0027",
     "BK-FND-00-0002",
     "BK-FND-00-0004",
     "BK-FND-00-0005",
     "BK-FND-00-0037",
+    "BK-FND-00-0009",
     "BK-FND-00-0044",
     "BK-FND-00-0010",
     "BK-FND-00-0011",
+    "BK-FND-00-0012",
+    "BK-FND-00-0047",
     "BK-FND-00-0053",
     "BK-FND-00-0054",
     "BK-FND-00-0055",
     "BK-FND-00-0014",
     "BK-FND-00-0058",
     "BK-FND-00-0015",
+    "BK-FND-00-0062",
+    "BK-FND-00-0068",
     "BK-FND-00-0075",
     "BK-FND-00-0078",
     "BK-FND-00-0086",
     "BK-FND-00-0088",
 }
-EXPECTED_APPROVED_COUNT = 18
-EXPECTED_DEPRECATED_COUNT = 73
-EXPECTED_GENERATED_CARDS = 18
-EXPECTED_CLOZE_SPANS = 36
-EXPECTED_ACTIVE_ALPS = 36
+EXPECTED_APPROVED_COUNT = 29
+EXPECTED_DEPRECATED_COUNT = 62
+EXPECTED_GENERATED_CARDS = 29
+EXPECTED_CLOZE_SPANS = 70
+EXPECTED_ACTIVE_ALPS = 61
 
 ALLOWED_NONLEXICAL = {"ならない"}
 BANNED_ANSWER_PUNCTUATION = set("。、，,；;／/→＋+・")
+
+# These cues must remain visible after the answers are hidden. They protect
+# against cards whose Clozes erase the subject/retrieval frame.
+VISIBLE_CONTEXT_CUES = {
+    "BK-FND-00-0018": "簿記の基本",
+    "BK-FND-00-0003": "資金調達・運用",
+    "BK-FND-00-0024": "商品売買の基本用語",
+    "BK-FND-00-0025": "簿記の記録過程",
+    "BK-FND-00-0026": "勘定残高",
+    "BK-FND-00-0027": "会計期間の表記",
+    "BK-FND-00-0002": "簿記の5要素",
+    "BK-FND-00-0004": "5要素の増加の定位置",
+    "BK-FND-00-0037": "簿記上の取引判定",
+    "BK-FND-00-0009": "簿記の一巡",
+    "BK-FND-00-0044": "総勘定元帳",
+    "BK-FND-00-0010": "試算表の種類",
+    "BK-FND-00-0012": "基本的な費用仕訳",
+    "BK-FND-00-0047": "費用科目の選択",
+    "BK-FND-00-0053": "給与の源泉徴収",
+    "BK-FND-00-0055": "社会保険料の給与処理",
+    "BK-FND-00-0015": "訂正仕訳",
+    "BK-FND-00-0062": "主要簿",
+    "BK-FND-00-0068": "補助簿",
+    "BK-FND-00-0075": "補助元帳照合",
+    "BK-FND-00-0078": "3伝票制",
+    "BK-FND-00-0086": "証ひょうの種類",
+    "BK-FND-00-0088": "証ひょうから仕訳",
+}
 
 
 def fail(errors: list[str], message: str) -> None:
@@ -126,10 +165,8 @@ def main() -> int:
 
         if status == "approved":
             indices = {int(i) for i, _ in matches}
-            # v1.3: one coherent active Note is one card. Parallel lexical
-            # answers may use multiple distinct spans, but all share c1.
             if indices != {1}:
-                fail(errors, f"{note_id}: approved v1.3 Note must use only c1, got {sorted(indices)}")
+                fail(errors, f"{note_id}: approved v1.4 Note must use only c1, got {sorted(indices)}")
             generated_cards += 1
             cloze_spans += len(matches)
 
@@ -143,6 +180,20 @@ def main() -> int:
                     fail(errors, f"{note_id}: compound/list-like Cloze answer {answer!r}; split into same-index lexical spans")
                 if len(answer) > 12 and answer not in ALLOWED_NONLEXICAL:
                     fail(errors, f"{note_id}: overly long Cloze answer {answer!r}")
+                if answer in {"借方", "貸方"}:
+                    fail(errors, f"{note_id}: debit/credit side must Cloze first character only")
+
+            hidden = CLOZE_RE.sub("___", text)
+            required_cue = VISIBLE_CONTEXT_CUES.get(note_id)
+            if required_cue and required_cue not in hidden:
+                fail(errors, f"{note_id}: visible context cue {required_cue!r} disappears after Cloze masking")
+
+            # Explicitly preserve the requested first-character shape wherever
+            # debit/credit direction itself is tested.
+            if "{{c1::借}}方" in text or "{{c1::貸}}方" in text:
+                pass
+            elif any(answer in {"借", "貸"} for answer in answers):
+                fail(errors, f"{note_id}: bare 借/貸 Cloze must be immediately followed by 方")
 
             plain = CLOZE_RE.sub(lambda m: m.group(2), text).strip()
             approved_plain[plain] += 1
@@ -227,20 +278,20 @@ def main() -> int:
         fail(errors, "excluded FND-00 rows unexpectedly carry ALP IDs")
 
     if errors:
-        print("FND-00 v1.3 production validation: FAIL", file=sys.stderr)
+        print("FND-00 v1.4 production validation: FAIL", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
 
-    print("FND-00 v1.3 production validation: PASS")
+    print("FND-00 v1.4 production validation: PASS")
     print(
         f"rows=91 approved={approved_count} deprecated={deprecated_count} "
         f"source_reviewed_alps=91 active_recall_alps={len(active_alp_to_notes)}"
     )
     print(
         f"generated_cards={generated_cards} cloze_spans={cloze_spans} "
-        f"same_index_parallelism=pass lexical_atomicity=pass "
-        f"reserved_pilot_only_id={RESERVED_PILOT_ONLY_ID}"
+        f"same_index_parallelism=pass lexical_atomicity=pass visible_context=pass "
+        f"debit_credit_first_character=pass reserved_pilot_only_id={RESERVED_PILOT_ONLY_ID}"
     )
     return 0
 
