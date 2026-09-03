@@ -1,5 +1,5 @@
 version: 1
-status: in_progress
+status: complete
 issue: ANKI-003
 source:
   repository: xihangzou/bookkeeping-integrated
@@ -61,3 +61,17 @@ stage_boundary:
   qa_status: pending
   note_generation_required: false
   final_note_dedup_required: false
+completion_summary:
+  source_chapter_files: 31
+  source_h2_sections: 110
+  source_h3_sections: 387
+  source_sections_reviewed: 497
+  candidate_rows: 1004
+  included_alps: 965
+  excluded_candidates: 39
+  excluded_by_reason:
+    DECORATIVE_EXAMPLE: 38
+    DUPLICATE_EXACT: 1
+  unresolved_duplicate_conflicts: 0
+  validation: PASS
+  validation_workflow_run: 33717121558
