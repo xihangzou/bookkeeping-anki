@@ -1,6 +1,7 @@
 # Coverage Rules
 
-Status: **v1.0 — frozen after representative pilot (ANKI-PILOT-006)**
+Status: **Current authoritative coverage rules — living specification**
+Governance: `GOVERNANCE.md`
 
 ## 1. Coverage target
 
@@ -265,20 +266,24 @@ The pilot did **not** justify changing:
 - pinned source baseline;
 - source-traceability requirements.
 
-Those contracts remain unchanged for the v1.0 freeze gate.
+Those items were unchanged at the historical v1.0 pilot gate. Later reviewed changes remain permitted under `GOVERNANCE.md`.
 
-## 16. ANKI-PILOT-006 freeze decision
+## 16. Historical ANKI-PILOT-006 baseline decision
 
-The v1.0 candidate passed the final pilot gate and is frozen for Phase C production.
+The v1.0 candidate passed the final pilot gate and established the initial Phase C production baseline.
 
-Freeze evidence:
+Historical gate evidence:
 
 - corrected pilot: **40 Notes / 62 generated cards**;
 - accounting failures: **0**;
 - source-traceability failures: **0**;
 - major findings: **0**;
 - blocking findings: **0**;
-- recurring/minor finding families are governed by explicit v1.0 rules or documented no-change decisions;
-- canonical ALP IDs and source mappings remain unchanged.
+- recurring/minor finding families had explicit v1.0 rules or documented no-change decisions;
+- canonical ALP IDs and source mappings remained unchanged.
 
-Chapter-wide generation from ANKI-007 onward must use this frozen v1.0 coverage contract unless a separately reviewed post-freeze migration is explicitly approved.
+Chapter-wide generation from ANKI-007 onward was originally authorized by this gate. Current generation and explicit migrations use the latest merged coverage rules under `GOVERNANCE.md`.
+
+## 17. Rule evolution
+
+Coverage rules are revised when later chapter work or QA reveals an omission, duplicate, over-compression, or better retrieval design. Preserve historical metrics and source lineage, but update this file rather than keeping a known-bad rule solely because it existed in v1.0.

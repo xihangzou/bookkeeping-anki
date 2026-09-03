@@ -22,7 +22,7 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 - [x] **ANKI-006** Canonical Note schema and tag namespaces
   - `schema/note_schema.yaml`
 
-## Phase B — Pilot and rule freeze
+## Phase B — Pilot and initial production baseline
 
 - [x] **ANKI-PILOT-001** Select representative ALPs from Part 0 + Commercial chapter 01
   - `pilot/selection.tsv`
@@ -45,10 +45,10 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - `rules/coverage_rules.md`: generated-card / retrieval-unit semantic deduplication
   - `pilot/review.md`: evidence-to-rule matrix and explicit schema/tag/source/TSV no-change rationale
   - corrected pilot preserved: 40 Notes / 62 cards, 0 major, 0 blocking
-- [x] **ANKI-PILOT-006** Freeze v1.0 before full generation
-  - `FREEZE.md`: final gate evidence and production authorization
-  - `SPEC.md`, `rules/cloze_rules.md`, `rules/coverage_rules.md`: v1.0 frozen
-  - `schema/note_schema.yaml`: v1.0 / production / frozen; semantic schema contract unchanged
+- [x] **ANKI-PILOT-006** Establish v1.0 initial production baseline
+  - `FREEZE.md`: historical gate evidence and original production authorization
+  - `SPEC.md`, `rules/cloze_rules.md`, `rules/coverage_rules.md`: v1.0 baseline recorded (later superseded by living-spec governance)
+  - `schema/note_schema.yaml`: v1.0 production baseline recorded; semantic schema contract was unchanged at that gate
   - corrected pilot: 40 Notes / 62 cards, 0 accounting failures, 0 source-traceability failures, 0 major, 0 blocking
   - Phase C / ANKI-007 onward unblocked
 
@@ -97,6 +97,13 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - `BK-FND-00-0084` explicitly states `各伝票から{{c1::個別転記}}する` for subsidiary ledgers
   - restore other compressed ALP content including residual definition, period vocabulary, temporary-account classification, correction logic, subsidiary-book mechanics, voucher/document details
   - `scripts/migrate_fnd00_v1_6.py` + strengthened v1.6 validator; visible-answer leakage remains **0**; FND-00 validation **PASS**
+
+- [x] **ANKI-GOV-001** Living-spec governance / retire permanent v1.0 freeze authority (#73)
+  - latest merged `SPEC.md`, `rules/*.md`, schema, and applicable QA/validators are the current authority
+  - `FREEZE.md` retained as historical v1.0 baseline evidence only
+  - stable IDs, source traceability, pinned batch provenance, and deterministic lineage remain persistent invariants
+  - schema lifecycle changed from frozen v1.0 metadata to reviewed living-spec governance
+  - governance CI prevents reintroduction of active `frozen v1.0` / `post-freeze` authority language
 
 ### Commercial bookkeeping
 

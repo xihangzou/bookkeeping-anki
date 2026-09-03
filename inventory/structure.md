@@ -1,6 +1,6 @@
 # Source Structure Inventory
 
-Status: **ANKI-002 complete / frozen**
+Status: **ANKI-002 complete / source-pinned snapshot**
 
 ## Source pin
 
@@ -209,8 +209,8 @@ Source QA at the pinned commit confirms Part order, 30 numeric H1 chapters plus 
 - [x] every chapter title extracted
 - [x] every H2/H3 heading path extracted
 - [x] merged structure reconciled with chapter corpus
-- [x] structure inventory frozen for ANKI-003 decomposition
+- [x] structure inventory recorded as the source-pinned snapshot for ANKI-003 decomposition
 
-## Freeze rule
+## Snapshot / update rule
 
 This file is the authoritative structural input for **ANKI-003**. Do not silently alter the hierarchy during ALP decomposition. Re-extract and re-freeze this inventory only if the pinned source commit changes or a verified source-structure defect is discovered.

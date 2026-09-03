@@ -95,7 +95,7 @@ def main() -> int:
         print(f"ERROR: missing data directory: {DATA_DIR}", file=sys.stderr)
         return 1
     if not STRUCTURE_PATH.exists():
-        print(f"ERROR: missing frozen structure inventory: {STRUCTURE_PATH}", file=sys.stderr)
+        print(f"ERROR: missing pinned structure snapshot inventory: {STRUCTURE_PATH}", file=sys.stderr)
         return 1
 
     chapter_files, h2_sections, h3_sections = count_structure_sections()
@@ -108,7 +108,7 @@ def main() -> int:
     if unexpected:
         fail(errors, f"unexpected shards: {', '.join(unexpected)}")
     if chapter_files != len(EXPECTED_SHARDS):
-        fail(errors, f"frozen structure chapter-file count {chapter_files} does not match expected shard count {len(EXPECTED_SHARDS)}")
+        fail(errors, f"pinned structure snapshot chapter-file count {chapter_files} does not match expected shard count {len(EXPECTED_SHARDS)}")
 
     for shard_name in EXPECTED_SHARDS:
         path = DATA_DIR / shard_name

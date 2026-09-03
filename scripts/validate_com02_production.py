@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the COM-02 production batch under frozen v1.0 + v1.2 overlay."""
+"""Validate the COM-02 production batch under its current explicitly audited state."""
 
 from __future__ import annotations
 

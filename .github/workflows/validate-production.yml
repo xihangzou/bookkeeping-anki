@@ -3,6 +3,10 @@ name: Validate production notes
 on:
   push:
     paths:
+      - 'GOVERNANCE.md'
+      - 'README.md'
+      - 'SPEC.md'
+      - 'FREEZE.md'
       - 'production/notes/**'
       - 'production/qa/**'
       - 'production/README.md'
@@ -10,7 +14,11 @@ on:
       - 'inventory/topic_inventory/COM-01.tsv'
       - 'inventory/topic_inventory/COM-02.tsv'
       - 'schema/note_schema.yaml'
+      - 'rules/cloze_rules.md'
+      - 'rules/coverage_rules.md'
       - 'rules/exam_yield_rules.md'
+      - 'scripts/migrate_living_spec_governance.py'
+      - 'scripts/validate_governance.py'
       - 'scripts/migrate_fnd00_v1_2.py'
       - 'scripts/migrate_fnd00_v1_3.py'
       - 'scripts/migrate_fnd00_v1_4.py'
@@ -23,6 +31,10 @@ on:
       - '.github/workflows/validate-production.yml'
   pull_request:
     paths:
+      - 'GOVERNANCE.md'
+      - 'README.md'
+      - 'SPEC.md'
+      - 'FREEZE.md'
       - 'production/notes/**'
       - 'production/qa/**'
       - 'production/README.md'
@@ -30,7 +42,11 @@ on:
       - 'inventory/topic_inventory/COM-01.tsv'
       - 'inventory/topic_inventory/COM-02.tsv'
       - 'schema/note_schema.yaml'
+      - 'rules/cloze_rules.md'
+      - 'rules/coverage_rules.md'
       - 'rules/exam_yield_rules.md'
+      - 'scripts/migrate_living_spec_governance.py'
+      - 'scripts/validate_governance.py'
       - 'scripts/migrate_fnd00_v1_2.py'
       - 'scripts/migrate_fnd00_v1_3.py'
       - 'scripts/migrate_fnd00_v1_4.py'
@@ -44,6 +60,16 @@ on:
   workflow_dispatch:
 
 jobs:
+  validate-governance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate living-spec governance
+        run: python scripts/validate_governance.py
+
   validate-fnd00:
     runs-on: ubuntu-latest
     steps:

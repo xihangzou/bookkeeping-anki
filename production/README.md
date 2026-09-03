@@ -1,18 +1,33 @@
 # Production Notes
 
-Canonical production Cloze-note batches live under `production/notes/` as UTF-8 TSV files following the frozen v1.0 schema in `schema/note_schema.yaml`.
+Canonical production Cloze-note batches live under `production/notes/` as UTF-8 TSV files following the **current** schema in `schema/note_schema.yaml`.
 
-The source/schema/stable-ID baseline remains frozen. Active-deck and recall design are governed by the **v1.6 post-freeze overlay** in `rules/exam_yield_rules.md`.
+Repository-wide governance is defined in `GOVERNANCE.md`. Current authoring, coverage, active-deck, and recall design are governed by the latest merged `SPEC.md` and `rules/*.md`; v1.0 is a historical baseline rather than permanent authority.
 
 ## Conventions
 
 - one chapter/part batch per TSV file;
-- stable Note IDs are immutable; deprecated IDs are never reassigned;
+- stable Note IDs are immutable; deprecated IDs are never reassigned to unrelated content;
 - source anchors are recovered through canonical `ALP_IDs`;
+- existing batches retain their pinned source provenance until an explicit source-baseline migration;
 - chapter QA lives under `production/qa/`;
 - active card count is the number of distinct Cloze indices, while Cloze-span count tracks masked answer units.
 
-## Integration-first, content-preserving design — v1.6
+## Living-rule application
+
+The latest merged rules are authoritative for new generation. Existing batches have an explicit audited state and are migrated deliberately when a newer rule is applied to them.
+
+This means:
+
+1. rule improvements are written into the current authoritative files;
+2. validators are updated when the rule is mechanically enforceable;
+3. affected chapter batches are migrated explicitly rather than silently rewritten;
+4. historical audit metrics remain historical evidence;
+5. stable-ID/source-lineage invariants remain intact.
+
+`FREEZE.md` is the historical v1.0 pilot-baseline record only.
+
+## Integration-first, content-preserving design
 
 Card-count control should come primarily from coherent integration:
 
@@ -21,30 +36,23 @@ Card-count control should come primarily from coherent integration:
 3. use separate `{{c1::...}}` spans for parallel answers on the same card;
 4. add another Note only when integration would make the retrieval task incoherent or overloaded.
 
-An ALP mapping alone is not enough: material source content must remain recoverable from the active Note text. For FND-00, this yields **91/91 active ALPs in 32 cards** while restoring source details that v1.5 had compressed too aggressively.
+An ALP mapping alone is not enough: material source content must remain recoverable from the active Note text.
 
-## Cloze context, formula, and anti-leak rules
+## Current Cloze / completeness rules
+
+Current rules include:
 
 - Cloze spans should normally be lexical or short discriminating chunks;
 - arithmetic/formula operators remain visible and each term is Clozed separately, e.g. `{{c1::収益}}－{{c1::費用}}`;
-- parallel terms use the same `c1`, not extra generated cards;
+- parallel terms belonging to one retrieval operation use the same `c1`;
 - debit/credit direction uses `{{c1::借}}方` / `{{c1::貸}}方`;
 - the visible text after masking must still identify the topic;
 - a 2+ character Cloze answer must not appear verbatim elsewhere in the same card;
-- do not use a topic label that reveals the answer;
-- syntax-sensitive answers may include particles where needed, e.g. `{{c1::に終わる}}` / `{{c1::から始まる}}`.
+- source families represented by included ALPs must not be silently truncated during integration.
 
-## Completeness examples
+COM-01 additionally applies the FND-00 style reference for short, unique answer spans and visible explanatory context.
 
-When one inventory ALP represents a source family, integration must not silently truncate that family. FND-00 v1.6 therefore retains:
-
-- all ten representative expense categories from the source;
-- general-ledger `標準式` / `残高式` and material field mechanics;
-- subsidiary-book mechanics and the explicit rule that subsidiary ledgers are posted from each voucher by `{{c1::個別転記}}`;
-- temporary-account classifications and later reclassification;
-- source-required formula terms, period vocabulary, correction logic, and document/voucher mechanics.
-
-COM-01 applies the same rules to commercial bookkeeping, including acquisition-cost details, cost-flow method families, journal-entry mechanics, inventory valuation, and term-level formula recall. Its chapter-local precision audit also uses FND-00 as the style reference for short, unique answer spans and visible explanatory context.
+See `rules/cloze_rules.md`, `rules/coverage_rules.md`, and `rules/exam_yield_rules.md` for the authoritative current wording.
 
 ## FND-00 audit result
 
@@ -73,10 +81,10 @@ and
 
 ## Existing commercial batches
 
-- `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 87 Cloze spans / 52 included ALPs; v1.7 chapter precision audit under v1.6 overlay**;
-- `notes/COM-02.tsv` — 17 approved Notes / 17 cards / 32 included ALPs.
+- `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 87 Cloze spans / 52 included ALPs; v1.7 chapter-local precision audit applied**;
+- `notes/COM-02.tsv` — 17 approved Notes / 17 cards / 32 included ALPs; retains its current audited state until an explicit migration applies newer rules.
 
-COM-01 follows the v1.6 recall-design overlay and has additionally been normalized to FND-00-style answer precision. COM-02 retains its audited generation state until an explicit chapter audit migrates it to the newer recall-design rules.
+A newer repository rule does not erase the historical chapter audit. It becomes mandatory for an existing batch when the rule is declared a repository-wide invariant or when that batch is explicitly migrated.
 
 ## Lifecycle
 
@@ -84,11 +92,11 @@ COM-01 follows the v1.6 recall-design overlay and has additionally been normaliz
 
 ## Current batches
 
-- `notes/FND-00.tsv` — foundations; current overlay v1.6 / ANKI-AUDIT-006 (#70);
-- `notes/COM-01.tsv` — Commercial chapter 01; v1.7 chapter precision audit under current v1.6 overlay;
-- `notes/COM-02.tsv` — Commercial chapter 02.
+- `notes/FND-00.tsv` — foundations; audited through ANKI-AUDIT-006 (#70);
+- `notes/COM-01.tsv` — Commercial chapter 01; v1.7 chapter-local Cloze-precision audit applied on top of its current recall-design rules;
+- `notes/COM-02.tsv` — Commercial chapter 02; original chapter audit state retained pending explicit migration.
 
-Migration records:
+Migration records include:
 
 - `scripts/migrate_fnd00_v1_2.py`
 - `scripts/migrate_fnd00_v1_3.py`

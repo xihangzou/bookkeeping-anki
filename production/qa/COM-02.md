@@ -2,7 +2,7 @@
 
 Task: ANKI-009 / Commercial chapter 02 `収益認識`
 
-Contract: frozen v1.0 source/schema/Cloze/coverage rules plus the v1.2 exam-yield and generated-card-efficiency overlay in `rules/exam_yield_rules.md`.
+Governance: `GOVERNANCE.md`. COM-02 retains its explicitly audited chapter state from ANKI-009; current general rules are authoritative for new work, while this existing batch is migrated when a newer rule is explicitly applied to it.
 
 Source baseline:
 - repository: `xihangzou/bookkeeping-integrated`

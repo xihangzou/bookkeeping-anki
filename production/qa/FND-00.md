@@ -2,9 +2,10 @@
 
 Issues: ANKI-007 / #8; ANKI-AUDIT-001 / #56; ANKI-AUDIT-002 / #58; ANKI-AUDIT-003 / #62; ANKI-AUDIT-004 / #66; ANKI-AUDIT-005 / #68; ANKI-AUDIT-006 / #70
 
-Contracts:
-- frozen v1.0 source/schema/stable-ID baseline;
-- current v1.6 post-freeze integration / completeness / Cloze overlay: `rules/exam_yield_rules.md`.
+Governance and contracts:
+- repository governance: `GOVERNANCE.md`;
+- current general specification/rules/schema: latest merged `SPEC.md`, `rules/*.md`, and `schema/note_schema.yaml`;
+- this chapter's applied audit state: FND-00 through v1.6 / ANKI-AUDIT-006 (#70).
 
 ## Audit history
 

@@ -1,13 +1,14 @@
 # Anki Deck Specification
 
-Status: **v1.0 — frozen after representative pilot (ANKI-PILOT-006)**
+Status: **Current authoritative specification — living document**
+Governance: `GOVERNANCE.md`
 
 ## 1. Scope
 
 The deck covers the complete content of:
 
 - `xihangzou/bookkeeping-integrated/merged/textbook.md`
-- baseline commit `569ed7b82e729334e1472286eaca7c4352e6fbdb`
+- current production source baseline commit `569ed7b82e729334e1472286eaca7c4352e6fbdb`
 
 Scope equals bookkeeping levels 2 and 3 as integrated in that textbook, including:
 
@@ -16,6 +17,8 @@ Scope equals bookkeeping levels 2 and 3 as integrated in that textbook, includin
 - Part II 工業簿記
 
 No chapter is excluded merely because it is advanced relative to level 3.
+
+The source baseline and the authoring-rule baseline are separate. The source commit may remain pinned while specification, Cloze, coverage, schema, and QA rules improve through reviewed repository changes.
 
 ## 2. Mastery definition
 
@@ -26,11 +29,12 @@ It does **not** mean every sentence or example must become a card.
 A deck is complete only when:
 
 1. every source section has been reviewed;
-2. every included Atomic Learning Point has one or more mapped notes;
+2. every included Atomic Learning Point is traceable in production history and materially represented according to current coverage rules;
 3. every excluded source unit has an explicit exclusion reason;
 4. all journal entries and calculations have passed accounting QA;
-5. all notes have passed Cloze QA;
-6. there are no unresolved duplicate or conflicting notes.
+5. all approved notes have passed current Cloze QA;
+6. there are no unresolved duplicate or conflicting notes;
+7. current authoritative rules and validators are internally consistent.
 
 ## 3. Unit hierarchy
 
@@ -68,10 +72,13 @@ Typical ALP types:
 - Primary note type: Anki Cloze.
 - One note should represent one coherent recall unit.
 - Context must remain visible so the answer is inferable from knowledge, not from guessing what the question is asking.
-- Default target: 1-3 cloze groups per note.
+- Related ALPs should be integrated when they form one coherent retrieval frame.
+- Card count is controlled primarily by coherent integration and same-index grouping, not by silently dropping useful source content.
 - A note may create several cards only when the masked facts are independently worth recalling.
-- Closely coupled facts that should be recalled together may share the same cloze number.
-- `Extra` explains reasoning, common errors, derivation, or source nuance; it must not become a substitute for recalling the answer.
+- Closely coupled or parallel facts that should be recalled together may share the same cloze number.
+- `Extra` explains reasoning, common errors, derivation, or source nuance; it must not become a substitute for recalling required knowledge.
+
+Detailed current rules live in `rules/cloze_rules.md`, `rules/coverage_rules.md`, and `rules/exam_yield_rules.md`.
 
 ## 5. Coverage policy
 
@@ -85,7 +92,8 @@ Include information when omission could cause one of the following:
 - wrong procedural order;
 - confusion between similar methods;
 - failure to apply a condition or exception;
-- inability to explain an important accounting relationship.
+- inability to explain an important accounting relationship;
+- inability to read or execute material bookkeeping mechanics represented in the source.
 
 Exclude or merge:
 
@@ -95,7 +103,9 @@ Exclude or merge:
 - decorative examples whose only change is arbitrary numbers;
 - facts already fully recalled by another note unless a different retrieval context is genuinely useful.
 
-See `rules/coverage_rules.md`.
+An ALP mapped to an approved integrated Note must remain materially recoverable from that Note; ALP mapping alone is not evidence of active content coverage.
+
+See `rules/coverage_rules.md` and `rules/exam_yield_rules.md`.
 
 ## 6. Source traceability
 
@@ -110,34 +120,52 @@ Every note must carry:
 - topic
 - ALP ID(s)
 
-A source update must be auditable by comparing the pinned baseline with a later commit.
+A source update must be auditable by comparing the pinned baseline with a later commit. Updating the source baseline requires an explicit reviewed migration; it is independent from updating authoring or QA rules.
 
-## 7. Pilot gate
+## 7. Pilot baseline and ongoing rule evolution
 
-Before full production:
+ANKI-PILOT-001〜006 established the initial v1.0 production baseline using 40 corrected Notes / 62 generated cards with 0 accounting failures, 0 source-traceability failures, 0 major findings, and 0 blocking findings.
 
-1. generate 30-50 representative notes from Part 0 and early commercial bookkeeping;
-2. include definitions, classifications, journal entries, formula/procedure, comparison, and reasoning cards;
-3. review actual Anki rendering and recall quality;
-4. record failure patterns;
-5. revise rules from v0.9 to v1.0 once;
-6. freeze v1.0 before chapter-wide generation.
+That gate authorized Phase C generation, but v1.0 is now treated as a **historical baseline rather than a permanent semantic freeze**.
 
-ANKI-PILOT-001〜006 completed this gate. The frozen pilot evidence is 40 corrected Notes / 62 generated cards with 0 accounting failures, 0 source-traceability failures, 0 major findings, and 0 blocking findings. Phase C generation is authorized under the frozen v1.0 contract.
+After full production begins:
+
+1. audit real generated Notes and rendered cards;
+2. record ambiguity, omission, overload, leakage, accounting, or efficiency failures;
+3. update the authoritative specification/rules/schema when the rule itself should improve;
+4. update validators when the rule can be checked mechanically;
+5. explicitly migrate affected production batches when required;
+6. preserve historical reproducibility through Git history, issues/PRs, QA records, and migration scripts.
+
+See `GOVERNANCE.md`. `FREEZE.md` records the historical v1.0 gate only.
 
 ## 8. Quality dimensions
 
 Each note is independently assessed for:
 
 - **Accuracy**: accounting content is correct.
-- **Coverage**: it maps to a necessary ALP.
-- **Atomicity**: it is not overloaded.
-- **Prompt sufficiency**: context makes the retrieval target unambiguous.
-- **Recall value**: the cloze tests knowledge rather than reading comprehension or trivial completion.
+- **Coverage**: it maps to necessary ALPs and materially preserves required source content.
+- **Atomicity / coherence**: integration does not create unrelated retrieval tasks.
+- **Prompt sufficiency**: context makes the retrieval target unambiguous after masking.
+- **Recall value**: the cloze tests knowledge rather than trivial completion.
+- **Non-leakage**: visible text does not give away the hidden answer.
 - **Non-duplication**: it adds a distinct retrieval target.
-- **Traceability**: source mapping is complete.
+- **Traceability**: source mapping and lineage are complete.
+- **Rule currency**: it satisfies the current authoritative rules for the batch or an explicitly documented earlier audited state.
 
-## 9. Output
+## 9. Persistent lineage invariants
+
+Unless an explicit repository-wide migration changes them:
+
+- stable Note IDs are immutable after assignment;
+- deprecated/deleted IDs are not reused for unrelated content;
+- canonical ALP/source mappings remain auditable;
+- approved production Notes retain deterministic serialization;
+- existing batches retain their pinned source fields until an explicit source-baseline migration.
+
+These are lineage/reproducibility invariants, not a freeze on improving deck-design rules.
+
+## 10. Output
 
 Canonical editable data is stored in repository text files. APKG is an export artifact, not the source of truth.
 
@@ -149,6 +177,6 @@ Planned outputs:
 - TSV/CSV import representation
 - APKG export
 
-## 10. CPA continuity
+## 11. CPA continuity
 
 The deck should create durable bookkeeping foundations for later CPA study. This affects card quality and terminology, but the current deck remains source-bounded to `textbook.md`. CPA-only content must not be counted as bookkeeping coverage.
