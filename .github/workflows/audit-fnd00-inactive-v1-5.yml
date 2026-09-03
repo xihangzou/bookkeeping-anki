@@ -1,0 +1,19 @@
+name: Audit FND-00 inactive ALPs v1.5
+
+on:
+  push:
+    branches:
+      - audit-fnd00-integration-v1-5
+    paths:
+      - 'scripts/audit_fnd00_inactive_alps_v1_5.py'
+      - '.github/workflows/audit-fnd00-inactive-v1-5.yml'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/audit_fnd00_inactive_alps_v1_5.py
