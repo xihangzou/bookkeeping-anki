@@ -7,7 +7,7 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 - [x] **ANKI-001** Project scope / mastery definition / source baseline
   - `README.md`
   - `SPEC.md`
-- [-] **ANKI-002** Extract complete textbook structure
+- [x] **ANKI-002** Extract complete textbook structure
   - `inventory/structure.md`
   - enumerate Part / chapter / section hierarchy from pinned source
 - [ ] **ANKI-003** Atomic Learning Point inventory
