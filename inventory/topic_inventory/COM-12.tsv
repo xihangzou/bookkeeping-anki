@@ -1,0 +1,36 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-12-0001	commercial	12 税・税効果会計	基礎 1 租税公課	commercial/chapter12.md::basic-1	固定資産税・自動車税・印紙税などは租税公課として費用計上する	classification	INCLUDE	tax account selection			pending
+ALP-COM-12-0002	commercial	12 税・税効果会計	基礎 1 租税公課	commercial/chapter12.md::basic-1	収入印紙購入は租税公課、郵便切手購入は通信費として処理する	comparison	INCLUDE	stamp account distinction			pending
+ALP-COM-12-0003	commercial	12 税・税効果会計	基礎 2 貯蔵品	commercial/chapter12.md::basic-2	決算日に未使用の郵便切手・収入印紙があれば通信費・租税公課から貯蔵品（資産）へ振り替える	journal_entry	INCLUDE	unused supplies adjustment			pending
+ALP-COM-12-0004	commercial	12 税・税効果会計	基礎 2 貯蔵品	commercial/chapter12.md::basic-2	期末に貯蔵品へ振り替えた切手・印紙は翌期首に再振替する	procedure	INCLUDE	reversing entry			pending
+ALP-COM-12-0005	commercial	12 税・税効果会計	基礎 3 法人税等	commercial/chapter12.md::basic-3	中間申告で納付した法人税等は仮払法人税等（資産）として処理する	journal_entry	INCLUDE	interim tax payment treatment			pending
+ALP-COM-12-0006	commercial	12 税・税効果会計	基礎 3 法人税等	commercial/chapter12.md::basic-3	決算で法人税等確定額全額を費用計上し仮払法人税等を取り崩し差額を未払法人税等（負債）とする	journal_entry	INCLUDE	year-end corporate tax entry			pending
+ALP-COM-12-0007	commercial	12 税・税効果会計	基礎 3 法人税等	commercial/chapter12.md::basic-3	未払法人税等＝法人税等確定額－中間納付済み仮払法人税等である	formula	INCLUDE	corporate tax payable formula			pending
+ALP-COM-12-0008	commercial	12 税・税効果会計	基礎 3 法人税等	commercial/chapter12.md::basic-3	翌期の確定申告納付時は未払法人税等を減額し新たな法人税費用は計上しない	journal_entry	INCLUDE	settlement treatment			pending
+ALP-COM-12-0009	commercial	12 税・税効果会計	基礎 4 消費税	commercial/chapter12.md::basic-4	税抜方式では仕入時消費税を仮払消費税（資産）、売上時消費税を仮受消費税（負債）で処理する	journal_entry	INCLUDE	consumption tax interim treatment			pending
+ALP-COM-12-0010	commercial	12 税・税効果会計	基礎 4 消費税	commercial/chapter12.md::basic-4	消費税納付額＝仮受消費税－仮払消費税である	formula	INCLUDE	consumption tax payable formula			pending
+ALP-COM-12-0011	commercial	12 税・税効果会計	基礎 4 消費税	commercial/chapter12.md::basic-4	決算で仮受消費税と仮払消費税を相殺し差額を未払消費税として計上する	journal_entry	INCLUDE	consumption tax closing entry			pending
+ALP-COM-12-0012	commercial	12 税・税効果会計	税効果会計の基礎	commercial/chapter12.md::tax-base	会計は収益－費用で税引前利益、税法は益金－損金で課税所得を計算する	comparison	INCLUDE	book-tax profit distinction			pending
+ALP-COM-12-0013	commercial	12 税・税効果会計	税効果会計の基礎	commercial/chapter12.md::tax-base	課税所得＝税引前当期純利益＋加算調整－減算調整で求める	formula	INCLUDE	taxable income reconciliation			pending
+ALP-COM-12-0014	commercial	12 税・税効果会計	申告調整	commercial/chapter12.md::tax-adjustment	会計で費用だが税法で損金不算入なら利益より所得が大きくなるため加算調整する	classification	INCLUDE	add-back rule			pending
+ALP-COM-12-0015	commercial	12 税・税効果会計	申告調整	commercial/chapter12.md::tax-adjustment	会計で費用でなく税法で損金算入なら利益より所得が小さくなるため減算調整する	classification	INCLUDE	deduction rule			pending
+ALP-COM-12-0016	commercial	12 税・税効果会計	申告調整	commercial/chapter12.md::tax-adjustment	会計収益だが益金不算入は減算調整、会計収益でなく益金算入は加算調整する	classification	INCLUDE	revenue-side tax adjustments			pending
+ALP-COM-12-0017	commercial	12 税・税効果会計	差異の発生と解消	commercial/chapter12.md::differences	将来解消する会計・税法差異を一時差異、将来も解消しない差異を永久差異という	comparison	INCLUDE	temporary-permanent difference distinction			pending
+ALP-COM-12-0018	commercial	12 税・税効果会計	差異の発生と解消	commercial/chapter12.md::differences	一時差異の解消年度では発生年度と逆の申告調整を行う	procedure	INCLUDE	reversal logic			pending
+ALP-COM-12-0019	commercial	12 税・税効果会計	差異の発生と解消	commercial/chapter12.md::differences	税効果会計は一時差異に適用し永久差異には適用しない	exception	INCLUDE	tax effect scope rule			pending
+ALP-COM-12-0020	commercial	12 税・税効果会計	差異の発生と解消	commercial/chapter12.md::differences	貸倒引当金繰入や会計・税法で耐用年数が異なる減価償却差異は典型的な一時差異である	classification	INCLUDE	temporary difference examples			pending
+ALP-COM-12-0021	commercial	12 税・税効果会計	第2節 1 税効果会計の目的	commercial/chapter12.md::2-1	税効果会計は法人税等調整額を用いて税引前当期純利益と損益計算書上の法人税等を期間対応させる処理である	definition	INCLUDE	objective of tax-effect accounting			pending
+ALP-COM-12-0022	commercial	12 税・税効果会計	第2節 1 税効果会計の目的	commercial/chapter12.md::2-1	税効果会計は損益計算書上の税費用を調整するが実際の法人税納付額を変更しない	reasoning	INCLUDE	book-tax cash distinction			pending
+ALP-COM-12-0023	commercial	12 税・税効果会計	第2節 2 基本的な考え方	commercial/chapter12.md::2-2	繰延税金資産は将来法人税等を減少させる効果、繰延税金負債は将来法人税等を増加させる効果を表す	definition	INCLUDE	deferred tax definitions			pending
+ALP-COM-12-0024	commercial	12 税・税効果会計	第2節 2 基本的な考え方	commercial/chapter12.md::2-2	税効果額＝一時差異×法定実効税率である	formula	INCLUDE	deferred tax formula			pending
+ALP-COM-12-0025	commercial	12 税・税効果会計	第2節 2 基本的な考え方	commercial/chapter12.md::2-2	将来減算一時差異の発生は繰延税金資産を計上し法人税等調整額を貸方として税費用を減額する	journal_entry	INCLUDE	DTA recognition entry			pending
+ALP-COM-12-0026	commercial	12 税・税効果会計	第2節 2 基本的な考え方	commercial/chapter12.md::2-2	将来加算一時差異の発生は繰延税金負債を計上し法人税等調整額を借方として税費用を増額する	journal_entry	INCLUDE	DTL recognition entry			pending
+ALP-COM-12-0027	commercial	12 税・税効果会計	第2節 差異解消	commercial/chapter12.md::2-reversal	一時差異解消時は発生時に計上した繰延税金資産・負債を取り崩し法人税等調整額を逆方向に計上する	journal_entry	INCLUDE	deferred tax reversal			pending
+ALP-COM-12-0028	commercial	12 税・税効果会計	第2節 4 相殺表示	commercial/chapter12.md::2-4	繰延税金資産と繰延税金負債は帳簿上別勘定だが貸借対照表では相殺して純額表示する	financial_statement	INCLUDE	deferred tax presentation			pending
+ALP-COM-12-0029	commercial	12 税・税効果会計	第3節 その他有価証券の税効果	commercial/chapter12.md::3	その他有価証券は会計上時価評価・税法上時価評価なしのため評価差額が税効果会計対象となる	recognition	INCLUDE	AFS temporary difference			pending
+ALP-COM-12-0030	commercial	12 税・税効果会計	第3節 その他有価証券の税効果	commercial/chapter12.md::3	その他有価証券評価差額の税効果では純資産へ直接反映するため法人税等調整額を使用しない	exception	INCLUDE	OCI tax-effect exception			pending
+ALP-COM-12-0031	commercial	12 税・税効果会計	第3節 その他有価証券の税効果	commercial/chapter12.md::3	値上がり時は評価差額×税率を繰延税金負債、残額をその他有価証券評価差額金として純資産増加させる	journal_entry	INCLUDE	AFS gain tax effect			pending
+ALP-COM-12-0032	commercial	12 税・税効果会計	第3節 その他有価証券の税効果	commercial/chapter12.md::3	値下がり時は評価差額×税率を繰延税金資産、税効果控除後差額をその他有価証券評価差額金の減少として処理する	journal_entry	INCLUDE	AFS loss tax effect			pending
+ALP-COM-12-0033	commercial	12 税・税効果会計	第3節 その他有価証券の税効果	commercial/chapter12.md::3	税引後その他有価証券評価差額金＝評価差額×（1－法定実効税率）である	formula	INCLUDE	after-tax valuation difference formula			pending
+ALP-COM-12-0034	commercial	12 税・税効果会計	第3節 その他有価証券の税効果	commercial/chapter12.md::3	その他有価証券は翌期首に洗替方式で税効果部分を含む前期末評価仕訳を再振替する	procedure	INCLUDE	AFS tax-effect reversal			pending
+	commercial	12 税・税効果会計	各節 数値例	commercial/chapter12.md::examples	税金・申告調整・繰延税金・その他有価証券税効果の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
