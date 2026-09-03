@@ -78,7 +78,11 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 
 ### Commercial bookkeeping
 
-- [ ] **ANKI-008** Commercial chapter01
+- [x] **ANKI-008** Commercial chapter01
+  - `production/notes/COM-01.tsv`: **38 approved Notes / 38 generated cards / 52 included ALPs / 0 unmapped**
+  - 52/52 included ALPs map exactly once; **14** coherent multi-ALP Notes remove redundant direct recall
+  - **18** reviewed pilot IDs promoted; **5** pilot-only duplicate-application IDs remain reserved
+  - `production/qa/COM-01.md` + `scripts/validate_com01_production.py`; CI validation wired into `validate-production.yml`
 - [ ] **ANKI-009** Commercial chapter02
 - [ ] **ANKI-010** Commercial chapter03
 - [ ] **ANKI-011** Commercial chapter04
