@@ -2,7 +2,7 @@
 
 Canonical production Cloze-note batches live under `production/notes/` as UTF-8 TSV files following the frozen v1.0 schema in `schema/note_schema.yaml`.
 
-The source/schema/stable-ID baseline remains frozen. Active-deck and recall design are governed by the **v1.5 post-freeze overlay** in `rules/exam_yield_rules.md`.
+The source/schema/stable-ID baseline remains frozen. Active-deck and recall design are governed by the **v1.6 post-freeze overlay** in `rules/exam_yield_rules.md`.
 
 ## Conventions
 
@@ -12,25 +12,37 @@ The source/schema/stable-ID baseline remains frozen. Active-deck and recall desi
 - chapter QA lives under `production/qa/`;
 - active card count is the number of distinct Cloze indices, while Cloze-span count tracks masked answer units.
 
-## Integration-first design — v1.5
+## Integration-first, content-preserving design — v1.6
 
 Card-count control should come primarily from coherent integration:
 
-1. preserve useful examinable ALPs;
+1. preserve useful examinable ALPs and the material source propositions they contain;
 2. combine facts that belong to one retrieval frame;
 3. use separate `{{c1::...}}` spans for parallel answers on the same card;
 4. add another Note only when integration would make the retrieval task incoherent or overloaded.
 
-For FND-00, this produces **91/91 active ALPs in 32 cards**, rather than either 91 separate cards or an aggressively filtered deck.
+An ALP mapping alone is not enough: material source content must remain recoverable from the active Note text. For FND-00, this yields **91/91 active ALPs in 32 cards** while restoring source details that v1.5 had compressed too aggressively.
 
-## Cloze context and anti-leak rules
+## Cloze context, formula, and anti-leak rules
 
 - Cloze spans should normally be lexical or short discriminating chunks;
+- arithmetic/formula operators remain visible and each term is Clozed separately, e.g. `{{c1::収益}}－{{c1::費用}}`;
+- parallel terms use the same `c1`, not extra generated cards;
 - debit/credit direction uses `{{c1::借}}方` / `{{c1::貸}}方`;
 - the visible text after masking must still identify the topic;
 - a 2+ character Cloze answer must not appear verbatim elsewhere in the same card;
-- do not use a topic label that reveals the answer, e.g. avoid `簿記の基本では、` on a card testing `{{c1::簿記}}`;
+- do not use a topic label that reveals the answer;
 - syntax-sensitive answers may include particles where needed, e.g. `{{c1::に終わる}}` / `{{c1::から始まる}}`.
+
+## Completeness examples
+
+When one inventory ALP represents a source family, integration must not silently truncate that family. FND-00 v1.6 therefore retains:
+
+- all ten representative expense categories from the source;
+- general-ledger `標準式` / `残高式` and material field mechanics;
+- subsidiary-book mechanics and the explicit rule that subsidiary ledgers are posted from each voucher by `{{c1::個別転記}}`;
+- temporary-account classifications and later reclassification;
+- source-required formula terms, period vocabulary, correction logic, and document/voucher mechanics.
 
 ## FND-00 audit result
 
@@ -40,7 +52,8 @@ Audit progression:
 - v1.2: 110 -> 58 generated cards;
 - v1.3: 18 cards / 36 active ALPs;
 - v1.4: 29 cards / 61 active ALPs;
-- v1.5: **32 approved Notes / 32 cards / 120 Cloze spans / 91 active ALPs**.
+- v1.5: 32 cards / 120 Cloze spans / 91 active ALPs;
+- v1.6: **32 approved Notes / 32 cards / 150 Cloze spans / 91 active ALPs**.
 
 FND-00 retains all 91 historical rows; 59 are deprecated history rows. `BK-FND-00-0016` remains reserved pilot-only evidence.
 
@@ -54,7 +67,7 @@ Current expected output includes:
 
 and
 
-`generated_cards=32 cloze_spans=120 ... visible_answer_leakage=0 ...`
+`generated_cards=32 cloze_spans=150 ... visible_answer_leakage=0 ...`
 
 ## Existing commercial batches
 
@@ -69,7 +82,7 @@ Existing commercial batches retain their audited generation state until an expli
 
 ## Current batches
 
-- `notes/FND-00.tsv` — foundations; current overlay v1.5 / ANKI-AUDIT-005 (#68);
+- `notes/FND-00.tsv` — foundations; current overlay v1.6 / ANKI-AUDIT-006 (#70);
 - `notes/COM-01.tsv` — Commercial chapter 01;
 - `notes/COM-02.tsv` — Commercial chapter 02.
 
@@ -79,6 +92,7 @@ Migration records:
 - `scripts/migrate_fnd00_v1_3.py`
 - `scripts/migrate_fnd00_v1_4.py`
 - `scripts/migrate_fnd00_v1_5.py`
+- `scripts/migrate_fnd00_v1_6.py`
 
 Validation:
 
