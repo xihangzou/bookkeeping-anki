@@ -1,0 +1,22 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-07-0001	commercial	07 無形資産	第1節 1 研究開発費	commercial/chapter07.md::1-1	研究開発は新製品・新技術を生み出す活動で、研究開発費はその活動に要した金額を処理する費用勘定である	definition	INCLUDE	core definition			pending
+ALP-COM-07-0002	commercial	07 無形資産	第1節 1 研究開発費	commercial/chapter07.md::1-1	研究開発に要した費用や研究開発目的資産の購入代金はすべて発生時に研究開発費として費用処理する	recognition	INCLUDE	R&D expense recognition			pending
+	commercial	07 無形資産	第1節 POINT	commercial/chapter07.md::1-point	研究開発費を全額費用処理する要点の反復		EXCLUDE		DUPLICATE_EXACT		pending
+ALP-COM-07-0003	commercial	07 無形資産	第2節 1 無形固定資産とは	commercial/chapter07.md::2-1	無形固定資産は長期利用する固定資産のうち形のない資産である	definition	INCLUDE	core definition			pending
+ALP-COM-07-0004	commercial	07 無形資産	第2節 1 無形固定資産とは	commercial/chapter07.md::2-1	特許権・商標権・ソフトウェア・のれんは代表的な無形固定資産である	classification	INCLUDE	asset examples and classification			pending
+ALP-COM-07-0005	commercial	07 無形資産	第2節 2 無形固定資産の会計処理	commercial/chapter07.md::2-2	無形固定資産取得時は取得支出額を取得原価として特許権等の資産を増加させる	journal_entry	INCLUDE	acquisition treatment			pending
+ALP-COM-07-0006	commercial	07 無形資産	第2節 2 無形固定資産の会計処理	commercial/chapter07.md::2-2	無形固定資産は原則残存価額ゼロ・定額法・直接法で償却する	measurement	INCLUDE	amortization rule			pending
+ALP-COM-07-0007	commercial	07 無形資産	第2節 2 無形固定資産の会計処理	commercial/chapter07.md::2-2	無形固定資産の償却費は減価償却費でなく特許権償却等の資産名を付した○○償却勘定で費用処理する	classification	INCLUDE	amortization account selection			pending
+ALP-COM-07-0008	commercial	07 無形資産	第2節 2 無形固定資産の会計処理	commercial/chapter07.md::2-2	無形固定資産を期中取得した場合は当期償却費を月割計算する	measurement	INCLUDE	partial-year amortization			pending
+ALP-COM-07-0009	commercial	07 無形資産	第2節 2 無形固定資産の会計処理	commercial/chapter07.md::2-2	無形固定資産の年額償却費＝取得原価÷有効期間（残存価額ゼロ）である	formula	INCLUDE	amortization formula			pending
+ALP-COM-07-0010	commercial	07 無形資産	第2節 2 無形固定資産の会計処理	commercial/chapter07.md::2-2	無形固定資産は形がなく期間到来後の価値を見込みにくいため残存価額ゼロ、価値減少の合理的測定が難しいため定額法を用いる	reasoning	INCLUDE	rationale for amortization method			pending
+ALP-COM-07-0011	commercial	07 無形資産	第2節 2 無形固定資産の会計処理	commercial/chapter07.md::2-2	無形固定資産は取得原価を残す意味が小さいため直接法を用いるのに対し有形固定資産は原則間接法である	comparison	INCLUDE	recording-method distinction			pending
+ALP-COM-07-0012	commercial	07 無形資産	第2節 3 ソフトウェア	commercial/chapter07.md::2-3	ソフトウェアは研究開発目的・自社利用目的・市場販売目的に分類し、研究開発目的は研究開発費で処理する	classification	INCLUDE	software purpose classification			pending
+ALP-COM-07-0013	commercial	07 無形資産	第2節 3 ソフトウェア	commercial/chapter07.md::2-3	市場販売目的ソフトウェアは本テキストの簿記2級範囲外である	exception	INCLUDE	scope boundary			pending
+ALP-COM-07-0014	commercial	07 無形資産	第2節 3 ソフトウェア	commercial/chapter07.md::2-3	自社利用ソフトウェアは将来の収益獲得または費用削減が確実な場合に資産計上する	recognition	INCLUDE	capitalization condition			pending
+ALP-COM-07-0015	commercial	07 無形資産	第2節 3 ソフトウェア	commercial/chapter07.md::2-3	検定試験では購入した自社利用ソフトウェアは資産計上条件を満たすものとして扱う	exception	INCLUDE	exam assumption			pending
+ALP-COM-07-0016	commercial	07 無形資産	第2節 3 ソフトウェア	commercial/chapter07.md::2-3	購入した自社利用ソフトウェアは取得支出額をソフトウェア（資産）として計上する	journal_entry	INCLUDE	purchased software treatment			pending
+ALP-COM-07-0017	commercial	07 無形資産	第2節 3 ソフトウェア	commercial/chapter07.md::2-3	制作依頼したソフトウェアの完成前支払額はソフトウェア仮勘定（資産）で処理する	journal_entry	INCLUDE	software-in-progress treatment			pending
+ALP-COM-07-0018	commercial	07 無形資産	第2節 3 ソフトウェア	commercial/chapter07.md::2-3	制作依頼ソフトウェアは完成・引渡時にソフトウェア仮勘定をソフトウェアへ振り替え残額支払等を加えて取得原価を確定する	journal_entry	INCLUDE	completion transfer			pending
+ALP-COM-07-0019	commercial	07 無形資産	第2節 3 ソフトウェア	commercial/chapter07.md::2-3	自社利用ソフトウェアは他の無形固定資産と同様に残存価額ゼロ・定額法・直接法で償却しソフトウェア償却を計上する	journal_entry	INCLUDE	software amortization treatment			pending
+	commercial	07 無形資産	第2節 数値例	commercial/chapter07.md::examples	特許権・ソフトウェア取得と償却の単純数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
