@@ -12,8 +12,18 @@ source:
   path: merged/textbook.md
   baseline_commit: 569ed7b82e729334e1472286eaca7c4352e6fbdb
 
+ordering:
+  canonical_source_order:
+    part:
+      - foundation
+      - commercial
+      - industrial
+    chapter: numeric_ascending
+    alp_sequence: numeric_ascending
+
 source_mapping:
-  exact_mapping_authority: inventory/topic_inventory
+  exact_mapping_index: inventory/topic_inventory.yaml
+  exact_mapping_dataset: inventory/topic_inventory/*.tsv
   note_mapping_key: ALP_IDs
   denormalized_query_fields:
     - Part
@@ -23,9 +33,11 @@ source_mapping:
   rules:
     - Each ALP_ID must resolve to exactly one included ALP in the canonical topic inventory.
     - Exact source anchors are recovered through the mapped ALP records rather than duplicated in every Note row.
-    - Part, Chapter, Section, and Topic are denormalized query fields for the Note's canonical primary retrieval context.
     - A Note may map multiple ALPs only when they form one coherent recall unit; every mapped ALP remains independently source-traceable through the inventory.
-    - If mapped ALPs span more than one source location, the denormalized query fields identify the canonical primary context and ALP_IDs remain the authority for complete source mapping.
+    - ALP_IDs are serialized in canonical_source_order.
+    - For a multi-ALP Note, Part, Chapter, and Section must match the first mapped ALP in canonical_source_order; this is the deterministic primary source context.
+    - Topic is the normalized accounting topic label for the coherent recall unit and remains a Note-level query field.
+    - If mapped ALPs span more than one source location, ALP_IDs remain the authority for complete source mapping; the denormalized Part, Chapter, and Section fields are only the deterministic primary context.
 
 id_format:
   note: BK-{part_code}-{chapter_2d}-{sequence_4d}
@@ -92,11 +104,11 @@ fields:
 
   - name: Section
     required: true
-    description: Most specific useful heading path for the Note's canonical primary retrieval context.
+    description: Most specific useful heading path for the Note's deterministic primary source context.
 
   - name: Topic
     required: true
-    description: Normalized accounting topic label for the Note's canonical primary retrieval context.
+    description: Normalized accounting topic label for the coherent recall unit.
 
   - name: Type
     required: true
@@ -222,11 +234,12 @@ row_validation:
   - The ID chapter token must match the canonical two-digit chapter number derived from Chapter.
   - Once assigned, an ID must not be renumbered, reused, or changed because another Note is inserted or deleted.
   - Text must contain at least one valid {{cN::...}} expression.
-  - ALP_IDs must contain at least one unique ID, serialized with one ASCII space, in canonical source order.
+  - ALP_IDs must contain at least one unique ID matching ^ALP-(FND|COM|IND)-[0-9]{2}-[0-9]{4}$, serialized with one ASCII space, in canonical_source_order.
   - Every ALP_ID must exist as an included ALP in the canonical topic inventory.
   - Exact source traceability must be recoverable for every mapped ALP through the canonical topic inventory.
+  - Part, Chapter, and Section must match the first mapped ALP in canonical_source_order.
   - SourceRepo, SourceCommit, and SourcePath must match the pinned source unless a separately reviewed baseline migration updates the schema.
-  - Part, Chapter, Section, Topic, and Type must be nonempty and use canonical values.
+  - Topic and Type must be nonempty and use canonical values.
   - Required Tags must be present exactly once, match their source fields, and use normalized namespaces.
   - Tags must be unique and lexically ordered after deterministic normalization.
   - If mapped ALPs have secondary characteristics worth querying, represent them with secondary::<normalized_characteristic> tags rather than ad-hoc Type values.
