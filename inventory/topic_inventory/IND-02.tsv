@@ -1,0 +1,31 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-02-0001	industrial	2 材料費	第1節 材料費とは	industrial/chapter02.md::materials	材料は製品製造のために消費される物品で、未消費時は資産、消費時に材料費という原価になる	definition	INCLUDE	material asset-to-cost distinction			pending
+ALP-IND-02-0002	industrial	2 材料費	第1節 材料費とは	industrial/chapter02.md::quantity-flow	月初材料＋当月購入＝当月消費＋月末材料である	formula	INCLUDE	material quantity-cost flow			pending
+ALP-IND-02-0003	industrial	2 材料費	第1節 材料費とは	industrial/chapter02.md::journal-flow	材料購入時は材料勘定を増加させ、消費時は直接材料費を仕掛品、間接材料費を製造間接費へ振り替える	journal_entry	INCLUDE	material journal flow			pending
+ALP-IND-02-0004	industrial	2 材料費	第2節 材料費の分類	industrial/chapter02.md::direct-indirect	直接材料費は特定製品別の消費量を把握できる材料費、間接材料費は把握できない材料費である	classification	INCLUDE	direct versus indirect material cost			pending
+ALP-IND-02-0005	industrial	2 材料費	第2節 材料費の分類	industrial/chapter02.md::major	主要材料費は製品本体を構成する材料の消費額で、通常は直接材料費に分類する	classification	INCLUDE	major material classification			pending
+ALP-IND-02-0006	industrial	2 材料費	第2節 材料費の分類	industrial/chapter02.md::parts	買入部品費は外部購入しそのまま製品に取り付ける部品の消費額で、通常は直接材料費に分類する	classification	INCLUDE	purchased parts classification			pending
+ALP-IND-02-0007	industrial	2 材料費	第2節 材料費の分類	industrial/chapter02.md::indirect-types	補助材料費・工場消耗品費・消耗工具器具備品費は通常、間接材料費に分類する	classification	INCLUDE	indirect material categories			pending
+ALP-IND-02-0008	industrial	2 材料費	第3節 材料の購入	industrial/chapter02.md::purchase-cost	材料購入原価＝購入代価＋材料副費である	formula	INCLUDE	material purchase cost formula			pending
+ALP-IND-02-0009	industrial	2 材料費	第3節 材料の購入	industrial/chapter02.md::purchase-entry	材料購入時は購入原価を材料勘定借方に計上し、購入代価は買掛金、現金支払の副費は現金等を貸方にする	journal_entry	INCLUDE	material purchase entry			pending
+ALP-IND-02-0010	industrial	2 材料費	第3節 材料の購入	industrial/chapter02.md::returns	材料の返品・値引きは材料購入原価を減額し、対応する買掛金等も減額する	journal_entry	INCLUDE	material return discount treatment			pending
+ALP-IND-02-0011	industrial	2 材料費	第3節 材料の購入	industrial/chapter02.md::external-incidental	外部材料副費は企業外部で倉庫到着までに発生する買入手数料・引取運賃・荷役費・保険料・関税等で、購入原価に必ず含める	classification	INCLUDE	external material incidental costs			pending
+ALP-IND-02-0012	industrial	2 材料費	第3節 材料の購入	industrial/chapter02.md::internal-incidental	内部材料副費は入庫後から出庫までに企業内部で発生する購入事務費・検収費・保管費等である	classification	INCLUDE	internal material incidental costs			pending
+ALP-IND-02-0013	industrial	2 材料費	第3節 材料の購入	industrial/chapter02.md::internal-option	内部材料副費は実務上、全部・一部を購入原価へ含める方法のほか、含めない方法も認められる	exception	INCLUDE	internal material cost inclusion options			pending
+ALP-IND-02-0014	industrial	2 材料費	第3節 材料の購入	industrial/chapter02.md::planned-incidental	材料副費は予定配賦率を用いて購入代価等に予定配賦し、購入原価を早期計算できる	measurement	INCLUDE	planned material incidental allocation			pending
+ALP-IND-02-0015	industrial	2 材料費	第3節 材料の購入	industrial/chapter02.md::incidental-variance	材料副費予定配賦額と実際発生額との差額は材料副費配賦差異という	definition	INCLUDE	material incidental variance			pending
+ALP-IND-02-0016	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::consumption-amount	材料消費額＝材料消費単価×材料消費数量である	formula	INCLUDE	material consumption formula			pending
+ALP-IND-02-0017	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::consumption-entry	材料消費時は直接材料費を仕掛品、間接材料費を製造間接費へ振り替え、合計を材料勘定から減額する	journal_entry	INCLUDE	material consumption entry			pending
+ALP-IND-02-0018	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::ledger	材料元帳は材料の購入・払出を数量と金額で管理し材料原価を把握する補助簿である	ledger	INCLUDE	material ledger role			pending
+ALP-IND-02-0019	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::perpetual	継続記録法は購入・払出の都度材料元帳へ記録し、払出数量を消費数量とする	procedure	INCLUDE	perpetual inventory procedure			pending
+ALP-IND-02-0020	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::periodic	棚卸計算法では材料消費数量＝月初在庫数量＋当月購入数量－月末実地棚卸数量で算定する	formula	INCLUDE	periodic material consumption formula			pending
+ALP-IND-02-0021	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::comparison	継続記録法は棚卸減耗を独立把握できるが、棚卸計算法では棚卸減耗が消費数量に含まれ独立把握できない	comparison	INCLUDE	inventory method difference			pending
+ALP-IND-02-0022	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::physical-count	継続記録法・棚卸計算法のいずれでも月末の実地棚卸は必要である	exception	INCLUDE	physical count requirement			pending
+ALP-IND-02-0023	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::normal-loss	正常な材料棚卸減耗は間接経費として製造間接費に含める	cost_accounting	INCLUDE	normal material loss treatment			pending
+ALP-IND-02-0024	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::abnormal-loss	火災・盗難等の異常な棚卸減耗は製造原価に含めず営業外費用または特別損失とする	exception	INCLUDE	abnormal material loss treatment			pending
+ALP-IND-02-0025	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::fifo	先入先出法は先に取得した材料から先に払い出したと仮定して消費単価・月末材料単価を決定する	measurement	INCLUDE	FIFO material pricing			pending
+ALP-IND-02-0026	industrial	2 材料費	第4節 材料の消費	industrial/chapter02.md::average	総平均法は月初材料と当月購入材料の合計原価を合計数量で除した平均単価を消費単価とする	measurement	INCLUDE	weighted average material pricing			pending
+ALP-IND-02-0027	industrial	2 材料費	第5節 予定消費単価	industrial/chapter02.md::planned-price	予定消費単価は期首等にあらかじめ設定した材料の予定単価で、迅速な原価計算と価格変動の影響分離に用いる	definition	INCLUDE	planned material price purpose			pending
+ALP-IND-02-0028	industrial	2 材料費	第5節 予定消費単価	industrial/chapter02.md::planned-consumption	予定材料消費額＝実際消費数量×予定消費単価である	formula	INCLUDE	planned material consumption formula			pending
+ALP-IND-02-0029	industrial	2 材料費	第5節 予定消費単価	industrial/chapter02.md::price-variance	材料消費価格差異は予定消費額と実際消費額との差額として把握し、予定原価を実際原価へ修正するために用いる	measurement	INCLUDE	material price variance concept			pending
+	industrial	2 材料費	例題・Case Study	industrial/chapter02.md::examples	材料購入・消費・棚卸の具体的数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
