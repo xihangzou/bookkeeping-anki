@@ -24,7 +24,10 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 
 ## Phase B — Pilot and rule freeze
 
-- [ ] **ANKI-PILOT-001** Select representative ALPs from Part 0 + Commercial chapter 01
+- [x] **ANKI-PILOT-001** Select representative ALPs from Part 0 + Commercial chapter 01
+  - `pilot/selection.tsv`
+  - 34 canonical included ALPs / 40 planned pilot Notes
+  - all required recall types and stress cases mapped
 - [ ] **ANKI-PILOT-002** Generate 30–50 pilot Cloze Notes
 - [ ] **ANKI-PILOT-003** Validate rendering and recall quality
 - [ ] **ANKI-PILOT-004** Record ambiguity / overload / duplication failures
