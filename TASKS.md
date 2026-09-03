@@ -80,6 +80,14 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - parallel/conjunction answers use separate lexical spans on the same card, e.g. `{{c1::A}}・{{c1::B}}`
   - every approved FND-00 Note uses only `c1`; `c2+` is reserved for genuinely independent future retrieval operations
   - `scripts/migrate_fnd00_v1_3.py` + strengthened validator; PR #65 CI **PASS**
+- [x] **ANKI-AUDIT-004** FND-00 balanced active-deck / visible-context audit (#66)
+  - `rules/exam_yield_rules.md`: v1.4 uses moderately permissive importance screening and integration-first card control
+  - active approved Notes/cards **18 → 29**; deprecated rows **62**; active direct-recall ALPs **36 → 61 / 91**
+  - active lexical Cloze spans **70**; all approved FND-00 Notes remain one generated card using only `c1`
+  - visible topic/retrieval context must remain after Cloze masking; `3伝票制` card keeps `伝票` visible
+  - debit/credit direction uses first-character Clozes: `{{c1::借}}方` / `{{c1::貸}}方`
+  - main-book/reference and subsidiary-book/subledger facts are coherently integrated to control card growth
+  - PR #67 squash merge `26a547ef2e2b48f9c93433e9e25d56e0939a743e`; FND-00 / COM-01 / COM-02 CI **PASS**
 
 ### Commercial bookkeeping
 
