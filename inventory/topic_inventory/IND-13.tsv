@@ -1,0 +1,26 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-13-0001	industrial	13 CVP分析	第1節 CVP分析とは	industrial/chapter13.md::cvp	CVP分析は売上・販売量、原価、利益の関係を分析し、短期利益計画に必要な売上高・利益変化を把握する方法である	definition	INCLUDE	CVP definition			pending
+ALP-IND-13-0002	industrial	13 CVP分析	第1節 CVP分析とは	industrial/chapter13.md::behavior	CVP分析では変動費と貢献利益は売上高に比例して増減し、固定費は一定とする原価性質を利用する	reasoning	INCLUDE	CVP cost behavior premise			pending
+ALP-IND-13-0003	industrial	13 CVP分析	第1節 基本概念	industrial/chapter13.md::contribution	貢献利益＝売上高－変動費＝固定費＋営業利益である	formula	INCLUDE	contribution margin identities			pending
+ALP-IND-13-0004	industrial	13 CVP分析	第1節 基本概念	industrial/chapter13.md::contribution-rate	貢献利益率＝貢献利益÷売上高である	formula	INCLUDE	contribution margin ratio			pending
+ALP-IND-13-0005	industrial	13 CVP分析	第1節 基本概念	industrial/chapter13.md::variable-rate	変動費率＝変動費÷売上高である	formula	INCLUDE	variable cost ratio			pending
+ALP-IND-13-0006	industrial	13 CVP分析	第1節 基本概念	industrial/chapter13.md::ratio-identity	貢献利益率＋変動費率＝100%である	formula	INCLUDE	CVP ratio identity			pending
+ALP-IND-13-0007	industrial	13 CVP分析	第2節 基本的な分析	industrial/chapter13.md::break-even	損益分岐点は営業利益がゼロとなり、貢献利益＝固定費となる売上高または販売量である	definition	INCLUDE	break-even definition			pending
+ALP-IND-13-0008	industrial	13 CVP分析	第2節 基本的な分析	industrial/chapter13.md::break-even-sales	損益分岐点売上高＝固定費÷貢献利益率である	formula	INCLUDE	break-even sales formula			pending
+ALP-IND-13-0009	industrial	13 CVP分析	第2節 基本的な分析	industrial/chapter13.md::break-even-volume	損益分岐点販売量＝固定費÷製品単位あたり貢献利益である	formula	INCLUDE	break-even volume formula			pending
+ALP-IND-13-0010	industrial	13 CVP分析	第2節 基本的な分析	industrial/chapter13.md::target-profit-sales	目標営業利益達成売上高＝（固定費＋目標営業利益）÷貢献利益率である	formula	INCLUDE	target profit sales formula			pending
+ALP-IND-13-0011	industrial	13 CVP分析	第2節 基本的な分析	industrial/chapter13.md::target-profit-volume	目標営業利益達成販売量＝（固定費＋目標営業利益）÷製品単位あたり貢献利益である	formula	INCLUDE	target profit volume formula			pending
+ALP-IND-13-0012	industrial	13 CVP分析	第2節 基本的な分析	industrial/chapter13.md::target-rate	目標営業利益率達成売上高＝固定費÷（貢献利益率－目標営業利益率）である	formula	INCLUDE	target operating margin sales formula			pending
+ALP-IND-13-0013	industrial	13 CVP分析	第2節 その他の分析	industrial/chapter13.md::break-even-ratio	損益分岐点比率＝損益分岐点売上高÷予想（計画）売上高である	formula	INCLUDE	break-even ratio formula			pending
+ALP-IND-13-0014	industrial	13 CVP分析	第2節 その他の分析	industrial/chapter13.md::margin-amount	安全余裕額＝予想売上高－損益分岐点売上高である	formula	INCLUDE	margin of safety amount formula			pending
+ALP-IND-13-0015	industrial	13 CVP分析	第2節 その他の分析	industrial/chapter13.md::margin-rate	安全余裕率＝安全余裕額÷予想売上高＝100%－損益分岐点比率である	formula	INCLUDE	margin of safety ratio			pending
+ALP-IND-13-0016	industrial	13 CVP分析	第2節 その他の分析	industrial/chapter13.md::safety-meaning	安全余裕率が高いほど、予想売上高が損益分岐点から離れ、売上減少に対する安全性が高い	reasoning	INCLUDE	margin of safety interpretation			pending
+ALP-IND-13-0017	industrial	13 CVP分析	第2節 その他の分析	industrial/chapter13.md::operating-leverage	経営レバレッジ係数＝貢献利益÷営業利益であり、営業量変化に対する営業利益の感応度を示す	formula	INCLUDE	operating leverage formula			pending
+ALP-IND-13-0018	industrial	13 CVP分析	第2節 その他の分析	industrial/chapter13.md::leverage-meaning	固定費依存度が高いほど経営レバレッジ係数が大きくなり、売上高変化に対する営業利益の変化が大きくなる	reasoning	INCLUDE	operating leverage interpretation			pending
+ALP-IND-13-0019	industrial	13 CVP分析	第2節 固変分解	industrial/chapter13.md::cost-separation	固変分解は原価を操業度との関連に基づいて固定費と変動費に分解する手続である	definition	INCLUDE	cost separation definition			pending
+ALP-IND-13-0020	industrial	13 CVP分析	第2節 固変分解	industrial/chapter13.md::account-analysis	勘定科目精査法は各勘定の費用を個別に検討して固定費・変動費へ分類する方法である	definition	INCLUDE	account analysis method			pending
+ALP-IND-13-0021	industrial	13 CVP分析	第2節 固変分解	industrial/chapter13.md::high-low	高低点法は正常操業圏内の最高操業度点と最低操業度点を用いて原価を固定費と変動費に分解する方法である	definition	INCLUDE	high-low method definition			pending
+ALP-IND-13-0022	industrial	13 CVP分析	第2節 固変分解	industrial/chapter13.md::high-low-variable	高低点法の変動費率＝（最高操業度時原価－最低操業度時原価）÷（最高操業度－最低操業度）である	formula	INCLUDE	high-low variable rate formula			pending
+ALP-IND-13-0023	industrial	13 CVP分析	第2節 固変分解	industrial/chapter13.md::high-low-fixed	高低点法の固定費＝いずれかの高低点原価－その操業度×変動費率である	formula	INCLUDE	high-low fixed cost formula			pending
+ALP-IND-13-0024	industrial	13 CVP分析	第2節 固変分解	industrial/chapter13.md::normal-range	高低点法では正常操業圏内のデータのみを使用し、正常操業圏外の異常データは除外する	exception	INCLUDE	high-low normal range rule			pending
+	industrial	13 CVP分析	例題13-1〜13-3	industrial/chapter13.md::examples	CVP・安全余裕・固変分解の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
