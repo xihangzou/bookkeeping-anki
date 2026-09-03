@@ -1,0 +1,37 @@
+name: Apply FND-00 v1.5 migration
+
+on:
+  push:
+    branches:
+      - audit-fnd00-integration-v1-5
+    paths:
+      - 'scripts/migrate_fnd00_v1_5.py'
+      - '.github/workflows/apply-fnd00-v1-5.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply migration
+        run: python scripts/migrate_fnd00_v1_5.py
+      - name: Commit migrated FND-00
+        shell: bash
+        run: |
+          if git diff --quiet -- production/notes/FND-00.tsv; then
+            echo 'No migration diff.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add production/notes/FND-00.tsv
+          git commit -m 'ANKI-AUDIT-005 apply FND-00 v1.5 maximal integration'
+          git push origin HEAD:${GITHUB_REF_NAME}
