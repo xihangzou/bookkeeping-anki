@@ -6,10 +6,23 @@ Status: **v0.9 — pilot validation pending**
 
 Coverage target is the complete meaning of `bookkeeping-integrated/merged/textbook.md`, not a fixed card count and not only the 3級-derived topic map.
 
-A source passage is covered when every testable and conceptually necessary proposition is either:
+Coverage is evaluated at two distinct stages.
 
-- mapped to one or more Cloze Notes; or
-- explicitly excluded with a valid reason.
+### Inventory-stage coverage
+
+A source passage is inventory-covered when every testable and conceptually necessary candidate proposition is explicitly classified as `INCLUDE` or `EXCLUDE`:
+
+- every included proposition receives a stable ALP ID, one canonical primary type, and full source traceability; and
+- every excluded proposition records one valid canonical exclusion reason.
+
+At this stage, included ALPs do not need to be mapped to Cloze Notes yet; empty `note_ids` and `qa_status=pending` are valid.
+
+### Final deck coverage
+
+A source passage is finally covered when every inventory decision has been resolved into either:
+
+- one or more approved Cloze Notes mapped to each included ALP; or
+- an explicit valid exclusion for each excluded candidate.
 
 ## 2. Atomic Learning Point categories
 
@@ -101,10 +114,12 @@ Process each section in this order:
 2. split prose/tables/examples into semantic blocks;
 3. list candidate propositions;
 4. merge propositions that form one inseparable rule;
-5. assign ALP IDs;
-6. classify each as `INCLUDE` or `EXCLUDE`;
-7. map included ALPs to notes;
-8. record exclusion reason for excluded candidates.
+5. classify each candidate as `INCLUDE` or `EXCLUDE`;
+6. for every included candidate, assign a stable ALP ID, one canonical primary type, and an inclusion reason;
+7. for every excluded candidate, record one canonical exclusion reason and leave ALP ID/type empty;
+8. map included ALPs to notes when note generation begins.
+
+At the ANKI-003 inventory stage, step 8 may remain pending; `note_ids` may be empty and `qa_status=pending` is valid.
 
 ## 8. Coverage inventory fields
 
