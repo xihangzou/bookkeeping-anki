@@ -57,10 +57,17 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 ### Foundation
 
 - [x] **ANKI-007** Part 0 / commercial chapter00 generation
-  - `production/notes/FND-00.tsv`: 91 approved Notes / 91 included ALPs / 0 unmapped
+  - `production/notes/FND-00.tsv`: 91 historical production rows / 91 included ALPs / 0 unmapped
   - `production/qa/FND-00.md`: chapter-local Cloze, duplicate, accounting, formula, and source-traceability QA
   - `scripts/validate_fnd00_production.py` + `validate-production.yml`: deterministic production validation
   - 16 pilot Note IDs promoted without renumbering; `BK-FND-00-0016` remains reserved pilot-only evidence
+- [x] **ANKI-AUDIT-001** FND-00 recall-quality / exam-yield audit (#56)
+  - `rules/exam_yield_rules.md`: v1.1 post-freeze active-deck overlay
+  - 91 historical rows retained; active approved Notes **91 → 57**; deprecated audit rows **34**
+  - 91/91 included ALPs map exactly once to an approved Note; active unmapped = **0**
+  - low-yield terminology/list recall consolidated; transaction-duality wording corrected
+  - GitHub Actions v1.1 production validation: **PASS**
+  - apply the same exam-yield target during ANKI-008 onward generation
 
 ### Commercial bookkeeping
 
