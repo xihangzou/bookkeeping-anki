@@ -1,0 +1,32 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-09-0001	commercial	09 引当金	第1節 1 引当金とは	commercial/chapter09.md::1-1	将来費用の発生が見積もられ、その原因が当期以前にある場合は見積額を当期費用とし貸方に引当金を計上する	recognition	INCLUDE	provision recognition principle			pending
+ALP-COM-09-0002	commercial	09 引当金	第1節 1 引当金とは	commercial/chapter09.md::1-1	引当金は将来実際の費用・支出が生じたときに取り崩す	procedure	INCLUDE	provision lifecycle			pending
+ALP-COM-09-0003	commercial	09 引当金	第1節 2 引当金の分類	commercial/chapter09.md::1-2	引当金は資産控除の評価性引当金と負債として扱う負債性引当金に分類する	classification	INCLUDE	provision taxonomy			pending
+ALP-COM-09-0004	commercial	09 引当金	第1節 2 引当金の分類	commercial/chapter09.md::1-2	貸倒引当金は評価性引当金で、修繕・賞与・役員賞与・退職給付・商品保証引当金は負債性引当金である	classification	INCLUDE	provision classification			pending
+ALP-COM-09-0005	commercial	09 引当金	第2節 1 貸倒れの基礎	commercial/chapter09.md::2-1	相手先の経営悪化等で売掛金・受取手形等の債権を回収できなくなることを貸倒れという	definition	INCLUDE	core definition			pending
+ALP-COM-09-0006	commercial	09 引当金	第2節 1 貸倒れの基礎	commercial/chapter09.md::2-1	当期発生債権の貸倒れは前期引当金対象外なので貸倒損失として当期費用処理する	journal_entry	INCLUDE	current-year bad debt treatment			pending
+ALP-COM-09-0007	commercial	09 引当金	第2節 1 貸倒れの基礎	commercial/chapter09.md::2-1	前期以前発生債権の貸倒れはまず貸倒引当金を取り崩し、引当金残高を超える部分だけ貸倒損失とする	journal_entry	INCLUDE	prior-year bad debt treatment			pending
+ALP-COM-09-0008	commercial	09 引当金	第2節 1 貸倒れの基礎	commercial/chapter09.md::2-1	前期以前に貸倒処理した債権を後日回収した場合は償却債権取立益として当期収益計上する	journal_entry	INCLUDE	recovery treatment			pending
+ALP-COM-09-0009	commercial	09 引当金	第2節 2 貸倒見積高と差額補充法	commercial/chapter09.md::2-2	貸倒見積高＝期末対象債権残高×貸倒実績率である	formula	INCLUDE	allowance estimate formula			pending
+ALP-COM-09-0010	commercial	09 引当金	第2節 2 貸倒見積高と差額補充法	commercial/chapter09.md::2-2	貸倒見積高は未発生の損失見積りなので貸倒損失でなく貸倒引当金繰入を費用計上する	classification	INCLUDE	estimate-versus-realized loss distinction			pending
+ALP-COM-09-0011	commercial	09 引当金	第2節 2 貸倒見積高と差額補充法	commercial/chapter09.md::2-2	差額補充法では貸倒引当金繰入＝必要貸倒見積高－決算整理前貸倒引当金残高である	formula	INCLUDE	difference method formula			pending
+ALP-COM-09-0012	commercial	09 引当金	第2節 2 貸倒見積高と差額補充法	commercial/chapter09.md::2-2	必要引当額より決算整理前引当金残高が多ければ超過額を貸倒引当金戻入（収益）として取り崩す	journal_entry	INCLUDE	reversal treatment			pending
+ALP-COM-09-0013	commercial	09 引当金	第2節 2 貸倒見積高と差額補充法	commercial/chapter09.md::2-2	損益計算書の貸倒引当金繰入額と貸借対照表で債権から控除する決算後貸倒引当金残高は差額補充法では通常一致しない	financial_statement	INCLUDE	P/L versus B/S amount distinction			pending
+ALP-COM-09-0014	commercial	09 引当金	第2節 3 一括評価と個別評価	commercial/chapter09.md::2-3	通常債権は一括評価し重大な経営問題のある債務者への債権は個別評価する	classification	INCLUDE	evaluation method selection			pending
+ALP-COM-09-0015	commercial	09 引当金	第2節 3 一括評価と個別評価	commercial/chapter09.md::2-3	個別評価の貸倒見積高＝（債権残高－担保処分見込額－保証回収見込額）×設定率である	formula	INCLUDE	individual estimate formula			pending
+ALP-COM-09-0016	commercial	09 引当金	第2節 3 一括評価と個別評価	commercial/chapter09.md::2-3	個別評価対象債権を一括評価対象から除外し、両者の見積額を合算して必要貸倒引当金を求める	procedure	INCLUDE	combined allowance process			pending
+ALP-COM-09-0017	commercial	09 引当金	第2節 4 営業外債権	commercial/chapter09.md::2-4	貸付金・未収入金等の営業外債権にも貸倒可能性が見積もられる場合は貸倒引当金を設定する	recognition	INCLUDE	nontrade allowance scope			pending
+ALP-COM-09-0018	commercial	09 引当金	第2節 4 営業外債権	commercial/chapter09.md::2-4	貸倒引当金の対象債権は問題指示に従い営業債権・営業外債権の残高を確認して選定する	procedure	INCLUDE	exam scope-selection rule			pending
+ALP-COM-09-0019	commercial	09 引当金	第3節 1 修繕引当金	commercial/chapter09.md::3-1	当期に行うべき修繕を将来行う場合、当期原因分を修繕引当金繰入（費用）・修繕引当金（負債）として計上する	journal_entry	INCLUDE	repair provision recognition			pending
+ALP-COM-09-0020	commercial	09 引当金	第3節 1 修繕引当金	commercial/chapter09.md::3-1	実際の修繕支出時は修繕引当金を取り崩し、支出額が引当金を超える部分を当期修繕費とする	journal_entry	INCLUDE	repair provision utilization			pending
+ALP-COM-09-0021	commercial	09 引当金	第3節 2 賞与引当金	commercial/chapter09.md::3-2	翌期支給賞与のうち賞与計算期間に占める当期経過分は賞与引当金繰入・賞与引当金として当期計上する	recognition	INCLUDE	bonus provision matching			pending
+ALP-COM-09-0022	commercial	09 引当金	第3節 2 賞与引当金	commercial/chapter09.md::3-2	賞与引当金＝翌期支給賞与見積額×当期経過月数÷賞与計算期間月数である	formula	INCLUDE	bonus provision formula			pending
+ALP-COM-09-0023	commercial	09 引当金	第3節 2 賞与引当金	commercial/chapter09.md::3-2	賞与支払時は引当金を取り崩し、支払額が引当金残高を超える部分を当期の賞与費用とする	journal_entry	INCLUDE	bonus provision utilization			pending
+ALP-COM-09-0024	commercial	09 引当金	第3節 2 賞与引当金	commercial/chapter09.md::3-2	引当金は将来支払額が見積りで未確定、未払費用は金額が確定している点で異なる	comparison	INCLUDE	provision versus accrual distinction			pending
+ALP-COM-09-0025	commercial	09 引当金	第3節 2 役員賞与引当金	commercial/chapter09.md::3-2	翌期に見込む役員賞与は役員賞与引当金繰入（費用）・役員賞与引当金（負債）で処理し支払時に取り崩す	journal_entry	INCLUDE	director bonus provision			pending
+ALP-COM-09-0026	commercial	09 引当金	第3節 3 退職給付引当金	commercial/chapter09.md::3-3	退職金は勤務に対する後払い性を持つため当期勤務対応分を退職給付費用・退職給付引当金として当期計上する	reasoning	INCLUDE	retirement benefit matching			pending
+ALP-COM-09-0027	commercial	09 引当金	第3節 3 退職給付引当金	commercial/chapter09.md::3-3	退職金支払時は退職給付引当金を取り崩して支払う	journal_entry	INCLUDE	retirement provision utilization			pending
+ALP-COM-09-0028	commercial	09 引当金	第3節 4 商品保証引当金	commercial/chapter09.md::3-4	当期販売商品の無料保証修理に将来要する見積額は商品保証引当金繰入・商品保証引当金として当期計上する	recognition	INCLUDE	warranty provision matching			pending
+ALP-COM-09-0029	commercial	09 引当金	第3節 4 商品保証引当金	commercial/chapter09.md::3-4	保証修理支出時は商品保証引当金を取り崩し、支出額が引当金を超える部分を商品保証費とする	journal_entry	INCLUDE	warranty provision utilization			pending
+ALP-COM-09-0030	commercial	09 引当金	第3節 4 商品保証引当金	commercial/chapter09.md::3-4	自社製造製品の保証では商品保証費・商品保証引当金でなく製品保証費・製品保証引当金を用いる	exception	INCLUDE	manufactured-product account naming			pending
+	commercial	09 引当金	各節 数値例	commercial/chapter09.md::examples	貸倒・差額補充・個別評価・各負債性引当金の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
