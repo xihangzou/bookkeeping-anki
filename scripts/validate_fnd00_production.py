@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the ANKI-007 FND-00 production batch under the frozen v1.0 contract."""
+"""Validate the FND-00 production batch after the v1.1 exam-yield audit."""
 
 from __future__ import annotations
 
@@ -28,27 +28,30 @@ NOTE_RE = re.compile(r"^BK-FND-00-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-FND-00-[0-9]{4}$")
 CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 
-# Stable pilot IDs promoted into production. BK-FND-00-0016 remains reserved as
-# pilot-only numeric-application evidence and must not be reused.
-PROMOTED_PILOT_IDS = {
-    "ALP-FND-00-0003": "BK-FND-00-0001",
-    "ALP-FND-00-0012": "BK-FND-00-0002",
-    "ALP-FND-00-0017": "BK-FND-00-0003",
-    "ALP-FND-00-0022": "BK-FND-00-0004",
-    "ALP-FND-00-0024": "BK-FND-00-0005",
-    "ALP-FND-00-0026": "BK-FND-00-0006",
-    "ALP-FND-00-0027": "BK-FND-00-0007",
-    "ALP-FND-00-0029": "BK-FND-00-0008",
-    "ALP-FND-00-0035": "BK-FND-00-0009",
-    "ALP-FND-00-0038": "BK-FND-00-0010",
-    "ALP-FND-00-0040": "BK-FND-00-0011",
-    "ALP-FND-00-0041": "BK-FND-00-0012",
-    "ALP-FND-00-0052": "BK-FND-00-0013",
-    "ALP-FND-00-0053": "BK-FND-00-0014",
-    "ALP-FND-00-0058": "BK-FND-00-0015",
-    "ALP-FND-00-0072": "BK-FND-00-0017",
-}
+# ANKI-AUDIT-001 keeps all assigned production IDs as audit history. The
+# pilot-only synthetic application ID remains reserved and absent.
 RESERVED_PILOT_ONLY_ID = "BK-FND-00-0016"
+EXPECTED_NOTE_IDS = {
+    *(f"BK-FND-00-{n:04d}" for n in range(1, 16)),
+    *(f"BK-FND-00-{n:04d}" for n in range(17, 93)),
+}
+
+DEPRECATED_IDS = {
+    "BK-FND-00-0001", "BK-FND-00-0006", "BK-FND-00-0007",
+    "BK-FND-00-0020", "BK-FND-00-0021", "BK-FND-00-0023",
+    "BK-FND-00-0031", "BK-FND-00-0033", "BK-FND-00-0034",
+    "BK-FND-00-0035", "BK-FND-00-0036", "BK-FND-00-0038",
+    "BK-FND-00-0040", "BK-FND-00-0041", "BK-FND-00-0042",
+    "BK-FND-00-0045", "BK-FND-00-0046", "BK-FND-00-0052",
+    "BK-FND-00-0056", "BK-FND-00-0057", "BK-FND-00-0059",
+    "BK-FND-00-0060", "BK-FND-00-0061", "BK-FND-00-0063",
+    "BK-FND-00-0065", "BK-FND-00-0066", "BK-FND-00-0067",
+    "BK-FND-00-0076", "BK-FND-00-0077", "BK-FND-00-0081",
+    "BK-FND-00-0082", "BK-FND-00-0083", "BK-FND-00-0085",
+    "BK-FND-00-0087",
+}
+EXPECTED_APPROVED_COUNT = 57
+EXPECTED_DEPRECATED_COUNT = 34
 
 
 def fail(errors: list[str], message: str) -> None:
@@ -65,17 +68,6 @@ def normalized_topic(topic: str) -> str:
     return "_".join(topic.strip().split())
 
 
-def expected_id_map(included_alps: list[str]) -> dict[str, str]:
-    mapping = dict(PROMOTED_PILOT_IDS)
-    next_sequence = 18
-    for alp_id in included_alps:
-        if alp_id in mapping:
-            continue
-        mapping[alp_id] = f"BK-FND-00-{next_sequence:04d}"
-        next_sequence += 1
-    return mapping
-
-
 def main() -> int:
     errors: list[str] = []
 
@@ -88,15 +80,16 @@ def main() -> int:
     excluded = [r for r in inventory if r.get("status") == "EXCLUDE"]
     included_alps = [r["alp_id"] for r in included]
     included_set = set(included_alps)
-    excluded_anchors = {r.get("source_anchor", "") for r in excluded}
+    inventory_by_alp = {r["alp_id"]: r for r in included}
 
     if len(included_alps) != 91:
         fail(errors, f"expected 91 included FND-00 ALPs, got {len(included_alps)}")
 
-    expected_ids = expected_id_map(included_alps)
     seen_ids: set[str] = set()
-    alp_to_notes: dict[str, list[str]] = defaultdict(list)
-    plain_text_counter: Counter[str] = Counter()
+    approved_alp_to_notes: dict[str, list[str]] = defaultdict(list)
+    approved_plain_text_counter: Counter[str] = Counter()
+    approved_count = 0
+    deprecated_count = 0
 
     for row_no, row in enumerate(notes, start=2):
         note_id = row.get("ID", "")
@@ -108,25 +101,55 @@ def main() -> int:
         if note_id == RESERVED_PILOT_ONLY_ID:
             fail(errors, f"row {row_no}: reserved pilot-only ID reused")
 
+        status = row.get("Status", "")
+        if status not in {"approved", "deprecated"}:
+            fail(errors, f"{note_id}: production audit allows only approved/deprecated, got {status!r}")
+        if status == "approved":
+            approved_count += 1
+            if note_id in DEPRECATED_IDS:
+                fail(errors, f"{note_id}: expected deprecated but is approved")
+        else:
+            deprecated_count += 1
+            if note_id not in DEPRECATED_IDS:
+                fail(errors, f"{note_id}: unexpected deprecated Note")
+
+        if row.get("QA") != "pass":
+            fail(errors, f"{note_id}: audited production row must have QA=pass")
+
         text = row.get("Text", "")
         matches = CLOZE_RE.findall(text)
         if not matches:
             fail(errors, f"{note_id}: Text has no valid Cloze")
         plain = CLOZE_RE.sub(lambda m: m.group(2), text).strip()
-        plain_text_counter[plain] += 1
+        if status == "approved":
+            approved_plain_text_counter[plain] += 1
 
-        alp_ids = row.get("ALP_IDs", "").split(" ") if row.get("ALP_IDs") else []
-        if len(alp_ids) != 1:
-            fail(errors, f"{note_id}: ANKI-007 batch expects exactly one canonical ALP mapping")
+        raw_alp_ids = row.get("ALP_IDs", "")
+        alp_ids = raw_alp_ids.split(" ") if raw_alp_ids else []
+        if not alp_ids or any(not alp for alp in alp_ids):
+            fail(errors, f"{note_id}: ALP_IDs must contain at least one ID")
+        if len(alp_ids) != len(set(alp_ids)):
+            fail(errors, f"{note_id}: duplicate ALP IDs in mapping")
+
+        sequences: list[int] = []
         for alp_id in alp_ids:
             if not ALP_RE.fullmatch(alp_id):
                 fail(errors, f"{note_id}: invalid ALP ID {alp_id!r}")
                 continue
             if alp_id not in included_set:
                 fail(errors, f"{note_id}: ALP is not canonical INCLUDE: {alp_id}")
-            alp_to_notes[alp_id].append(note_id)
-            if expected_ids.get(alp_id) != note_id:
-                fail(errors, f"{note_id}: deterministic stable-ID mismatch for {alp_id}; expected {expected_ids.get(alp_id)}")
+                continue
+            sequences.append(int(alp_id.rsplit("-", 1)[1]))
+            if status == "approved":
+                approved_alp_to_notes[alp_id].append(note_id)
+
+        if sequences != sorted(sequences):
+            fail(errors, f"{note_id}: ALP_IDs not in canonical source order")
+
+        if alp_ids and alp_ids[0] in inventory_by_alp:
+            expected_section = inventory_by_alp[alp_ids[0]].get("source_section", "")
+            if row.get("Section") != expected_section:
+                fail(errors, f"{note_id}: Section={row.get('Section')!r}, expected first-ALP section {expected_section!r}")
 
         fixed = {
             "SourceRepo": SOURCE_REPO,
@@ -134,8 +157,6 @@ def main() -> int:
             "SourcePath": SOURCE_PATH,
             "Part": PART,
             "Chapter": CHAPTER,
-            "Status": "approved",
-            "QA": "pass",
         }
         for field, expected in fixed.items():
             if row.get(field) != expected:
@@ -145,55 +166,64 @@ def main() -> int:
             fail(errors, f"{note_id}: invalid Difficulty {row.get('Difficulty')!r}")
         if not row.get("Topic") or "::" in row.get("Topic", ""):
             fail(errors, f"{note_id}: invalid Topic")
+        if not row.get("Type"):
+            fail(errors, f"{note_id}: Type must be nonempty")
 
         expected_tags = sorted({
             "bookkeeping::foundation",
             "chapter::foundation::00",
             f"difficulty::{row.get('Difficulty')}",
-            "status::approved",
+            f"status::{status}",
             f"topic::{normalized_topic(row.get('Topic', ''))}",
             f"type::{row.get('Type')}",
         })
         actual_tags = row.get("Tags", "").split()
         if actual_tags != expected_tags:
             fail(errors, f"{note_id}: tag mismatch; got {actual_tags}, expected {expected_tags}")
-        if "pilot" in row.get("Status", "") or any("status::pilot" == t for t in actual_tags):
-            fail(errors, f"{note_id}: pilot-only lifecycle marker remains")
 
     if len(notes) != 91:
-        fail(errors, f"expected 91 production Notes, got {len(notes)}")
+        fail(errors, f"expected 91 historical production rows, got {len(notes)}")
+    if seen_ids != EXPECTED_NOTE_IDS:
+        missing_ids = sorted(EXPECTED_NOTE_IDS - seen_ids)
+        unexpected_ids = sorted(seen_ids - EXPECTED_NOTE_IDS)
+        fail(errors, f"stable Note-ID set mismatch; missing={missing_ids}, unexpected={unexpected_ids}")
+    if approved_count != EXPECTED_APPROVED_COUNT:
+        fail(errors, f"expected {EXPECTED_APPROVED_COUNT} approved Notes, got {approved_count}")
+    if deprecated_count != EXPECTED_DEPRECATED_COUNT:
+        fail(errors, f"expected {EXPECTED_DEPRECATED_COUNT} deprecated Notes, got {deprecated_count}")
 
-    missing = [alp for alp in included_alps if not alp_to_notes.get(alp)]
-    multiply_mapped = [alp for alp in included_alps if len(alp_to_notes.get(alp, [])) != 1]
+    missing = [alp for alp in included_alps if not approved_alp_to_notes.get(alp)]
+    multiply_mapped = [alp for alp in included_alps if len(approved_alp_to_notes.get(alp, [])) != 1]
     if missing:
-        fail(errors, f"unmapped included ALPs: {missing}")
+        fail(errors, f"unmapped included ALPs in active approved deck: {missing}")
     if multiply_mapped:
-        fail(errors, f"ALPs not mapped exactly once in ANKI-007 batch: {multiply_mapped}")
+        fail(errors, f"ALPs not mapped exactly once to approved Notes: {multiply_mapped}")
 
-    duplicates = [text for text, count in plain_text_counter.items() if count > 1]
+    duplicates = [text for text, count in approved_plain_text_counter.items() if count > 1]
     if duplicates:
-        fail(errors, f"exact rendered-text duplicates: {duplicates}")
+        fail(errors, f"exact rendered-text duplicates among approved Notes: {duplicates}")
 
-    # Excluded decorative examples have no ALP IDs, so they cannot be mapped by
-    # ALP_IDs. Retain a sanity assertion that the inventory still contains them
-    # only as EXCLUDE records rather than accidentally assigned canonical IDs.
     if any(r.get("alp_id") for r in excluded):
         fail(errors, "excluded FND-00 rows unexpectedly carry canonical ALP IDs")
-    if not excluded_anchors:
-        fail(errors, "expected explicit excluded decorative-example anchors")
 
     if errors:
-        print("FND-00 production validation: FAIL", file=sys.stderr)
+        print("FND-00 v1.1 production validation: FAIL", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
 
-    journal_count = sum(1 for r in notes if r.get("Type") == "journal_entry")
-    formula_count = sum(1 for r in notes if r.get("Type") == "formula")
-    print("FND-00 production validation: PASS")
-    print(f"notes={len(notes)} included_alps={len(included_alps)} mapped={len(alp_to_notes)} unmapped=0")
-    print(f"promoted_pilot_ids={len(PROMOTED_PILOT_IDS)} reserved_pilot_only_id={RESERVED_PILOT_ONLY_ID}")
-    print(f"journal_entry_notes={journal_count} formula_notes={formula_count}")
+    approved_rows = [r for r in notes if r.get("Status") == "approved"]
+    journal_count = sum(1 for r in approved_rows if r.get("Type") == "journal_entry")
+    formula_count = sum(1 for r in approved_rows if r.get("Type") == "formula")
+    multi_alp_count = sum(1 for r in approved_rows if len(r.get("ALP_IDs", "").split()) > 1)
+
+    print("FND-00 v1.1 production validation: PASS")
+    print(
+        f"rows={len(notes)} approved={approved_count} deprecated={deprecated_count} "
+        f"included_alps={len(included_alps)} approved_mapped={len(approved_alp_to_notes)} unmapped=0"
+    )
+    print(f"approved_multi_alp_notes={multi_alp_count} reserved_pilot_only_id={RESERVED_PILOT_ONLY_ID}")
+    print(f"approved_journal_entry_notes={journal_count} approved_formula_notes={formula_count}")
     return 0
 
 
