@@ -1,6 +1,6 @@
 # Coverage Rules
 
-Status: **v1.0 candidate — representative pilot validated; freeze pending ANKI-PILOT-006**
+Status: **v1.0 — frozen after representative pilot (ANKI-PILOT-006)**
 
 ## 1. Coverage target
 
@@ -266,3 +266,19 @@ The pilot did **not** justify changing:
 - source-traceability requirements.
 
 Those contracts remain unchanged for the v1.0 freeze gate.
+
+## 16. ANKI-PILOT-006 freeze decision
+
+The v1.0 candidate passed the final pilot gate and is frozen for Phase C production.
+
+Freeze evidence:
+
+- corrected pilot: **40 Notes / 62 generated cards**;
+- accounting failures: **0**;
+- source-traceability failures: **0**;
+- major findings: **0**;
+- blocking findings: **0**;
+- recurring/minor finding families are governed by explicit v1.0 rules or documented no-change decisions;
+- canonical ALP IDs and source mappings remain unchanged.
+
+Chapter-wide generation from ANKI-007 onward must use this frozen v1.0 coverage contract unless a separately reviewed post-freeze migration is explicitly approved.
