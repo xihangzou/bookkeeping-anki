@@ -44,6 +44,8 @@ When one inventory ALP represents a source family, integration must not silently
 - temporary-account classifications and later reclassification;
 - source-required formula terms, period vocabulary, correction logic, and document/voucher mechanics.
 
+COM-01 applies the same rules to commercial bookkeeping, including acquisition-cost details, cost-flow method families, journal-entry mechanics, inventory valuation, and term-level formula recall.
+
 ## FND-00 audit result
 
 Audit progression:
@@ -71,10 +73,10 @@ and
 
 ## Existing commercial batches
 
-- `notes/COM-01.tsv` — 38 approved Notes / 38 cards / 52 included ALPs;
+- `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 92 Cloze spans / 52 included ALPs; v1.6 audited**;
 - `notes/COM-02.tsv` — 17 approved Notes / 17 cards / 32 included ALPs.
 
-Existing commercial batches retain their audited generation state until an explicit chapter audit migrates them to newer recall-design rules.
+COM-01 now follows the v1.6 recall-design overlay. COM-02 retains its audited generation state until an explicit chapter audit migrates it to the newer recall-design rules.
 
 ## Lifecycle
 
@@ -83,7 +85,7 @@ Existing commercial batches retain their audited generation state until an expli
 ## Current batches
 
 - `notes/FND-00.tsv` — foundations; current overlay v1.6 / ANKI-AUDIT-006 (#70);
-- `notes/COM-01.tsv` — Commercial chapter 01;
+- `notes/COM-01.tsv` — Commercial chapter 01; current overlay v1.6;
 - `notes/COM-02.tsv` — Commercial chapter 02.
 
 Migration records:
