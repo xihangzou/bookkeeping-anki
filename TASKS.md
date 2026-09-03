@@ -56,7 +56,11 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 
 ### Foundation
 
-- [ ] **ANKI-007** Part 0 / commercial chapter00 generation
+- [x] **ANKI-007** Part 0 / commercial chapter00 generation
+  - `production/notes/FND-00.tsv`: 91 approved Notes / 91 included ALPs / 0 unmapped
+  - `production/qa/FND-00.md`: chapter-local Cloze, duplicate, accounting, formula, and source-traceability QA
+  - `scripts/validate_fnd00_production.py` + `validate-production.yml`: deterministic production validation
+  - 16 pilot Note IDs promoted without renumbering; `BK-FND-00-0016` remains reserved pilot-only evidence
 
 ### Commercial bookkeeping
 
