@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "inventory" / "topic_inventory"
+STRUCTURE_PATH = ROOT / "inventory" / "structure.md"
 
 COLUMNS = [
     "alp_id",
@@ -62,6 +63,25 @@ def fail(errors: list[str], message: str) -> None:
     errors.append(message)
 
 
+def count_structure_sections() -> tuple[int, int, int]:
+    chapter_files = 0
+    h2_sections = 0
+    h3_sections = 0
+
+    for line in STRUCTURE_PATH.read_text(encoding="utf-8").splitlines():
+        if line.startswith("#### `") and ".md`" in line:
+            chapter_files += 1
+        if not line.startswith("- H2 "):
+            continue
+
+        h2_sections += 1
+        if "→ H3 " in line:
+            h3_list = line.split("→ H3 ", 1)[1]
+            h3_sections += sum(1 for item in h3_list.split(";") if item.strip())
+
+    return chapter_files, h2_sections, h3_sections
+
+
 def main() -> int:
     errors: list[str] = []
     ids: set[str] = set()
@@ -74,6 +94,11 @@ def main() -> int:
     if not DATA_DIR.exists():
         print(f"ERROR: missing data directory: {DATA_DIR}", file=sys.stderr)
         return 1
+    if not STRUCTURE_PATH.exists():
+        print(f"ERROR: missing frozen structure inventory: {STRUCTURE_PATH}", file=sys.stderr)
+        return 1
+
+    chapter_files, h2_sections, h3_sections = count_structure_sections()
 
     actual_shards = sorted(p.name for p in DATA_DIR.glob("*.tsv"))
     missing = sorted(set(EXPECTED_SHARDS) - set(actual_shards))
@@ -82,6 +107,8 @@ def main() -> int:
         fail(errors, f"missing shards: {', '.join(missing)}")
     if unexpected:
         fail(errors, f"unexpected shards: {', '.join(unexpected)}")
+    if chapter_files != len(EXPECTED_SHARDS):
+        fail(errors, f"frozen structure chapter-file count {chapter_files} does not match expected shard count {len(EXPECTED_SHARDS)}")
 
     for shard_name in EXPECTED_SHARDS:
         path = DATA_DIR / shard_name
@@ -153,6 +180,10 @@ def main() -> int:
             if shard_rows == 0:
                 fail(errors, f"{shard_name}: shard contains no candidate rows")
 
+    print(f"source_chapter_files={chapter_files}")
+    print(f"source_h2_sections={h2_sections}")
+    print(f"source_h3_sections={h3_sections}")
+    print(f"source_sections_reviewed={h2_sections + h3_sections}")
     print(f"shards_expected={len(EXPECTED_SHARDS)}")
     print(f"shards_present={len(set(actual_shards) & set(EXPECTED_SHARDS))}")
     print(f"candidate_rows={rows_total}")
