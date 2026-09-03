@@ -1,10 +1,10 @@
 # Exam-Yield / Active-Deck Rules
 
-Status: **v1.1 post-freeze overlay — ANKI-AUDIT-001 (#56)**
+Status: **v1.2 post-freeze overlay — ANKI-AUDIT-001/002 (#56, #58)**
 
 This file is an explicit post-freeze migration layered on top of the frozen v1.0 contract in `SPEC.md`, `rules/cloze_rules.md`, `rules/coverage_rules.md`, and `schema/note_schema.yaml`.
 
-The v1.0 source/schema/stable-ID contract remains authoritative unless this overlay explicitly changes active-deck selection or lifecycle handling.
+The v1.0 source/schema/stable-ID contract remains authoritative unless this overlay explicitly changes active-deck selection, lifecycle handling, or generated-card efficiency.
 
 ## 1. Target
 
@@ -23,7 +23,7 @@ A source proposition does not automatically deserve its own direct Cloze card. D
 9. inability to parse terminology or notation that is routinely required by bookkeeping exam questions;
 10. loss of a causal accounting relationship needed for later 2級 / CPA reasoning.
 
-Card count is not a target. The target is the smallest active corpus that preserves all necessary exam-relevant retrieval operations and full canonical ALP traceability.
+Note count and generated-card count are not quotas. The target is the smallest active corpus that preserves all necessary exam-relevant retrieval operations and full canonical ALP traceability.
 
 ## 2. Low-yield direct recall
 
@@ -99,7 +99,7 @@ If a source-derived simplification is potentially misleading in a broader bookke
 
 In particular, transaction duality must not be phrased as though **each** account in a compound entry changes by the same amount. The durable rule is that a transaction is recorded on debit and credit sides and the total debit amount equals the total credit amount.
 
-## 7. FND-00 audit target
+## 7. FND-00 v1.1 audit target
 
 For ANKI-AUDIT-001:
 
@@ -112,3 +112,79 @@ For ANKI-AUDIT-001:
 - prioritize debit-credit rules, transaction recognition, trial-balance controls, payroll/temporary-account entries, correction entries, ledger reconciliation, voucher decisions, and document-to-entry inference.
 
 The resulting approved-note count is an audit outcome, not a quota.
+
+## 8. Generated-card rotation efficiency — v1.2
+
+ANKI-AUDIT-002 adds a generated-card-level optimization layer. A Cloze Note with `c1`, `c2`, and `c3` creates three review cards even when the three facts belong to one natural retrieval unit. Therefore **distinct Cloze indices are a study-cost decision**.
+
+For every approved Note:
+
+1. start from **one generated card** (`c1`) for one coherent retrieval unit;
+2. reuse the same Cloze index for tightly coupled facts that should be recalled together;
+3. add `c2+` only when the additional card tests a materially independent retrieval operation worth a separate review;
+4. do not create additional cards merely because a sentence contains several blanks;
+5. count distinct Cloze indices as part of chapter QA and report the generated-card total.
+
+Same-index grouping is normally preferred for:
+
+- paired debit/credit treatments;
+- two sides of one classification contrast;
+- parallel formulas that should be reproduced as a set;
+- ordered stages whose sequence is the target;
+- vocabulary bundles needed together to parse one exam construct;
+- paired journal-entry consequences that constitute one accounting decision;
+- mutually dependent document or voucher classifications.
+
+Separate indices remain appropriate when hiding everything together would overload recall or when each group supports a genuinely independent exam decision. The reason should be apparent from the Note or QA record.
+
+## 9. Cloze answer uniqueness and standalone form — v1.2
+
+A Cloze span should be a **canonical answer unit**, not a grammatical residue.
+
+Prefer answers such as:
+
+- `資産`, `負債`, `純資産`;
+- `借方`, `貸方`;
+- `合計試算表`, `残高試算表`;
+- `所得税預り金`;
+- `補助記入帳`, `補助元帳`;
+- a complete formula or short self-contained proposition.
+
+Avoid targets such as:
+
+- `運用形態` when the accounting category itself can be tested;
+- `ある調達源泉` / `ない調達源泉`;
+- `増減するか`;
+- `発見できない` without identifying what cannot detect the error;
+- fragments whose grammatical form admits several plausible completions.
+
+When a source proposition is better tested in reverse, keep the condition or definition visible and Cloze the canonical accounting term. The intended semantic answer class must be unique from the visible prompt.
+
+Each exact Cloze answer span should appear at most once within an approved Note. If identical answer text would be hidden twice, redesign the sentence or keep one occurrence visible unless repetition itself is materially necessary.
+
+## 10. Visible-context rule — v1.2
+
+Supporting facts that are useful for understanding but do not deserve another review card should remain visible in the Note or `Extra`.
+
+Visible context should:
+
+- identify the subject, period, transaction direction, and comparison axis needed to determine the answer;
+- prevent multiple accounting-equivalent interpretations;
+- avoid revealing a hidden answer through a visible sibling fact;
+- let the learner know what *kind* of answer is required without making the answer automatic.
+
+The objective is not maximal masking. It is **minimal sufficient masking for durable retrieval**.
+
+## 11. FND-00 v1.2 rotation target
+
+For ANKI-AUDIT-002, after v1.1 active-deck selection:
+
+- historical rows remain **91**;
+- approved Notes remain **57** and deprecated rows remain **34**;
+- 91/91 included ALPs remain mapped exactly once to an approved Note;
+- generated cards are reduced from **110 to 58**;
+- all approved Notes use one generated card except `BK-FND-00-0091`, which uses two coherent abbreviation-family cards;
+- no approved Note contains a duplicated exact Cloze answer span;
+- Cloze wording is revised toward canonical accounting terms, short formulas, directions, or self-contained propositions.
+
+Apply these v1.2 rules during ANKI-008 onward generation so generated-card efficiency is designed in from the start rather than repaired after chapter generation.
