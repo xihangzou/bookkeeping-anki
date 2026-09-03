@@ -33,37 +33,34 @@ EXPECTED_NOTE_IDS = {
     *(f"BK-FND-00-{n:04d}" for n in range(17, 93)),
 }
 
-EXPECTED_ACTIVE_INDICES = {
-    "BK-FND-00-0022": {1},
-    "BK-FND-00-0002": {1, 2, 3, 4, 5},
-    "BK-FND-00-0004": {1, 2},
-    "BK-FND-00-0005": {1},
-    "BK-FND-00-0037": {1, 2},
-    "BK-FND-00-0044": {1},
-    "BK-FND-00-0010": {1, 2, 3},
-    "BK-FND-00-0011": {1},
-    "BK-FND-00-0053": {1, 2},
-    "BK-FND-00-0054": {1},
-    "BK-FND-00-0055": {1, 2},
-    "BK-FND-00-0014": {1, 2},
-    "BK-FND-00-0058": {1, 2},
-    "BK-FND-00-0015": {1, 2},
-    "BK-FND-00-0075": {1},
-    "BK-FND-00-0078": {1, 2, 3},
-    "BK-FND-00-0086": {1, 2, 3, 4},
-    "BK-FND-00-0088": {1, 2},
+EXPECTED_ACTIVE_IDS = {
+    "BK-FND-00-0022",
+    "BK-FND-00-0002",
+    "BK-FND-00-0004",
+    "BK-FND-00-0005",
+    "BK-FND-00-0037",
+    "BK-FND-00-0044",
+    "BK-FND-00-0010",
+    "BK-FND-00-0011",
+    "BK-FND-00-0053",
+    "BK-FND-00-0054",
+    "BK-FND-00-0055",
+    "BK-FND-00-0014",
+    "BK-FND-00-0058",
+    "BK-FND-00-0015",
+    "BK-FND-00-0075",
+    "BK-FND-00-0078",
+    "BK-FND-00-0086",
+    "BK-FND-00-0088",
 }
-EXPECTED_ACTIVE_IDS = set(EXPECTED_ACTIVE_INDICES)
 EXPECTED_APPROVED_COUNT = 18
 EXPECTED_DEPRECATED_COUNT = 73
-EXPECTED_GENERATED_CARDS = 37
+EXPECTED_GENERATED_CARDS = 18
+EXPECTED_CLOZE_SPANS = 36
 EXPECTED_ACTIVE_ALPS = 36
 
-# v1.3 favors one lexical accounting unit per Cloze. These two targets are
-# explicit exceptions because no cleaner canonical one-word target preserves
-# the intended source proposition.
-ALLOWED_NONLEXICAL = {"ならない", "正しい仕訳"}
-BANNED_ANSWER_PUNCTUATION = set("。、，,；;／/→＋+")
+ALLOWED_NONLEXICAL = {"ならない"}
+BANNED_ANSWER_PUNCTUATION = set("。、，,；;／/→＋+・")
 
 
 def fail(errors: list[str], message: str) -> None:
@@ -99,7 +96,7 @@ def main() -> int:
     historical_alp_to_notes: dict[str, list[str]] = defaultdict(list)
     active_alp_to_notes: dict[str, list[str]] = defaultdict(list)
     approved_plain = Counter()
-    approved_count = deprecated_count = generated_cards = 0
+    approved_count = deprecated_count = generated_cards = cloze_spans = 0
 
     for row_no, row in enumerate(notes, start=2):
         note_id = row.get("ID", "")
@@ -129,29 +126,21 @@ def main() -> int:
 
         if status == "approved":
             indices = {int(i) for i, _ in matches}
-            expected_indices = EXPECTED_ACTIVE_INDICES[note_id]
-            if indices != expected_indices:
-                fail(errors, f"{note_id}: Cloze indices={sorted(indices)}, expected={sorted(expected_indices)}")
-            # v1.3 rejects v1.2-style repeated c1 grouping: one occurrence per card.
-            if len(matches) != len(indices):
-                fail(errors, f"{note_id}: multiple Cloze spans share one card index; split parallel facts")
-            generated_cards += len(indices)
-
-            # Parallel/conjunction targets must be sentence-separated. A Japanese
-            # full-stop-delimited sentence may contain at most one Cloze span.
-            for sentence in [s for s in text.split("。") if s.strip()]:
-                count = len(CLOZE_RE.findall(sentence))
-                if count > 1:
-                    fail(errors, f"{note_id}: sentence contains {count} Clozes; split parallel/conjoined recall")
+            # v1.3: one coherent active Note is one card. Parallel lexical
+            # answers may use multiple distinct spans, but all share c1.
+            if indices != {1}:
+                fail(errors, f"{note_id}: approved v1.3 Note must use only c1, got {sorted(indices)}")
+            generated_cards += 1
+            cloze_spans += len(matches)
 
             answers = [a.strip() for _, a in matches]
             if any(not a for a in answers):
                 fail(errors, f"{note_id}: empty Cloze answer")
             if len(answers) != len(set(answers)):
-                fail(errors, f"{note_id}: duplicate Cloze answer inside Note")
+                fail(errors, f"{note_id}: duplicate exact Cloze answer inside Note")
             for answer in answers:
                 if answer not in ALLOWED_NONLEXICAL and any(ch in answer for ch in BANNED_ANSWER_PUNCTUATION):
-                    fail(errors, f"{note_id}: phrase/list-like Cloze answer {answer!r}")
+                    fail(errors, f"{note_id}: compound/list-like Cloze answer {answer!r}; split into same-index lexical spans")
                 if len(answer) > 12 and answer not in ALLOWED_NONLEXICAL:
                     fail(errors, f"{note_id}: overly long Cloze answer {answer!r}")
 
@@ -218,8 +207,9 @@ def main() -> int:
         fail(errors, f"expected {EXPECTED_DEPRECATED_COUNT} deprecated, got {deprecated_count}")
     if generated_cards != EXPECTED_GENERATED_CARDS:
         fail(errors, f"expected {EXPECTED_GENERATED_CARDS} cards, got {generated_cards}")
+    if cloze_spans != EXPECTED_CLOZE_SPANS:
+        fail(errors, f"expected {EXPECTED_CLOZE_SPANS} lexical Cloze spans, got {cloze_spans}")
 
-    # Source coverage is historical/review coverage in v1.3, not an active-card quota.
     source_missing = [alp for alp in included_alps if not historical_alp_to_notes.get(alp)]
     if source_missing:
         fail(errors, f"included ALPs missing from production history: {source_missing}")
@@ -248,7 +238,8 @@ def main() -> int:
         f"source_reviewed_alps=91 active_recall_alps={len(active_alp_to_notes)}"
     )
     print(
-        f"generated_cards={generated_cards} lexical_atomicity=pass sentence_split=pass "
+        f"generated_cards={generated_cards} cloze_spans={cloze_spans} "
+        f"same_index_parallelism=pass lexical_atomicity=pass "
         f"reserved_pilot_only_id={RESERVED_PILOT_ONLY_ID}"
     )
     return 0
