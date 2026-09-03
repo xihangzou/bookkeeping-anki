@@ -2,24 +2,62 @@ version: 0.9
 model: Cloze
 source_of_truth: repository_text
 
+lifecycle:
+  phase: pre_pilot
+  frozen: false
+  revision_gate: representative_pilot_then_v1.0
+
 source:
   repository: xihangzou/bookkeeping-integrated
   path: merged/textbook.md
   baseline_commit: 569ed7b82e729334e1472286eaca7c4352e6fbdb
 
+source_mapping:
+  exact_mapping_authority: inventory/topic_inventory
+  note_mapping_key: ALP_IDs
+  denormalized_query_fields:
+    - Part
+    - Chapter
+    - Section
+    - Topic
+  rules:
+    - Each ALP_ID must resolve to exactly one included ALP in the canonical topic inventory.
+    - Exact source anchors are recovered through the mapped ALP records rather than duplicated in every Note row.
+    - Part, Chapter, Section, and Topic are denormalized query fields for the Note's canonical primary retrieval context.
+    - A Note may map multiple ALPs only when they form one coherent recall unit; every mapped ALP remains independently source-traceable through the inventory.
+    - If mapped ALPs span more than one source location, the denormalized query fields identify the canonical primary context and ALP_IDs remain the authority for complete source mapping.
+
 id_format:
-  note: BK-{part}-{chapter}-{sequence}
-  alp: ALP-{part}-{chapter}-{sequence}
+  note: BK-{part_code}-{chapter_2d}-{sequence_4d}
+  alp: ALP-{part_code}-{chapter_2d}-{sequence_4d}
+  part_codes:
+    foundation: FND
+    commercial: COM
+    industrial: IND
+  chapter:
+    format: two_digit_decimal
+    foundation: "00"
+    commercial: source_chapter_number
+    industrial: source_chapter_number
+  sequence:
+    format: four_digit_decimal
+    scope: part_and_chapter
+    assignment: next_unused_integer
+    immutable_after_assignment: true
+    reuse_deleted_identifier: false
   examples:
     - BK-FND-00-0001
     - BK-COM-01-0001
     - BK-IND-01-0001
+    - ALP-FND-00-0001
+    - ALP-COM-01-0001
+    - ALP-IND-01-0001
 
 fields:
   - name: ID
     required: true
     unique: true
-    description: Stable note identifier.
+    description: Stable Note identifier derived from Part, Chapter, and an immutable chapter-local sequence.
 
   - name: Text
     required: true
@@ -50,15 +88,15 @@ fields:
 
   - name: Chapter
     required: true
-    description: Canonical chapter number and title from textbook.md.
+    description: Canonical chapter number and title from textbook.md; the leading chapter number determines chapter_2d.
 
   - name: Section
     required: true
-    description: Most specific useful heading path.
+    description: Most specific useful heading path for the Note's canonical primary retrieval context.
 
   - name: Topic
     required: true
-    description: Normalized accounting topic label.
+    description: Normalized accounting topic label for the Note's canonical primary retrieval context.
 
   - name: Type
     required: true
@@ -79,7 +117,11 @@ fields:
 
   - name: ALP_IDs
     required: true
-    description: One or more Atomic Learning Point IDs mapped to this note.
+    description: One or more canonical included ALP IDs mapped to this Note.
+    serialization:
+      delimiter: space
+      unique_items: true
+      order: canonical_source_order
 
   - name: Difficulty
     required: true
@@ -92,7 +134,11 @@ fields:
 
   - name: Tags
     required: true
-    description: Space-separated normalized Anki tags.
+    description: Space-separated normalized Anki tags derived from canonical Note fields plus optional secondary characteristics.
+    serialization:
+      delimiter: space
+      unique_items: true
+      order: lexical
 
   - name: Status
     required: true
@@ -128,20 +174,108 @@ canonical_tag_namespaces:
   - type::<type>
   - topic::<normalized_topic>
   - difficulty::<1-5>
-  - status::<pilot|approved>
+  - status::<draft|pilot|approved|deprecated>
+  - secondary::<normalized_characteristic>
+
+tag_contract:
+  delimiter: space
+  required_tags:
+    - bookkeeping::<Part>
+    - chapter::<Part>::<chapter_2d>
+    - type::<Type>
+    - topic::<normalized_topic>
+    - difficulty::<Difficulty>
+    - status::<Status>
+  field_mapping:
+    bookkeeping_part:
+      foundation: bookkeeping::foundation
+      commercial: bookkeeping::commercial
+      industrial: bookkeeping::industrial
+    chapter:
+      format: chapter::<Part>::<chapter_2d>
+    type:
+      format: type::<Type>
+    difficulty:
+      format: difficulty::<Difficulty>
+    status:
+      format: status::<Status>
+  topic_normalization:
+    source: Topic
+    trim_outer_whitespace: true
+    replace_internal_whitespace_with: _
+    forbid_substring: "::"
+    preserve_non_latin_characters: true
+    nonempty: true
+  optional_secondary_tags:
+    namespace: secondary
+    format: secondary::<normalized_characteristic>
+    normalization: same_as_topic_normalization
+  rules:
+    - Required tags are derived mechanically from the corresponding Note fields.
+    - Exactly one required tag from each required namespace must be present.
+    - Optional secondary tags may describe secondary characteristics but must not replace the primary Type.
+    - Tags contain no literal whitespace; spaces separate tags.
 
 row_validation:
-  - ID must be unique.
+  - ID must be unique and match ^BK-(FND|COM|IND)-[0-9]{2}-[0-9]{4}$.
+  - The ID part token must match Part through id_format.part_codes.
+  - The ID chapter token must match the canonical two-digit chapter number derived from Chapter.
+  - Once assigned, an ID must not be renumbered, reused, or changed because another Note is inserted or deleted.
   - Text must contain at least one valid {{cN::...}} expression.
-  - Every ALP_ID must exist in the coverage inventory.
-  - Every approved note must have QA=pass.
-  - Every approved note must contain full source traceability.
-  - Tags must use normalized namespaces.
+  - ALP_IDs must contain at least one unique ID, serialized with one ASCII space, in canonical source order.
+  - Every ALP_ID must exist as an included ALP in the canonical topic inventory.
+  - Exact source traceability must be recoverable for every mapped ALP through the canonical topic inventory.
+  - SourceRepo, SourceCommit, and SourcePath must match the pinned source unless a separately reviewed baseline migration updates the schema.
+  - Part, Chapter, Section, Topic, and Type must be nonempty and use canonical values.
+  - Required Tags must be present exactly once, match their source fields, and use normalized namespaces.
+  - Tags must be unique and lexically ordered after deterministic normalization.
+  - If mapped ALPs have secondary characteristics worth querying, represent them with secondary::<normalized_characteristic> tags rather than ad-hoc Type values.
+  - Every approved Note must have QA=pass.
+  - Every approved Note must contain complete source traceability through its pinned source fields and ALP mappings.
   - Extra must not contain the only copy of a required recall answer.
 
 export:
   canonical_format: tsv
   encoding: utf-8
+  field_order:
+    - ID
+    - Text
+    - Extra
+    - SourceRepo
+    - SourceCommit
+    - SourcePath
+    - Part
+    - Chapter
+    - Section
+    - Topic
+    - Type
+    - ALP_IDs
+    - Difficulty
+    - Tags
+    - Status
+    - QA
+  physical_row_policy: one_note_per_line
+  field_delimiter: tab
+  row_delimiter: lf
+  escaping:
+    backslash: "\\\\"
+    tab: "\\t"
+    carriage_return: "\\r"
+    line_feed: "\\n"
+    order:
+      - backslash
+      - tab
+      - carriage_return
+      - line_feed
+  list_fields:
+    ALP_IDs:
+      delimiter: space
+      order: canonical_source_order
+      unique_items: true
+    Tags:
+      delimiter: space
+      order: lexical
+      unique_items: true
   anki_model: Cloze
   deck_name: Bookkeeping Master
   apkg_is_source_of_truth: false
