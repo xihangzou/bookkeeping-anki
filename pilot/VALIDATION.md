@@ -1,3 +1,5 @@
+> **Historical pilot artifact.** References in this file to a v1.0 freeze describe the original pre-production gate. They do not define current repository governance; current authority is `GOVERNANCE.md` and the latest merged specification/rules/schema.
+
 # Pilot card-level validation
 
 Issues: ANKI-PILOT-003 (#47), post-fix revalidation in ANKI-PILOT-004 (#48)

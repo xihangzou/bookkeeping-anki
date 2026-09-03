@@ -1,3 +1,5 @@
+> **Historical pilot artifact.** References in this file to a v1.0 freeze describe the original pre-production gate. They do not define current repository governance; current authority is `GOVERNANCE.md` and the latest merged specification/rules/schema.
+
 # Pilot Plan
 
 Purpose: validate Cloze rules v0.9 before generating the full textbook deck.

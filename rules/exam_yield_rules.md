@@ -1,8 +1,10 @@
 # Exam-Yield / Active-Deck Rules
 
-Status: **v1.6 post-freeze overlay — ANKI-AUDIT-001/002/003/004/005/006 (#56, #58, #62, #66, #68, #70)**
+Status: **Current authoritative rules — living specification**
+Audit lineage: ANKI-AUDIT-001/002/003/004/005/006 (#56, #58, #62, #66, #68, #70)
+Governance: `GOVERNANCE.md`
 
-This is a post-freeze overlay on the frozen v1.0 source/schema/stable-ID contract. The frozen contract remains authoritative; this file governs active-deck selection, integration, lifecycle, and recall design.
+This file is part of the current rule set. It governs active-deck selection, integration, lifecycle, recall design, and audited completeness. It may be revised when later production evidence supports a better rule; newer merged rules supersede older audit states.
 
 ## 1. Primary target
 
@@ -48,9 +50,9 @@ Preferred forms include:
 
 Avoid one Cloze containing a list, several joined answers, a whole explanatory clause, or an entire journal-entry procedure when shorter answer units are possible.
 
-## 4. Formula itemization — v1.6
+## 4. Formula itemization
 
-For arithmetic or accounting relationships, keep the operator visible and Cloze the **individual terms**, not the whole expression.
+Introduced in FND-00 v1.6 and now part of the current general rule: for arithmetic or accounting relationships, keep the operator visible and Cloze the **individual terms**, not the whole expression.
 
 Preferred:
 
@@ -109,9 +111,9 @@ When the retrieval target is the side `借方` / `貸方`, hide only the first c
 
 The same form applies in compounds such as `{{c1::貸}}方残高`.
 
-## 9. Completeness inside integrated cards — v1.6
+## 9. Completeness inside integrated cards
 
-When several ALPs are compressed into one card, preserve the source distinctions that remain useful for exam reading or mechanics. Do not replace a source family with only one or two examples when the inventory explicitly treats the family as an included learning point.
+Strengthened in FND-00 v1.6 and now part of the current general rule: when several ALPs are compressed into one card, preserve the source distinctions that remain useful for exam reading or mechanics. Do not replace a source family with only one or two examples when the inventory explicitly treats the family as an included learning point.
 
 Examples for FND-00:
 
@@ -132,6 +134,8 @@ Conciseness never overrides accounting accuracy, source completeness, or answer 
 ## 11. Lifecycle and stable IDs
 
 Retired Notes remain in production history with immutable IDs and historical ALP mappings. A historical Note may be reactivated only within the same lineage after review; its stable ID is never reassigned to unrelated content.
+
+These are persistent lineage rules under `GOVERNANCE.md`, not consequences of a v1.0 freeze.
 
 ## 12. FND-00 audit history
 
@@ -160,4 +164,10 @@ Retired Notes remain in production history with immutable IDs and historical ALP
 - `BK-FND-00-0018` has no answer-leaking `簿記の基本では、` prefix;
 - `BK-FND-00-0027` uses `{{c1::に終わる}}` / `{{c1::から始まる}}`.
 
-These counts are chapter outcomes, not universal quotas. Future chapters should use the same hierarchy: preserve coverage and material source content, integrate coherent facts, itemize formulas, keep the retrieval frame visible, eliminate answer leakage, and add cards only when a fact cannot be integrated cleanly.
+These counts are chapter outcomes, not universal quotas. Future chapters should use the current rules, and later audits may improve them further.
+
+## 13. Rule evolution
+
+When later chapter work exposes a better active-deck or recall rule, update this file and the related general rules explicitly. Do not preserve an inferior rule merely because it was part of v1.0 or an earlier audit version.
+
+For an existing batch, record whether the new rule applies immediately as a repository-wide invariant or only after an explicit chapter migration. Preserve historical audit metrics as history rather than rewriting them to look as though the newer rule always existed.

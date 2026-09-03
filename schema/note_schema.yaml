@@ -1,11 +1,16 @@
-version: 1.0
+version: 1.1
 model: Cloze
 source_of_truth: repository_text
 
+governance:
+  policy: living_spec
+  authority: latest_merged
+  governance_document: GOVERNANCE.md
+  historical_baseline: v1.0_pilot_gate
+
 lifecycle:
   phase: production
-  frozen: true
-  revision_gate: frozen_after_representative_pilot
+  revision_gate: reviewed_change
 
 source:
   repository: xihangzou/bookkeeping-integrated
@@ -238,7 +243,7 @@ row_validation:
   - Every ALP_ID must exist as an included ALP in the canonical topic inventory.
   - Exact source traceability must be recoverable for every mapped ALP through the canonical topic inventory.
   - Part, Chapter, and Section must match the first mapped ALP in canonical_source_order.
-  - SourceRepo, SourceCommit, and SourcePath must match the pinned source unless a separately reviewed baseline migration updates the schema.
+  - SourceRepo, SourceCommit, and SourcePath must match the batch's pinned source baseline unless an explicit reviewed source-baseline migration updates them.
   - Topic and Type must be nonempty and use canonical values.
   - Required Tags must be present exactly once, match their source fields, and use normalized namespaces.
   - Tags must be unique and lexically ordered after deterministic normalization.

@@ -1,33 +1,43 @@
-# v1.0 Production Contract Freeze
+# Historical v1.0 Production Baseline Record
 
-Status: **FROZEN**
-Gate: **ANKI-PILOT-006 / #50**
-Freeze basis: ANKI-PILOT-005 merge `8d114f936565519fb37fd39d3d91ed299f5e5f72`
-Source baseline: `xihangzou/bookkeeping-integrated@569ed7b82e729334e1472286eaca7c4352e6fbdb`
+Status: **HISTORICAL — not current authority**
+Original gate: **ANKI-PILOT-006 / #50**
+Baseline basis: ANKI-PILOT-005 merge `8d114f936565519fb37fd39d3d91ed299f5e5f72`
+Source baseline at the gate: `xihangzou/bookkeeping-integrated@569ed7b82e729334e1472286eaca7c4352e6fbdb`
 
-## Decision
+## Current governance note
 
-The representative pilot passes the final gate. The production authoring/data contract is frozen as **v1.0**, and Phase C chapter-wide Note generation is explicitly authorized beginning with ANKI-007.
+This file records the repository state that originally authorized Phase C production generation. It no longer freezes future semantic evolution.
 
-## Frozen artifacts
+Current authority is defined by `GOVERNANCE.md` and the latest merged `SPEC.md`, `rules/*.md`, `schema/note_schema.yaml`, and applicable production QA/validators.
 
-| Artifact | Frozen identity | Semantic decision |
+The v1.0 gate remains important historical evidence, but newer reviewed rules supersede older v1.0 rules for new work and for production batches that are explicitly migrated.
+
+## Historical decision
+
+At ANKI-PILOT-006, the representative pilot passed the final pre-production gate and the then-current authoring/data contract was recorded as **v1.0**. This authorized Phase C chapter-wide Note generation beginning with ANKI-007.
+
+## Historical baseline artifacts
+
+| Artifact | v1.0 identity at the gate | Historical decision |
 |---|---|---|
-| `SPEC.md` | v1.0 frozen | pilot gate completed; Phase C authorized |
-| `rules/cloze_rules.md` | v1.0 frozen | ANKI-PILOT-005 candidate rules accepted without further semantic change |
-| `rules/coverage_rules.md` | v1.0 frozen | retrieval-unit duplicate policy accepted without further semantic change |
-| `schema/note_schema.yaml` | version 1.0 / `frozen: true` | field set, values, tags, source fields, TSV serialization unchanged from v0.9 semantics |
+| `SPEC.md` | v1.0 baseline | pilot gate completed; Phase C authorized |
+| `rules/cloze_rules.md` | v1.0 baseline | pilot-derived rules accepted for initial production |
+| `rules/coverage_rules.md` | v1.0 baseline | pilot-derived coverage/duplicate policy accepted |
+| `schema/note_schema.yaml` | version 1.0 | field set, values, tags, source fields, and TSV serialization accepted for initial production |
 
-Branch-time content blob identities for the freeze change:
+Branch-time content blob identities from the original baseline change:
 
 - `SPEC.md`: `ddcc2b14fb83d7175184421925d442cb1528bd35`
 - `rules/cloze_rules.md`: `d86137c84329286fa2f490bab4062b91463a8fe9`
 - `rules/coverage_rules.md`: `2909eece63882714e57de04ffebfbe668adaaf62`
 - `schema/note_schema.yaml`: `49910c06aa5a9eed404d88bc0afe50eb91dd4712`
 
+These identities allow exact reconstruction of the historical v1.0 state through Git; they are not immutable current specifications.
+
 ## Gate evidence
 
-The corrected representative pilot remains:
+The corrected representative pilot was:
 
 - Notes: **40**
 - generated Cloze cards: **62**
@@ -36,11 +46,11 @@ The corrected representative pilot remains:
 - major findings: **0**
 - blocking findings: **0**
 
-All recurring/minor pilot finding families are governed by explicit v1.0 authoring rules or documented no-change decisions. No unresolved answer-leakage blocker remains. Canonical ALP IDs and source mappings remain valid and unchanged.
+All recurring/minor pilot finding families had explicit v1.0 rule treatment or documented no-change decisions at the time. Canonical ALP IDs and source mappings remained valid.
 
-## Schema no-change decision
+## Historical schema decision
 
-ANKI-PILOT-005 found no evidence requiring semantic changes to:
+ANKI-PILOT-005 found no evidence at that time requiring semantic changes to:
 
 - Note fields or allowed values;
 - tag namespaces;
@@ -49,20 +59,22 @@ ANKI-PILOT-005 found no evidence requiring semantic changes to:
 - pinned `SourceRepo`, `SourceCommit`, or `SourcePath`;
 - canonical ALP IDs or source mappings.
 
-ANKI-PILOT-006 therefore changes only schema version/lifecycle metadata (`0.9 → 1.0`, production phase, frozen state) and does not introduce an evidence-free data-contract revision.
+That no-change decision applies to the historical v1.0 gate only. Later reviewed evidence may revise schema or authoring rules under the living-spec process.
 
-## Production authorization
+## Invariants that survived the v1.0 baseline
 
-ANKI-007 onward is **UNBLOCKED**.
+Some constraints remain current because they protect lineage and reproducibility rather than because v1.0 is frozen:
 
-All production Notes must:
+1. stable Note IDs remain immutable after assignment;
+2. deprecated/deleted IDs are not reused for unrelated content;
+3. source and ALP mappings remain auditable;
+4. production serialization remains deterministic;
+5. existing batches retain pinned source provenance unless an explicit source-baseline migration changes it.
 
-1. use the frozen v1.0 specification, Cloze rules, coverage rules, and schema;
-2. preserve stable Note IDs and canonical ALP mappings;
-3. satisfy source traceability and deterministic serialization requirements;
-4. pass local duplicate/ambiguity checks and relevant accounting/calculation QA;
-5. avoid silent semantic deviations from the frozen contract.
+The exact current form of these invariants is governed by `GOVERNANCE.md`, `SPEC.md`, and `schema/note_schema.yaml`.
 
-Pilot Notes remain pilot evidence. They may be reused in production only after they satisfy the frozen production contract, stable ID/mapping requirements, and production QA.
+## Evolution after v1.0
 
-Any future semantic contract change requires a separately reviewed post-freeze migration.
+Production audits after the initial gate have already changed active-deck, Cloze, integration, completeness, and formula rules. Those changes are evidence that the repository operates more effectively as a reviewed living specification.
+
+Future semantic changes should therefore be made explicitly in the current authoritative files, with affected validators/migrations updated and relevant production tests passing. No special "post-freeze" exception mechanism is required.

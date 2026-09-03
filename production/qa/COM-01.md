@@ -1,12 +1,12 @@
 # COM-01 Production QA
 
-Status: **PASS target — v1.7 chapter-local Cloze-precision audit under the v1.6 recall-design overlay**
+Status: **PASS target — v1.7 chapter-local Cloze-precision audit under the current recall-design rules**
 
-## Contract
+## Governance and contract
 
-- frozen v1.0 source/schema/stable-ID baseline: `FREEZE.md`, `rules/cloze_rules.md`, `rules/coverage_rules.md`, `schema/note_schema.yaml`
-- current v1.6 post-freeze active-deck / recall-design overlay: `rules/exam_yield_rules.md`
-- FND-00 v1.6 active cards are the style reference for answer granularity and visible context
+- repository governance: `GOVERNANCE.md`
+- current general specification/rules/schema: latest merged `SPEC.md`, `rules/*.md`, and `schema/note_schema.yaml`
+- this chapter's applied audit state: v1.7 chapter-local Cloze-precision audit, using FND-00 v1.6 active cards as the style reference for answer granularity and visible context
 - canonical ALP shard: `inventory/topic_inventory/COM-01.tsv`
 - source baseline: `xihangzou/bookkeeping-integrated@569ed7b82e729334e1472286eaca7c4352e6fbdb`, `merged/textbook.md`, Commercial chapter 01
 
@@ -72,6 +72,8 @@ The audit keeps the material proposition for every mapped ALP, including:
 - the 5 reserved pilot-only IDs remain absent;
 - every `ALP_IDs` list resolves to canonical `INCLUDE` rows and remains source-ordered;
 - pinned source repository, commit, path, part, chapter, and section traceability remain unchanged.
+
+These are current lineage/source invariants under `GOVERNANCE.md`, not consequences of a permanently fixed v1.0 contract.
 
 ## Deterministic validation
 
