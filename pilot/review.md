@@ -129,3 +129,56 @@ No schema/tag/source/serialization change is justified solely by this pilot. If 
 - unresolved blocking findings: **0**
 
 ANKI-PILOT-005 may proceed with the v0.9 → v1.0 revision using this review as its evidence base.
+
+## ANKI-PILOT-005 v1.0 implementation record
+
+Issue: ANKI-PILOT-005 (#49)
+
+The v1.0 candidate translates each pilot finding into an explicit production rule while preserving stable contracts that passed the pilot.
+
+| Pilot evidence | Implemented v1.0 location | Decision |
+|---|---|---|
+| `LOW_RETRIEVAL_VALUE` | `rules/cloze_rules.md` §24 | add retrieval-utility check; prefer condition/contrast/decision over mechanically cued association when possible |
+| `POSITIONAL_SEQUENCE_CUE` | `rules/cloze_rules.md` §13 | visible neighbors may reveal position only; if they effectively reveal the answer, use whole-sequence/same-index/redesign |
+| `PARALLEL_RELATION_CUE` | `rules/cloze_rules.md` §4 | mutually revealing paired members default toward same-index unless each card remains independently non-trivial |
+| `PARALLEL_FORMULA_CUE` | `rules/cloze_rules.md` §12 | separate formula cards allowed only when visible sibling formula does not disclose hidden operands/operation |
+| `LARGE_COUPLED_ANSWER` | `rules/cloze_rules.md` §7 | inseparable multi-field entries may stay same-index; 4+ account positions require an explicit split-vs-leakage check |
+| `ANSWER_FORM_AMBIGUITY` | `rules/cloze_rules.md` §5 | every Cloze must have a unique semantic answer class; generic placeholders are invalid without determining facts |
+| `SYNONYM_VARIANT` / `ANSWER_OVERSPECIFIED` | `rules/cloze_rules.md` §22 | canonical wording represents semantic meaning unless exact terminology itself is the target |
+| `NOTE_PARTIAL_DUPLICATE` / `SEMANTIC_DUPLICATE` | `rules/cloze_rules.md` §23; `rules/coverage_rules.md` §9 | deduplicate at generated-card/retrieval-unit level; second context must add a materially different retrieval operation |
+| `COMPARISON_AXIS_MISMATCH` | `rules/cloze_rules.md` §14 | every branch answers one named comparison axis and one answer category; identical branch answers may share one Cloze group |
+| multi-ALP coherence/source preservation | `rules/cloze_rules.md` §2 | multiple ALPs may share one Note only as one coherent recall unit; canonical inventory mappings remain authoritative |
+
+### No-change decisions
+
+The pilot produced no evidence requiring changes to the following contracts:
+
+- `schema/note_schema.yaml` field set, allowed values, tag namespaces, `Status`, or `QA`
+- deterministic TSV field order / escaping / list serialization
+- pinned `SourceRepo`, `SourceCommit`, `SourcePath`
+- canonical ALP IDs or source mappings
+
+Therefore `schema/note_schema.yaml` remains semantically unchanged in ANKI-PILOT-005. Its version metadata is intentionally left for the ANKI-PILOT-006 freeze step rather than creating an evidence-free schema revision.
+
+### Coverage-rule change rationale
+
+A coverage-rule change **was** justified. The pilot's exact duplicate crossed Note boundaries and affected only one generated sibling retrieval unit. `rules/coverage_rules.md` is therefore revised to v1.0 candidate so semantic duplication is evaluated at generated-card/retrieval-unit level while ALP coverage remains independently preserved.
+
+### Corrected pilot compatibility
+
+No `pilot/notes.tsv` row, canonical ALP ID, source mapping, tag, `Status`, `QA`, or TSV serialization is changed by ANKI-PILOT-005. The corrected corpus remains the ANKI-PILOT-004 state: **40 Notes / 62 generated cards, 0 major, 0 blocking, 0 accounting failures, 0 source-traceability failures**.
+
+The retained 20 minor warnings are now governed by explicit v1.0 rules rather than unresolved contract ambiguity. They do not require further pilot Note edits before the freeze review.
+
+## ANKI-PILOT-005 gate result
+
+**v1.0 candidate revision passes ANKI-PILOT-005.**
+
+- every recurring pilot failure has an implemented rule change or explicit no-change rationale
+- generated-card semantic deduplication is now a coverage requirement
+- no existing canonical ALP ID or source mapping is changed
+- corrected pilot Notes remain structurally compatible with the unchanged schema/TSV contract
+- unresolved blocking accounting/ambiguity/direct-leakage findings remain **0**
+- affected rule artifacts consistently identify themselves as **v1.0 candidate**
+
+ANKI-PILOT-006 may now perform the final freeze decision and production authorization.
