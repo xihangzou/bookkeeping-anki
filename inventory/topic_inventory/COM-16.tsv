@@ -1,0 +1,26 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-COM-16-0001	commercial	16 製造業会計	第1節 製造業会計とは	commercial/chapter16.md::1-overview	製造業会計は材料を購入し自社製造した製品の製造原価を工業簿記で把握し商業簿記の決算・財務諸表へ結び付ける	definition	INCLUDE	manufacturing accounting purpose			pending
+ALP-COM-16-0002	commercial	16 製造業会計	第1節 製造業の決算問題	commercial/chapter16.md::1-closing	製造業の決算では製造原価・売上原価・原価差異を算定してP/L・B/Sを作成する	procedure	INCLUDE	manufacturing closing workflow			pending
+ALP-COM-16-0003	commercial	16 製造業会計	月次決算の前提	commercial/chapter16.md::monthly	原価計算期間を1か月とする月次決算では毎月製造原価・売上原価・原価差異を把握し原価差異を売上原価へ賦課する	procedure	INCLUDE	monthly manufacturing closing rule			pending
+ALP-COM-16-0004	commercial	16 製造業会計	月次決算の前提	commercial/chapter16.md::monthly	月次決算では収益・費用の決算振替仕訳は行わず年度累計の収益費用残高を維持する	exception	INCLUDE	monthly closing boundary			pending
+ALP-COM-16-0005	commercial	16 製造業会計	3月 1 材料	commercial/chapter16.md::materials	材料消費額は直接材料費を仕掛品、間接材料費を製造間接費へ振り替える	journal_entry	INCLUDE	material cost flow			pending
+ALP-COM-16-0006	commercial	16 製造業会計	3月 1 材料	commercial/chapter16.md::materials	材料帳簿棚卸高＝月初材料＋当月購入－当月消費である	formula	INCLUDE	material inventory formula			pending
+ALP-COM-16-0007	commercial	16 製造業会計	3月 1 材料	commercial/chapter16.md::materials	正常な材料棚卸減耗は間接経費として製造間接費へ振り替える	cost_accounting	INCLUDE	normal material loss treatment			pending
+ALP-COM-16-0008	commercial	16 製造業会計	3月 2 労務費	commercial/chapter16.md::labor	当月賃金消費高は前月末未払賃金の再振替・当月支払・当月末未払を反映して算定する	measurement	INCLUDE	labor accrual measurement			pending
+ALP-COM-16-0009	commercial	16 製造業会計	3月 2 労務費	commercial/chapter16.md::labor	直接労務費は仕掛品、工場事務員等の間接労務費は製造間接費へ振り替える	cost_accounting	INCLUDE	labor cost classification			pending
+ALP-COM-16-0010	commercial	16 製造業会計	3月 2 労務費	commercial/chapter16.md::labor	月次の退職給付費用は年間見積額÷12で計上し製造部門対応分だけ製造間接費へ振り替える	measurement	INCLUDE	monthly retirement cost allocation			pending
+ALP-COM-16-0011	commercial	16 製造業会計	3月 3 経費	commercial/chapter16.md::expense	工場に直接関連する水道光熱費等の間接経費は製造間接費へ振り替える	cost_accounting	INCLUDE	manufacturing overhead expense flow			pending
+ALP-COM-16-0012	commercial	16 製造業会計	3月 3 経費	commercial/chapter16.md::expense	減価償却費は資産ごとの月額を計上し製造用途割合に応じ製造間接費と販管費側へ配分する	measurement	INCLUDE	depreciation functional allocation			pending
+ALP-COM-16-0013	commercial	16 製造業会計	3月 4 製造間接費	commercial/chapter16.md::overhead	製造間接費は予定配賦額を仕掛品へ振り替え、実際発生額との差を原価差異として認識する	cost_accounting	INCLUDE	predetermined overhead allocation			pending
+ALP-COM-16-0014	commercial	16 製造業会計	3月 4 製造間接費	commercial/chapter16.md::overhead	原価差異＝予定配賦額－実際発生額であり、予定配賦額＜実際発生額なら不利差異となる	formula	INCLUDE	overhead variance formula			pending
+ALP-COM-16-0015	commercial	16 製造業会計	3月 4 製造間接費	commercial/chapter16.md::overhead	不利な製造間接費差異は原価差異勘定の借方、有利差異は貸方となる	classification	INCLUDE	variance direction			pending
+ALP-COM-16-0016	commercial	16 製造業会計	3月 5 完成品原価	commercial/chapter16.md::completed	当月製造原価＝直接材料費＋直接労務費＋製造間接費予定配賦額である	formula	INCLUDE	current manufacturing cost formula			pending
+ALP-COM-16-0017	commercial	16 製造業会計	3月 5 完成品原価	commercial/chapter16.md::completed	完成品原価＝月初仕掛品＋当月製造原価－月末仕掛品である	formula	INCLUDE	cost of goods manufactured formula			pending
+ALP-COM-16-0018	commercial	16 製造業会計	3月 5 完成品原価	commercial/chapter16.md::completed	完成した製品原価は仕掛品から製品へ振り替える	journal_entry	INCLUDE	WIP-to-finished-goods flow			pending
+ALP-COM-16-0019	commercial	16 製造業会計	3月 6 売上原価	commercial/chapter16.md::cogs	当月売上原価＝月初製品＋完成品原価－月末製品である	formula	INCLUDE	manufacturing COGS formula			pending
+ALP-COM-16-0020	commercial	16 製造業会計	3月 6 売上原価	commercial/chapter16.md::cogs	販売済製品原価は製品から売上原価へ振り替える	journal_entry	INCLUDE	finished-goods-to-COGS flow			pending
+ALP-COM-16-0021	commercial	16 製造業会計	3月 6 売上原価	commercial/chapter16.md::cogs	月末原価差異は売上原価へ賦課し、不利差異は売上原価を増加、有利差異は売上原価を減少させる	journal_entry	INCLUDE	variance disposition			pending
+ALP-COM-16-0022	commercial	16 製造業会計	財務諸表	commercial/chapter16.md::statements	製造業P/Lでは売上高から原価差異賦課後の売上原価を控除し、製造原価としない減価償却費・退職給付費用等は販管費側に含める	financial_statement	INCLUDE	manufacturing P/L presentation			pending
+ALP-COM-16-0023	commercial	16 製造業会計	財務諸表	commercial/chapter16.md::statements	製造業B/Sでは材料・仕掛品・製品をそれぞれ棚卸資産として表示し、まとめて棚卸資産と表示することもある	financial_statement	INCLUDE	manufacturing inventory presentation			pending
+ALP-COM-16-0024	commercial	16 製造業会計	財務諸表	commercial/chapter16.md::statements	当期純利益は繰越利益剰余金に加算され、製造業でも資産＝負債＋純資産の関係を満たす	financial_statement	INCLUDE	statement linkage			pending
+	commercial	16 製造業会計	総合例	commercial/chapter16.md::integrated-example	月次材料・労務・経費・原価差異・財務諸表の具体数値総合例		EXCLUDE		DECORATIVE_EXAMPLE		pending
