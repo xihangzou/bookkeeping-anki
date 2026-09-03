@@ -1,0 +1,20 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-07-0001	industrial	7 個別原価計算	第1節 個別原価計算とは	industrial/chapter07.md::job-order	個別原価計算は顧客の個別注文に応じて異なる製品を生産する個別受注生産に適用し、注文ごとに製品原価を計算する	definition	INCLUDE	job order costing definition			pending
+ALP-IND-07-0002	industrial	7 個別原価計算	第1節 個別原価計算とは	industrial/chapter07.md::specific-order	特定製造指図書は注文ごとに発行し、製品種類・数量・完成予定日等を記載して製造現場へ指示する	definition	INCLUDE	specific production order role			pending
+ALP-IND-07-0003	industrial	7 個別原価計算	第1節 個別原価計算とは	industrial/chapter07.md::simple-departmental	個別原価計算は製造間接費の部門別計算を行わない単純個別原価計算と、行う部門別個別原価計算に分かれる	classification	INCLUDE	job costing method classification			pending
+ALP-IND-07-0004	industrial	7 個別原価計算	第1節 個別原価計算とは	industrial/chapter07.md::cost-sheet	原価計算票は特定製造指図書1つにつき1枚作成し、指図書別に直接材料費・直接労務費・製造間接費等を集計する	ledger	INCLUDE	job cost sheet role			pending
+ALP-IND-07-0005	industrial	7 個別原価計算	第1節 個別原価計算とは	industrial/chapter07.md::cost-ledger	原価計算票をファイリングした帳簿を原価元帳という	definition	INCLUDE	cost ledger definition			pending
+ALP-IND-07-0006	industrial	7 個別原価計算	第1節 個別原価計算とは	industrial/chapter07.md::summary-sheet	原価計算表（総括表）は1か月の指図書別原価計算票を集約し、仕掛品勘定と整合する	ledger	INCLUDE	job cost summary reconciliation			pending
+ALP-IND-07-0007	industrial	7 個別原価計算	第2節 計算手続	industrial/chapter07.md::assignment	賦課（直課）は製造直接費を特定の指図書・製品に直接集計する手続である	definition	INCLUDE	direct assignment definition			pending
+ALP-IND-07-0008	industrial	7 個別原価計算	第2節 計算手続	industrial/chapter07.md::indirect	製造間接費は特定指図書へ直接集計できないため配賦計算により指図書別原価へ含める	cost_accounting	INCLUDE	indirect job cost allocation			pending
+ALP-IND-07-0009	industrial	7 個別原価計算	第2節 単純個別原価計算	industrial/chapter07.md::simple-procedure	単純個別原価計算では直接費を指図書別に賦課し、工場全体の製造間接費を単一配賦率で配賦して指図書別原価を計算する	procedure	INCLUDE	simple job costing procedure			pending
+ALP-IND-07-0010	industrial	7 個別原価計算	第2節 単純個別原価計算	industrial/chapter07.md::completion	完成した指図書原価は仕掛品から製品へ振り替え、月末未完成の指図書原価は仕掛品として繰り越す	journal_entry	INCLUDE	job completion cost flow			pending
+ALP-IND-07-0011	industrial	7 個別原価計算	第2節 単純個別原価計算	industrial/chapter07.md::sale	完成・引渡済の指図書原価は製品から売上原価へ振り替え、完成・未引渡分は製品として繰り越す	journal_entry	INCLUDE	job sale cost flow			pending
+ALP-IND-07-0012	industrial	7 個別原価計算	第2節 部門別個別原価計算	industrial/chapter07.md::departmental	部門別個別原価計算では製造間接費を部門別に集計し、各製造部門の配賦率・配賦基準で指図書へ配賦する	procedure	INCLUDE	departmental job costing procedure			pending
+ALP-IND-07-0013	industrial	7 個別原価計算	第3節 仕損	industrial/chapter07.md::spoilage	仕損は製造過程の失敗、仕損品は不合格品、仕損費は合格品へ補修するために発生した費用である	definition	INCLUDE	job spoilage terminology			pending
+ALP-IND-07-0014	industrial	7 個別原価計算	第3節 仕損	industrial/chapter07.md::repair-order	仕損品を補修する場合は補修指図書を発行し、補修に要した材料・労務・製造間接費等を集計する	procedure	INCLUDE	repair order procedure			pending
+ALP-IND-07-0015	industrial	7 個別原価計算	第3節 仕損	industrial/chapter07.md::normal-spoilage	通常発生する仕損費は製造原価として、仕損が発生した当初の製造指図書へ賦課する	cost_accounting	INCLUDE	normal job spoilage treatment			pending
+ALP-IND-07-0016	industrial	7 個別原価計算	第3節 仕損	industrial/chapter07.md::direct-expense-method	2級で扱う直接経費処理では補修指図書原価を仕損費へ振り替え、その仕損費を当初指図書へ直接賦課する	procedure	INCLUDE	direct expense spoilage method			pending
+ALP-IND-07-0017	industrial	7 個別原価計算	第3節 仕損	industrial/chapter07.md::repair-cost-flow	補修原価は仕掛品（補修指図書）へ集計し、仕損費へ振替後、仕掛品（当初指図書）へ振り替える	journal_entry	INCLUDE	spoilage journal flow			pending
+ALP-IND-07-0018	industrial	7 個別原価計算	第3節 仕損	industrial/chapter07.md::scope	仕損費の間接経費処理も存在するが、日商簿記2級では直接経費処理を対象とする	exception	INCLUDE	exam scope boundary			pending
+	industrial	7 個別原価計算	数値例	industrial/chapter07.md::examples	指図書別原価・仕損補修の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
