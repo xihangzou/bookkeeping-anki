@@ -1,0 +1,147 @@
+version: 0.9
+model: Cloze
+source_of_truth: repository_text
+
+source:
+  repository: xihangzou/bookkeeping-integrated
+  path: merged/textbook.md
+  baseline_commit: 569ed7b82e729334e1472286eaca7c4352e6fbdb
+
+id_format:
+  note: BK-{part}-{chapter}-{sequence}
+  alp: ALP-{part}-{chapter}-{sequence}
+  examples:
+    - BK-FND-00-0001
+    - BK-COM-01-0001
+    - BK-IND-01-0001
+
+fields:
+  - name: ID
+    required: true
+    unique: true
+    description: Stable note identifier.
+
+  - name: Text
+    required: true
+    description: Canonical Anki Cloze text containing one coherent recall unit.
+
+  - name: Extra
+    required: false
+    description: Explanation, derivation, journal-entry reasoning, common error, related source note, or limited CPA bridge.
+
+  - name: SourceRepo
+    required: true
+    default: xihangzou/bookkeeping-integrated
+
+  - name: SourceCommit
+    required: true
+    default: 569ed7b82e729334e1472286eaca7c4352e6fbdb
+
+  - name: SourcePath
+    required: true
+    default: merged/textbook.md
+
+  - name: Part
+    required: true
+    allowed:
+      - foundation
+      - commercial
+      - industrial
+
+  - name: Chapter
+    required: true
+    description: Canonical chapter number and title from textbook.md.
+
+  - name: Section
+    required: true
+    description: Most specific useful heading path.
+
+  - name: Topic
+    required: true
+    description: Normalized accounting topic label.
+
+  - name: Type
+    required: true
+    allowed:
+      - definition
+      - classification
+      - recognition
+      - measurement
+      - journal_entry
+      - formula
+      - procedure
+      - comparison
+      - exception
+      - reasoning
+      - ledger
+      - financial_statement
+      - cost_accounting
+
+  - name: ALP_IDs
+    required: true
+    description: One or more Atomic Learning Point IDs mapped to this note.
+
+  - name: Difficulty
+    required: true
+    allowed:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+
+  - name: Tags
+    required: true
+    description: Space-separated normalized Anki tags.
+
+  - name: Status
+    required: true
+    allowed:
+      - draft
+      - pilot
+      - approved
+      - deprecated
+
+  - name: QA
+    required: true
+    allowed:
+      - pending
+      - pass
+      - fail
+
+cloze_constraints:
+  default_min_groups: 1
+  default_max_groups: 3
+  allow_more_when:
+    - ordered_procedure
+    - financial_statement_structure
+    - inseparable_multi_part_rule
+    - justified_comparison
+
+canonical_tag_namespaces:
+  - bookkeeping::foundation
+  - bookkeeping::commercial
+  - bookkeeping::industrial
+  - chapter::foundation::<nn>
+  - chapter::commercial::<nn>
+  - chapter::industrial::<nn>
+  - type::<type>
+  - topic::<normalized_topic>
+  - difficulty::<1-5>
+  - status::<pilot|approved>
+
+row_validation:
+  - ID must be unique.
+  - Text must contain at least one valid {{cN::...}} expression.
+  - Every ALP_ID must exist in the coverage inventory.
+  - Every approved note must have QA=pass.
+  - Every approved note must contain full source traceability.
+  - Tags must use normalized namespaces.
+  - Extra must not contain the only copy of a required recall answer.
+
+export:
+  canonical_format: tsv
+  encoding: utf-8
+  anki_model: Cloze
+  deck_name: Bookkeeping Master
+  apkg_is_source_of_truth: false
