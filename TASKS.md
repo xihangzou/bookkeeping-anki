@@ -57,24 +57,29 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 ### Foundation
 
 - [x] **ANKI-007** Part 0 / commercial chapter00 generation
-  - `production/notes/FND-00.tsv`: 91 historical production rows / 91 included ALPs / 0 unmapped
+  - `production/notes/FND-00.tsv`: 91 historical production rows / 91 included ALPs
   - `production/qa/FND-00.md`: chapter-local Cloze, duplicate, accounting, formula, and source-traceability QA
   - `scripts/validate_fnd00_production.py` + `validate-production.yml`: deterministic production validation
   - 16 pilot Note IDs promoted without renumbering; `BK-FND-00-0016` remains reserved pilot-only evidence
 - [x] **ANKI-AUDIT-001** FND-00 recall-quality / exam-yield audit (#56)
   - `rules/exam_yield_rules.md`: v1.1 post-freeze active-deck overlay
   - 91 historical rows retained; active approved Notes **91 → 57**; deprecated audit rows **34**
-  - 91/91 included ALPs map exactly once to an approved Note; active unmapped = **0**
   - low-yield terminology/list recall consolidated; transaction-duality wording corrected
   - GitHub Actions v1.1 production validation: **PASS**
 - [x] **ANKI-AUDIT-002** FND-00 rotation-efficiency / Cloze-atomicity audit (#58)
-  - `rules/exam_yield_rules.md`: v1.2 same-index, rotation-cost, standalone-answer rules
-  - active approved Notes remain **57**; 91/91 included ALPs remain mapped exactly once
-  - generated Cloze cards **110 → 58**; only `BK-FND-00-0091` remains a two-card Note
-  - 43 approved Notes rewritten for same-index grouping and/or canonical standalone Cloze targets
+  - `rules/exam_yield_rules.md`: v1.2 generated-card-cost and standalone-answer rules
+  - active approved Notes remain **57**
+  - generated Cloze cards **110 → 58**
   - `scripts/migrate_fnd00_v1_2.py`: idempotent reviewed migration record
   - GitHub Actions v1.2 production validation: **PASS**
-  - apply v1.2 exam-yield + generated-card-efficiency rules during ANKI-008 onward generation
+- [-] **ANKI-AUDIT-003** FND-00 minimal active deck / lexical same-card Cloze audit (#62)
+  - `rules/exam_yield_rules.md`: v1.3 separates source-reviewed coverage from active direct recall
+  - historical rows **91**; source-reviewed ALPs **91/91**
+  - active approved Notes **57 → 18**; deprecated rows **73**; active direct-recall ALPs **36/91**
+  - generated active cards **58 → 18**; active lexical Cloze spans **36**
+  - parallel/conjunction answers use separate lexical spans on the same card, e.g. `{{c1::A}}・{{c1::B}}`
+  - every approved FND-00 Note uses only `c1`; `c2+` is reserved for genuinely independent future retrieval operations
+  - `scripts/migrate_fnd00_v1_3.py` + strengthened validator; branch CI **PASS**
 
 ### Commercial bookkeeping
 
@@ -125,7 +130,7 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 - [ ] **ANKI-038** Cross-chapter semantic deduplication
   - preserve materially different retrieval contexts
   - merge exact/semantic duplicates
-  - verify no ALP loses coverage
+  - verify no source proposition loses traceability
 
 ## Phase E — Accounting QA
 
@@ -147,13 +152,15 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
 - [ ] **ANKI-041** Cloze quality QA
   - ambiguity
   - context sufficiency
-  - atomicity
+  - lexical atomicity
+  - same-card grouping quality
   - over-deletion
   - trivial clozes
 - [ ] **ANKI-042** Coverage QA
   - 100% source sections reviewed
-  - 100% included ALPs mapped
-  - every exclusion justified
+  - 100% included ALPs traceable in production history
+  - every retirement/exclusion justified
+  - active direct recall independently justified by exam yield
   - no unresolved duplicates/conflicts
 
 ## Phase G — Export
@@ -162,15 +169,15 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - canonical TSV
   - import validation
   - APKG
-  - export manifest with source baseline and counts
+  - export manifest with source baseline, source-reviewed coverage, active-recall coverage, Note/card/span counts
 
 ## Completion gate
 
 Project is complete only when all are true:
 
 - source sections reviewed: 100%
-- included ALPs mapped: 100%
-- unexplained exclusions: 0
+- included ALPs traceable in production history: 100%
+- unexplained exclusions/retirements: 0
 - unresolved accounting QA failures: 0
 - unresolved ambiguous Clozes: 0
 - approved notes with source traceability: 100%

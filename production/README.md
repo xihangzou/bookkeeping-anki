@@ -2,61 +2,80 @@
 
 Canonical production Cloze-note batches live under `production/notes/` as UTF-8 TSV files following the v1.0 field order in `schema/note_schema.yaml`.
 
-The source/schema/stable-ID baseline remains the frozen v1.0 contract. Active-deck selection and generated-card efficiency are additionally governed by the explicit **v1.2 post-freeze exam-yield overlay** in `rules/exam_yield_rules.md`.
+The source/schema/stable-ID baseline remains the frozen v1.0 contract. Active-deck selection is governed by the **v1.3 post-freeze exam-yield overlay** in `rules/exam_yield_rules.md`.
 
 ## Conventions
 
 - one chapter/part batch per TSV file;
-- rows are ordered by canonical ALP source order, even when stable Note IDs were assigned earlier during the representative pilot;
-- exact source anchors are recovered through `ALP_IDs` and the canonical inventory rather than duplicated in Note rows;
+- rows are ordered by canonical ALP source order;
+- exact source anchors are recovered through `ALP_IDs` and the canonical inventory;
 - stable Note IDs are immutable; retired IDs remain in audit history and are never reused;
-- an approved Note may map multiple ALPs when they form one coherent retrieval unit;
-- every canonical included ALP must map to at least one **approved** Note;
 - chapter-local QA evidence is stored under `production/qa/`.
 
-## Active-card efficiency
+## Source coverage and active recall
 
-An approved Cloze Note can generate more than one Anki review card when it contains multiple distinct Cloze indices. Therefore production QA tracks both **approved Note count** and **generated-card count**.
+v1.3 distinguishes two separate completeness metrics:
 
-- default to one generated card (`c1`) for one coherent Note;
-- reuse the same Cloze index for tightly coupled comparison members, sequences, paired treatments, formulas, and vocabulary sets that should be recalled together;
-- add `c2+` only for a materially independent retrieval operation worth a separate review;
-- prefer canonical, standalone accounting terms or short self-contained propositions inside Clozes;
-- keep supporting facts visible when hiding them would only create another low-value rotation.
+- **source-reviewed coverage**: every included ALP has been reviewed and remains traceable in production history;
+- **active direct-recall coverage**: only ALPs worth spaced retrieval must remain on `Status=approved` Notes.
 
-For FND-00 v1.2, 57 approved Notes generate **58 cards**. `BK-FND-00-0091` is the sole approved multi-card Note because financial-statement abbreviations and trial-balance abbreviations are two coherent retrieval families.
+A deprecated historical row can therefore preserve source traceability without forcing a low-yield fact into the active deck. Do not create or retain an approved card solely to keep every ALP active-mapped.
 
-For COM-01, v1.2 efficiency is applied at generation time: **38 approved Notes / 38 generated cards** cover all **52 included ALPs** exactly once. Fourteen coherent multi-ALP Notes remove redundant direct recall without sacrificing source traceability.
+## Cloze lexicality and same-card grouping — v1.3
 
-For COM-02, v1.2 efficiency is applied at generation time: **17 approved Notes / 17 generated cards** cover all **32 included ALPs** exactly once. Eleven coherent multi-ALP Notes consolidate revenue-recognition terminology, linked recognition/settlement rules, warranty allocation, and the service-accounting flow without losing canonical ALP traceability.
+Study cost is reduced primarily by retiring low-yield cards. For facts that remain worth recalling:
+
+- prefer one lexical accounting term / account name / direction per Cloze span;
+- split a compound answer into separate spans, e.g. `{{c1::A}}・{{c1::B}}`, rather than `{{c1::A・B}}`;
+- parallel or conjunction-linked facts that form one coherent retrieval operation stay on the same card by reusing the same index;
+- do not use `c2+` merely because a Note contains another blank or sentence;
+- add another index only when a second retrieval operation is independently worth a separate review;
+- track **generated-card count** (distinct Cloze indices) separately from **Cloze-span count** (atomic masked answer units).
+
+## FND-00 audit result
+
+FND-00 has three post-production audit stages:
+
+- v1.1: 91 -> 57 approved Notes;
+- v1.2: 110 -> 58 generated cards;
+- v1.3: **18 approved Notes / 18 generated cards / 36 lexical Cloze spans**.
+
+The 91 historical rows remain. All 91 included ALPs remain source-reviewed/traceable; **36 ALPs** remain active direct-recall targets. Every approved FND-00 Note uses only `c1`; parallel lexical answers are represented by multiple `{{c1::...}}` spans on that same card.
+
+## Existing commercial batches
+
+- COM-01 currently reflects v1.2 generation: 38 approved Notes / 38 cards / 52 included ALPs active-mapped.
+- COM-02 currently reflects v1.2 generation: 17 approved Notes / 17 cards / 32 included ALPs active-mapped.
+
+v1.3 is the current target for future generation. Existing v1.2 commercial batches should be migrated only through explicit chapter audits so stable IDs and prior QA evidence remain auditable.
 
 ## Lifecycle
 
 ### `Status=approved`
 
-Approved rows constitute the **active study deck**. They must use `QA=pass` and the corresponding `status::approved` tag.
+Approved rows constitute the active study deck. They use `QA=pass` and `status::approved`.
 
 ### `Status=deprecated`
 
-Deprecated rows are retained only as auditable production history after consolidation or retirement. They:
+Deprecated rows are retained as production history. They:
 
-- keep their immutable Note ID and historical ALP mapping;
-- use `QA=pass` after the retirement decision is audited;
-- use the corresponding `status::deprecated` tag;
-- do **not** satisfy active ALP coverage by themselves;
-- are excluded from downstream active-deck export;
-- must never have their IDs reused.
+- keep immutable Note IDs and historical ALP mappings;
+- use `QA=pass` after retirement is audited;
+- use `status::deprecated`;
+- are excluded from active export;
+- never have their IDs reused.
 
 ## Current batches
 
-- `notes/FND-00.tsv` — Part 0 / bookkeeping foundations (ANKI-007; audited by ANKI-AUDIT-001 #56 and ANKI-AUDIT-002 #58)
-- `notes/COM-01.tsv` — Commercial chapter 01 / 商品売買 (ANKI-008; generated directly under frozen v1.0 + v1.2 overlay)
-- `notes/COM-02.tsv` — Commercial chapter 02 / 収益認識 (ANKI-009; generated directly under frozen v1.0 + v1.2 overlay)
+- `notes/FND-00.tsv` — Part 0 / bookkeeping foundations (ANKI-007; audits #56, #58, #62)
+- `notes/COM-01.tsv` — Commercial chapter 01 / 商品売買 (ANKI-008; v1.2 generation)
+- `notes/COM-02.tsv` — Commercial chapter 02 / 収益認識 (ANKI-009; v1.2 generation)
 
-Run `python scripts/validate_fnd00_production.py` to validate FND-00 source traceability, lifecycle, stable IDs, tags, multi-ALP mappings, 100% active approved ALP coverage, generated-card count, reviewed Cloze-index shape, and Cloze-answer uniqueness checks.
+Run `python scripts/validate_fnd00_production.py` to validate FND-00 historical source coverage, 18/73 lifecycle, 36 active-recall ALPs, **18 generated cards / 36 lexical spans**, same-index parallelism, lexical answer shape, and stable source/tag controls.
 
-Run `python scripts/validate_com01_production.py` to validate COM-01 stable IDs, pinned source fields, canonical ALP mappings, exactly-once active coverage, single-card v1.2 rotation shape, tags, Cloze-answer uniqueness, and deterministic chapter metrics.
+Run `python scripts/validate_com01_production.py` and `python scripts/validate_com02_production.py` for the existing v1.2 commercial batches.
 
-Run `python scripts/validate_com02_production.py` to validate COM-02 stable IDs, pinned source fields, canonical ALP mappings, exactly-once active coverage, single-card v1.2 rotation shape, tags, Cloze-answer uniqueness, and deterministic chapter metrics.
+Migration records:
 
-`python scripts/migrate_fnd00_v1_2.py` is the idempotent migration record for the ANKI-AUDIT-002 wording/index changes.
+- `scripts/migrate_fnd00_v1_2.py` — v1.2 rotation migration;
+- `scripts/migrate_fnd00_v1_3.py` — v1.3 minimal/lexical migration.

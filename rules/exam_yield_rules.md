@@ -1,190 +1,173 @@
 # Exam-Yield / Active-Deck Rules
 
-Status: **v1.2 post-freeze overlay — ANKI-AUDIT-001/002 (#56, #58)**
+Status: **v1.3 post-freeze overlay — ANKI-AUDIT-001/002/003 (#56, #58, #62)**
 
-This file is an explicit post-freeze migration layered on top of the frozen v1.0 contract in `SPEC.md`, `rules/cloze_rules.md`, `rules/coverage_rules.md`, and `schema/note_schema.yaml`.
+This file is a post-freeze overlay on the frozen v1.0 source/schema/stable-ID contract in `SPEC.md`, `rules/cloze_rules.md`, `rules/coverage_rules.md`, and `schema/note_schema.yaml`.
 
-The v1.0 source/schema/stable-ID contract remains authoritative unless this overlay explicitly changes active-deck selection, lifecycle handling, or generated-card efficiency.
+The frozen source/schema/stable-ID contract remains authoritative. This overlay governs **active-deck selection, lifecycle handling, and recall design**.
 
-## 1. Target
+## 1. Primary target
 
-The canonical inventory remains source-complete, but the **active approved deck is exam-weighted and retrieval-efficient**.
+The canonical inventory must remain **100% reviewed and traceable**, but the active deck is not required to directly recall every included ALP.
 
-A source proposition does not automatically deserve its own direct Cloze card. Direct recall is retained when omission could materially cause:
+The active deck should be the **smallest set of high-yield retrieval operations** that supports bookkeeping exam performance and later 2級 / CPA reasoning.
 
-1. wrong account selection or five-element classification;
+Direct recall is favored when omission could materially cause:
+
+1. wrong account or five-element classification;
 2. wrong debit/credit direction;
-3. wrong recognition timing;
+3. wrong recognition decision;
 4. wrong journal entry or settlement treatment;
-5. wrong amount, formula, valuation, or calculation;
-6. wrong ledger / voucher procedure that can be directly tested;
-7. failure to discriminate similar treatments, methods, or documents;
-8. failure to apply an exception or condition;
-9. inability to parse terminology or notation that is routinely required by bookkeeping exam questions;
-10. loss of a causal accounting relationship needed for later 2級 / CPA reasoning.
+5. wrong calculation or formula;
+6. failure to distinguish a testable control, voucher, ledger, or source document;
+7. failure to apply an important exception;
+8. loss of a durable accounting relationship needed later.
 
-Note count and generated-card count are not quotas. The target is the smallest active corpus that preserves all necessary exam-relevant retrieval operations and full canonical ALP traceability.
+Introductory wording, obvious labels, long form-field lists, duplicate definitions, and low-yield terminology may remain only in historical rows / QA context.
 
-## 2. Low-yield direct recall
+## 2. Source coverage vs active recall — v1.3
 
-Do **not** keep an independent active card merely because a proposition is accurate or present in the source.
+v1.3 explicitly separates two metrics.
 
-Prefer consolidation, visible context, or deprecation when the proposed card mainly tests:
+### Source-reviewed coverage
 
-- introductory/background description;
-- obvious stakeholder-label association;
-- a general rule already tested by a more complete accounting rule;
-- pure left/right or label naming already embedded in a debit-credit decision card;
-- long lists of form fields or account examples without a decision;
-- terminology that is useful only as supporting context and is naturally encountered in a higher-yield card;
-- a procedural sequence already subsumed by a more complete sequence;
-- a definition duplicated by an application/contrast card with equal or greater retrieval value.
+Every canonical included ALP must remain represented in production history and must have an auditable include/exclude or retirement decision.
 
-Low exam importance alone is not a reason to delete source traceability. The ALP should normally be mapped to a coherent higher-yield approved Note.
+### Active direct-recall coverage
 
-## 3. Consolidation test
+Only ALPs that justify spaced retrieval need to remain mapped to `Status=approved` Notes.
 
-Multiple ALPs should map to one approved Note when all of the following hold:
+Unlike v1.1/v1.2, an included ALP does **not** need an approved mapping merely to preserve source traceability. Do not create an artificial active card solely to keep an ALP active-mapped.
 
-- they form one accounting decision or retrieval unit;
-- the combined Note remains understandable with its Clozes hidden;
-- the generated cards do not require unrelated simultaneous judgments;
-- consolidation removes duplicate or low-yield direct recall;
-- every ALP remains individually traceable through `ALP_IDs`.
+## 3. Active-card selection gate
 
-Examples:
+Keep an active Note only when all are true:
 
-- debit/credit left-right terminology + normal-balance/increase rule -> one five-element debit-credit Note;
-- bookkeeping transaction definition + positive/negative boundary cases -> one recognition Note;
-- trial-balance definition + purpose + debit-credit equality -> one trial-balance control Note;
-- journal/general-ledger definitions -> one time-order vs account-order comparison Note;
-- individual/aggregate posting + aggregation tables + subsidiary-ledger exception -> one posting-workflow Note.
+- the target is independently worth spaced retrieval;
+- forgetting it can plausibly change an exam answer or later accounting reasoning;
+- it is not already tested by a stronger downstream card;
+- it can be asked with short, unambiguous visible context;
+- the expected answer class is canonical enough to grade mentally.
 
-## 4. Deprecated lifecycle
+When these conditions fail, deprecate rather than retain a low-yield card.
 
-A superseded production Note is retained as an auditable row with:
+## 4. Cloze lexicality — v1.3
 
-- the same immutable `ID`;
-- its historical ALP mapping retained;
-- `Status=deprecated`;
-- `QA=pass` when the retirement decision itself has passed audit;
-- the mechanically corresponding `status::deprecated` tag.
+A Cloze span should normally contain **one lexical accounting unit**, not a compound phrase, list, or explanatory clause.
 
-Deprecated Notes:
+Preferred targets include:
 
-- are not active-deck coverage;
-- are not exported as study cards;
-- do not satisfy an ALP's active coverage requirement by themselves;
-- must never have their IDs reused.
-
-Every included ALP must map to at least one **approved** Note. For a normalized chapter batch, one approved Note per ALP is preferred; one approved Note may cover several ALPs.
-
-## 5. Exam-yield rewrite preference
-
-When a low-yield Note contains material worth retaining, redesign in this order:
-
-1. accounting decision / classification;
-2. contrast between confusable treatments;
-3. journal-entry or settlement consequence;
-4. recognition condition;
-5. calculation or formula application;
-6. exam-document interpretation;
-7. concise terminology recall only when terminology itself is necessary to parse questions.
-
-Do not turn a low-yield list into a larger memorization list. Keep representative examples and make the selection principle visible.
-
-## 6. Accuracy override
-
-If a source-derived simplification is potentially misleading in a broader bookkeeping context, the production Note must use the most precise source-consistent wording that remains valid for later learning.
-
-In particular, transaction duality must not be phrased as though **each** account in a compound entry changes by the same amount. The durable rule is that a transaction is recorded on debit and credit sides and the total debit amount equals the total credit amount.
-
-## 7. FND-00 v1.1 audit target
-
-For ANKI-AUDIT-001:
-
-- retain all 91 canonical FND-00 ALPs as active-source coverage targets;
-- retain all assigned production Note IDs as immutable audit history;
-- reduce independent approved Notes where direct recall is redundant or low-yield;
-- preserve exactly one approved mapping for every included FND-00 ALP;
-- allow approved multi-ALP Notes;
-- keep deprecated rows in `production/notes/FND-00.tsv` but exclude them from active export;
-- prioritize debit-credit rules, transaction recognition, trial-balance controls, payroll/temporary-account entries, correction entries, ledger reconciliation, voucher decisions, and document-to-entry inference.
-
-The resulting approved-note count is an audit outcome, not a quota.
-
-## 8. Generated-card rotation efficiency — v1.2
-
-ANKI-AUDIT-002 adds a generated-card-level optimization layer. A Cloze Note with `c1`, `c2`, and `c3` creates three review cards even when the three facts belong to one natural retrieval unit. Therefore **distinct Cloze indices are a study-cost decision**.
-
-For every approved Note:
-
-1. start from **one generated card** (`c1`) for one coherent retrieval unit;
-2. reuse the same Cloze index for tightly coupled facts that should be recalled together;
-3. add `c2+` only when the additional card tests a materially independent retrieval operation worth a separate review;
-4. do not create additional cards merely because a sentence contains several blanks;
-5. count distinct Cloze indices as part of chapter QA and report the generated-card total.
-
-Same-index grouping is normally preferred for:
-
-- paired debit/credit treatments;
-- two sides of one classification contrast;
-- parallel formulas that should be reproduced as a set;
-- ordered stages whose sequence is the target;
-- vocabulary bundles needed together to parse one exam construct;
-- paired journal-entry consequences that constitute one accounting decision;
-- mutually dependent document or voucher classifications.
-
-Separate indices remain appropriate when hiding everything together would overload recall or when each group supports a genuinely independent exam decision. The reason should be apparent from the Note or QA record.
-
-## 9. Cloze answer uniqueness and standalone form — v1.2
-
-A Cloze span should be a **canonical answer unit**, not a grammatical residue.
-
-Prefer answers such as:
-
-- `資産`, `負債`, `純資産`;
+- `資産`, `負債`, `純資産`, `収益`, `費用`;
 - `借方`, `貸方`;
-- `合計試算表`, `残高試算表`;
-- `所得税預り金`;
-- `補助記入帳`, `補助元帳`;
-- a complete formula or short self-contained proposition.
+- `試算表`, `合計試算表`, `残高試算表`;
+- `所得税預り金`, `法定福利費`;
+- `仮払金`, `仮受金`;
+- `入金伝票`, `出金伝票`, `振替伝票`;
+- `納品書`, `請求書`, `領収書`.
 
-Avoid targets such as:
+Avoid one Cloze that hides:
 
-- `運用形態` when the accounting category itself can be tested;
-- `ある調達源泉` / `ない調達源泉`;
-- `増減するか`;
-- `発見できない` without identifying what cannot detect the error;
-- fragments whose grammatical form admits several plausible completions.
+- `A・B・C` as a single answer;
+- an entire journal-entry rule;
+- a reason plus conclusion;
+- a conjunction-linked procedure;
+- an explanatory clause when a canonical noun, account, direction, or short predicate can be used.
 
-When a source proposition is better tested in reverse, keep the condition or definition visible and Cloze the canonical accounting term. The intended semantic answer class must be unique from the visible prompt.
+If a source phrase contains multiple independently meaningful lexical targets, split the **Cloze spans**, not necessarily the card. Example:
 
-Each exact Cloze answer span should appear at most once within an approved Note. If identical answer text would be hidden twice, redesign the sentence or keep one occurrence visible unless repetition itself is materially necessary.
+`資産・費用の増加は {{c1::借方}}。負債・純資産・収益の増加は {{c1::貸方}}。`
 
-## 10. Visible-context rule — v1.2
+A short predicate such as `ならない` is permitted when a noun substitute would distort the accounting meaning.
 
-Supporting facts that are useful for understanding but do not deserve another review card should remain visible in the Note or `Extra`.
+## 5. Parallel / conjunction rule — v1.3
 
-Visible context should:
+Parallel or conjunction-linked facts that belong to **one coherent retrieval operation** should stay on the **same Anki card**, while each answer is masked separately with the same Cloze index.
 
-- identify the subject, period, transaction direction, and comparison axis needed to determine the answer;
-- prevent multiple accounting-equivalent interpretations;
-- avoid revealing a hidden answer through a visible sibling fact;
-- let the learner know what *kind* of answer is required without making the answer automatic.
+Use:
 
-The objective is not maximal masking. It is **minimal sufficient masking for durable retrieval**.
+`{{c1::A}}・{{c1::B}}`
 
-## 11. FND-00 v1.2 rotation target
+not:
 
-For ANKI-AUDIT-002, after v1.1 active-deck selection:
+`{{c1::A・B}}`
 
-- historical rows remain **91**;
-- approved Notes remain **57** and deprecated rows remain **34**;
-- 91/91 included ALPs remain mapped exactly once to an approved Note;
-- generated cards are reduced from **110 to 58**;
-- all approved Notes use one generated card except `BK-FND-00-0091`, which uses two coherent abbreviation-family cards;
-- no approved Note contains a duplicated exact Cloze answer span;
-- Cloze wording is revised toward canonical accounting terms, short formulas, directions, or self-contained propositions.
+and not, merely for parallelism:
 
-Apply these v1.2 rules during ANKI-008 onward generation so generated-card efficiency is designed in from the start rather than repaired after chapter generation.
+`{{c1::A}}・{{c2::B}}`.
+
+Examples that normally use the same index within one Note:
+
+- five accounting elements;
+- debit/credit sides of one classification rule;
+- employee/employer treatments in one payroll comparison;
+- trial-balance types;
+- voucher types;
+- source-document types;
+- paired recognition/settlement outcomes that are naturally recalled together.
+
+Use a new index (`c2+`) only when the second retrieval operation is independently worth rotating as a separate card, not merely because it is another blank or another sentence.
+
+Thus **card count is the number of distinct Cloze indices**, while **Cloze-span count** is tracked separately as an atomicity metric.
+
+## 6. Sentence design
+
+Prefer short declarative sentences. Multiple short sentences may share the same `c1` when they are parts of one coherent card.
+
+Good:
+
+`給与は手取額ではなく {{c1::総額}} を費用計上する。控除した所得税は {{c1::所得税預り金}} で処理する。`
+
+Good:
+
+`現金が増える取引は {{c1::入金伝票}}。現金が減る取引は {{c1::出金伝票}}。現金が増減しない取引は {{c1::振替伝票}}。`
+
+Avoid long prose with one large Cloze spanning several answers.
+
+## 7. Lifecycle
+
+A retired Note remains in `production/notes/` with:
+
+- immutable `ID`;
+- historical `ALP_IDs`;
+- `Status=deprecated`;
+- `QA=pass` once retirement is audited;
+- `status::deprecated` tag.
+
+Deprecated Notes are excluded from active export and their IDs must never be reused.
+
+## 8. Accuracy override
+
+Conciseness never overrides accounting accuracy. If a one-word prompt would create a false generalization, keep enough visible context or use a short lexical/predicate exception.
+
+Transaction duality must remain expressed through total debit/credit equality, not as though every account in a compound entry changes by the same amount.
+
+## 9. FND-00 audit history
+
+### v1.1 — ANKI-AUDIT-001
+
+- 91 historical rows
+- 91 -> 57 approved Notes
+- 34 deprecated rows
+
+### v1.2 — ANKI-AUDIT-002
+
+- approved Notes remained 57
+- generated cards 110 -> 58
+- same-index grouping introduced as a rotation-efficiency tool
+
+### v1.3 — ANKI-AUDIT-003
+
+v1.3 combines aggressive low-yield retirement with **lexical span splitting inside the same coherent card**:
+
+- historical rows: **91**;
+- source-reviewed ALPs: **91 / 91**;
+- approved Notes: **18**;
+- deprecated rows: **73**;
+- active direct-recall ALPs: **36 / 91**;
+- generated active cards: **18**;
+- active Cloze spans: **36**;
+- every approved FND-00 Note uses only `c1`;
+- parallel/conjunction answers are separate `{{c1::...}}` spans on that same card;
+- Cloze answers are normally single canonical terms rather than compound phrases.
+
+The 36 active ALPs are an audited FND-00 outcome, not a universal percentage target. Apply the same selection and lexical-splitting principles during ANKI-008 onward generation; let each chapter's active-recall ratio and card count be determined by exam value.
