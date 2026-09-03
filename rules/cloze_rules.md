@@ -1,6 +1,6 @@
 # Cloze Rules
 
-Status: **v1.0 candidate — representative pilot validated; freeze pending ANKI-PILOT-006**
+Status: **v1.0 — frozen after representative pilot (ANKI-PILOT-006)**
 
 ## 1. Objective
 
@@ -17,7 +17,7 @@ Cloze は文章の穴埋めではなく、会計知識を正確に想起する�
 
 本ルールは `SPEC.md`、`rules/coverage_rules.md`、`schema/note_schema.yaml`、`pilot/PLAN.md` と整合して運用する。矛盾を発見した場合はローカル判断で補完せず、明示的に解消する。
 
-v1.0 candidate は `pilot/review.md` に記録された ANKI-PILOT-003/004 の実測結果だけを根拠として v0.9 を改訂する。schema/tag/source/TSV contract は pilot 上の摩擦がなかったため、ANKI-PILOT-005 では意味変更しない。
+v1.0 は `pilot/review.md` に記録された ANKI-PILOT-003/004 の実測結果だけを根拠として v0.9 を改訂し、ANKI-PILOT-006 で凍結した。schema/tag/source/TSV contract は pilot 上の摩擦がなかったため意味変更せず、version/lifecycle metadata のみ v1.0 freeze に整合させる。
 
 ## 2. Atomicity
 
@@ -489,7 +489,7 @@ representative pilot は Part 0 + early commercial bookkeeping の **40 Notes** 
 
 pilot evidence は `pilot/card_validation.tsv`、`pilot/VALIDATION.md`、`pilot/review.md` に保持する。
 
-v1.0 candidate へ進む条件：
+v1.0 へ進む条件：
 
 - pilot上の会計誤りが0
 - ambiguous prompt の unresolved blocking finding が0
@@ -498,9 +498,9 @@ v1.0 candidate へ進む条件：
 - semantic duplicate が解消または明示的に distinct retrieval operation へ変換済み
 - canonical ALP IDs / source mappings が不変
 
-ANKI-PILOT-004 後の corrected pilot は **40 Notes / 62 generated cards、0 major、0 blocking** であり、この v1.0 candidate の根拠となる。
+ANKI-PILOT-004 後の corrected pilot は **40 Notes / 62 generated cards、0 major、0 blocking** であり、この v1.0 の根拠となる。
 
-`Status=pilot` / `QA=pending` は ANKI-PILOT-006 の freeze decision まで変更しない。
+Pilot corpus は freeze evidence として `Status=pilot` / `QA=pending` のまま保持してよい。production へ再利用する場合は frozen v1.0 contract に対する production QA と stable ID/mapping 要件を満たしたものだけを昇格させる。
 
 ## 27. ANKI-PILOT-005 decision matrix
 
@@ -525,4 +525,21 @@ pilot evidence から次の contract 変更は要求されなかった。
 - deterministic TSV serialization
 - pinned source fields / canonical ALP source traceability
 
-これらは v0.9 schema contract のまま ANKI-PILOT-006 へ渡し、freeze 時に version metadata の整合だけを最終確認する。
+ANKI-PILOT-006 ではこれらの semantics を変更せず、schema version/lifecycle metadata のみ v1.0/frozen に更新した。
+
+## 28. ANKI-PILOT-006 freeze decision
+
+The final pilot gate passes and this authoring contract is frozen as **v1.0** for chapter-wide production.
+
+Freeze evidence:
+
+- corrected pilot: **40 Notes / 62 generated cards**;
+- accounting failures: **0**;
+- source-traceability failures: **0**;
+- major findings: **0**;
+- blocking findings: **0**;
+- recurring/minor finding families have explicit rule treatment or documented no-change decisions;
+- canonical ALP IDs and source mappings remain unchanged;
+- `rules/coverage_rules.md`, `schema/note_schema.yaml`, and `SPEC.md` identify the same v1.0 frozen contract.
+
+ANKI-007 onward is explicitly authorized to generate production Notes under this frozen v1.0 contract. Any later semantic contract change requires a separately reviewed post-freeze migration rather than silent local deviation.
