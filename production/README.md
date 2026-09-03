@@ -19,32 +19,28 @@ v1.3 distinguishes two separate completeness metrics:
 - **source-reviewed coverage**: every included ALP has been reviewed and remains traceable in production history;
 - **active direct-recall coverage**: only ALPs worth spaced retrieval must remain on `Status=approved` Notes.
 
-A deprecated historical row can therefore preserve source traceability without forcing a low-yield fact into the active deck.
+A deprecated historical row can therefore preserve source traceability without forcing a low-yield fact into the active deck. Do not create or retain an approved card solely to keep every ALP active-mapped.
 
-Do not create or retain an approved card solely to keep every ALP active-mapped.
+## Cloze lexicality and same-card grouping — v1.3
 
-## Cloze atomicity — v1.3
+Study cost is reduced primarily by retiring low-yield cards. For facts that remain worth recalling:
 
-Study cost is reduced by retiring low-yield cards, not by hiding several answers on one card.
-
-For newly generated or v1.3-audited material:
-
-- prefer one lexical accounting term / account name / direction per Cloze;
-- one generated card should contain one Cloze occurrence;
-- do not repeat the same `cN` across parallel blanks;
-- split parallel classifications and conjunction-linked judgments into separate sentences/cards when both deserve recall;
-- one Japanese full-stop-delimited sentence should contain at most one Cloze;
-- use a short phrase only when no canonical lexical target preserves the intended retrieval operation.
+- prefer one lexical accounting term / account name / direction per Cloze span;
+- split a compound answer into separate spans, e.g. `{{c1::A}}・{{c1::B}}`, rather than `{{c1::A・B}}`;
+- parallel or conjunction-linked facts that form one coherent retrieval operation stay on the same card by reusing the same index;
+- do not use `c2+` merely because a Note contains another blank or sentence;
+- add another index only when a second retrieval operation is independently worth a separate review;
+- track **generated-card count** (distinct Cloze indices) separately from **Cloze-span count** (atomic masked answer units).
 
 ## FND-00 audit result
 
 FND-00 has three post-production audit stages:
 
 - v1.1: 91 -> 57 approved Notes;
-- v1.2: 110 -> 58 generated cards through same-index grouping;
-- v1.3: **18 approved Notes / 37 generated cards**, with lexical Clozes and parallel/conjunction splitting.
+- v1.2: 110 -> 58 generated cards;
+- v1.3: **18 approved Notes / 18 generated cards / 36 lexical Cloze spans**.
 
-The 91 historical rows remain. All 91 included ALPs remain source-reviewed/traceable; **36 ALPs** remain active direct-recall targets.
+The 91 historical rows remain. All 91 included ALPs remain source-reviewed/traceable; **36 ALPs** remain active direct-recall targets. Every approved FND-00 Note uses only `c1`; parallel lexical answers are represented by multiple `{{c1::...}}` spans on that same card.
 
 ## Existing commercial batches
 
@@ -75,11 +71,11 @@ Deprecated rows are retained as production history. They:
 - `notes/COM-01.tsv` — Commercial chapter 01 / 商品売買 (ANKI-008; v1.2 generation)
 - `notes/COM-02.tsv` — Commercial chapter 02 / 収益認識 (ANKI-009; v1.2 generation)
 
-Run `python scripts/validate_fnd00_production.py` to validate FND-00 historical source coverage, 18/73 lifecycle, 36 active-recall ALPs, 37 generated cards, lexical Cloze shape, one-Cloze-per-card, and sentence splitting.
+Run `python scripts/validate_fnd00_production.py` to validate FND-00 historical source coverage, 18/73 lifecycle, 36 active-recall ALPs, **18 generated cards / 36 lexical spans**, same-index parallelism, lexical answer shape, and stable source/tag controls.
 
 Run `python scripts/validate_com01_production.py` and `python scripts/validate_com02_production.py` for the existing v1.2 commercial batches.
 
 Migration records:
 
 - `scripts/migrate_fnd00_v1_2.py` — v1.2 rotation migration;
-- `scripts/migrate_fnd00_v1_3.py` — v1.3 minimal/atomic migration.
+- `scripts/migrate_fnd00_v1_3.py` — v1.3 minimal/lexical migration.
