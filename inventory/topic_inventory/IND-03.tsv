@@ -1,0 +1,26 @@
+alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
+ALP-IND-03-0001	industrial	3 労務費	第1節 労務費とは	industrial/chapter03.md::labor	労務費は製品製造のために消費した労働力の消費額で、工員賃金だけでなく工場監督者・事務職員等の給料も含む	definition	INCLUDE	labor cost definition			pending
+ALP-IND-03-0002	industrial	3 労務費	第1節 労務費とは	industrial/chapter03.md::payment-consumption	賃金は支払と消費を区別し、支払額を賃金勘定に計上した後、消費額を直接労務費と間接労務費に振り替える	procedure	INCLUDE	wage payment-consumption distinction			pending
+ALP-IND-03-0003	industrial	3 労務費	第2節 労務費の分類	industrial/chapter03.md::direct-indirect	直接労務費は特定製品別の労働力消費を把握できる労務費、間接労務費は把握できない労務費である	classification	INCLUDE	direct indirect labor distinction			pending
+ALP-IND-03-0004	industrial	3 労務費	第2節 労務費の分類	industrial/chapter03.md::direct-worker	直接工の直接作業時間に対する賃金だけが直接労務費となる	classification	INCLUDE	direct labor boundary			pending
+ALP-IND-03-0005	industrial	3 労務費	第2節 労務費の分類	industrial/chapter03.md::indirect-labor	直接工の間接作業賃金、間接工賃金、工場給料、雑給、賞与手当、退職給付費用、法定福利費は間接労務費となる	classification	INCLUDE	indirect labor categories			pending
+ALP-IND-03-0006	industrial	3 労務費	第2節 労務費の分類	industrial/chapter03.md::wage-only-flexible	労務費のうち直接・間接の両方になり得るのは賃金で、賃金以外の主要労務費項目は間接労務費となる	exception	INCLUDE	labor category exception			pending
+ALP-IND-03-0007	industrial	3 労務費	第3節 賃金・給料の支払	industrial/chapter03.md::wage-components	支払賃金＝基本給＋加給金である	formula	INCLUDE	gross wage formula			pending
+ALP-IND-03-0008	industrial	3 労務費	第3節 賃金・給料の支払	industrial/chapter03.md::base-wage	基本給＝支払賃率×作業時間である	formula	INCLUDE	base wage formula			pending
+ALP-IND-03-0009	industrial	3 労務費	第3節 賃金・給料の支払	industrial/chapter03.md::withholding	賃金・給料から控除する所得税・社会保険料等は預り金として処理し、差引額を現金等で支払う	journal_entry	INCLUDE	payroll withholding treatment			pending
+ALP-IND-03-0010	industrial	3 労務費	第3節 賃金・給料の支払	industrial/chapter03.md::wage-vs-salary	工員への給与は賃金勘定、工場事務職員・監督者への給与は給料勘定で区別する	classification	INCLUDE	wage salary account distinction			pending
+ALP-IND-03-0011	industrial	3 労務費	第4節 賃金の消費	industrial/chapter03.md::accrual	当月賃金消費額（要支払額）＝当月支払額＋当月末未払額－前月末未払額である	formula	INCLUDE	wage accrual formula			pending
+ALP-IND-03-0012	industrial	3 労務費	第4節 賃金の消費	industrial/chapter03.md::reversal	前月末未払賃金は月初に未払賃金／賃金で再振替し、当月末未払賃金は賃金／未払賃金で計上する	journal_entry	INCLUDE	unpaid wage adjustment entries			pending
+ALP-IND-03-0013	industrial	3 労務費	第4節 賃金の消費	industrial/chapter03.md::actual-rate	実際消費賃率＝原価計算期間の消費賃金÷原価計算期間の総作業時間である	formula	INCLUDE	actual wage rate formula			pending
+ALP-IND-03-0014	industrial	3 労務費	第4節 賃金の消費	industrial/chapter03.md::direct-labor	直接労務費＝実際消費賃率×直接作業時間である	formula	INCLUDE	direct labor cost formula			pending
+ALP-IND-03-0015	industrial	3 労務費	第4節 賃金の消費	industrial/chapter03.md::indirect-work	直接工の間接労務費＝実際消費賃率×間接作業時間である	formula	INCLUDE	indirect work wage formula			pending
+ALP-IND-03-0016	industrial	3 労務費	第4節 賃金の消費	industrial/chapter03.md::direct-worker-entry	直接工の消費賃金は直接作業分を仕掛品、間接作業分を製造間接費へ振り替える	journal_entry	INCLUDE	direct worker labor flow			pending
+ALP-IND-03-0017	industrial	3 労務費	第4節 賃金の消費	industrial/chapter03.md::indirect-worker	間接工の要支払額は全額が間接労務費であり、実際消費賃率を算定せず製造間接費へ振り替える	cost_accounting	INCLUDE	indirect worker treatment			pending
+ALP-IND-03-0018	industrial	3 労務費	第5節 予定消費賃率	industrial/chapter03.md::planned-rate	予定消費賃率は直接工について期首にあらかじめ設定する1時間当たりの予定消費賃率である	definition	INCLUDE	planned wage rate definition			pending
+ALP-IND-03-0019	industrial	3 労務費	第5節 予定消費賃率	industrial/chapter03.md::planned-direct	予定直接労務費＝予定消費賃率×直接作業時間である	formula	INCLUDE	planned direct labor formula			pending
+ALP-IND-03-0020	industrial	3 労務費	第5節 予定消費賃率	industrial/chapter03.md::planned-indirect	予定間接労務費＝予定消費賃率×間接作業時間である	formula	INCLUDE	planned indirect labor formula			pending
+ALP-IND-03-0021	industrial	3 労務費	第5節 予定消費賃率	industrial/chapter03.md::rate-variance	賃率差異＝予定消費賃金－実際消費賃金（要支払額）である	formula	INCLUDE	wage rate variance formula			pending
+ALP-IND-03-0022	industrial	3 労務費	第5節 予定消費賃率	industrial/chapter03.md::rate-variance-alt	賃率差異＝（予定消費賃率－実際消費賃率）×実際作業時間でも求められる	formula	INCLUDE	wage rate variance alternate formula			pending
+ALP-IND-03-0023	industrial	3 労務費	第5節 予定消費賃率	industrial/chapter03.md::variance-direction	予定消費賃金＜実際消費賃金なら賃率差異は不利な借方差異、逆なら有利な貸方差異となる	classification	INCLUDE	wage variance direction			pending
+ALP-IND-03-0024	industrial	3 労務費	第5節 予定消費賃率	industrial/chapter03.md::variance-disposal	会計年度末に不利な賃率差異は売上原価へ加算し、有利差異は売上原価から減算する	journal_entry	INCLUDE	wage variance disposal			pending
+	industrial	3 労務費	例題3-1〜3-5	industrial/chapter03.md::examples	賃金支払・未払調整・予定賃率の具体数値例		EXCLUDE		DECORATIVE_EXAMPLE		pending
