@@ -66,7 +66,7 @@ Production audit Issues (ANKI-AUDIT-001 onward) remain historical evidence for w
 - [ ] **ANKI-020** Commercial chapter13
 - [ ] **ANKI-021** Commercial chapter14
 - [ ] **ANKI-022** Commercial chapter15
-- [ ] **ANKI-023** Commercial chapter16
+- [x] **ANKI-023** Commercial chapter16
 
 ### Industrial bookkeeping
 
