@@ -10,7 +10,7 @@ Canonical shard: `inventory/topic_inventory/COM-11.tsv`
 
 - production Notes: **17**
 - generated cards: **17**
-- Cloze spans: **42**
+- Cloze spans: **41**
 - included ALPs: **21**
 - mapped included ALPs: **21**
 - unmapped included ALPs: **0**
@@ -75,7 +75,7 @@ For a forward arranged before transaction recognition, the Note uses account-lev
 
 The year-end exception avoids a broad action Cloze: because the settlement amount is already fixed at FR, CR remeasurement and the related adjusting entry are both retrieved with the short discriminator `不要`.
 
-The final comparison Note no longer uses the abstract Clozes `あり` / `なし`. Its answer classes are explicit: transaction-date rate, reservation-date rate, and the account used for the reservation-date translation difference. The pre-transaction branch retains the no-exchange-difference consequence visibly while the card actively contrasts FR vs HR/FR timing.
+The final comparison Note no longer uses the abstract Clozes `あり` / `なし`. It actively contrasts the transaction-date and reservation-date rate choices (`FR` vs `HR`→`FR`), while the already-covered exchange-difference consequence remains visible. This avoids both duplicated recall and visible-answer leakage.
 
 ## Source traceability
 
@@ -109,7 +109,7 @@ Expected output:
 
 ```text
 COM-11 production validation: PASS
-notes=17 cards=17 cloze_spans=42 included_alps=21 mapped=21 unmapped=0
+notes=17 cards=17 cloze_spans=41 included_alps=21 mapped=21 unmapped=0
 multi_alp_notes=4 journal_entry_notes=3 formula_notes=2 canonical_exclusions=1
 account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass formula_atomicity=pass visible_answer_leakage=0 deterministic_order=pass
 ```
