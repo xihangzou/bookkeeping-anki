@@ -61,7 +61,7 @@ No COM-04 pilot Note IDs existed. Production IDs are allocated deterministically
 | 0028 | 0035–0037, 0040–0041 | 債務保証・対照勘定・偶発債務・表示・裏書割引との関係 |
 | 0029 | 0038–0039 | 保証消滅と代位弁済時の求償権 |
 
-The single inventory row with `status=EXCLUDE` is the chapter-wide decorative numerical-example family. No canonical included ALP is excluded from active Text.
+The single inventory row with `status=EXCLUDE` is the chapter-wide decorative numerical-example family. No canonical included ALP is excluded from active Text. The canonical ANKI-003 inventory remains unchanged with empty `note_ids` and `qa_status=pending`; production mapping lives in each Note's `ALP_IDs` field.
 
 ## Recall-design QA
 
@@ -117,4 +117,4 @@ multi_alp_notes=8 journal_entry_notes=14 formula_notes=2 decorative_exclusions=1
 account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass visible_answer_leakage=0 deterministic_order=pass
 ```
 
-The validator checks stable IDs/order, exact source provenance, deterministic tags/lifecycle, c1-only card generation, exact-once ALP mapping, inventory back-links and QA state, primary source-section consistency, local duplicate rendered text, visible-answer leakage, account-level journal Clozes, canonical-label forms, formula itemization, minimal Cloze scope, and preservation of the decorative exclusion.
+The validator checks stable IDs/order, exact source provenance, deterministic tags/lifecycle, c1-only card generation, exact-once ALP mapping, canonical ANKI-003 inventory immutability, primary source-section consistency, local duplicate rendered text, visible-answer leakage, account-level journal Clozes, canonical-label forms, formula itemization, minimal Cloze scope, and preservation of the decorative exclusion.
