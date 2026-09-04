@@ -1,0 +1,37 @@
+name: Validate COM-12 production
+
+on:
+  push:
+    paths:
+      - 'production/notes/COM-12.tsv'
+      - 'production/qa/COM-12.md'
+      - 'inventory/topic_inventory/COM-12.tsv'
+      - 'scripts/validate_com12_production.py'
+      - 'GOVERNANCE.md'
+      - 'SPEC.md'
+      - 'schema/note_schema.yaml'
+      - 'rules/anki_card_rules.md'
+      - '.github/workflows/validate-com12.yml'
+  pull_request:
+    paths:
+      - 'production/notes/COM-12.tsv'
+      - 'production/qa/COM-12.md'
+      - 'inventory/topic_inventory/COM-12.tsv'
+      - 'scripts/validate_com12_production.py'
+      - 'GOVERNANCE.md'
+      - 'SPEC.md'
+      - 'schema/note_schema.yaml'
+      - 'rules/anki_card_rules.md'
+      - '.github/workflows/validate-com12.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-com12:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate COM-12 production batch
+        run: python scripts/validate_com12_production.py
