@@ -16,6 +16,7 @@ on:
       - 'inventory/topic_inventory/COM-03.tsv'
       - 'inventory/topic_inventory/COM-04.tsv'
       - 'inventory/topic_inventory/COM-05.tsv'
+      - 'inventory/topic_inventory/COM-06.tsv'
       - 'schema/note_schema.yaml'
       - 'rules/cloze_rules.md'
       - 'rules/coverage_rules.md'
@@ -34,6 +35,7 @@ on:
       - 'scripts/validate_com03_production.py'
       - 'scripts/validate_com04_production.py'
       - 'scripts/validate_com05_production.py'
+      - 'scripts/validate_com06_production.py'
       - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   pull_request:
@@ -51,6 +53,7 @@ on:
       - 'inventory/topic_inventory/COM-03.tsv'
       - 'inventory/topic_inventory/COM-04.tsv'
       - 'inventory/topic_inventory/COM-05.tsv'
+      - 'inventory/topic_inventory/COM-06.tsv'
       - 'schema/note_schema.yaml'
       - 'rules/cloze_rules.md'
       - 'rules/coverage_rules.md'
@@ -69,6 +72,7 @@ on:
       - 'scripts/validate_com03_production.py'
       - 'scripts/validate_com04_production.py'
       - 'scripts/validate_com05_production.py'
+      - 'scripts/validate_com06_production.py'
       - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   workflow_dispatch:
@@ -143,3 +147,13 @@ jobs:
           python-version: '3.12'
       - name: Validate COM-05 production batch
         run: python scripts/validate_com05_production.py
+
+  validate-com06:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate COM-06 production batch
+        run: python scripts/validate_com06_production.py
