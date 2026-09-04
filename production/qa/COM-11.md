@@ -48,7 +48,8 @@ The worked numerical examples remain excluded as `DECORATIVE_EXAMPLE` because th
 The batch follows the consolidated current rules:
 
 - canonical labels such as `外貨建取引`, `換算`, `為替予約`, `先物為替相場（FR）`, and `振当処理` are retrieved directly;
-- HR/CR/FR timing context remains visible, while the shortest discriminating rate label is hidden;
+- rate Clozes target the shortest semantically discriminating unit: a bare `HR`/`FR` is used only when the visible prompt already fixes its accounting role; when the timing itself is the learning target, the timing modifier is included in the answer;
+- abstract binary Clozes such as `あり` / `なし` are avoided when a specific rate, account, or accounting treatment can be retrieved instead;
 - broad answers such as `仕訳を行う`, `仕訳を行わない`, and `処理する` are not used;
 - arithmetic operators remain visible and formula Clozes target atomic operands/rates;
 - debit/credit syntax stays visible where journal entries are shown, with account names Clozed individually;
@@ -58,7 +59,7 @@ The batch follows the consolidated current rules:
 
 The opening Notes distinguish HR and CR, preserve the core conversion formula, and test the initial-recognition rule that ordinary foreign-currency merchandise transactions use transaction-date HR.
 
-Advance-payment treatment keeps the account role and rate timing distinct: the payer records `前払金`, the recipient records `前受金`, and the advance portion continues to use the advance-date HR when the goods are later delivered. A separate formula Note tests the mixed-rate structure for partial application of an advance.
+Advance-payment treatment keeps the account role and rate timing distinct: the payer records `前払金`, the recipient records `前受金`, and the advance portion continues to use the advance-date HR when the goods are later delivered. The partial-advance formula Note retrieves the timing-specific rate operands `手付金授受時HR` and `商品受渡時HR`, rather than two context-light `HR` answers.
 
 ### Settlement and year-end remeasurement
 
@@ -72,7 +73,9 @@ The forward section retrieves `為替予約`, `先物為替相場（FR）`, and 
 
 For a forward arranged before transaction recognition, the Note uses account-level journal Clozes for purchase and sale entries, applies FR from initial recognition, and retrieves that exchange gain/loss does not arise. For a forward arranged after transaction recognition, the Note distinguishes initial HR recognition from later FR remeasurement and exchange-difference recognition.
 
-The year-end exception avoids a broad action Cloze: because the settlement amount is already fixed at FR, CR remeasurement and the related adjusting entry are both retrieved with the short discriminator `不要`. The final comparison Note places pre-transaction and post-transaction forward timing in one retrieval frame.
+The year-end exception avoids a broad action Cloze: because the settlement amount is already fixed at FR, CR remeasurement and the related adjusting entry are both retrieved with the short discriminator `不要`.
+
+The final comparison Note no longer uses the abstract Clozes `あり` / `なし`. Its answer classes are explicit: transaction-date rate, reservation-date rate, and the account used for the reservation-date translation difference. The pre-transaction branch retains the no-exchange-difference consequence visibly while the card actively contrasts FR vs HR/FR timing.
 
 ## Source traceability
 
@@ -97,7 +100,7 @@ Exact chapter anchors remain recoverable through each mapped canonical ALP in `i
 - canonical inventory immutability
 - local duplicate rendered text
 - visible-answer leakage
-- broad/non-atomic Cloze answers
+- broad/non-atomic Cloze answers, including abstract `あり` / `なし`
 - account-level journal-entry masking whenever debit/credit syntax appears
 - formula/operator atomicity and required precision forms
 - exact canonical exclusion family
