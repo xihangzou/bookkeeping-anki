@@ -22,6 +22,7 @@ on:
       - 'inventory/topic_inventory/COM-09.tsv'
       - 'inventory/topic_inventory/COM-10.tsv'
       - 'inventory/topic_inventory/COM-11.tsv'
+      - 'inventory/topic_inventory/COM-16.tsv'
       - 'inventory/topic_inventory/IND-01.tsv'
       - 'inventory/topic_inventory/IND-02.tsv'
       - 'schema/note_schema.yaml'
@@ -49,6 +50,7 @@ on:
       - 'scripts/validate_com09_production.py'
       - 'scripts/validate_com10_production.py'
       - 'scripts/validate_com11_production.py'
+      - 'scripts/validate_com16_production.py'
       - 'scripts/validate_ind01_production.py'
       - 'scripts/validate_ind02_production.py'
       - 'TASKS.md'
@@ -74,6 +76,7 @@ on:
       - 'inventory/topic_inventory/COM-09.tsv'
       - 'inventory/topic_inventory/COM-10.tsv'
       - 'inventory/topic_inventory/COM-11.tsv'
+      - 'inventory/topic_inventory/COM-16.tsv'
       - 'inventory/topic_inventory/IND-01.tsv'
       - 'inventory/topic_inventory/IND-02.tsv'
       - 'schema/note_schema.yaml'
@@ -101,6 +104,7 @@ on:
       - 'scripts/validate_com09_production.py'
       - 'scripts/validate_com10_production.py'
       - 'scripts/validate_com11_production.py'
+      - 'scripts/validate_com16_production.py'
       - 'scripts/validate_ind01_production.py'
       - 'scripts/validate_ind02_production.py'
       - 'TASKS.md'
@@ -237,6 +241,16 @@ jobs:
           python-version: '3.12'
       - name: Validate COM-11 production batch
         run: python scripts/validate_com11_production.py
+
+  validate-com16:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate COM-16 production batch
+        run: python scripts/validate_com16_production.py
 
   validate-ind01:
     runs-on: ubuntu-latest
