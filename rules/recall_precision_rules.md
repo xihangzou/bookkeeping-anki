@@ -57,7 +57,48 @@ Avoid when the real target is method/basis identification:
 
 Apply the same principle to method names, document names, classifications, account names, and other conventional labels. Do not mechanically reverse every definition: if the timing, calculation result, or treatment itself has the higher independent exam value, keep that as the target instead.
 
-## 3. Essential-recall test
+## 3. Minimal Cloze scope and lexical atomicity
+
+A Cloze answer must be the **smallest uniquely recoverable unit** supported by the visible context. Do not hide a whole phrase merely because the phrase is technically correct.
+
+When a compound label is already identified by visible context, Cloze only the discriminating token.
+
+Preferred:
+
+`不一致原因が{{c1::当社}}側にある場合は帳簿を修正して仕訳を行う。`
+
+`時間差だけの場合は{{c1::銀行}}側を修正して仕訳しない。`
+
+Avoid:
+
+`不一致原因が{{c1::当社側の修正項目}}である。`
+
+Broad action phrases are normally poor recall targets because several paraphrases can be equally correct. Keep the resulting treatment visible and Cloze the cause, classification, account, direction, or other discriminator that determines it.
+
+Avoid as standalone answers unless the exact wording itself is a canonical term:
+
+- `{{c1::仕訳を行う}}`
+- `{{c1::仕訳を行わない}}`
+- `{{c1::処理する}}`
+- a full explanatory action clause
+
+If an operation itself has independent exam value, prefer a short exact operator or direction such as `{{c1::加算}}`, `{{c1::減算}}`, `{{c1::借方}}`, or `{{c1::貸方}}` while keeping its object visible.
+
+### Procedures and ordered sequences
+
+Do not Cloze an entire multi-step phrase or several long arrow-separated steps. Keep the procedure frame and most step descriptions visible. Hide only one or a few short sequence-critical labels or discriminators.
+
+Preferred:
+
+`前渡→日々の少額支払い→支払内容の{{c1::報告}}→費用仕訳→支払額と同額の{{c1::補給}}`
+
+Avoid:
+
+`前渡→{{c1::日々の少額支払い}}→{{c1::支払内容の報告}}→{{c1::費用仕訳}}→{{c1::同額補給}}`
+
+If several steps each require independent active recall, split them into separate Notes or test the accounting mechanics directly rather than hiding the whole process vocabulary on one card.
+
+## 4. Essential-recall test
 
 A Note should earn active review time by testing at least one of the following:
 
@@ -72,8 +113,8 @@ Do not create a Cloze merely because a sentence contains terminology. Example-on
 
 An included ALP still must remain materially represented in active `Text`; this rule changes what is hidden, not whether source content is silently dropped.
 
-## 4. Reference style
+## 5. Reference style
 
-Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history. ANKI-AUDIT-009 adds canonical-label priority when a description-to-label mapping is the intended retrieval task.
+Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history. ANKI-AUDIT-009 adds canonical-label priority when a description-to-label mapping is the intended retrieval task. The minimal-scope rule above further requires newly authored and re-audited cards to avoid broad verb phrases and overlong procedure Clozes.
 
 Existing chapters are migrated deliberately under `GOVERNANCE.md`; historical audit states remain reproducible through Git history.
