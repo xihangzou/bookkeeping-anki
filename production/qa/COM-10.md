@@ -10,7 +10,7 @@ Canonical shard: `inventory/topic_inventory/COM-10.tsv`
 
 - production Notes: **31**
 - generated cards: **31**
-- Cloze spans: **89**
+- Cloze spans: **93**
 - included ALPs: **34**
 - mapped included ALPs: **34**
 - unmapped included ALPs: **0**
@@ -79,6 +79,8 @@ The batch retrieves the `元手` versus `利益剰余金` separation and the gen
 
 The dividend section keeps distribution versus retention distinct, then tests the dividend-total formula with atomic operands. Declaration/payment, profit-source legal-reserve accumulation, voluntary-reserve accumulation/reversal, and other-capital-surplus dividends use account-level Clozes.
 
+`BK-COM-10-0022` also retrieves the four source-listed voluntary reserves on the same card: `新築積立金`, `修繕積立金`, `配当平均積立金`, and `別途積立金`, while retaining the accumulation/reversal journal direction.
+
 The legal-reserve requirement is compressed into the source-equivalent formula:
 
 `必要準備金積立額＝min（{{c1::配当金}}×{{c1::1/10}}, {{c1::資本金}}×{{c1::1/4}}－{{c1::既存準備金合計}}）`
@@ -124,12 +126,13 @@ Exact chapter anchors remain recoverable through each mapped canonical ALP in `i
 - account-level journal-entry Clozes
 - formula/operator atomicity and required precision forms
 - exact canonical exclusion family
+- explicit active recall of the four voluntary-reserve names in `BK-COM-10-0022`
 
 Expected output:
 
 ```text
 COM-10 production validation: PASS
-notes=31 cards=31 cloze_spans=89 included_alps=34 mapped=34 unmapped=0
+notes=31 cards=31 cloze_spans=93 included_alps=34 mapped=34 unmapped=0
 multi_alp_notes=3 journal_entry_notes=9 formula_notes=6 canonical_exclusions=1
 account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass formula_atomicity=pass visible_answer_leakage=0 deterministic_order=pass
 ```
