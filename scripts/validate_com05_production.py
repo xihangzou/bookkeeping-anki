@@ -18,7 +18,7 @@ CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE = re.compile(r"^BK-COM-05-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-COM-05-[0-9]{4}$")
 EXPECTED_IDS = [f"BK-COM-05-{n:04d}" for n in range(1,39)]
-EXPECTED_SPANS = 101
+EXPECTED_SPANS = 104
 SOURCE = ("xihangzou/bookkeeping-integrated","569ed7b82e729334e1472286eaca7c4352e6fbdb","merged/textbook.md")
 ALLOWED_TYPES = {"definition","classification","recognition","measurement","journal_entry","formula","procedure","comparison","exception","reasoning","ledger","financial_statement","cost_accounting"}
 ENTRY_ACCOUNT_RE = re.compile(r"（(?:借|貸)）\{\{c1::([^}]+)\}\}")
@@ -33,7 +33,12 @@ REQUIRED = {
     "BK-COM-05-0019": ("クーポン利息＝{{c1::額面金額}}×{{c1::年利率}}×{{c1::対象月数}}÷12",),
     "BK-COM-05-0021": ("（貸）{{c1::有価証券利息}}", "{{c1::裸相場}}"),
     "BK-COM-05-0022": ("（借）{{c1::有価証券利息}}", "（貸）{{c1::有価証券利息}}"),
-    "BK-COM-05-0024": ("{{c1::時価・差額は当期損益}}", "{{c1::取得原価または償却原価}}", "{{c1::時価・差額は純資産}}"),
+    "BK-COM-05-0024": (
+        "売買目的有価証券＝{{c1::時価}}・差額は{{c1::当期損益}}",
+        "満期保有目的の債券＝{{c1::取得原価}}または{{c1::償却原価}}",
+        "子会社株式・関連会社株式＝{{c1::取得原価}}",
+        "その他有価証券＝{{c1::時価}}・差額は{{c1::純資産}}",
+    ),
     "BK-COM-05-0026": ("有価証券評価益＝{{c1::期末時価}}－{{c1::帳簿価額}}", "有価証券評価損＝{{c1::帳簿価額}}－{{c1::期末時価}}"),
     "BK-COM-05-0029": ("毎期償却額＝（{{c1::額面金額}}－{{c1::取得価額}}）÷{{c1::償還期間}}", "{{c1::月割}}"),
     "BK-COM-05-0030": ("（借）{{c1::満期保有目的の債券}}／（貸）{{c1::有価証券利息}}", "償却原価＝{{c1::決算整理前帳簿価額}}＋{{c1::当期償却額}}"),
@@ -42,6 +47,16 @@ REQUIRED = {
     "BK-COM-05-0036": ("{{c1::洗替方式}}", "{{c1::切放方式}}", "{{c1::取得原価}}", "{{c1::前期末時価}}"),
     "BK-COM-05-0038": ("{{c1::当期損益}}", "{{c1::取得原価}}", "{{c1::洗替方式}}"),
 }
+
+EXACT_TEXT = {
+    "BK-COM-05-0024": "決算評価は、売買目的有価証券＝{{c1::時価}}・差額は{{c1::当期損益}}、満期保有目的の債券＝{{c1::取得原価}}または{{c1::償却原価}}、子会社株式・関連会社株式＝{{c1::取得原価}}、その他有価証券＝{{c1::時価}}・差額は{{c1::純資産}}とする。",
+}
+
+FORBIDDEN_COMPARISON_CELLS = (
+    "{{c1::時価・差額は当期損益}}",
+    "{{c1::取得原価または償却原価}}",
+    "{{c1::時価・差額は純資産}}",
+)
 
 
 def main() -> int:
@@ -102,6 +117,11 @@ def main() -> int:
             errors.append(f"{nid}: required tags/order mismatch")
 
         text = row["Text"]
+        if nid in EXACT_TEXT and text != EXACT_TEXT[nid]:
+            errors.append(f"{nid}: active Text must match reviewed atomized comparison form")
+        if nid == "BK-COM-05-0024" and any(old in text for old in FORBIDDEN_COMPARISON_CELLS):
+            errors.append(f"{nid}: compound comparison cell retained inside one Cloze")
+
         matches = CLOZE_RE.findall(text)
         spans += len(matches)
         if not matches or {int(i) for i, _ in matches} != {1}:
@@ -189,9 +209,9 @@ def main() -> int:
     formulas = sum(1 for row in rows if row["Type"] == "formula")
 
     print("COM-05 production validation: PASS")
-    print("notes=38 cards=38 cloze_spans=101 included_alps=48 mapped=48 unmapped=0")
+    print("notes=38 cards=38 cloze_spans=104 included_alps=48 mapped=48 unmapped=0")
     print(f"multi_alp_notes={multi_alp} journal_entry_notes={journal} formula_notes={formulas} decorative_exclusions=2")
-    print("account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass visible_answer_leakage=0 deterministic_order=pass")
+    print("account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass parallel_comparison_atomicity=pass visible_answer_leakage=0 deterministic_order=pass")
     return 0
 
 
