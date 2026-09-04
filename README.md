@@ -17,8 +17,10 @@
 
 このリポジトリは **living specification** 方式で運用する。
 
-- 最新merge済みの `SPEC.md`、`rules/*.md`、`schema/note_schema.yaml`、関連QA/validator が現行基準。
-- pilotやproduction auditで改善点が見つかれば、ルール・仕様・schema・QA基準を継続的に更新する。
+- 最新merge済みの `SPEC.md`、`rules/anki_card_rules.md`、`schema/note_schema.yaml`、関連QA/validator が現行基準。
+- `rules/anki_card_rules.md` が Cloze、coverage、integration/active-deck、duplicate control、recall precision を統合した唯一の現行カードルールMarkdown。
+- `rules/cloze_rules.md`、`rules/coverage_rules.md`、`rules/exam_yield_rules.md`、`rules/recall_precision_rules.md` は過去リンク互換用のpointerであり、独立した現行ルールではない。
+- pilotやproduction auditで改善点が見つかれば、統合ルール・仕様・schema・QA基準を継続的に更新する。
 - v1.0は初期production baselineの履歴であり、恒久的な固定仕様ではない。
 - 過去版の再現性はGit履歴、issue/PR、migration、QA記録で確保する。
 - stable Note IDの不変性、ID非再利用、source traceability、既存batchのpinned source commitなどのlineage要件は維持する。
@@ -45,11 +47,11 @@
 
 1. `textbook.md` を見出し単位で構造化する。
 2. 各節を Atomic Learning Point に分解する。
-3. 必要十分性を判定する。
+3. `rules/anki_card_rules.md` に従って必要十分性を判定する。
 4. coherent recall unitへ統合する。
 5. Anki Cloze Note を生成する。
 6. coverage / 会計処理 / Cloze品質を別々にQAする。
-7. audit結果を現行ルールへ反映し、必要なbatchを明示的にmigrationする。
+7. audit結果を統合ルールへ反映し、必要なbatchを明示的にmigrationする。
 
 カード数は先に決めない。必要十分な coverage と回転効率の結果として決まる。
 
@@ -63,9 +65,11 @@ bookkeeping-anki/
 ├── FREEZE.md
 ├── TASKS.md
 ├── rules/
-│   ├── cloze_rules.md
-│   ├── coverage_rules.md
-│   └── exam_yield_rules.md
+│   ├── anki_card_rules.md          # sole current card-rule authority
+│   ├── cloze_rules.md              # compatibility/history pointer
+│   ├── coverage_rules.md           # compatibility/history pointer
+│   ├── exam_yield_rules.md         # compatibility/history pointer
+│   └── recall_precision_rules.md   # compatibility/history pointer
 ├── schema/
 │   └── note_schema.yaml
 ├── inventory/
@@ -77,6 +81,6 @@ bookkeeping-anki/
 
 ## Workflow
 
-`Specification -> Structure inventory -> Topic inventory -> Pilot -> Initial production baseline -> Full generation -> Iterative audits / rule updates -> Cross-chapter normalization -> QA -> Export`
+`Specification -> Structure inventory -> Topic inventory -> Pilot -> Initial production baseline -> Full generation -> Iterative audits / integrated-rule updates -> Cross-chapter normalization -> QA -> Export`
 
-ルールはpilot後に一度だけ固定するのではなく、実データの監査結果に応じて更新する。変更は必ず明示的に文書・validator・migrationへ反映し、既存production batchへの適用範囲を記録する。
+ルールはpilot後に一度だけ固定するのではなく、実データの監査結果に応じて `rules/anki_card_rules.md` を更新する。新しい独立rule overlayを増やさず、変更は必ず明示的に文書・validator・migrationへ反映し、既存production batchへの適用範囲を記録する。

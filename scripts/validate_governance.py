@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate living-spec governance and prevent obsolete freeze authority from returning."""
+"""Validate living-spec governance and the consolidated Anki-card rule authority."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -9,16 +9,17 @@ ROOT = Path(__file__).resolve().parents[1]
 CURRENT_AUTHORITY_FILES = [
     "README.md",
     "SPEC.md",
+    "GOVERNANCE.md",
+    "rules/anki_card_rules.md",
+    "schema/note_schema.yaml",
+    "production/README.md",
+]
+
+LEGACY_RULE_POINTERS = [
     "rules/cloze_rules.md",
     "rules/coverage_rules.md",
     "rules/exam_yield_rules.md",
-    "schema/note_schema.yaml",
-    "production/README.md",
-    "production/qa/FND-00.md",
-    "production/qa/COM-01.md",
-    "production/qa/COM-02.md",
-    "scripts/validate_com01_production.py",
-    "scripts/validate_com02_production.py",
+    "rules/recall_precision_rules.md",
 ]
 
 BANNED_ACTIVE_AUTHORITY = [
@@ -59,14 +60,25 @@ def main() -> int:
         "GOVERNANCE.md": [
             "Status: **Current authoritative governance**",
             "living specification",
-            "latest merged",
+            "rules/anki_card_rules.md",
+            "sole current Markdown authority",
             "stable Note IDs are immutable",
         ],
-        "README.md": ["living specification", "GOVERNANCE.md"],
-        "SPEC.md": ["Current authoritative specification", "living document", "GOVERNANCE.md"],
-        "rules/cloze_rules.md": ["Current authoritative Cloze rules", "GOVERNANCE.md"],
-        "rules/coverage_rules.md": ["Current authoritative coverage rules", "GOVERNANCE.md"],
-        "rules/exam_yield_rules.md": ["Current authoritative rules", "living specification", "GOVERNANCE.md"],
+        "README.md": ["living specification", "rules/anki_card_rules.md", "GOVERNANCE.md"],
+        "SPEC.md": [
+            "Current authoritative specification",
+            "living document",
+            "rules/anki_card_rules.md",
+            "GOVERNANCE.md",
+        ],
+        "rules/anki_card_rules.md": [
+            "Sole authoritative Anki card-design, coverage, active-deck, and recall rule set",
+            "ANKI-GOV-002 / #98",
+            "Cloze account names, not the whole tuple",
+            "smallest uniquely recoverable accounting unit",
+            "generated-card / retrieval-unit level",
+            "Do not create a new current rule Markdown",
+        ],
         "schema/note_schema.yaml": [
             "version: 1.1",
             "policy: living_spec",
@@ -74,15 +86,11 @@ def main() -> int:
             "governance_document: GOVERNANCE.md",
             "revision_gate: reviewed_change",
         ],
-        "production/README.md": ["latest merged", "GOVERNANCE.md", "historical v1.0 pilot-baseline record"],
+        "production/README.md": ["rules/anki_card_rules.md", "GOVERNANCE.md", "historical v1.0 pilot-baseline record"],
         "FREEZE.md": [
             "Status: **HISTORICAL — not current authority**",
             "Current governance note",
             "GOVERNANCE.md",
-        ],
-        "scripts/migrate_living_spec_governance.py": [
-            "ANKI-GOV-001 final terminology cleanup",
-            "living-spec governance migration applied",
         ],
     }
 
@@ -95,6 +103,22 @@ def main() -> int:
         for needle in needles:
             if needle not in text:
                 errors.append(f"{rel}: required governance marker missing: {needle!r}")
+
+    for rel in LEGACY_RULE_POINTERS:
+        try:
+            text = read(rel)
+        except FileNotFoundError:
+            errors.append(f"missing legacy rule compatibility path: {rel}")
+            continue
+        for needle in (
+            "Historical/compatibility path; not an independent current authority",
+            "rules/anki_card_rules.md",
+            "Do not add new rule content here",
+        ):
+            if needle not in text:
+                errors.append(f"{rel}: compatibility marker missing: {needle!r}")
+        if "Current authoritative" in text:
+            errors.append(f"{rel}: legacy pointer still claims current authority")
 
     schema = read("schema/note_schema.yaml")
     if "frozen:" in schema:
@@ -111,8 +135,8 @@ def main() -> int:
         return 1
 
     print("Living-spec governance validation: PASS")
-    print("authority=latest_merged governance=living_spec historical_v1_0=record_only")
-    print("stable_ids=immutable source_lineage=preserved rule_evolution=reviewed")
+    print("authority=rules/anki_card_rules.md governance=living_spec historical_v1_0=record_only")
+    print("legacy_rule_paths=compatibility_only stable_ids=immutable source_lineage=preserved rule_evolution=reviewed")
     return 0
 
 

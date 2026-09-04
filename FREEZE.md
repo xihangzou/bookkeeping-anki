@@ -9,7 +9,9 @@ Source baseline at the gate: `xihangzou/bookkeeping-integrated@569ed7b82e729334e
 
 This file records the repository state that originally authorized Phase C production generation. It no longer freezes future semantic evolution.
 
-Current authority is defined by `GOVERNANCE.md` and the latest merged `SPEC.md`, `rules/*.md`, `schema/note_schema.yaml`, and applicable production QA/validators.
+Current authority is defined by `GOVERNANCE.md` and the latest merged `SPEC.md`, `rules/anki_card_rules.md`, `schema/note_schema.yaml`, and applicable production QA/validators.
+
+The legacy rule paths named below are retained as compatibility/history pointers after ANKI-GOV-002. Their historical contents remain reconstructible through Git history; their current working-tree forms are not independent authorities.
 
 The v1.0 gate remains important historical evidence, but newer reviewed rules supersede older v1.0 rules for new work and for production batches that are explicitly migrated.
 
@@ -75,6 +77,6 @@ The exact current form of these invariants is governed by `GOVERNANCE.md`, `SPEC
 
 ## Evolution after v1.0
 
-Production audits after the initial gate have already changed active-deck, Cloze, integration, completeness, and formula rules. Those changes are evidence that the repository operates more effectively as a reviewed living specification.
+Production audits after the initial gate changed active-deck, Cloze, integration, completeness, formula, and recall-precision rules. ANKI-GOV-002 consolidated those living rule streams into `rules/anki_card_rules.md` so later work has one current rule authority.
 
-Future semantic changes should therefore be made explicitly in the current authoritative files, with affected validators/migrations updated and relevant production tests passing. No special "post-freeze" exception mechanism is required.
+Future semantic changes should therefore be made explicitly in `rules/anki_card_rules.md` (or the appropriate current schema/specification artifact), with affected validators/migrations updated and relevant production tests passing. No special "post-freeze" exception mechanism is required.

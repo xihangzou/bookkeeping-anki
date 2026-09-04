@@ -78,7 +78,9 @@ Typical ALP types:
 - Closely coupled or parallel facts that should be recalled together may share the same cloze number.
 - `Extra` explains reasoning, common errors, derivation, or source nuance; it must not become a substitute for recalling required knowledge.
 
-Detailed current rules live in `rules/cloze_rules.md`, `rules/coverage_rules.md`, and `rules/exam_yield_rules.md`.
+The single authoritative current card-design/coverage/recall rule document is `rules/anki_card_rules.md`.
+
+The legacy paths `rules/cloze_rules.md`, `rules/coverage_rules.md`, `rules/exam_yield_rules.md`, and `rules/recall_precision_rules.md` are compatibility/history pointers only.
 
 ## 5. Coverage policy
 
@@ -105,7 +107,7 @@ Exclude or merge:
 
 An ALP mapped to an approved integrated Note must remain materially recoverable from that Note; ALP mapping alone is not evidence of active content coverage.
 
-See `rules/coverage_rules.md` and `rules/exam_yield_rules.md`.
+See `rules/anki_card_rules.md`.
 
 ## 6. Source traceability
 
@@ -132,10 +134,10 @@ After full production begins:
 
 1. audit real generated Notes and rendered cards;
 2. record ambiguity, omission, overload, leakage, accounting, or efficiency failures;
-3. update the authoritative specification/rules/schema when the rule itself should improve;
+3. update the authoritative specification, `rules/anki_card_rules.md`, or schema when the policy itself should improve;
 4. update validators when the rule can be checked mechanically;
 5. explicitly migrate affected production batches when required;
-6. preserve historical reproducibility through Git history, issues/PRs, QA records, and migration scripts.
+6. preserve historical reproducibility through Git history, issues/PRs, QA records, compatibility paths, and migration scripts.
 
 See `GOVERNANCE.md`. `FREEZE.md` records the historical v1.0 gate only.
 
@@ -151,7 +153,7 @@ Each note is independently assessed for:
 - **Non-leakage**: visible text does not give away the hidden answer.
 - **Non-duplication**: it adds a distinct retrieval target.
 - **Traceability**: source mapping and lineage are complete.
-- **Rule currency**: it satisfies the current authoritative rules for the batch or an explicitly documented earlier audited state.
+- **Rule currency**: it satisfies `rules/anki_card_rules.md` for new work, or an explicitly documented earlier audited state for historical batches not yet migrated.
 
 ## 9. Persistent lineage invariants
 
