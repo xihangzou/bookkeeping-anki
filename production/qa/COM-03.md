@@ -1,6 +1,6 @@
 # COM-03 Production QA
 
-Issue: **ANKI-010 / #11**
+Issue: **ANKI-010 / #11; ANKI-AUDIT-010 / #84**
 Chapter: **Commercial 03 — 現金預金**
 Rules: current living `SPEC.md`, `rules/*.md`, and `rules/recall_precision_rules.md`
 Source baseline: `xihangzou/bookkeeping-integrated@569ed7b82e729334e1472286eaca7c4352e6fbdb`, `merged/textbook.md`
