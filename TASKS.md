@@ -125,11 +125,17 @@ Legend: `[x]` complete, `[-]` in progress, `[ ]` pending.
   - re-audit all 32 ALPs for material proposition containment in active `Text`; exact visible-answer leakage remains **0**
   - strengthen `scripts/validate_com02_production.py` for lexical atomicity, formula itemization, compact-entry exceptions, content requirements, and answer-leak detection
 - [x] **ANKI-010** Commercial chapter03
-  - `production/notes/COM-03.tsv`: **25 approved Notes / 25 generated cards / 70 Cloze spans / 38 included ALPs / 0 unmapped**
+  - `production/notes/COM-03.tsv`: **25 approved Notes / 25 generated cards / 66 Cloze spans / 38 included ALPs / 0 unmapped**
   - 38/38 included ALPs map exactly once; **9** coherent multi-ALP Notes; **2** decorative numerical-example rows remain excluded by canonical inventory status
-  - current recall-precision rules applied at initial generation: account-level same-`c1` journal Clozes, canonical-label priority, visible-answer leakage **0**
+  - current recall-precision rules applied: account-level same-`c1` journal Clozes, canonical-label priority, minimal Cloze scope, visible-answer leakage **0**
   - stable production IDs allocated deterministically as `BK-COM-03-0001`–`BK-COM-03-0025`
   - `production/qa/COM-03.md` + `scripts/validate_com03_production.py`; CI validation wired into `validate-production.yml`
+- [x] **ANKI-AUDIT-010** COM-03 minimal Cloze scope / lexical atomicity audit (#84)
+  - compound-side labels use the smallest discriminator: `{{c1::当社}}側` / `{{c1::銀行}}側`
+  - remove broad action answers `{{c1::仕訳を行う}}` / `{{c1::仕訳を行わない}}`; treatment remains visible context
+  - petty-cash procedure keeps the frame visible and tests only short sequence-critical `{{c1::報告}}` / `{{c1::補給}}`
+  - Cloze spans **70 → 66** with **25 Notes/cards**, **38/38 exact-once ALP coverage**, and visible-answer leakage **0** retained
+  - authoritative `rules/recall_precision_rules.md`, COM-03 QA, validator, and production documentation updated
 - [ ] **ANKI-011** Commercial chapter04
 - [ ] **ANKI-012** Commercial chapter05
 - [ ] **ANKI-013** Commercial chapter06
