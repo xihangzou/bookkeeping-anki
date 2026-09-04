@@ -1,7 +1,7 @@
 # Recall Precision Rules
 
 Status: **Current authoritative specialization**
-Issue: **ANKI-AUDIT-008 / #79; ANKI-AUDIT-009 / #81; ANKI-AUDIT-010 / #84; ANKI-AUDIT-011 / #87**
+Issue: **ANKI-AUDIT-008 / #79; ANKI-AUDIT-009 / #81; ANKI-AUDIT-010 / #84; ANKI-AUDIT-011 / #87; ANKI-AUDIT-012 / #90**
 Governance: `GOVERNANCE.md`
 
 This file specializes `rules/cloze_rules.md` and `rules/exam_yield_rules.md` for answer precision. Where an older generic rule allows a broader form, this more specific reviewed rule takes precedence for new work and explicitly migrated batches.
@@ -104,6 +104,26 @@ Avoid:
 
 If several steps each require independent active recall, split them into separate Notes or test the accounting mechanics directly rather than hiding the whole process vocabulary on one card.
 
+### Parallel comparisons and compound cells
+
+In a comparison matrix or parallel classification, do not hide a whole cell when that cell combines **multiple independently meaningful accounting dimensions** such as valuation basis and destination of the resulting difference. Keep the structural frame visible and Cloze each semantic component separately.
+
+Preferred:
+
+`売買目的有価証券＝{{c1::時価}}・差額は{{c1::当期損益}}`
+
+`満期保有目的の債券＝{{c1::取得原価}}または{{c1::償却原価}}`
+
+`その他有価証券＝{{c1::時価}}・差額は{{c1::純資産}}`
+
+Avoid:
+
+`売買目的有価証券＝{{c1::時価・差額は当期損益}}`
+
+`満期保有目的の債券＝{{c1::取得原価または償却原価}}`
+
+When the comparison relationship itself is the learning target, the separated spans may retain the **same Cloze index** so the whole matrix remains one generated card and sibling branches do not leak answers. Semantic decomposition changes the answer span size, not necessarily the card count.
+
 ## 4. Essential-recall test
 
 A Note should earn active review time by testing at least one of the following:
@@ -123,6 +143,6 @@ An included ALP still must remain materially represented in active `Text`; this 
 
 ## 5. Reference style
 
-Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history. ANKI-AUDIT-009 adds canonical-label priority when a description-to-label mapping is the intended retrieval task. ANKI-AUDIT-010 adds the minimal-scope rule requiring newly authored and re-audited cards to avoid broad verb phrases and overlong procedure Clozes. ANKI-AUDIT-011 further requires redundant fixed parts of compound labels to stay visible when the remaining token is uniquely recoverable, and moves nonessential explanatory tails out of active Text when the recall target is already fully determined.
+Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history. ANKI-AUDIT-009 adds canonical-label priority when a description-to-label mapping is the intended retrieval task. ANKI-AUDIT-010 adds the minimal-scope rule requiring newly authored and re-audited cards to avoid broad verb phrases and overlong procedure Clozes. ANKI-AUDIT-011 further requires redundant fixed parts of compound labels to stay visible when the remaining token is uniquely recoverable, and moves nonessential explanatory tails out of active Text when the recall target is already fully determined. ANKI-AUDIT-012 extends the same atomicity principle to parallel comparison cells: valuation basis, difference treatment, and other independently meaningful dimensions are Clozed separately while same-index grouping may preserve one coherent comparison card.
 
 Existing chapters are migrated deliberately under `GOVERNANCE.md`; historical audit states remain reproducible through Git history.
