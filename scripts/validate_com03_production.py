@@ -18,7 +18,7 @@ CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE = re.compile(r"^BK-COM-03-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-COM-03-[0-9]{4}$")
 EXPECTED_IDS = [f"BK-COM-03-{n:04d}" for n in range(1,26)]
-EXPECTED_SPANS = 70
+EXPECTED_SPANS = 66
 SOURCE = ("xihangzou/bookkeeping-integrated","569ed7b82e729334e1472286eaca7c4352e6fbdb","merged/textbook.md")
 ALLOWED_TYPES = {"definition","classification","comparison","journal_entry","procedure","measurement"}
 ALLOWED_REPEAT_ANSWERS = {
@@ -37,6 +37,14 @@ JOURNAL_IDS = {
 }
 ENTRY_ACCOUNT_RE = re.compile(r"（(?:借|貸)）\{\{c1::([^}]+)\}\}")
 FORBIDDEN_COMPACT = ("{{c1::（借）", "{{c1::（貸）", "{{c1::借方：", "{{c1::貸方：")
+BROAD_ACTION_ANSWERS = {
+    "仕訳を行う",
+    "仕訳を行わない",
+    "日々の少額支払い",
+    "支払内容の報告",
+    "費用仕訳",
+    "同額補給",
+}
 REQUIRED = {
     "BK-COM-03-0001": ("{{c1::通貨代用証券}}","{{c1::郵便切手}}"),
     "BK-COM-03-0003": ("（借）{{c1::現金過不足}}／（貸）{{c1::現金}}","（借）{{c1::現金}}／（貸）{{c1::現金過不足}}"),
@@ -47,12 +55,14 @@ REQUIRED = {
     "BK-COM-03-0009": ("{{c1::現金}}","{{c1::当座預金}}"),
     "BK-COM-03-0013": ("（借）{{c1::当座預金}}／（貸）{{c1::当座借越}}","（借）{{c1::当座借越}}／（貸）{{c1::当座預金}}"),
     "BK-COM-03-0014": ("{{c1::銀行勘定調整表}}",),
-    "BK-COM-03-0015": ("{{c1::当社側の修正項目}}","{{c1::銀行側の修正項目}}"),
+    "BK-COM-03-0015": ("{{c1::当社}}側","{{c1::銀行}}側","{{c1::同額}}"),
     "BK-COM-03-0016": ("{{c1::未渡小切手}}","{{c1::未取付小切手}}","{{c1::未取立小切手}}"),
+    "BK-COM-03-0017": ("{{c1::当社}}側の修正項目",),
     "BK-COM-03-0018": ("（借）{{c1::当座預金}}／（貸）{{c1::買掛金}}","（借）{{c1::当座預金}}／（貸）{{c1::未払金}}"),
-    "BK-COM-03-0019": ("{{c1::加算}}","{{c1::減算}}","{{c1::仕訳を行わない}}"),
+    "BK-COM-03-0019": ("{{c1::加算}}","{{c1::減算}}"),
     "BK-COM-03-0020": ("{{c1::未渡小切手}}","{{c1::未取付小切手}}"),
     "BK-COM-03-0022": ("{{c1::定額資金前渡制度}}",),
+    "BK-COM-03-0023": ("支払内容の{{c1::報告}}","同額の{{c1::補給}}"),
     "BK-COM-03-0024": ("（借）{{c1::小口現金}}／（貸）{{c1::当座預金}}",),
     "BK-COM-03-0025": ("補給額＝{{c1::報告済支払合計額}}",),
 }
@@ -119,6 +129,8 @@ def main() -> int:
         for answer in answers:
             if len(answer) >= 2 and answer in visible:
                 errors.append(f"{nid}: visible answer leakage {answer!r}")
+            if answer in BROAD_ACTION_ANSWERS:
+                errors.append(f"{nid}: broad/non-atomic Cloze answer {answer!r}")
             if any(x in answer for x in ("（借）","（貸）","／","借方：","貸方：")):
                 errors.append(f"{nid}: journal syntax inside Cloze {answer!r}")
         for old in FORBIDDEN_COMPACT:
@@ -171,9 +183,9 @@ def main() -> int:
     journal = sum(1 for row in rows if row["Type"] == "journal_entry")
     measurement = sum(1 for row in rows if row["Type"] == "measurement")
     print("COM-03 production validation: PASS")
-    print("notes=25 cards=25 cloze_spans=70 included_alps=38 mapped=38 unmapped=0")
+    print("notes=25 cards=25 cloze_spans=66 included_alps=38 mapped=38 unmapped=0")
     print(f"multi_alp_notes={multi_alp} journal_entry_notes={journal} measurement_notes={measurement} decorative_exclusions=2")
-    print("account_level_journal_cloze=pass canonical_label_priority=pass visible_answer_leakage=0 deterministic_order=pass")
+    print("account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass visible_answer_leakage=0 deterministic_order=pass")
     return 0
 
 
