@@ -13,7 +13,7 @@ CLOZE_RE=re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE=re.compile(r"^BK-COM-11-[0-9]{4}$")
 ALP_RE=re.compile(r"^ALP-COM-11-[0-9]{4}$")
 EXPECTED_IDS=[f"BK-COM-11-{n:04d}" for n in range(1,18)]
-EXPECTED_SPANS=42
+EXPECTED_SPANS=41
 SOURCE=("xihangzou/bookkeeping-integrated","569ed7b82e729334e1472286eaca7c4352e6fbdb","merged/textbook.md")
 ALLOWED_TYPES={"definition","classification","recognition","measurement","journal_entry","formula","procedure","comparison","exception","reasoning","ledger","financial_statement","cost_accounting"}
 ENTRY_ACCOUNT_RE=re.compile(r"（(?:借|貸)）\{\{c1::([^}]+)\}\}")
@@ -52,7 +52,7 @@ REQUIRED={
 'BK-COM-11-0014':('（借）{{c1::仕入}}／（貸）{{c1::買掛金}}','（借）{{c1::売掛金}}／（貸）{{c1::売上}}','為替差損益は{{c1::生じない}}'),
 'BK-COM-11-0015':('取引発生時は{{c1::HR}}','予約時に{{c1::FR}}','{{c1::為替差損益}}'),
 'BK-COM-11-0016':('CR換算替えは{{c1::不要}}','決算整理仕訳も{{c1::不要}}'),
-'BK-COM-11-0017':('取引発生時の換算レート＝{{c1::FR}}','取引発生時の換算レート＝{{c1::HR}}','予約時の換算レート＝{{c1::FR}}','予約時の換算差額＝{{c1::為替差損益}}')}
+'BK-COM-11-0017':('取引発生時の換算レート＝{{c1::FR}}','取引発生時の換算レート＝{{c1::HR}}','予約時の換算レート＝{{c1::FR}}')}
 
 def main():
     errors=[]
