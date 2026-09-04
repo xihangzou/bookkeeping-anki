@@ -1,7 +1,7 @@
 # Recall Precision Rules
 
 Status: **Current authoritative specialization**
-Issue: **ANKI-AUDIT-008 / #79; ANKI-AUDIT-009 / #81**
+Issue: **ANKI-AUDIT-008 / #79; ANKI-AUDIT-009 / #81; ANKI-AUDIT-010 / #84**
 Governance: `GOVERNANCE.md`
 
 This file specializes `rules/cloze_rules.md` and `rules/exam_yield_rules.md` for answer precision. Where an older generic rule allows a broader form, this more specific reviewed rule takes precedence for new work and explicitly migrated batches.
@@ -115,6 +115,6 @@ An included ALP still must remain materially represented in active `Text`; this 
 
 ## 5. Reference style
 
-Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history. ANKI-AUDIT-009 adds canonical-label priority when a description-to-label mapping is the intended retrieval task. The minimal-scope rule above further requires newly authored and re-audited cards to avoid broad verb phrases and overlong procedure Clozes.
+Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history. ANKI-AUDIT-009 adds canonical-label priority when a description-to-label mapping is the intended retrieval task. ANKI-AUDIT-010 adds the minimal-scope rule requiring newly authored and re-audited cards to avoid broad verb phrases and overlong procedure Clozes.
 
 Existing chapters are migrated deliberately under `GOVERNANCE.md`; historical audit states remain reproducible through Git history.
