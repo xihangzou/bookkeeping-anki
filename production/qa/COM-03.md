@@ -9,7 +9,7 @@ Source baseline: `xihangzou/bookkeeping-integrated@569ed7b82e729334e1472286eaca7
 
 - approved Notes: **25**
 - generated cards: **25**
-- Cloze spans: **70**
+- Cloze spans: **66**
 - canonical included ALPs: **38**
 - mapped included ALPs: **38**
 - unmapped included ALPs: **0**
@@ -19,6 +19,7 @@ Source baseline: `xihangzou/bookkeeping-integrated@569ed7b82e729334e1472286eaca7
 - measurement Notes: **2**
 - decorative-example exclusions: **2**
 - visible-answer leakage for 2+ character answers: **0**
+- broad/non-atomic targeted action Clozes: **0**
 - every approved Note uses only `c1`
 - lifecycle: all rows `Status=approved`, `QA=pass`
 
@@ -86,10 +87,21 @@ Definitions and named distinctions Cloze the canonical term when label identific
 - 未渡小切手 / 未取付小切手 / 未取立小切手
 - 定額資金前渡制度
 
+### Minimal Cloze scope
+
+The recall-precision rule now requires the smallest uniquely recoverable answer and rejects broad action phrases when the useful target is the discriminator that determines the treatment.
+
+COM-03 was re-audited accordingly:
+
+- `{{c1::当社側の修正項目}}` / `{{c1::銀行側の修正項目}}` became `{{c1::当社}}側` / `{{c1::銀行}}側`.
+- `{{c1::仕訳を行う}}` and `{{c1::仕訳を行わない}}` were removed as Cloze answers; journal treatment remains visible.
+- Bank-side timing differences retain the precise operators `{{c1::加算}}` / `{{c1::減算}}`.
+- The petty-cash sequence no longer hides four long step phrases. It keeps the procedure frame visible and tests only the short sequence-critical labels `{{c1::報告}}` and `{{c1::補給}}`.
+
 ### Measurement and procedures
 
 - `現金実査額＝通貨＋通貨代用証券` keeps the operator visible and masks the operands.
-- Bank-side timing differences test `加算` / `減算` plus the no-journal rule on one comparison card.
+- Bank-side timing differences test `加算` / `減算`; the no-journal treatment remains visible context rather than a broad Cloze answer.
 - Petty cash keeps the ordered procedure and the replenishment measurement as separate retrieval units.
 
 ## Deterministic validation
@@ -104,9 +116,9 @@ Expected result:
 
 ```text
 COM-03 production validation: PASS
-notes=25 cards=25 cloze_spans=70 included_alps=38 mapped=38 unmapped=0
+notes=25 cards=25 cloze_spans=66 included_alps=38 mapped=38 unmapped=0
 multi_alp_notes=9 journal_entry_notes=7 measurement_notes=2 decorative_exclusions=2
-account_level_journal_cloze=pass canonical_label_priority=pass visible_answer_leakage=0 deterministic_order=pass
+account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass visible_answer_leakage=0 deterministic_order=pass
 ```
 
-The validator checks stable IDs/order, exact source provenance, required tags/lifecycle, c1-only card generation, exact-once ALP mapping, local duplicate rendered text, visible-answer leakage, account-level journal Clozes, selected canonical-label forms, and measurement/procedure precision.
+The validator checks stable IDs/order, exact source provenance, required tags/lifecycle, c1-only card generation, exact-once ALP mapping, local duplicate rendered text, visible-answer leakage, account-level journal Clozes, selected canonical-label forms, minimal Cloze scope for the audited patterns, and measurement/procedure precision.
