@@ -1,7 +1,7 @@
 # Recall Precision Rules
 
 Status: **Current authoritative specialization**
-Issue: **ANKI-AUDIT-008 / #79; ANKI-AUDIT-009 / #81; ANKI-AUDIT-010 / #84; ANKI-AUDIT-011 / #87; ANKI-AUDIT-012 / #90**
+Issue: **ANKI-AUDIT-008 / #79; ANKI-AUDIT-009 / #81; ANKI-AUDIT-010 / #84; ANKI-AUDIT-011 / #87; ANKI-AUDIT-012 / #90; ANKI-AUDIT-013 / #94**
 Governance: `GOVERNANCE.md`
 
 This file specializes `rules/cloze_rules.md` and `rules/exam_yield_rules.md` for answer precision. Where an older generic rule allows a broader form, this more specific reviewed rule takes precedence for new work and explicitly migrated batches.
@@ -79,6 +79,16 @@ Avoid:
 
 For compound technical labels, keep a fixed head, classifier, or relational frame visible when it is already supplied by the sentence and the remaining lexical token is uniquely recoverable. The fact that the full expression is a canonical term does not by itself justify hiding redundant visible context. Examples include patterns such as `手形の{{c1::裏書}}` rather than hiding `手形の裏書` as one span. If removing the fixed part would make the answer ambiguous, keep the smallest larger unit needed for unique recovery.
 
+Apply the same rule to **formula operands with visible timing or relational modifiers**. If a modifier such as `切替時の`, `期末の`, `当期の`, or `1回当たり` is already visible and uniquely fixes the role of the operand, keep that modifier outside the Cloze and hide only the accounting quantity itself.
+
+Preferred:
+
+`改定償却額＝切替時の{{c1::期首帳簿価額}}×{{c1::改定償却率}}`
+
+Avoid:
+
+`改定償却額＝{{c1::切替時の期首帳簿価額}}×{{c1::改定償却率}}`
+
 Broad action phrases are normally poor recall targets because several paraphrases can be equally correct. Keep the resulting treatment visible and Cloze the cause, classification, account, direction, or other discriminator that determines it.
 
 Avoid as standalone answers unless the exact wording itself is a canonical term:
@@ -143,6 +153,6 @@ An included ALP still must remain materially represented in active `Text`; this 
 
 ## 5. Reference style
 
-Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history. ANKI-AUDIT-009 adds canonical-label priority when a description-to-label mapping is the intended retrieval task. ANKI-AUDIT-010 adds the minimal-scope rule requiring newly authored and re-audited cards to avoid broad verb phrases and overlong procedure Clozes. ANKI-AUDIT-011 further requires redundant fixed parts of compound labels to stay visible when the remaining token is uniquely recoverable, and moves nonessential explanatory tails out of active Text when the recall target is already fully determined. ANKI-AUDIT-012 extends the same atomicity principle to parallel comparison cells: valuation basis, difference treatment, and other independently meaningful dimensions are Clozed separately while same-index grouping may preserve one coherent comparison card.
+Use FND-00 and COM-01 as the default style reference for short, visible-context, same-card lexical answers. ANKI-AUDIT-008 specifically supersedes legacy compact-entry examples that remain in older chapter history. ANKI-AUDIT-009 adds canonical-label priority when a description-to-label mapping is the intended retrieval task. ANKI-AUDIT-010 adds the minimal-scope rule requiring newly authored and re-audited cards to avoid broad verb phrases and overlong procedure Clozes. ANKI-AUDIT-011 further requires redundant fixed parts of compound labels to stay visible when the remaining token is uniquely recoverable, and moves nonessential explanatory tails out of active Text when the recall target is already fully determined. ANKI-AUDIT-012 extends the same atomicity principle to parallel comparison cells: valuation basis, difference treatment, and other independently meaningful dimensions are Clozed separately while same-index grouping may preserve one coherent comparison card. ANKI-AUDIT-013 applies minimal lexical scope to formula operands: visible timing or relational modifiers stay outside the Cloze when the accounting quantity remains uniquely recoverable.
 
 Existing chapters are migrated deliberately under `GOVERNANCE.md`; historical audit states remain reproducible through Git history.
