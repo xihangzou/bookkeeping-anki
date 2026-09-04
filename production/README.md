@@ -1,129 +1,86 @@
 # Production Notes
 
-Canonical production Cloze-note batches live under `production/notes/` as UTF-8 TSV files following the **current** schema in `schema/note_schema.yaml`.
+Canonical production Cloze-note batches live under `production/notes/` as UTF-8 TSV files following the current schema in `schema/note_schema.yaml`.
 
-Repository-wide governance is defined in `GOVERNANCE.md`. Current authoring, coverage, active-deck, recall design, wording, and ALP-containment rules are governed by the latest merged `SPEC.md` and `rules/*.md`; v1.0 is a historical baseline rather than permanent authority.
+Repository-wide governance is defined in `GOVERNANCE.md`. The sole current Markdown authority for card design, coverage, active-deck integration, duplicate control, recall precision, formulas, and journal-entry masking is:
+
+- `rules/anki_card_rules.md`
+
+The former standalone rule paths are compatibility/history pointers only.
 
 ## Conventions
 
 - one chapter/part batch per TSV file;
 - stable Note IDs are immutable; deprecated IDs are never reassigned to unrelated content;
 - source anchors are recovered through canonical `ALP_IDs`;
-- existing batches retain their pinned source provenance until an explicit source-baseline migration;
+- existing batches retain pinned source provenance until an explicit source-baseline migration;
 - chapter QA lives under `production/qa/`;
 - active card count is the number of distinct Cloze indices, while Cloze-span count tracks masked answer units.
 
 ## Living-rule application
 
-The latest merged rules are authoritative for new generation. Existing batches have an explicit audited state and are migrated deliberately when a newer rule is applied to them.
+`rules/anki_card_rules.md` is authoritative for new generation. Existing batches retain explicit audited states and are migrated deliberately when a newer rule is applied to them.
 
-This means:
+Rule changes should:
 
-1. rule improvements are written into the current authoritative files;
-2. validators are updated when the rule is mechanically enforceable;
-3. affected chapter batches are migrated explicitly rather than silently rewritten;
-4. historical audit metrics remain historical evidence;
-5. stable-ID/source-lineage invariants remain intact.
+1. be written into `rules/anki_card_rules.md` rather than a new overlay file;
+2. update validators when mechanically enforceable;
+3. migrate affected chapter batches explicitly rather than silently rewriting history;
+4. preserve historical audit metrics and stable-ID/source lineage.
 
 `FREEZE.md` is the historical v1.0 pilot-baseline record only.
 
 ## Integration-first, content-preserving design
 
-Card-count control should come primarily from coherent integration:
+Card-count control comes primarily from coherent integration:
 
-1. preserve useful examinable ALPs and the material source propositions they contain;
-2. combine facts that belong to one retrieval frame;
-3. use separate `{{c1::...}}` spans for parallel answers on the same card;
-4. add another Note only when integration would make the retrieval task incoherent or overloaded.
+1. preserve useful examinable ALPs and their material source propositions;
+2. combine facts belonging to one retrieval frame;
+3. use separate short `{{c1::...}}` spans for parallel answers on the same card;
+4. add another Note only when integration would become incoherent or overloaded.
 
-An ALP mapping alone is not enough: the material proposition should be recoverable from active Note `Text`; `Extra` is secondary support rather than a substitute for source containment.
+An ALP mapping alone is not enough: the material proposition must be recoverable from active Note `Text`; `Extra` is supporting context rather than a substitute for source containment.
 
-## Current Cloze / completeness rules
+## Current recall rules: production summary
 
-Current rules include:
+The authoritative details are in `rules/anki_card_rules.md`. In particular:
 
-- normal Cloze spans should be lexical names or short discriminating chunks;
-- a Cloze answer should be the smallest uniquely recoverable unit supported by visible context;
-- when a compound label is already identified by context, hide only the discriminating token rather than the whole phrase;
-- broad verb phrases such as `仕訳を行う` / `仕訳を行わない` are normally left visible while the cause, classification, account, or direction that determines the treatment is tested;
-- ordered procedures keep the frame and most step descriptions visible, hiding only short sequence-critical labels rather than whole arrow-separated phrases;
-- arithmetic/formula operators remain visible and formula terms are Clozed separately;
-- repeated same-index terms may be hidden in every occurrence when structural reuse would otherwise leak the answer;
-- parallel terms belonging to one retrieval operation use the same `c1`;
-- debit/credit direction uses `{{c1::借}}方` / `{{c1::貸}}方` only when direction itself is the target;
-- for newly authored or explicitly re-audited ordinary journal entries, debit/credit labels and separators remain visible while each account name is Clozed separately with the same `c1` when the entry is one coherent retrieval unit;
-- historical compact whole-entry forms may remain only in batches not yet explicitly migrated under the newer recall-precision specialization;
-- when a visible description maps one-to-one to a named accounting concept, prefer Clozing the canonical label when label identification is the useful retrieval operation;
-- terminology-definition cards normally leave the definition visible and Cloze the technical name;
-- function words such as `のみ` normally remain outside the Cloze;
-- the visible text after masking must still identify the retrieval frame;
-- a 2+ character Cloze answer must not appear verbatim elsewhere in the visible card;
-- source families represented by included ALPs must not be silently truncated during integration.
+- Cloze answers use the smallest uniquely recoverable accounting unit;
+- retrieval subjects and method/context frames remain visible;
+- canonical accounting labels are preferred when label identification is the useful operation;
+- broad action answers such as `仕訳を行う` / `仕訳を行わない` / `処理する` are normally forbidden;
+- compound terms keep redundant fixed heads visible when the remaining discriminator is unique;
+- formula operators remain visible and operands are separately Clozed;
+- timing/relational modifiers stay outside formula-operand Clozes when they already identify the operand role;
+- procedure frames remain visible and only short sequence-critical labels are hidden;
+- compound comparison cells are decomposed into separate semantic spans;
+- ordinary new/re-audited journal entries keep debit/credit syntax visible and Cloze account names separately with the same `c1` when one coherent entry is being recalled;
+- the historical compact whole-entry Cloze exception is retired for new/re-audited production;
+- visible-answer leakage and ambiguity are checked at generated-card level;
+- duplicates are controlled at retrieval-unit level, not merely Note level;
+- every mapped included ALP must remain materially represented in active `Text`.
 
-FND-00 v1.6 is the general style reference for context-rich integrated cards with short answers. COM-01 v1.8 adds chapter evidence for explicit method naming, formula-term reuse, and stronger material-proposition containment. COM-02 ANKI-AUDIT-008/009 establishes account-level journal Clozes and canonical-label priority. COM-03 applies those rules plus the minimal-scope / lexical-atomicity refinement.
+FND-00 and COM-01 remain general style references for context-rich, same-card, short-answer Notes. Later chapter audits contributed rules now integrated into the single authoritative rule document rather than forming separate rule authorities.
 
-See `rules/cloze_rules.md`, `rules/coverage_rules.md`, `rules/exam_yield_rules.md`, and `rules/recall_precision_rules.md` for the authoritative current wording.
+## Historical audit lineage
 
-## FND-00 audit result
-
-Audit progression:
+FND-00 audit progression remains historical evidence:
 
 - v1.1: 91 -> 57 approved Notes;
 - v1.2: 110 -> 58 generated cards;
 - v1.3: 18 cards / 36 active ALPs;
 - v1.4: 29 cards / 61 active ALPs;
 - v1.5: 32 cards / 120 Cloze spans / 91 active ALPs;
-- v1.6: **32 approved Notes / 32 cards / 150 Cloze spans / 91 active ALPs**.
+- v1.6: 32 approved Notes / 32 cards / 150 Cloze spans / 91 active ALPs.
 
-FND-00 retains all 91 historical rows; 59 are deprecated history rows. `BK-FND-00-0016` remains reserved pilot-only evidence.
-
-Run:
-
-`python scripts/validate_fnd00_production.py`
-
-Current expected output includes:
-
-`rows=91 approved=32 deprecated=59 source_reviewed_alps=91 active_recall_alps=91`
-
-and
-
-`generated_cards=32 cloze_spans=150 ... visible_answer_leakage=0 ...`
-
-## Existing commercial batches
-
-- `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 99 Cloze spans / 52 included ALPs; v1.8 precision / ALP-containment audit applied**;
-- `notes/COM-02.tsv` — **17 approved Notes / 17 cards / 50 Cloze spans / 32 included ALPs; ANKI-AUDIT-008/009 recall-precision and canonical-label audits applied**;
-- `notes/COM-03.tsv` — **25 approved Notes / 25 cards / 66 Cloze spans / 38 included ALPs; minimal-scope recall refinement applied**.
-
-COM-02 retains historical ANKI-009 and ANKI-AUDIT-007 metrics in Git history and their issues; its current production state includes the later ANKI-AUDIT-008/009 precision changes. Stable IDs and the pinned source baseline were preserved.
-
-COM-03 is generated under the current account-level journal and canonical-label rules and has been re-audited for minimal Cloze scope. Its two decorative numerical examples remain excluded by canonical inventory status, while all 38 included ALPs map exactly once to active Text.
+COM-01 through later commercial batches retain their chapter-local QA and issue/PR histories under `production/qa/` and Git history. ANKI-AUDIT-008 through ANKI-AUDIT-013 supplied precision refinements now incorporated directly into `rules/anki_card_rules.md`.
 
 ## Lifecycle
 
 `Status=approved` rows constitute the active deck. `Status=deprecated` rows preserve immutable historical lineage and source traceability but are excluded from active export.
 
-## Current batches
+## Validation
 
-- `notes/FND-00.tsv` — foundations; audited through ANKI-AUDIT-006 (#70);
-- `notes/COM-01.tsv` — Commercial chapter 01; v1.8 precision / ALP-containment audit applied;
-- `notes/COM-02.tsv` — Commercial chapter 02; audited through ANKI-AUDIT-009 (#81);
-- `notes/COM-03.tsv` — Commercial chapter 03; generated under ANKI-010 (#11) and re-audited for minimal Cloze scope.
+Production validators live under `scripts/validate_*_production.py` and are wired into `.github/workflows/validate-production.yml` as chapter batches are added.
 
-Migration/audit records include:
-
-- `scripts/migrate_fnd00_v1_2.py`
-- `scripts/migrate_fnd00_v1_3.py`
-- `scripts/migrate_fnd00_v1_4.py`
-- `scripts/migrate_fnd00_v1_5.py`
-- `scripts/migrate_fnd00_v1_6.py`
-- issue/PR history and `production/qa/COM-01.md` for COM-01 precision audits;
-- issues #77, #79, #81 and `production/qa/COM-02.md` for COM-02 migrations/audits;
-- issue #11 and `production/qa/COM-03.md` for COM-03 production generation and subsequent precision audit.
-
-Validation:
-
-- `scripts/validate_fnd00_production.py`
-- `scripts/validate_com01_production.py`
-- `scripts/validate_com02_production.py`
-- `scripts/validate_com03_production.py`
+All new generation should validate against the current schema, `GOVERNANCE.md`, and `rules/anki_card_rules.md` semantics before merge.
