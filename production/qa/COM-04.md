@@ -1,6 +1,6 @@
 # COM-04 Production QA
 
-Issue: **ANKI-011 / #12**
+Issue: **ANKI-011 / #12; ANKI-AUDIT-011 / #87**
 Chapter: **Commercial 04 — 債権債務**
 Rules: current living `SPEC.md`, `rules/*.md`, and `rules/recall_precision_rules.md`
 Source baseline: `xihangzou/bookkeeping-integrated@569ed7b82e729334e1472286eaca7c4352e6fbdb`, `merged/textbook.md`
@@ -20,6 +20,8 @@ Source baseline: `xihangzou/bookkeeping-integrated@569ed7b82e729334e1472286eaca7
 - decorative-example exclusions: **1**
 - visible-answer leakage for 2+ character answers: **0**
 - broad/non-atomic targeted action Clozes: **0**
+- `BK-COM-04-0001` active Text reduced to the single governing retrieval proposition; examples moved to `Extra`
+- `BK-COM-04-0015` refined from `{{c1::手形の裏書}}` to `手形の{{c1::裏書}}`
 - every approved Note uses only `c1`
 - lifecycle: all rows `Status=approved`, `QA=pass`
 
@@ -85,9 +87,14 @@ Representative forms include:
 
 ### Canonical-label priority and minimal scope
 
-Named accounting concepts are targeted directly where label identification is useful, including `約束手形`, `手形の裏書`, `手形の割引`, `不渡手形`, `手形の更改`, `債務の保証`, and `偶発債務`.
+Named accounting concepts are targeted directly where label identification is useful. When the surrounding sentence already supplies a fixed part of a compound term, only the uniquely recoverable discriminator is hidden. The reviewed COM-04 example is:
 
-Broad action phrases such as `仕訳を行う`, `処理する`, or whole explanatory clauses are not Cloze answers. Procedures and comparisons retain visible context while targeting short discriminators such as `相殺`, `譲渡記録`, `分割`, and `承諾`.
+- preferred: `手形の{{c1::裏書}}`
+- rejected: `{{c1::手形の裏書}}`
+
+This preserves the technical label while avoiding redundant retrieval of the already-visible category `手形`. Broad action phrases such as `仕訳を行う`, `処理する`, or whole explanatory clauses are not Cloze answers. Procedures and comparisons retain visible context while targeting short discriminators such as `相殺`, `譲渡記録`, `分割`, and `承諾`.
+
+`BK-COM-04-0001` is also constrained to one active proposition: the account choice depends on `{{c1::発生原因}}`. The long account examples remain available in `Extra` rather than lengthening the retrieval prompt.
 
 ### Formulas and measurement
 
@@ -117,4 +124,4 @@ multi_alp_notes=8 journal_entry_notes=14 formula_notes=2 decorative_exclusions=1
 account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass visible_answer_leakage=0 deterministic_order=pass
 ```
 
-The validator checks stable IDs/order, exact source provenance, deterministic tags/lifecycle, c1-only card generation, exact-once ALP mapping, canonical ANKI-003 inventory immutability, primary source-section consistency, local duplicate rendered text, visible-answer leakage, account-level journal Clozes, canonical-label forms, formula itemization, minimal Cloze scope, and preservation of the decorative exclusion.
+The validator checks stable IDs/order, exact source provenance, deterministic tags/lifecycle, c1-only card generation, exact-once ALP mapping, canonical ANKI-003 inventory immutability, primary source-section consistency, local duplicate rendered text, visible-answer leakage, account-level journal Clozes, canonical-label forms, formula itemization, minimal Cloze scope, the exact focused Text for `BK-COM-04-0001`, the lexical-atomic `手形の{{c1::裏書}}` form for `BK-COM-04-0015`, and preservation of the decorative exclusion.
