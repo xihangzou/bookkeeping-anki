@@ -18,7 +18,7 @@ CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE = re.compile(r"^BK-COM-09-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-COM-09-[0-9]{4}$")
 EXPECTED_IDS = [f"BK-COM-09-{n:04d}" for n in range(1, 23)]
-EXPECTED_SPANS = 55
+EXPECTED_SPANS = 60
 SOURCE = ("xihangzou/bookkeeping-integrated","569ed7b82e729334e1472286eaca7c4352e6fbdb","merged/textbook.md")
 ALLOWED_TYPES = {"definition","classification","recognition","measurement","journal_entry","formula","procedure","comparison","exception","reasoning","ledger","financial_statement","cost_accounting"}
 ENTRY_ACCOUNT_RE = re.compile(r"（(?:借|貸)）\{\{c1::([^}]+)\}\}")
@@ -52,27 +52,27 @@ EXPECTED_ALP_MAP = {
 }
 
 REQUIRED = {
-    "BK-COM-09-0001": ("{{c1::当期}}", "{{c1::取り崩す}}"),
+    "BK-COM-09-0001": ("（借）{{c1::費用}}／（貸）{{c1::引当金}}", "{{c1::引当金}}を取り崩す"),
     "BK-COM-09-0002": ("{{c1::評価性引当金}}", "{{c1::負債性引当金}}", "{{c1::貸倒引当金}}"),
     "BK-COM-09-0003": ("{{c1::貸倒れ}}",),
     "BK-COM-09-0004": ("（借）{{c1::貸倒損失}}／（貸）{{c1::売掛金}}",),
-    "BK-COM-09-0005": ("（借）{{c1::貸倒引当金}}／（貸）{{c1::売掛金}}", "{{c1::貸倒損失}}"),
+    "BK-COM-09-0005": ("（借）{{c1::貸倒引当金}}（残高まで）・{{c1::貸倒損失}}（超過額）／（貸）{{c1::売掛金}}",),
     "BK-COM-09-0006": ("（貸）{{c1::償却債権取立益}}",),
     "BK-COM-09-0007": ("貸倒見積高＝期末の{{c1::対象債権残高}}×{{c1::貸倒実績率}}",),
-    "BK-COM-09-0008": ("貸倒損失ではなく{{c1::貸倒引当金繰入}}",),
+    "BK-COM-09-0008": ("（借）{{c1::貸倒引当金繰入}}／（貸）{{c1::貸倒引当金}}", "貸倒損失は用いない"),
     "BK-COM-09-0009": ("貸倒引当金繰入＝{{c1::貸倒見積高}}－決算整理前の{{c1::貸倒引当金残高}}",),
-    "BK-COM-09-0010": ("（借）{{c1::貸倒引当金}}／（貸）{{c1::貸倒引当金戻入}}",),
+    "BK-COM-09-0010": ("（借）{{c1::貸倒引当金}}／（貸）{{c1::貸倒引当金戻入}}（収益）",),
     "BK-COM-09-0011": ("{{c1::貸倒引当金繰入額}}", "{{c1::決算後貸倒引当金残高}}"),
     "BK-COM-09-0012": ("{{c1::一括評価}}", "{{c1::個別評価}}", "{{c1::除外}}", "{{c1::合算}}"),
     "BK-COM-09-0013": ("貸倒見積高＝（{{c1::債権残高}}－担保の{{c1::処分見込額}}－保証による{{c1::回収見込額}}）×{{c1::設定率}}",),
-    "BK-COM-09-0014": ("{{c1::貸倒引当金}}", "{{c1::問題文の指示}}"),
-    "BK-COM-09-0015": ("（借）{{c1::修繕引当金繰入}}／（貸）{{c1::修繕引当金}}", "（借）{{c1::修繕費}}／（貸）現金等"),
-    "BK-COM-09-0016": ("（借）{{c1::賞与引当金繰入}}／（貸）{{c1::賞与引当金}}", "当期の賞与費用"),
+    "BK-COM-09-0014": ("{{c1::貸倒引当金}}", "{{c1::問題文の指示}}", "{{c1::勘定残高}}"),
+    "BK-COM-09-0015": ("（借）{{c1::修繕引当金繰入}}／（貸）{{c1::修繕引当金}}", "（借）{{c1::修繕引当金}}（残高まで）・{{c1::修繕費}}（超過額）／（貸）現金等"),
+    "BK-COM-09-0016": ("（借）{{c1::賞与引当金繰入}}／（貸）{{c1::賞与引当金}}", "（借）{{c1::賞与引当金}}（残高まで）・{{c1::賞与}}（超過額）／（貸）現金等"),
     "BK-COM-09-0017": ("賞与引当金＝翌期支給の{{c1::賞与見積額}}×当期の{{c1::経過月数}}÷賞与計算期間の{{c1::月数}}",),
     "BK-COM-09-0018": ("{{c1::引当金}}", "{{c1::未払費用}}"),
     "BK-COM-09-0019": ("（借）{{c1::役員賞与引当金繰入}}／（貸）{{c1::役員賞与引当金}}", "（借）{{c1::役員賞与引当金}}／（貸）現金等"),
     "BK-COM-09-0020": ("（借）{{c1::退職給付費用}}／（貸）{{c1::退職給付引当金}}", "（借）{{c1::退職給付引当金}}／（貸）現金等"),
-    "BK-COM-09-0021": ("（借）{{c1::商品保証引当金繰入}}／（貸）{{c1::商品保証引当金}}", "（借）{{c1::商品保証費}}／（貸）現金等"),
+    "BK-COM-09-0021": ("（借）{{c1::商品保証引当金繰入}}／（貸）{{c1::商品保証引当金}}", "（借）{{c1::商品保証引当金}}（残高まで）・{{c1::商品保証費}}（超過額）／（貸）現金等"),
     "BK-COM-09-0022": ("{{c1::製品保証費}}", "{{c1::製品保証引当金}}"),
 }
 
@@ -228,7 +228,7 @@ def main() -> int:
     formulas = sum(1 for row in rows if row["Type"] == "formula")
 
     print("COM-09 production validation: PASS")
-    print("notes=22 cards=22 cloze_spans=55 included_alps=30 mapped=30 unmapped=0")
+    print("notes=22 cards=22 cloze_spans=60 included_alps=30 mapped=30 unmapped=0")
     print(f"multi_alp_notes={multi_alp} journal_entry_notes={journal} formula_notes={formulas} canonical_exclusions=1")
     print("account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass formula_atomicity=pass visible_answer_leakage=0 deterministic_order=pass")
     return 0
