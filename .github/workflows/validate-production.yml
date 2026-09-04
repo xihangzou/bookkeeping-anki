@@ -20,6 +20,7 @@ on:
       - 'inventory/topic_inventory/COM-07.tsv'
       - 'inventory/topic_inventory/COM-08.tsv'
       - 'inventory/topic_inventory/COM-09.tsv'
+      - 'inventory/topic_inventory/COM-10.tsv'
       - 'schema/note_schema.yaml'
       - 'rules/anki_card_rules.md'
       - 'rules/cloze_rules.md'
@@ -43,6 +44,7 @@ on:
       - 'scripts/validate_com07_production.py'
       - 'scripts/validate_com08_production.py'
       - 'scripts/validate_com09_production.py'
+      - 'scripts/validate_com10_production.py'
       - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   pull_request:
@@ -64,6 +66,7 @@ on:
       - 'inventory/topic_inventory/COM-07.tsv'
       - 'inventory/topic_inventory/COM-08.tsv'
       - 'inventory/topic_inventory/COM-09.tsv'
+      - 'inventory/topic_inventory/COM-10.tsv'
       - 'schema/note_schema.yaml'
       - 'rules/anki_card_rules.md'
       - 'rules/cloze_rules.md'
@@ -87,6 +90,7 @@ on:
       - 'scripts/validate_com07_production.py'
       - 'scripts/validate_com08_production.py'
       - 'scripts/validate_com09_production.py'
+      - 'scripts/validate_com10_production.py'
       - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   workflow_dispatch:
@@ -201,3 +205,13 @@ jobs:
           python-version: '3.12'
       - name: Validate COM-09 production batch
         run: python scripts/validate_com09_production.py
+
+  validate-com10:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate COM-10 production batch
+        run: python scripts/validate_com10_production.py
