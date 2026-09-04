@@ -24,6 +24,9 @@ ALLOWED_TYPES = {"definition","classification","comparison","journal_entry","for
 ENTRY_ACCOUNT_RE = re.compile(r"（(?:借|貸)）\{\{c1::([^}]+)\}\}")
 FORBIDDEN_COMPACT = ("{{c1::（借）", "{{c1::（貸）", "{{c1::借方：", "{{c1::貸方：")
 BROAD_ACTION_ANSWERS = {"仕訳を行う","仕訳を行わない","処理する","計上する","減少させる","増加させる"}
+EXACT_TEXT = {
+    "BK-COM-04-0001": "債権・債務の勘定科目は、債権・債務の{{c1::発生原因}}に応じて使い分ける。",
+}
 REQUIRED = {
     "BK-COM-04-0002": ("（借）{{c1::立替金}}／（貸）{{c1::現金}}","{{c1::相殺}}"),
     "BK-COM-04-0003": ("（借）{{c1::受取商品券}}／（貸）{{c1::売上}}","（借）{{c1::現金}}／（貸）{{c1::受取商品券}}"),
@@ -31,6 +34,7 @@ REQUIRED = {
     "BK-COM-04-0012": ("（借）{{c1::仕入}}／（貸）{{c1::支払手形}}","（借）{{c1::受取手形}}／（貸）{{c1::売上}}"),
     "BK-COM-04-0013": ("（借）{{c1::当座預金}}／（貸）{{c1::受取手形}}","（借）{{c1::支払手形}}／（貸）{{c1::当座預金}}"),
     "BK-COM-04-0014": ("（借）{{c1::受取手形}}／（貸）{{c1::売掛金}}","（借）{{c1::買掛金}}／（貸）{{c1::支払手形}}"),
+    "BK-COM-04-0015": ("手形の{{c1::裏書}}","（貸）{{c1::受取手形}}","（借）{{c1::受取手形}}"),
     "BK-COM-04-0016": ("（借）{{c1::支払手形}}",),
     "BK-COM-04-0017": ("{{c1::手形の割引}}","{{c1::手形売却損}}"),
     "BK-COM-04-0018": ("割引料＝{{c1::手形金額}}×{{c1::割引率}}×{{c1::割引日数}}÷365",),
@@ -94,6 +98,10 @@ def main() -> int:
             errors.append(f"{nid}: required tags/order mismatch")
 
         text = row["Text"]
+        if nid in EXACT_TEXT and text != EXACT_TEXT[nid]:
+            errors.append(f"{nid}: active Text must remain focused on the reviewed retrieval unit")
+        if nid == "BK-COM-04-0015" and "{{c1::手形の裏書}}" in text:
+            errors.append(f"{nid}: redundant fixed term retained inside Cloze")
         matches = CLOZE_RE.findall(text)
         spans += len(matches)
         if not matches or {int(i) for i,_ in matches} != {1}:
