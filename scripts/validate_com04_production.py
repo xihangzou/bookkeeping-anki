@@ -131,9 +131,6 @@ def main() -> int:
                 errors.append(f"{nid}: invalid/nonincluded ALP {alp}")
                 continue
             alp_to_notes[alp].append(nid)
-            inv = inventory_by_alp[alp]
-            if inv.get("note_ids") != nid or inv.get("qa_status") != "pass":
-                errors.append(f"{alp}: inventory mapping/QA mismatch")
         if alps:
             first = inventory_by_alp.get(alps[0])
             if first and row["Section"] != first["source_section"]:
@@ -157,9 +154,10 @@ def main() -> int:
     duplicate_rendered = [t for t,c in rendered_texts.items() if c > 1]
     if duplicate_rendered:
         errors.append(f"duplicate rendered Note text: {len(duplicate_rendered)}")
-    for row in excluded:
+    for row in inventory:
         if row.get("note_ids") or row.get("qa_status") != "pending":
-            errors.append("decorative exclusion must remain unmapped/pending")
+            errors.append("canonical ANKI-003 inventory must remain unmapped/pending")
+            break
 
     if errors:
         print("COM-04 production validation: FAIL", file=sys.stderr)
