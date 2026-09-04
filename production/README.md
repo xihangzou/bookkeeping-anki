@@ -43,6 +43,10 @@ An ALP mapping alone is not enough: the material proposition should be recoverab
 Current rules include:
 
 - normal Cloze spans should be lexical names or short discriminating chunks;
+- a Cloze answer should be the smallest uniquely recoverable unit supported by visible context;
+- when a compound label is already identified by context, hide only the discriminating token rather than the whole phrase;
+- broad verb phrases such as `仕訳を行う` / `仕訳を行わない` are normally left visible while the cause, classification, account, or direction that determines the treatment is tested;
+- ordered procedures keep the frame and most step descriptions visible, hiding only short sequence-critical labels rather than whole arrow-separated phrases;
 - arithmetic/formula operators remain visible and formula terms are Clozed separately;
 - repeated same-index terms may be hidden in every occurrence when structural reuse would otherwise leak the answer;
 - parallel terms belonging to one retrieval operation use the same `c1`;
@@ -56,7 +60,7 @@ Current rules include:
 - a 2+ character Cloze answer must not appear verbatim elsewhere in the visible card;
 - source families represented by included ALPs must not be silently truncated during integration.
 
-FND-00 v1.6 is the general style reference for context-rich integrated cards with short answers. COM-01 v1.8 adds chapter evidence for explicit method naming, formula-term reuse, and stronger material-proposition containment. COM-02 ANKI-AUDIT-008/009 establishes account-level journal Clozes and canonical-label priority. COM-03 applies those current rules directly at initial production generation.
+FND-00 v1.6 is the general style reference for context-rich integrated cards with short answers. COM-01 v1.8 adds chapter evidence for explicit method naming, formula-term reuse, and stronger material-proposition containment. COM-02 ANKI-AUDIT-008/009 establishes account-level journal Clozes and canonical-label priority. COM-03 applies those rules plus the minimal-scope / lexical-atomicity refinement.
 
 See `rules/cloze_rules.md`, `rules/coverage_rules.md`, `rules/exam_yield_rules.md`, and `rules/recall_precision_rules.md` for the authoritative current wording.
 
@@ -89,11 +93,11 @@ and
 
 - `notes/COM-01.tsv` — **38 approved Notes / 38 cards / 99 Cloze spans / 52 included ALPs; v1.8 precision / ALP-containment audit applied**;
 - `notes/COM-02.tsv` — **17 approved Notes / 17 cards / 50 Cloze spans / 32 included ALPs; ANKI-AUDIT-008/009 recall-precision and canonical-label audits applied**;
-- `notes/COM-03.tsv` — **25 approved Notes / 25 cards / 70 Cloze spans / 38 included ALPs; current living recall rules applied at generation**.
+- `notes/COM-03.tsv` — **25 approved Notes / 25 cards / 66 Cloze spans / 38 included ALPs; minimal-scope recall refinement applied**.
 
 COM-02 retains historical ANKI-009 and ANKI-AUDIT-007 metrics in Git history and their issues; its current production state includes the later ANKI-AUDIT-008/009 precision changes. Stable IDs and the pinned source baseline were preserved.
 
-COM-03 is generated directly under the current account-level journal and canonical-label rules. Its two decorative numerical examples remain excluded by canonical inventory status, while all 38 included ALPs map exactly once to active Text.
+COM-03 is generated under the current account-level journal and canonical-label rules and has been re-audited for minimal Cloze scope. Its two decorative numerical examples remain excluded by canonical inventory status, while all 38 included ALPs map exactly once to active Text.
 
 ## Lifecycle
 
@@ -104,7 +108,7 @@ COM-03 is generated directly under the current account-level journal and canonic
 - `notes/FND-00.tsv` — foundations; audited through ANKI-AUDIT-006 (#70);
 - `notes/COM-01.tsv` — Commercial chapter 01; v1.8 precision / ALP-containment audit applied;
 - `notes/COM-02.tsv` — Commercial chapter 02; audited through ANKI-AUDIT-009 (#81);
-- `notes/COM-03.tsv` — Commercial chapter 03; generated under ANKI-010 (#11) with current living recall rules.
+- `notes/COM-03.tsv` — Commercial chapter 03; generated under ANKI-010 (#11) and re-audited for minimal Cloze scope.
 
 Migration/audit records include:
 
@@ -115,7 +119,7 @@ Migration/audit records include:
 - `scripts/migrate_fnd00_v1_6.py`
 - issue/PR history and `production/qa/COM-01.md` for COM-01 precision audits;
 - issues #77, #79, #81 and `production/qa/COM-02.md` for COM-02 migrations/audits;
-- issue #11 and `production/qa/COM-03.md` for COM-03 initial production generation.
+- issue #11 and `production/qa/COM-03.md` for COM-03 production generation and subsequent precision audit.
 
 Validation:
 
