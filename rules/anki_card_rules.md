@@ -262,7 +262,30 @@ Broad action answers are normally forbidden:
 
 If operation/direction itself has independent value, use a short exact target such as `{{c1::加算}}`, `{{c1::減算}}`, `{{c1::借方}}`, or `{{c1::貸方}}`.
 
-### 8.1 Canonical-label priority
+### 8.1 Context-qualified atomicity
+
+Minimal lexical scope does **not** mean reducing an answer to a context-free fragment. A short Cloze is unacceptable when its meaning depends on a treatment-changing qualifier that is neither inside the answer nor uniquely supplied by visible text.
+
+In particular:
+
+- avoid abstract presence/absence answers such as `{{c1::あり}}` or `{{c1::なし}}` when the useful knowledge is the accounting treatment itself;
+- avoid a bare rate, method, or shorthand such as `{{c1::HR}}`, `{{c1::FR}}`, or `{{c1::CR}}` when the actual retrieval target is **which timing/role uses that rate** and sibling contexts could use the same abbreviation;
+- when timing, source, destination, or role is the discriminating accounting fact, include that qualifier in the answer or make it explicitly visible in the prompt;
+- a short consequence such as `{{c1::不要}}` is acceptable only when the visible frame uniquely specifies what is unnecessary and under what condition.
+
+Preferred:
+
+- `手付金外貨額×{{c1::手付金授受時HR}}＋残額外貨額×{{c1::商品受渡時HR}}`
+- `取引後に為替予約した場合、取引発生時の換算レート＝{{c1::HR}}、予約時の換算レート＝{{c1::FR}}。`
+
+Avoid:
+
+- two bare `{{c1::HR}}` answers where the learner must distinguish different applicable dates;
+- `為替差損益は{{c1::あり}}／{{c1::なし}}` when the treatment can be stated and tested more precisely elsewhere.
+
+The governing test is semantic: the answer must be atomic **and** self-identifying within its visible retrieval frame.
+
+### 8.2 Canonical-label priority
 
 When visible facts map one-to-one to a named accounting concept, prefer the canonical label when identifying that label is the useful retrieval operation.
 
@@ -440,6 +463,7 @@ For every generated card, check:
 - no visible sibling answer that substantially reveals the target;
 - no grammar/layout-only guessing;
 - no excessively broad or fragmentary answer;
+- no context-free boolean/shorthand answer whose meaning depends on an omitted timing, role, method, source, or destination qualifier;
 - no cross-Note or sibling-card semantic duplicate;
 - no cue that becomes mechanically sufficient after repeated review.
 
@@ -614,6 +638,10 @@ ANKI-AUDIT-008 through ANKI-AUDIT-013 established the current precision rules in
 - fixed-head visibility for compound terms;
 - decomposition of compound comparison cells;
 - minimal formula-operand scope with visible timing/relational modifiers.
+
+Later chapter review generalized an additional precision rule:
+
+- context-qualified atomicity: shorthand, boolean, rate, or method answers must remain semantically self-identifying within the visible retrieval frame; treatment-changing timing/role qualifiers cannot be dropped merely to shorten a Cloze.
 
 ### 22.3 Explicit supersession decisions
 
