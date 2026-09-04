@@ -10,7 +10,7 @@ Canonical shard: `inventory/topic_inventory/COM-09.tsv`
 
 - production Notes: **22**
 - generated cards: **22**
-- Cloze spans: **55**
+- Cloze spans: **60**
 - included ALPs: **30**
 - mapped included ALPs: **30**
 - unmapped included ALPs: **0**
@@ -62,7 +62,7 @@ The batch follows the current consolidated recall rules:
 
 The opening Notes retain the two decisions needed for the rest of the chapter:
 
-- a future expense whose cause belongs to the current/prior period is recognized in the current period and the provision is later utilized;
+- a future expense whose cause belongs to the current/prior period is recognized through `（借）{{c1::費用}}／（貸）{{c1::引当金}}`, and the provision is later utilized;
 - an `評価性引当金` is an asset contra item, while a `負債性引当金` is a liability;
 - `貸倒引当金` is the chapter's evaluation allowance, while repair, bonus, director bonus, retirement benefit, and product warranty provisions are liability provisions.
 
@@ -84,9 +84,9 @@ Operators remain visible and accounting quantities are separately masked:
 
 `貸倒引当金繰入＝{{c1::貸倒見積高}}－決算整理前の{{c1::貸倒引当金残高}}`
 
-The estimate-versus-realized-loss distinction is separately tested through the expense account `貸倒引当金繰入`. If the pre-adjustment allowance exceeds the required estimate, the account-level reversal is:
+The estimate-versus-realized-loss distinction is separately tested through `（借）{{c1::貸倒引当金繰入}}／（貸）{{c1::貸倒引当金}}`; `貸倒損失` is not used for an unmaterialized estimate. If the pre-adjustment allowance exceeds the required estimate, the account-level reversal is:
 
-`（借）{{c1::貸倒引当金}}／（貸）{{c1::貸倒引当金戻入}}`
+`（借）{{c1::貸倒引当金}}／（貸）{{c1::貸倒引当金戻入}}（収益）`
 
 The financial-statement distinction remains explicit: the income statement reports the period's allowance expense, while the balance sheet deducts the post-adjustment allowance balance; the two normally differ under the difference method.
 
@@ -100,15 +100,15 @@ The individual-evaluation formula uses minimal operands with relational modifier
 
 ### Nontrade receivables
 
-The batch preserves that loans and other nontrade receivables can also require a bad-debt allowance. Because exam scope depends on the problem, the active retrieval rule is to use `問題文の指示` together with account balances rather than assuming only trade receivables are included.
+The batch preserves that loans and other nontrade receivables can also require a bad-debt allowance. Because exam scope depends on the problem, the active retrieval rule is to use `{{c1::問題文の指示}}` together with `{{c1::勘定残高}}` rather than assuming only trade receivables are included.
 
 ### Liability-provision lifecycle
 
 Repair, employee bonus, director bonus, retirement benefit, and product warranty Notes use the same accounting architecture without collapsing distinct account names:
 
 - recognize the current-period cause with an account-level expense/provision entry;
-- utilize the provision when the future payment occurs;
-- where the source specifies it, charge any amount exceeding the provision balance to the payment-period expense.
+- utilize the provision up to its balance when the future payment occurs;
+- where the source specifies it, use the compound form `（借）引当金（残高まで）・当期費用（超過額）／（貸）現金等（支出額）`.
 
 This lifecycle integration reduces duplicate cards while preserving the distinct ALP propositions in active `Text`.
 
@@ -156,7 +156,7 @@ Expected output:
 
 ```text
 COM-09 production validation: PASS
-notes=22 cards=22 cloze_spans=55 included_alps=30 mapped=30 unmapped=0
+notes=22 cards=22 cloze_spans=60 included_alps=30 mapped=30 unmapped=0
 multi_alp_notes=8 journal_entry_notes=9 formula_notes=4 canonical_exclusions=1
 account_level_journal_cloze=pass canonical_label_priority=pass minimal_cloze_scope=pass formula_atomicity=pass visible_answer_leakage=0 deterministic_order=pass
 ```
