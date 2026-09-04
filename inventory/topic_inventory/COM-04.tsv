@@ -1,43 +1,43 @@
 alp_id	source_part	source_chapter	source_section	source_anchor	summary	type	status	include_reason	exclude_reason	note_ids	qa_status
-ALP-COM-04-0001	commercial	04 債権債務	章総論	commercial/chapter04.md::overview	債権・債務は何の取引から生じたかで売掛金/買掛金・手形・電子記録・未収未払・貸付借入等を使い分ける	classification	INCLUDE	account-selection framework		BK-COM-04-0001	pass
-ALP-COM-04-0002	commercial	04 債権債務	基礎 立替金と買掛金	commercial/chapter04.md::basic-offset	先方負担額を当社が立替えた場合は立替金（資産）とし当社の仕入原価には含めない	journal_entry	INCLUDE	cost-versus-receivable distinction		BK-COM-04-0002	pass
-ALP-COM-04-0003	commercial	04 債権債務	基礎 立替金と買掛金	commercial/chapter04.md::basic-offset	同一相手への買掛金と立替金は相殺して処理できる	exception	INCLUDE	offset option		BK-COM-04-0002	pass
-ALP-COM-04-0004	commercial	04 債権債務	基礎 受取商品券	commercial/chapter04.md::basic-voucher	商品券販売では発行会社への回収権を受取商品券（資産）として計上し精算時に減少させる	journal_entry	INCLUDE	voucher receivable treatment		BK-COM-04-0003	pass
-ALP-COM-04-0005	commercial	04 債権債務	基礎 クレジット売掛金	commercial/chapter04.md::basic-credit	クレジット販売では信販会社への回収権をクレジット売掛金、手数料を支払手数料（費用）として処理する	journal_entry	INCLUDE	credit-card receivable treatment		BK-COM-04-0004	pass
-ALP-COM-04-0006	commercial	04 債権債務	基礎 クレジット売掛金	commercial/chapter04.md::basic-credit	信販手数料は販売時認識ならクレジット売掛金を純額、回収時認識なら販売時に総額計上し回収時に費用計上する	comparison	INCLUDE	timing alternatives		BK-COM-04-0004	pass
-ALP-COM-04-0007	commercial	04 債権債務	基礎 未収入金・未払金	commercial/chapter04.md::basic-other	商品売買以外の後払売却は未収入金、後払購入は未払金を用いる	classification	INCLUDE	trade-versus-nontrade distinction		BK-COM-04-0005	pass
-ALP-COM-04-0008	commercial	04 債権債務	基礎 借入金・貸付金	commercial/chapter04.md::basic-loan	資金借入は借入金（負債）、資金貸付は貸付金（資産）として元本を認識し返済・回収時に減少させる	journal_entry	INCLUDE	loan principal treatment		BK-COM-04-0006	pass
-ALP-COM-04-0009	commercial	04 債権債務	基礎 利息	commercial/chapter04.md::basic-interest	貸付側の利息は受取利息（収益）、借入側は支払利息（費用）である	classification	INCLUDE	interest classification		BK-COM-04-0006	pass
-ALP-COM-04-0010	commercial	04 債権債務	基礎 利息	commercial/chapter04.md::basic-interest	利息＝元金×年利率、月割は×月数/12、日割は×日数/365で計算する	formula	INCLUDE	interest formulas		BK-COM-04-0007	pass
-ALP-COM-04-0011	commercial	04 債権債務	基礎 利息	commercial/chapter04.md::basic-interest	利息を差し引いて借入金が入金されても借入金は実際入金額でなく返済義務総額を計上する	measurement	INCLUDE	gross liability measurement		BK-COM-04-0008	pass
-ALP-COM-04-0012	commercial	04 債権債務	基礎 役員等との資金貸借	commercial/chapter04.md::basic-officer	役員・従業員との貸借は役員貸付金・従業員貸付金・役員借入金等で相手関係を明確化する	classification	INCLUDE	counterparty-specific accounts		BK-COM-04-0009	pass
-ALP-COM-04-0013	commercial	04 債権債務	基礎 手形貸付金・手形借入金	commercial/chapter04.md::basic-note-loan	資金貸借で約束手形を用いる場合は手形貸付金・手形借入金を用い商品売買の受取手形・支払手形と区別する	classification	INCLUDE	commercial-versus-financing note distinction		BK-COM-04-0010	pass
-ALP-COM-04-0014	commercial	04 債権債務	第1節 約束手形	commercial/chapter04.md::1-note	約束手形は振出人が受取人へ満期日に所定額を支払う証券で、受取手形は資産、支払手形は負債である	definition	INCLUDE	promissory-note fundamentals		BK-COM-04-0011	pass
-ALP-COM-04-0015	commercial	04 債権債務	約束手形の発生と満期	commercial/chapter04.md::1-issue-maturity	商品仕入で手形を振り出すと支払手形、商品販売で手形を受け取ると受取手形を計上する	journal_entry	INCLUDE	initial note entries		BK-COM-04-0012	pass
-ALP-COM-04-0016	commercial	04 債権債務	約束手形の発生と満期	commercial/chapter04.md::1-issue-maturity	満期決済では受取手形を当座預金へ回収し、支払手形を当座預金から決済して各手形勘定を消滅させる	journal_entry	INCLUDE	maturity settlement		BK-COM-04-0013	pass
-ALP-COM-04-0017	commercial	04 債権債務	掛取引から手形取引への振替	commercial/chapter04.md::1-transfer	掛債権・債務を後日手形化した場合は売掛金→受取手形、買掛金→支払手形へ振り替える	journal_entry	INCLUDE	conversion entry		BK-COM-04-0014	pass
-ALP-COM-04-0018	commercial	04 債権債務	手形の裏書	commercial/chapter04.md::1-endorsement	手形の裏書は保有手形を支払等のため譲渡することで、裏書側は受取手形を減少させる	journal_entry	INCLUDE	endorsement treatment		BK-COM-04-0015	pass
-ALP-COM-04-0019	commercial	04 債権債務	手形の裏書	commercial/chapter04.md::1-endorsement	裏書手形を受け取る側は通常受取手形を増加させる	journal_entry	INCLUDE	endorsee treatment		BK-COM-04-0015	pass
-ALP-COM-04-0020	commercial	04 債権債務	手形の裏書	commercial/chapter04.md::1-endorsement	自己振出手形を裏書で受け入れた場合は受取手形でなく支払手形を減少させる	exception	INCLUDE	self-issued-note exception		BK-COM-04-0016	pass
-ALP-COM-04-0021	commercial	04 債権債務	手形の割引	commercial/chapter04.md::1-discount	手形の割引は保有手形を銀行へ売却して満期前に換金することで、受取手形を減少させ割引料を手形売却損とする	journal_entry	INCLUDE	discount treatment		BK-COM-04-0017	pass
-ALP-COM-04-0022	commercial	04 債権債務	手形の割引	commercial/chapter04.md::1-discount	割引料＝手形金額×割引率×割引日数÷365である	formula	INCLUDE	discount formula		BK-COM-04-0018	pass
-ALP-COM-04-0023	commercial	04 債権債務	電子記録債権・債務	commercial/chapter04.md::1-electronic	売掛金・買掛金を発生記録により電子記録債権（資産）・電子記録債務（負債）へ切り替え、決済時に各勘定を消滅させる	journal_entry	INCLUDE	electronic receivable/payable lifecycle		BK-COM-04-0019	pass
-ALP-COM-04-0024	commercial	04 債権債務	電子記録債権の譲渡	commercial/chapter04.md::1-electronic-transfer	電子記録債権は譲渡記録により譲渡でき、譲渡分の電子記録債権を減少させる	procedure	INCLUDE	transfer mechanics		BK-COM-04-0020	pass
-ALP-COM-04-0025	commercial	04 債権債務	電子記録債権の譲渡	commercial/chapter04.md::1-electronic-transfer	電子記録債権は手形と異なり債権金額を分割して譲渡できる	comparison	INCLUDE	instrument distinction		BK-COM-04-0020	pass
-ALP-COM-04-0026	commercial	04 債権債務	電子記録債権の譲渡	commercial/chapter04.md::1-electronic-transfer	電子記録債権の譲渡代金が額面を下回る差額は電子記録債権売却損（費用）とする	measurement	INCLUDE	transfer loss treatment		BK-COM-04-0020	pass
-ALP-COM-04-0027	commercial	04 債権債務	手形の不渡り	commercial/chapter04.md::1-dishonor	不渡手形は満期に支払われず回収可能性が著しく低下した手形債権で資産として処理する	definition	INCLUDE	core definition		BK-COM-04-0021	pass
-ALP-COM-04-0028	commercial	04 債権債務	手形の不渡り	commercial/chapter04.md::1-dishonor	手元保有手形が不渡りなら受取手形から不渡手形へ振り替え、支払拒絶証書費用も相手に請求できるため不渡手形に含める	journal_entry	INCLUDE	dishonor measurement and entry		BK-COM-04-0022	pass
-ALP-COM-04-0029	commercial	04 債権債務	手形の不渡り	commercial/chapter04.md::1-dishonor	不渡手形回収時は不渡手形を減少し延滞利息は受取利息とする	journal_entry	INCLUDE	recovery treatment		BK-COM-04-0023	pass
-ALP-COM-04-0030	commercial	04 債権債務	手形の不渡り	commercial/chapter04.md::1-dishonor	裏書・割引済手形が不渡りなら償還義務により買戻し、支払った償還額を不渡手形として計上する	journal_entry	INCLUDE	recourse treatment		BK-COM-04-0024	pass
-ALP-COM-04-0031	commercial	04 債権債務	手形の更改	commercial/chapter04.md::1-renewal	手形の更改は支払期日延長のため旧手形と新手形を交換することで債権者の承諾が必要である	definition	INCLUDE	core definition		BK-COM-04-0025	pass
-ALP-COM-04-0032	commercial	04 債権債務	手形の更改	commercial/chapter04.md::1-renewal	更改時は旧手形を減少・新手形を増加させ、債務者は支払利息、債権者は受取利息を計上する	journal_entry	INCLUDE	renewal entry pattern		BK-COM-04-0026	pass
-ALP-COM-04-0033	commercial	04 債権債務	商品売買以外の約束手形	commercial/chapter04.md::1-nontrade	商品以外の売買で生じる手形債権・債務は営業外受取手形・営業外支払手形で処理する	classification	INCLUDE	nontrade note classification		BK-COM-04-0027	pass
-ALP-COM-04-0034	commercial	04 債権債務	商品売買以外の約束手形	commercial/chapter04.md::1-nontrade	商品売買は受取手形/支払手形、固定資産等の非商品取引は営業外受取手形/営業外支払手形を使い分ける	comparison	INCLUDE	trade/nontrade note distinction		BK-COM-04-0027	pass
-ALP-COM-04-0035	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	債務の保証は主債務者が返済できない場合に代位返済義務を負うことで、保証時点の潜在義務は偶発債務である	definition	INCLUDE	guarantee and contingency definitions		BK-COM-04-0028	pass
-ALP-COM-04-0036	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	保証時は保証債務見返（借方）・保証債務（貸方）の対照勘定で備忘記録する	journal_entry	INCLUDE	memorandum entry		BK-COM-04-0028	pass
-ALP-COM-04-0037	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	保証債務見返・保証債務は5要素に属さず備忘勘定なので財務諸表に計上しない	financial_statement	INCLUDE	presentation rule		BK-COM-04-0028	pass
-ALP-COM-04-0038	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	主債務者が返済した場合は保証の備忘記録を逆仕訳で取り消す	journal_entry	INCLUDE	guarantee release		BK-COM-04-0029	pass
-ALP-COM-04-0039	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	保証人が代位弁済した場合は備忘記録を取り消し、主債務者への請求権を未収入金・立替金・貸付金等の資産で計上する	journal_entry	INCLUDE	guarantee performance treatment		BK-COM-04-0029	pass
-ALP-COM-04-0040	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	偶発債務は現時点で当社債務でないため貸借対照表には計上しない	financial_statement	INCLUDE	contingency presentation		BK-COM-04-0028	pass
-ALP-COM-04-0041	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	手形の裏書・割引も不渡時に償還義務が生じ得るため偶発債務に該当する	reasoning	INCLUDE	contingency linkage		BK-COM-04-0028	pass
+ALP-COM-04-0001	commercial	04 債権債務	章総論	commercial/chapter04.md::overview	債権・債務は何の取引から生じたかで売掛金/買掛金・手形・電子記録・未収未払・貸付借入等を使い分ける	classification	INCLUDE	account-selection framework			pending
+ALP-COM-04-0002	commercial	04 債権債務	基礎 立替金と買掛金	commercial/chapter04.md::basic-offset	先方負担額を当社が立替えた場合は立替金（資産）とし当社の仕入原価には含めない	journal_entry	INCLUDE	cost-versus-receivable distinction			pending
+ALP-COM-04-0003	commercial	04 債権債務	基礎 立替金と買掛金	commercial/chapter04.md::basic-offset	同一相手への買掛金と立替金は相殺して処理できる	exception	INCLUDE	offset option			pending
+ALP-COM-04-0004	commercial	04 債権債務	基礎 受取商品券	commercial/chapter04.md::basic-voucher	商品券販売では発行会社への回収権を受取商品券（資産）として計上し精算時に減少させる	journal_entry	INCLUDE	voucher receivable treatment			pending
+ALP-COM-04-0005	commercial	04 債権債務	基礎 クレジット売掛金	commercial/chapter04.md::basic-credit	クレジット販売では信販会社への回収権をクレジット売掛金、手数料を支払手数料（費用）として処理する	journal_entry	INCLUDE	credit-card receivable treatment			pending
+ALP-COM-04-0006	commercial	04 債権債務	基礎 クレジット売掛金	commercial/chapter04.md::basic-credit	信販手数料は販売時認識ならクレジット売掛金を純額、回収時認識なら販売時に総額計上し回収時に費用計上する	comparison	INCLUDE	timing alternatives			pending
+ALP-COM-04-0007	commercial	04 債権債務	基礎 未収入金・未払金	commercial/chapter04.md::basic-other	商品売買以外の後払売却は未収入金、後払購入は未払金を用いる	classification	INCLUDE	trade-versus-nontrade distinction			pending
+ALP-COM-04-0008	commercial	04 債権債務	基礎 借入金・貸付金	commercial/chapter04.md::basic-loan	資金借入は借入金（負債）、資金貸付は貸付金（資産）として元本を認識し返済・回収時に減少させる	journal_entry	INCLUDE	loan principal treatment			pending
+ALP-COM-04-0009	commercial	04 債権債務	基礎 利息	commercial/chapter04.md::basic-interest	貸付側の利息は受取利息（収益）、借入側は支払利息（費用）である	classification	INCLUDE	interest classification			pending
+ALP-COM-04-0010	commercial	04 債権債務	基礎 利息	commercial/chapter04.md::basic-interest	利息＝元金×年利率、月割は×月数/12、日割は×日数/365で計算する	formula	INCLUDE	interest formulas			pending
+ALP-COM-04-0011	commercial	04 債権債務	基礎 利息	commercial/chapter04.md::basic-interest	利息を差し引いて借入金が入金されても借入金は実際入金額でなく返済義務総額を計上する	measurement	INCLUDE	gross liability measurement			pending
+ALP-COM-04-0012	commercial	04 債権債務	基礎 役員等との資金貸借	commercial/chapter04.md::basic-officer	役員・従業員との貸借は役員貸付金・従業員貸付金・役員借入金等で相手関係を明確化する	classification	INCLUDE	counterparty-specific accounts			pending
+ALP-COM-04-0013	commercial	04 債権債務	基礎 手形貸付金・手形借入金	commercial/chapter04.md::basic-note-loan	資金貸借で約束手形を用いる場合は手形貸付金・手形借入金を用い商品売買の受取手形・支払手形と区別する	classification	INCLUDE	commercial-versus-financing note distinction			pending
+ALP-COM-04-0014	commercial	04 債権債務	第1節 約束手形	commercial/chapter04.md::1-note	約束手形は振出人が受取人へ満期日に所定額を支払う証券で、受取手形は資産、支払手形は負債である	definition	INCLUDE	promissory-note fundamentals			pending
+ALP-COM-04-0015	commercial	04 債権債務	約束手形の発生と満期	commercial/chapter04.md::1-issue-maturity	商品仕入で手形を振り出すと支払手形、商品販売で手形を受け取ると受取手形を計上する	journal_entry	INCLUDE	initial note entries			pending
+ALP-COM-04-0016	commercial	04 債権債務	約束手形の発生と満期	commercial/chapter04.md::1-issue-maturity	満期決済では受取手形を当座預金へ回収し、支払手形を当座預金から決済して各手形勘定を消滅させる	journal_entry	INCLUDE	maturity settlement			pending
+ALP-COM-04-0017	commercial	04 債権債務	掛取引から手形取引への振替	commercial/chapter04.md::1-transfer	掛債権・債務を後日手形化した場合は売掛金→受取手形、買掛金→支払手形へ振り替える	journal_entry	INCLUDE	conversion entry			pending
+ALP-COM-04-0018	commercial	04 債権債務	手形の裏書	commercial/chapter04.md::1-endorsement	手形の裏書は保有手形を支払等のため譲渡することで、裏書側は受取手形を減少させる	journal_entry	INCLUDE	endorsement treatment			pending
+ALP-COM-04-0019	commercial	04 債権債務	手形の裏書	commercial/chapter04.md::1-endorsement	裏書手形を受け取る側は通常受取手形を増加させる	journal_entry	INCLUDE	endorsee treatment			pending
+ALP-COM-04-0020	commercial	04 債権債務	手形の裏書	commercial/chapter04.md::1-endorsement	自己振出手形を裏書で受け入れた場合は受取手形でなく支払手形を減少させる	exception	INCLUDE	self-issued-note exception			pending
+ALP-COM-04-0021	commercial	04 債権債務	手形の割引	commercial/chapter04.md::1-discount	手形の割引は保有手形を銀行へ売却して満期前に換金することで、受取手形を減少させ割引料を手形売却損とする	journal_entry	INCLUDE	discount treatment			pending
+ALP-COM-04-0022	commercial	04 債権債務	手形の割引	commercial/chapter04.md::1-discount	割引料＝手形金額×割引率×割引日数÷365である	formula	INCLUDE	discount formula			pending
+ALP-COM-04-0023	commercial	04 債権債務	電子記録債権・債務	commercial/chapter04.md::1-electronic	売掛金・買掛金を発生記録により電子記録債権（資産）・電子記録債務（負債）へ切り替え、決済時に各勘定を消滅させる	journal_entry	INCLUDE	electronic receivable/payable lifecycle			pending
+ALP-COM-04-0024	commercial	04 債権債務	電子記録債権の譲渡	commercial/chapter04.md::1-electronic-transfer	電子記録債権は譲渡記録により譲渡でき、譲渡分の電子記録債権を減少させる	procedure	INCLUDE	transfer mechanics			pending
+ALP-COM-04-0025	commercial	04 債権債務	電子記録債権の譲渡	commercial/chapter04.md::1-electronic-transfer	電子記録債権は手形と異なり債権金額を分割して譲渡できる	comparison	INCLUDE	instrument distinction			pending
+ALP-COM-04-0026	commercial	04 債権債務	電子記録債権の譲渡	commercial/chapter04.md::1-electronic-transfer	電子記録債権の譲渡代金が額面を下回る差額は電子記録債権売却損（費用）とする	measurement	INCLUDE	transfer loss treatment			pending
+ALP-COM-04-0027	commercial	04 債権債務	手形の不渡り	commercial/chapter04.md::1-dishonor	不渡手形は満期に支払われず回収可能性が著しく低下した手形債権で資産として処理する	definition	INCLUDE	core definition			pending
+ALP-COM-04-0028	commercial	04 債権債務	手形の不渡り	commercial/chapter04.md::1-dishonor	手元保有手形が不渡りなら受取手形から不渡手形へ振り替え、支払拒絶証書費用も相手に請求できるため不渡手形に含める	journal_entry	INCLUDE	dishonor measurement and entry			pending
+ALP-COM-04-0029	commercial	04 債権債務	手形の不渡り	commercial/chapter04.md::1-dishonor	不渡手形回収時は不渡手形を減少し延滞利息は受取利息とする	journal_entry	INCLUDE	recovery treatment			pending
+ALP-COM-04-0030	commercial	04 債権債務	手形の不渡り	commercial/chapter04.md::1-dishonor	裏書・割引済手形が不渡りなら償還義務により買戻し、支払った償還額を不渡手形として計上する	journal_entry	INCLUDE	recourse treatment			pending
+ALP-COM-04-0031	commercial	04 債権債務	手形の更改	commercial/chapter04.md::1-renewal	手形の更改は支払期日延長のため旧手形と新手形を交換することで債権者の承諾が必要である	definition	INCLUDE	core definition			pending
+ALP-COM-04-0032	commercial	04 債権債務	手形の更改	commercial/chapter04.md::1-renewal	更改時は旧手形を減少・新手形を増加させ、債務者は支払利息、債権者は受取利息を計上する	journal_entry	INCLUDE	renewal entry pattern			pending
+ALP-COM-04-0033	commercial	04 債権債務	商品売買以外の約束手形	commercial/chapter04.md::1-nontrade	商品以外の売買で生じる手形債権・債務は営業外受取手形・営業外支払手形で処理する	classification	INCLUDE	nontrade note classification			pending
+ALP-COM-04-0034	commercial	04 債権債務	商品売買以外の約束手形	commercial/chapter04.md::1-nontrade	商品売買は受取手形/支払手形、固定資産等の非商品取引は営業外受取手形/営業外支払手形を使い分ける	comparison	INCLUDE	trade/nontrade note distinction			pending
+ALP-COM-04-0035	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	債務の保証は主債務者が返済できない場合に代位返済義務を負うことで、保証時点の潜在義務は偶発債務である	definition	INCLUDE	guarantee and contingency definitions			pending
+ALP-COM-04-0036	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	保証時は保証債務見返（借方）・保証債務（貸方）の対照勘定で備忘記録する	journal_entry	INCLUDE	memorandum entry			pending
+ALP-COM-04-0037	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	保証債務見返・保証債務は5要素に属さず備忘勘定なので財務諸表に計上しない	financial_statement	INCLUDE	presentation rule			pending
+ALP-COM-04-0038	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	主債務者が返済した場合は保証の備忘記録を逆仕訳で取り消す	journal_entry	INCLUDE	guarantee release			pending
+ALP-COM-04-0039	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	保証人が代位弁済した場合は備忘記録を取り消し、主債務者への請求権を未収入金・立替金・貸付金等の資産で計上する	journal_entry	INCLUDE	guarantee performance treatment			pending
+ALP-COM-04-0040	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	偶発債務は現時点で当社債務でないため貸借対照表には計上しない	financial_statement	INCLUDE	contingency presentation			pending
+ALP-COM-04-0041	commercial	04 債権債務	第2節 債務の保証	commercial/chapter04.md::2-guarantee	手形の裏書・割引も不渡時に償還義務が生じ得るため偶発債務に該当する	reasoning	INCLUDE	contingency linkage			pending
 	commercial	04 債権債務	各節 数値例	commercial/chapter04.md::examples	各債権債務・手形・保証の単純金額例		EXCLUDE		DECORATIVE_EXAMPLE		pending
