@@ -8,6 +8,7 @@ on:
       - 'schema/note_schema.yaml'
       - 'rules/anki_card_rules.md'
       - 'scripts/build_anki_export.py'
+      - 'scripts/validate_export_serialization.py'
       - 'scripts/validate_*_production.py'
       - 'requirements-export.txt'
       - 'export/README.md'
@@ -19,6 +20,7 @@ on:
       - 'schema/note_schema.yaml'
       - 'rules/anki_card_rules.md'
       - 'scripts/build_anki_export.py'
+      - 'scripts/validate_export_serialization.py'
       - 'scripts/validate_*_production.py'
       - 'requirements-export.txt'
       - 'export/README.md'
@@ -48,6 +50,7 @@ jobs:
           python scripts/validate_formula_production.py
           python scripts/validate_recall_production.py
           python scripts/validate_coverage_production.py
+          python scripts/validate_export_serialization.py
 
       - name: Build and round-trip validate twice
         run: |
