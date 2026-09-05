@@ -15,7 +15,7 @@ The audit was run against the normalized ANKI-038 corpus after ANKI-039 journal-
 
 ## Audit method
 
-`script/validate_recall_production.py` was added as the corpus-wide generated-card recall gate and wired into production CI. It renders each distinct Cloze index as an Anki card and checks:
+`scripts/validate_recall_production.py` was added as the corpus-wide generated-card recall gate and wired into production CI. It renders each distinct Cloze index as an Anki card and checks:
 
 - sufficient visible accounting context / retrieval subject;
 - broad or placeholder answer targets;
@@ -32,7 +32,16 @@ The corpus-level recall gate runs together with the ANKI-038 normalization valid
 
 ## Initial findings and corrections
 
-The first corpus-wide recall scan produced 22 blocker flags before false-positive calibration and correction. Fixed canonical labels and a small number of explicitly justified chapter-specific cues were distinguished from true recall defects. Six active Notes required production changes:
+The first corpus-wide recall scan produced 22 blocker flags before false-positive calibration and correction. Fixed canonical labels and a small number of explicitly justified chapter-specific cues were distinguished from true recall defects.
+
+Confirmed production defects: **6**, all corrected and rechecked.
+
+- visible sibling-answer leakage: **2**
+- abstract/broad answer target: **1**
+- severe recall overload: **3**
+- unresolved after correction: **0**
+
+Six active Notes required production changes:
 
 1. `BK-COM-01-0008` — removed visible wording that leaked `仕入` while keeping the two decision-adjustment entries and debit/credit syntax intact.
 2. `BK-COM-01-0009` — removed visible answer leakage from the explanatory frame; the final neutral frame begins `販売時に収益と原価を同時記録する方法では...`.
