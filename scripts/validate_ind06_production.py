@@ -19,7 +19,7 @@ CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE = re.compile(r"^BK-IND-06-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-IND-06-[0-9]{4}$")
 EXPECTED_IDS = [f"BK-IND-06-{n:04d}" for n in range(1, 24)]
-EXPECTED_SPANS = 46
+EXPECTED_SPANS = 44
 SOURCE = (
     "xihangzou/bookkeeping-integrated",
     "569ed7b82e729334e1472286eaca7c4352e6fbdb",
@@ -43,23 +43,23 @@ EXPECTED_ALP_MAP = {
 }
 
 REQUIRED = {
-    "BK-IND-06-0002": ("{{c1::正確な製品原価の計算}}", "{{c1::原価管理}}"),
+    "BK-IND-06-0002": ("正確な{{c1::製品原価}}の計算", "部門別の{{c1::原価管理}}"),
     "BK-IND-06-0003": ("{{c1::単純個別原価計算}}", "{{c1::部門別個別原価計算}}"),
     "BK-IND-06-0006": ("{{c1::主経営部門}}", "{{c1::副経営部門}}", "{{c1::補助経営部門}}", "{{c1::工場管理部門}}"),
     "BK-IND-06-0007": ("{{c1::第1次集計}}", "{{c1::第2次集計}}", "{{c1::第3次集計}}"),
-    "BK-IND-06-0010": ("{{c1::部門共通費}}×{{c1::各部門の配賦基準量}}÷{{c1::配賦基準量合計}}",),
-    "BK-IND-06-0013": ("{{c1::無視}}", "{{c1::製造部門}}", "{{c1::直接配賦法}}"),
+    "BK-IND-06-0010": ("{{c1::部門共通費}}×各部門の{{c1::配賦基準量}}÷その{{c1::合計}}",),
+    "BK-IND-06-0013": ("補助部門相互間の用役提供を無視し", "補助部門費を製造部門だけに配賦", "{{c1::直接配賦法}}"),
     "BK-IND-06-0014": ("配賦基準量から{{c1::除外}}",),
     "BK-IND-06-0015": ("{{c1::考慮}}", "{{c1::相互配賦法}}"),
-    "BK-IND-06-0016": ("{{c1::製造部門}}・{{c1::他の補助部門}}",),
+    "BK-IND-06-0016": ("{{c1::製造部門}}・他の{{c1::補助部門}}",),
     "BK-IND-06-0017": ("{{c1::自家消費}}",),
     "BK-IND-06-0018": ("{{c1::製造部門}}にのみ再配賦",),
-    "BK-IND-06-0020": ("{{c1::当月実際製造部門費}}÷{{c1::当月部門別実際配賦基準数値}}",),
-    "BK-IND-06-0021": ("{{c1::部門別実際配賦率}}×{{c1::製品別実際配賦基準数値}}",),
+    "BK-IND-06-0020": ("当月の{{c1::実際製造部門費}}÷当月の当該部門の{{c1::実際配賦基準数値}}",),
+    "BK-IND-06-0021": ("当該部門の{{c1::実際配賦率}}×当該製品の{{c1::実際配賦基準数値}}",),
     "BK-IND-06-0022": ("{{c1::部門別予定配賦率}}", "{{c1::実際操業度}}"),
     "BK-IND-06-0023": (
-        "{{c1::予定配賦率の設定}}", "{{c1::予定配賦}}",
-        "{{c1::実際部門費の集計}}", "{{c1::配賦差異の算定}}", "{{c1::配賦差異の処理}}",
+        "{{c1::予定配賦率}}", "{{c1::予定配賦額}}",
+        "{{c1::実際部門費}}", "{{c1::配賦差異}}",
     ),
 }
 
@@ -173,7 +173,7 @@ def main() -> int:
     print("IND-06 production validation: PASS")
     print(f"notes={len(rows)} cards={len(rows)} cloze_spans={spans} included_alps={len(included)} mapped={len(included)} unmapped=0")
     print(f"procedure_notes={procedures} formula_notes={formulas} canonical_exclusions={len(excluded_rows)}")
-    print("minimal_cloze_scope=pass formula_atomicity=pass parallel_atomicity=pass cost_accounting_flow=pass journal_entry_check=not_applicable visible_answer_leakage=0 deterministic_order=pass")
+    print("minimal_cloze_scope=pass formula_atomicity=pass parallel_atomicity=pass visible_context=pass cost_accounting_flow=pass journal_entry_check=not_applicable visible_answer_leakage=0 deterministic_order=pass")
     return 0
 
 
