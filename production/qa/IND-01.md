@@ -10,7 +10,7 @@ Canonical shard: `inventory/topic_inventory/IND-01.tsv`
 
 - production Notes: **23**
 - generated cards: **23**
-- Cloze spans: **58**
+- Cloze spans: **59**
 - included ALPs: **30**
 - mapped included ALPs: **30**
 - unmapped included ALPs: **0**
@@ -21,6 +21,7 @@ Canonical shard: `inventory/topic_inventory/IND-01.tsv`
 - canonical exclusions: **1** (`DECORATIVE_EXAMPLE` 1)
 - visible-answer leakage for 2+ character answers: **0**
 - broad/non-atomic targeted action Clozes: **0**
+- parallel terms joined by `・` inside one Cloze: **0**
 - every approved Note uses only `c1`
 - lifecycle: all rows `Status=approved`, `QA=pass`
 
@@ -48,6 +49,8 @@ The worked numerical example remains excluded as `DECORATIVE_EXAMPLE` because it
 The batch retrieves canonical labels only when the visible description identifies a unique accounting concept. Material/ labor/ expense classification is integrated into one same-card frame, as are variable/fixed cost definitions, so sibling answers do not create separate trivial cards.
 
 Direct and indirect manufacturing cost Notes keep the defining criterion visible and Cloze the canonical category and component names. `賦課` and `配賦` are contrasted in one retrieval frame because the distinction is treatment-changing and the two procedures are inseparable.
+
+`BK-IND-01-0016` applies minimal lexical scope to parallel management purposes: `利益管理` and `原価管理` remain on the same `c1` card but are separate Cloze spans rather than one compound `利益管理・原価管理` answer.
 
 ### Formula atomicity
 
@@ -92,6 +95,7 @@ Exact chapter anchors remain recoverable through each mapped canonical ALP in `i
 - local duplicate rendered text
 - visible-answer leakage
 - broad/non-atomic Cloze answers
+- parallel `・`-joined terms are split into separate Cloze spans
 - account-level journal-entry masking if debit/credit syntax appears
 - formula/operator atomicity
 - required cost-classification and cost-flow precision forms
@@ -101,7 +105,7 @@ Expected output:
 
 ```text
 IND-01 production validation: PASS
-notes=23 cards=23 cloze_spans=58 included_alps=30 mapped=30 unmapped=0
+notes=23 cards=23 cloze_spans=59 included_alps=30 mapped=30 unmapped=0
 multi_alp_notes=4 formula_notes=4 cost_accounting_notes=3 canonical_exclusions=1
 cost_flow=pass formula_atomicity=pass account_level_masking=pass minimal_cloze_scope=pass visible_answer_leakage=0 deterministic_order=pass
 ```
