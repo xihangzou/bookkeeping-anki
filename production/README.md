@@ -81,14 +81,20 @@ COM-01 through later commercial batches retain their chapter-local QA and issue/
 
 ## ANKI-038 normalized corpus
 
-Cross-chapter semantic normalization is recorded in `production/qa/ANKI-038.md`. The normalized corpus has 811 production rows, 735 approved active Notes, 76 deprecated lineage Notes, 743 generated active cards, 2,004 active Cloze spans, and 965 / 965 included ALPs actively mapped with zero orphan ALPs and zero exact duplicate active retrieval propositions.
+Cross-chapter semantic normalization is recorded in `production/qa/ANKI-038.md`. At the ANKI-038 checkpoint, the normalized corpus had 811 production rows, 735 approved active Notes, 76 deprecated lineage Notes, 743 generated active cards, 2,004 active Cloze spans, and 965 / 965 included ALPs actively mapped with zero orphan ALPs and zero exact duplicate active retrieval propositions.
 
 Corpus-level invariants are enforced by `scripts/validate_corpus_production.py`. Exact duplicates are blockers; semantic similarity candidates are reviewed under the retrieval-unit duplicate rule and either merged or documented as materially distinct retrieval contexts.
 
 The ANKI-038 full-validator gate passes across governance, all 31 production batches, and the corpus-level normalization validator.
 
+## ANKI-041 recall-quality gate
+
+ANKI-041 applies generated-card recall QA across all 735 active Notes. Deliberate semantic splitting of three overloaded Foundation Notes increases the active deck to 748 generated cards and 2,008 Cloze spans without changing the 735 active Notes or 965 / 965 active ALP coverage.
+
+`scripts/validate_recall_production.py` enforces corpus-wide recall invariants including visible context, minimal and non-placeholder targets, sibling-answer leakage, same/different-index grouping, severe recall load, exact retrieval duplication, and the reviewed cross-batch semantic-overlap fingerprint. Production-note changes run this recall gate together with the ANKI-038 corpus, ANKI-039 journal-entry, and ANKI-040 formula/calculation validators.
+
 ## Validation
 
-Production validators live under `scripts/validate_*_production.py` and are wired into `.github/workflows/validate-production.yml`. The consolidated workflow includes every production batch validator plus the corpus-level normalization validator.
+Production validators live under `scripts/validate_*_production.py` and are wired into `.github/workflows/validate-production.yml`. The consolidated workflow includes every production batch validator plus the corpus-level normalization, journal-entry, formula/calculation, and recall-quality validators.
 
 All new generation and later QA corrections should validate against the current schema, `GOVERNANCE.md`, and `rules/anki_card_rules.md` semantics before merge.
