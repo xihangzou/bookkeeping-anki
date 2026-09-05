@@ -63,7 +63,7 @@ Production audit Issues (ANKI-AUDIT-001 onward) remain historical evidence for w
 - [x] **ANKI-017** Commercial chapter10
 - [x] **ANKI-018** Commercial chapter11
 - [x] **ANKI-019** Commercial chapter12
-- [ ] **ANKI-020** Commercial chapter13
+- [x] **ANKI-020** Commercial chapter13
 - [x] **ANKI-021** Commercial chapter14
 - [x] **ANKI-022** Commercial chapter15
 - [x] **ANKI-023** Commercial chapter16
@@ -73,9 +73,9 @@ Production audit Issues (ANKI-AUDIT-001 onward) remain historical evidence for w
 - [x] **ANKI-024** Industrial chapter01
 - [x] **ANKI-025** Industrial chapter02
 - [x] **ANKI-026** Industrial chapter03
-- [ ] **ANKI-027** Industrial chapter04
+- [x] **ANKI-027** Industrial chapter04
 - [x] **ANKI-028** Industrial chapter05
-- [ ] **ANKI-029** Industrial chapter06
+- [x] **ANKI-029** Industrial chapter06
 - [x] **ANKI-030** Industrial chapter07
 - [x] **ANKI-031** Industrial chapter08
 - [x] **ANKI-032** Industrial chapter09
@@ -85,11 +85,11 @@ Production audit Issues (ANKI-AUDIT-001 onward) remain historical evidence for w
 - [x] **ANKI-036** Industrial chapter13
 - [x] **ANKI-037** Industrial chapter14
 
-Every pending generation task must use the **latest merged** `rules/anki_card_rules.md` plus the current schema and pinned source/ALP shard. Historical v1.0 wording is not the active authoring contract.
+Phase C generation is complete. All downstream normalization and QA use the **latest merged** `rules/anki_card_rules.md` plus the current schema and pinned source/ALP inventory; historical v1.0 wording is not the active contract.
 
 ## Phase D — Normalization
 
-- [ ] **ANKI-038** Cross-chapter semantic normalization/deduplication
+- [x] **ANKI-038** Cross-chapter semantic normalization/deduplication
   - use retrieval-unit-level duplicate control from `rules/anki_card_rules.md`
   - preserve exact-once ALP traceability and stable IDs
 
