@@ -299,6 +299,7 @@ def main() -> int:
     print("by_batch=" + " ".join(f"{k}:{by_batch[k]}" for k in sorted(by_batch)))
     print("by_type=" + " ".join(f"{k}:{by_type[k]}" for k in sorted(by_type)))
     print(f"retained_semantic_pairs_rechecked={len(semantic_pairs)}")
+    print(f"severe_recall_load_defects={counts['recall_load']}")
 
     high_load_cards.sort(reverse=True)
     print(f"moderate_high_load_cards_review_set={len(high_load_cards)}")
