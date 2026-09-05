@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run corpus diagnostic
+      - name: Run corpus diagnostic after normalization
         shell: bash
         run: |
           set +e
@@ -25,7 +25,7 @@ jobs:
           code=$?
           {
             echo '<!-- ANKI-038-DIAGNOSTIC -->'
-            echo '## ANKI-038 corpus diagnostic'
+            echo '## ANKI-038 corpus diagnostic — post-normalization'
             echo
             echo '```text'
             cat /tmp/anki038.txt
