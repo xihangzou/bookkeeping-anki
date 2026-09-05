@@ -29,6 +29,7 @@ on:
       - 'inventory/topic_inventory/IND-03.tsv'
       - 'inventory/topic_inventory/IND-04.tsv'
       - 'inventory/topic_inventory/IND-05.tsv'
+      - 'inventory/topic_inventory/IND-08.tsv'
       - 'inventory/topic_inventory/IND-10.tsv'
       - 'inventory/topic_inventory/IND-11.tsv'
       - 'schema/note_schema.yaml'
@@ -63,6 +64,7 @@ on:
       - 'scripts/validate_ind03_production.py'
       - 'scripts/validate_ind04_production.py'
       - 'scripts/validate_ind05_production.py'
+      - 'scripts/validate_ind08_production.py'
       - 'scripts/validate_ind10_production.py'
       - 'scripts/validate_ind11_production.py'
       - 'TASKS.md'
@@ -95,6 +97,7 @@ on:
       - 'inventory/topic_inventory/IND-03.tsv'
       - 'inventory/topic_inventory/IND-04.tsv'
       - 'inventory/topic_inventory/IND-05.tsv'
+      - 'inventory/topic_inventory/IND-08.tsv'
       - 'inventory/topic_inventory/IND-10.tsv'
       - 'inventory/topic_inventory/IND-11.tsv'
       - 'schema/note_schema.yaml'
@@ -129,6 +132,7 @@ on:
       - 'scripts/validate_ind03_production.py'
       - 'scripts/validate_ind04_production.py'
       - 'scripts/validate_ind05_production.py'
+      - 'scripts/validate_ind08_production.py'
       - 'scripts/validate_ind10_production.py'
       - 'scripts/validate_ind11_production.py'
       - 'TASKS.md'
@@ -336,6 +340,16 @@ jobs:
       - name: Validate IND-05 production batch
         run: python scripts/validate_ind05_production.py
 
+  validate-ind08:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate IND-08 production batch
+        run: python scripts/validate_ind08_production.py
+
   validate-ind10:
     runs-on: ubuntu-latest
     steps:
@@ -355,3 +369,4 @@ jobs:
           python-version: '3.12'
       - name: Validate IND-11 production batch
         run: python scripts/validate_ind11_production.py
+
