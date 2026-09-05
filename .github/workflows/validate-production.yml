@@ -23,6 +23,7 @@ on:
       - 'inventory/topic_inventory/COM-10.tsv'
       - 'inventory/topic_inventory/COM-11.tsv'
       - 'inventory/topic_inventory/COM-14.tsv'
+      - 'inventory/topic_inventory/COM-15.tsv'
       - 'inventory/topic_inventory/COM-16.tsv'
       - 'inventory/topic_inventory/IND-01.tsv'
       - 'inventory/topic_inventory/IND-02.tsv'
@@ -58,6 +59,7 @@ on:
       - 'scripts/validate_com10_production.py'
       - 'scripts/validate_com11_production.py'
       - 'scripts/validate_com14_production.py'
+      - 'scripts/validate_com15_production.py'
       - 'scripts/validate_com16_production.py'
       - 'scripts/validate_ind01_production.py'
       - 'scripts/validate_ind02_production.py'
@@ -91,6 +93,7 @@ on:
       - 'inventory/topic_inventory/COM-10.tsv'
       - 'inventory/topic_inventory/COM-11.tsv'
       - 'inventory/topic_inventory/COM-14.tsv'
+      - 'inventory/topic_inventory/COM-15.tsv'
       - 'inventory/topic_inventory/COM-16.tsv'
       - 'inventory/topic_inventory/IND-01.tsv'
       - 'inventory/topic_inventory/IND-02.tsv'
@@ -126,6 +129,7 @@ on:
       - 'scripts/validate_com10_production.py'
       - 'scripts/validate_com11_production.py'
       - 'scripts/validate_com14_production.py'
+      - 'scripts/validate_com15_production.py'
       - 'scripts/validate_com16_production.py'
       - 'scripts/validate_ind01_production.py'
       - 'scripts/validate_ind02_production.py'
@@ -165,6 +169,7 @@ jobs:
             scripts/validate_com10_production.py
             scripts/validate_com11_production.py
             scripts/validate_com14_production.py
+            scripts/validate_com15_production.py
             scripts/validate_com16_production.py
             scripts/validate_ind01_production.py
             scripts/validate_ind02_production.py
