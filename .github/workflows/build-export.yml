@@ -1,0 +1,66 @@
+name: Build Anki export
+
+on:
+  push:
+    paths:
+      - 'production/notes/**'
+      - 'production/qa/ANKI-042.md'
+      - 'schema/note_schema.yaml'
+      - 'rules/anki_card_rules.md'
+      - 'scripts/build_anki_export.py'
+      - 'scripts/validate_*_production.py'
+      - 'requirements-export.txt'
+      - 'export/README.md'
+      - '.github/workflows/build-export.yml'
+  pull_request:
+    paths:
+      - 'production/notes/**'
+      - 'production/qa/ANKI-042.md'
+      - 'schema/note_schema.yaml'
+      - 'rules/anki_card_rules.md'
+      - 'scripts/build_anki_export.py'
+      - 'scripts/validate_*_production.py'
+      - 'requirements-export.txt'
+      - 'export/README.md'
+      - '.github/workflows/build-export.yml'
+  workflow_dispatch:
+
+jobs:
+  build-export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pinned export tooling
+        run: python -m pip install -r requirements-export.txt
+
+      - name: Re-run final corpus gates
+        run: |
+          set -euo pipefail
+          python scripts/validate_corpus_production.py
+          python scripts/validate_journal_production.py
+          python scripts/validate_formula_production.py
+          python scripts/validate_recall_production.py
+          python scripts/validate_coverage_production.py
+
+      - name: Build and round-trip validate twice
+        run: |
+          set -euo pipefail
+          python scripts/build_anki_export.py --output-dir export/build-a
+          python scripts/build_anki_export.py --output-dir export/build-b
+          cmp export/build-a/bookkeeping-master.canonical.tsv export/build-b/bookkeeping-master.canonical.tsv
+          cmp export/build-a/manifest.json export/build-b/manifest.json
+
+      - name: Upload validated Anki export
+        uses: actions/upload-artifact@v4
+        with:
+          name: bookkeeping-master-anki-${{ github.sha }}
+          path: export/build-a/
+          if-no-files-found: error
+          retention-days: 30
