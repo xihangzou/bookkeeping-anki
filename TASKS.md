@@ -95,9 +95,9 @@ Phase C generation is complete. All downstream normalization and QA use the **la
 
 ## Phase E — Accounting QA
 
-- [ ] **ANKI-039** Journal-entry QA
-  - accounts, debit/credit, amounts, recognition timing, compound entries
-  - preserve current account-level journal Cloze design during corrections
+- [x] **ANKI-039** Journal-entry QA
+  - 167 audited Notes / 167 journal-entry ALPs; 2 Notes corrected and rechecked; unresolved accounting defects 0
+  - report: `production/qa/ANKI-039.md`; validator: `scripts/validate_journal_production.py`
 - [ ] **ANKI-040** Formula/calculation QA
   - formulas, derivations, allocation, inventory/cost flow, industrial calculations
   - preserve visible operators and atomic operand masking
