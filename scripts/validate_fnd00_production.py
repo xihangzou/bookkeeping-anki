@@ -42,17 +42,22 @@ EXPECTED_ACTIVE_IDS = {
 }
 EXPECTED_APPROVED_COUNT = 32
 EXPECTED_DEPRECATED_COUNT = 59
-EXPECTED_GENERATED_CARDS = 32
+EXPECTED_GENERATED_CARDS = 37
 EXPECTED_CLOZE_SPANS = 150
 EXPECTED_ACTIVE_ALPS = 91
+EXPECTED_ACTIVE_INDICES = {
+    "BK-FND-00-0047": {1, 2},
+    "BK-FND-00-0068": {1, 2, 3},
+    "BK-FND-00-0091": {1, 2, 3},
+}
 ALLOWED_NONLEXICAL = {"ならない", "に終わる", "から始まる"}
 BANNED_ANSWER_PUNCTUATION = set("。、，；;／/→＋+・－−-=＝")
 CONTENT_REQUIREMENTS = {
     "BK-FND-00-0002": ("当期純利益＝{{c1::収益}}－{{c1::費用}}",),
     "BK-FND-00-0047": (
         "{{c1::給料}}", "{{c1::水道光熱費}}", "{{c1::旅費交通費}}",
-        "{{c1::広告宣伝費}}", "{{c1::消耗品費}}", "{{c1::通信費}}",
-        "{{c1::保険料}}", "{{c1::保管費}}", "{{c1::諸会費}}", "{{c1::雑費}}",
+        "{{c1::広告宣伝費}}", "{{c1::消耗品費}}", "{{c2::通信費}}",
+        "{{c2::保険料}}", "{{c2::保管費}}", "{{c2::諸会費}}", "{{c2::雑費}}",
     ),
     "BK-FND-00-0062": ("{{c1::標準式}}", "{{c1::残高式}}", "日付・摘要・{{c1::仕丁}}・借方金額・貸方金額"),
     "BK-FND-00-0075": (
@@ -87,7 +92,7 @@ VISIBLE_CONTEXT_CUES = {
     "BK-FND-00-0078": "3伝票制",
     "BK-FND-00-0084": "伝票からの転記",
     "BK-FND-00-0086": "証ひょうの種類",
-    "BK-FND-00-0088": "証ひょうから仕訳",
+    "BK-FND-00-0088": "証ひょうからの仕訳判断",
     "BK-FND-00-0091": "簿記の略語・記号",
 }
 
@@ -149,8 +154,9 @@ def main() -> int:
 
         if status == "approved":
             indices = {int(i) for i, _ in matches}
-            if indices != {1}:
-                fail(errors, f"{note_id}: approved v1.6 Note must use only c1, got {sorted(indices)}")
+            expected_indices = EXPECTED_ACTIVE_INDICES.get(note_id, {1})
+            if indices != expected_indices:
+                fail(errors, f"{note_id}: Cloze indices={sorted(indices)}, expected {sorted(expected_indices)}")
             generated_cards += len(indices)
             cloze_spans += len(matches)
             answers = [a.strip() for _, a in matches]
@@ -174,15 +180,17 @@ def main() -> int:
 
             # A Cloze answer must not be given away elsewhere on the same card.
             # One-character discriminators such as 借/貸 are intentionally exempt.
+            # This chapter validator masks every index at once; the corpus-wide
+            # recall validator separately renders each generated sibling card.
             for answer in answers:
                 if len(answer) >= 2 and answer in hidden:
                     visible_answer_leaks += 1
                     fail(errors, f"{note_id}: Cloze answer {answer!r} remains visible elsewhere on the card")
 
-            if "借" in answers and "{{c1::借}}方" not in text:
-                fail(errors, f"{note_id}: 借 direction must use {{c1::借}}方 shape")
-            if "貸" in answers and "{{c1::貸}}方" not in text:
-                fail(errors, f"{note_id}: 貸 direction must use {{c1::貸}}方 shape")
+            if "借" in answers and not re.search(r"\{\{c[1-9][0-9]*::借\}\}方", text):
+                fail(errors, f"{note_id}: 借 direction must use first-character Cloze shape")
+            if "貸" in answers and not re.search(r"\{\{c[1-9][0-9]*::貸\}\}方", text):
+                fail(errors, f"{note_id}: 貸 direction must use first-character Cloze shape")
 
             for required in CONTENT_REQUIREMENTS.get(note_id, ()):
                 if required not in text:
@@ -282,7 +290,7 @@ def main() -> int:
     )
     print(
         f"generated_cards={generated_cards} cloze_spans={cloze_spans} "
-        f"same_index_parallelism=pass lexical_atomicity=pass visible_context=pass "
+        f"index_grouping=pass lexical_atomicity=pass visible_context=pass "
         f"visible_answer_leakage={visible_answer_leaks} debit_credit_first_character=pass "
         f"reserved_pilot_only_id={RESERVED_PILOT_ONLY_ID}"
     )
