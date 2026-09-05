@@ -26,6 +26,7 @@ on:
       - 'inventory/topic_inventory/COM-16.tsv'
       - 'inventory/topic_inventory/IND-01.tsv'
       - 'inventory/topic_inventory/IND-02.tsv'
+      - 'inventory/topic_inventory/IND-04.tsv'
       - 'schema/note_schema.yaml'
       - 'rules/anki_card_rules.md'
       - 'rules/cloze_rules.md'
@@ -55,6 +56,7 @@ on:
       - 'scripts/validate_com16_production.py'
       - 'scripts/validate_ind01_production.py'
       - 'scripts/validate_ind02_production.py'
+      - 'scripts/validate_ind04_production.py'
       - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   pull_request:
@@ -82,6 +84,7 @@ on:
       - 'inventory/topic_inventory/COM-16.tsv'
       - 'inventory/topic_inventory/IND-01.tsv'
       - 'inventory/topic_inventory/IND-02.tsv'
+      - 'inventory/topic_inventory/IND-04.tsv'
       - 'schema/note_schema.yaml'
       - 'rules/anki_card_rules.md'
       - 'rules/cloze_rules.md'
@@ -111,6 +114,7 @@ on:
       - 'scripts/validate_com16_production.py'
       - 'scripts/validate_ind01_production.py'
       - 'scripts/validate_ind02_production.py'
+      - 'scripts/validate_ind04_production.py'
       - 'TASKS.md'
       - '.github/workflows/validate-production.yml'
   workflow_dispatch:
@@ -285,3 +289,13 @@ jobs:
           python-version: '3.12'
       - name: Validate IND-02 production batch
         run: python scripts/validate_ind02_production.py
+
+  validate-ind04:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate IND-04 production batch
+        run: python scripts/validate_ind04_production.py
