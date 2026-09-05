@@ -9,7 +9,7 @@ Canonical shard: `inventory/topic_inventory/IND-04.tsv`
 ## Result
 
 - production Notes: **17**
-- generated cards: **17**
+- generated cards: **19**
 - Cloze spans: **47**
 - included ALPs: **17**
 - mapped included ALPs: **17**
@@ -21,7 +21,7 @@ Canonical shard: `inventory/topic_inventory/IND-04.tsv`
 - canonical exclusions: **1** (`DECORATIVE_EXAMPLE` 1)
 - visible-answer leakage for 2+ character answers: **0**
 - broad/non-atomic targeted action Clozes: **0**
-- every approved Note uses only `c1`
+- `BK-IND-04-0003` uses `c1`–`c3`; all other approved Notes use only `c1`
 - lifecycle: all rows `Status=approved`, `QA=pass`
 
 ## Stable IDs and coverage
@@ -36,7 +36,9 @@ The worked examples 4-1 through 4-4 remain excluded as `DECORATIVE_EXAMPLE` beca
 
 ### Expense definition and classification
 
-The opening Notes retrieve the definition of `経費`, distinguish `直接経費` from `間接経費` by product traceability, and actively recall the seven representative expense categories with separate atomic Cloze spans.
+The opening Notes retrieve the definition of `経費` and distinguish `直接経費` from `間接経費` by product traceability.
+
+`BK-IND-04-0003` was refined after review because seven representative expense categories under one same-index Cloze created excessive parallel recall load. The Note now gives a semantic cue for each category and distributes the seven atomic answer spans across three generated cards (`c1`–`c3`), with two, two, and three targets respectively. This preserves all source categories while lowering per-card retrieval load.
 
 `外注加工賃` and `特許権使用料` are separately recalled as representative direct expenses. Direct versus indirect cost flow is tested through the debit-side destination accounts: `仕掛品` for direct expenses and `製造間接費` for indirect expenses.
 
@@ -55,13 +57,15 @@ Monthly, measured, and incurred expenses each retain the source measurement rule
 
 ### Three bookkeeping methods
 
-The batch recalls all three canonical bookkeeping methods and then tests each method's distinct posting route:
+`BK-IND-04-0013` was refined from whole-method Clozes to minimal discriminators. The shared wording remains visible and the learner retrieves `諸勘定`, `経費勘定`, and `設けない` within an explicit three-method frame. This avoids hiding long explanatory phrases as answers.
+
+The subsequent Notes test each method's concrete posting route:
 
 1. individual expense accounts: record each expense in its own account, then transfer direct/indirect amounts to `仕掛品` / `製造間接費`;
 2. single expense account: aggregate occurrence amounts in `経費勘定`, then split consumption to `仕掛品` / `製造間接費`;
 3. no expense account: bypass expense accounts and directly post direct/indirect amounts to `仕掛品` / `製造間接費`.
 
-The final comparison Note tests that the methods differ in the `経費勘定の経由方法`, while the final cost amounts accumulated in work in process and manufacturing overhead are the same.
+`BK-IND-04-0017` was refined because `経費勘定の経由方法` was too broad as a Cloze answer. The difference in routing is now visible context, while the precise retrieval target is the conclusion that the final accumulated cost is `同額` across the three methods.
 
 ## Source traceability
 
@@ -81,7 +85,7 @@ Exact source anchors remain recoverable through each mapped canonical ALP in `in
 - pinned source provenance
 - Part/Chapter/primary Section consistency
 - required deterministic tags and lifecycle
-- `c1`-only generation
+- expected Cloze-index set per Note (`c1`–`c3` only for `BK-IND-04-0003`, `c1` elsewhere)
 - exact deterministic Note-to-ALP mapping and exact-once INCLUDE-ALP coverage
 - canonical inventory immutability
 - local duplicate rendered text
@@ -95,7 +99,7 @@ Expected output:
 
 ```text
 IND-04 production validation: PASS
-notes=17 cards=17 cloze_spans=47 included_alps=17 mapped=17 unmapped=0
+notes=17 cards=19 cloze_spans=47 included_alps=17 mapped=17 unmapped=0
 multi_alp_notes=0 journal_entry_notes=1 formula_notes=2 canonical_exclusions=1
 account_level_journal_cloze=pass minimal_cloze_scope=pass formula_atomicity=pass cost_accounting_treatment=pass visible_answer_leakage=0 deterministic_order=pass
 ```
