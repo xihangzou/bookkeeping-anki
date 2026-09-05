@@ -18,6 +18,7 @@ FIELDS = [
 CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE = re.compile(r"^BK-IND-10-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-IND-10-[0-9]{4}$")
+DEPRECATED_IDS = {"BK-IND-10-0010"}
 EXPECTED_IDS = [f"BK-IND-10-{n:04d}" for n in range(1, 19)]
 EXPECTED_SPANS = 49
 SOURCE = (
@@ -90,8 +91,11 @@ def main() -> int:
         ids.append(nid)
         if not NOTE_RE.fullmatch(nid):
             errors.append(f"{nid}: invalid ID")
-        if row["Status"] != "approved" or row["QA"] != "pass":
+        expected_status = "deprecated" if nid in DEPRECATED_IDS else "approved"
+        if row["Status"] != expected_status or row["QA"] != "pass":
             errors.append(f"{nid}: lifecycle")
+        if nid in DEPRECATED_IDS and "統合先: BK-COM-13-0018" not in row["Extra"]:
+            errors.append(f"{nid}: missing replacement lineage")
         if (row["SourceRepo"], row["SourceCommit"], row["SourcePath"]) != SOURCE:
             errors.append(f"{nid}: source")
         if row["Part"] != "industrial" or row["Chapter"] != "10 決算と財務諸表":
@@ -103,7 +107,7 @@ def main() -> int:
 
         tags = sorted([
             "bookkeeping::industrial", "chapter::industrial::10",
-            f"difficulty::{row['Difficulty']}", "status::approved",
+            f"difficulty::{row['Difficulty']}", f"status::{expected_status}",
             f"topic::{row['Topic'].strip().replace(' ', '_')}", f"type::{row['Type']}",
         ])
         if row["Tags"].split() != tags:
@@ -167,10 +171,12 @@ def main() -> int:
             print("-", error)
         return 1
 
-    formulas = sum(r["Type"] == "formula" for r in rows)
-    statements = sum(r["Type"] == "financial_statement" for r in rows)
+    active = [r for r in rows if r["Status"] == "approved"]
+    active_spans = sum(len(CLOZE_RE.findall(r["Text"])) for r in active)
+    formulas = sum(r["Type"] == "formula" for r in active)
+    statements = sum(r["Type"] == "financial_statement" for r in active)
     print("IND-10 production validation: PASS")
-    print(f"notes={len(rows)} cards={len(rows)} cloze_spans={spans} included_alps={len(included)} mapped={len(included)} unmapped=0")
+    print(f"rows={len(rows)} active_notes={len(active)} deprecated_notes={len(rows)-len(active)} active_cards={len(active)} active_cloze_spans={active_spans} included_alps={len(included)}")
     print(f"multi_alp_notes=0 journal_entry_notes=0 formula_notes={formulas} financial_statement_notes={statements} canonical_exclusions={len(excluded_rows)}")
     print("minimal_cloze_scope=pass parallel_atomicity=pass formula_atomicity=pass closing_cost_flow=pass visible_answer_leakage=0 deterministic_order=pass")
     return 0

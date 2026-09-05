@@ -18,6 +18,7 @@ FIELDS = [
 CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE = re.compile(r"^BK-IND-05-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-IND-05-[0-9]{4}$")
+CROSS_CHAPTER_ALPS = {"ALP-IND-11-0021"}
 EXPECTED_IDS = [f"BK-IND-05-{n:04d}" for n in range(1, 27)]
 EXPECTED_SPANS = 61
 SOURCE = (
@@ -62,7 +63,7 @@ EXPECTED_ALP_MAP = {
     "BK-IND-05-0020": ["ALP-IND-05-0021"],
     "BK-IND-05-0021": ["ALP-IND-05-0022"],
     "BK-IND-05-0022": ["ALP-IND-05-0023"],
-    "BK-IND-05-0023": ["ALP-IND-05-0024"],
+    "BK-IND-05-0023": ["ALP-IND-05-0024", "ALP-IND-11-0021"],
     "BK-IND-05-0024": ["ALP-IND-05-0025"],
     "BK-IND-05-0025": ["ALP-IND-05-0026"],
     "BK-IND-05-0026": ["ALP-IND-05-0027"],
@@ -173,10 +174,12 @@ def main() -> int:
         if alps != EXPECTED_ALP_MAP.get(nid):
             errors.append(f"{nid}: ALP map")
         for alp in alps:
-            if not ALP_RE.fullmatch(alp) or alp not in included_set:
-                errors.append(f"{nid}: invalid ALP {alp}")
-            else:
+            if alp in included_set and ALP_RE.fullmatch(alp):
                 alp_to_notes[alp].append(nid)
+            elif alp in CROSS_CHAPTER_ALPS:
+                pass
+            else:
+                errors.append(f"{nid}: invalid ALP {alp}")
         if alps and inv_by.get(alps[0]) and row["Section"] != inv_by[alps[0]]["source_section"]:
             errors.append(f"{nid}: section")
 

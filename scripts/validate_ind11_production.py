@@ -18,6 +18,7 @@ FIELDS = [
 CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE = re.compile(r"^BK-IND-11-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-IND-11-[0-9]{4}$")
+DEPRECATED_IDS = {"BK-IND-11-0021"}
 EXPECTED_IDS = [f"BK-IND-11-{n:04d}" for n in range(1, 30)]
 EXPECTED_SPANS = 77
 SOURCE = (
@@ -129,8 +130,11 @@ def main() -> int:
         ids.append(nid)
         if not NOTE_RE.fullmatch(nid):
             errors.append(f"{nid}: invalid ID")
-        if row["Status"] != "approved" or row["QA"] != "pass":
+        expected_status = "deprecated" if nid in DEPRECATED_IDS else "approved"
+        if row["Status"] != expected_status or row["QA"] != "pass":
             errors.append(f"{nid}: lifecycle")
+        if nid in DEPRECATED_IDS and "統合先: BK-IND-05-0023" not in row["Extra"]:
+            errors.append(f"{nid}: missing replacement lineage")
         if (row["SourceRepo"], row["SourceCommit"], row["SourcePath"]) != SOURCE:
             errors.append(f"{nid}: source")
         if row["Part"] != "industrial" or row["Chapter"] != "11 標準原価計算":
@@ -142,7 +146,7 @@ def main() -> int:
 
         tags = sorted([
             "bookkeeping::industrial", "chapter::industrial::11",
-            f"difficulty::{row['Difficulty']}", "status::approved",
+            f"difficulty::{row['Difficulty']}", f"status::{expected_status}",
             f"topic::{row['Topic'].strip().replace(' ', '_')}", f"type::{row['Type']}",
         ])
         if row["Tags"].split() != tags:
@@ -204,11 +208,13 @@ def main() -> int:
             print("-", error)
         return 1
 
+    active = [r for r in rows if r["Status"] == "approved"]
+    active_spans = sum(len(CLOZE_RE.findall(r["Text"])) for r in active)
     multi = sum(len(v) > 1 for v in EXPECTED_ALP_MAP.values())
-    journals = sum(r["Type"] == "journal_entry" for r in rows)
-    formulas = sum(r["Type"] == "formula" for r in rows)
+    journals = sum(r["Type"] == "journal_entry" for r in active)
+    formulas = sum(r["Type"] == "formula" for r in active)
     print("IND-11 production validation: PASS")
-    print(f"notes={len(rows)} cards={len(rows)} cloze_spans={spans} included_alps={len(included)} mapped={len(included)} unmapped=0")
+    print(f"rows={len(rows)} active_notes={len(active)} deprecated_notes={len(rows)-len(active)} active_cards={len(active)} active_cloze_spans={active_spans} included_alps={len(included)}")
     print(f"multi_alp_notes={multi} journal_entry_notes={journals} formula_notes={formulas} canonical_exclusions={len(excluded_rows)}")
     print("minimal_cloze_scope=pass parallel_term_atomicity=pass formula_atomicity=pass cost_accounting_treatment=pass visible_answer_leakage=0 deterministic_order=pass")
     return 0
