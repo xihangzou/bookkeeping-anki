@@ -17,6 +17,14 @@ EXPECTED_SPANS=51
 SOURCE=("xihangzou/bookkeeping-integrated","569ed7b82e729334e1472286eaca7c4352e6fbdb","merged/textbook.md")
 ALLOWED_TYPES={"definition","classification","recognition","measurement","journal_entry","formula","procedure","comparison","exception","reasoning","ledger","financial_statement","cost_accounting"}
 BROAD={"仕訳を行う","仕訳を行わない","処理する","計上する","減少させる","増加させる","あり","なし"}
+FORBIDDEN_BROAD_TARGETS={
+    "すべての製造原価",
+    "変動製造原価のみ",
+    "直接原価計算の固定製造費用化額",
+    "直接原価計算営業利益",
+    "期首棚卸資産に含まれる製造固定費",
+    "期末棚卸資産に含まれる製造固定費",
+}
 ARITH=("＝","+","＋","-","－","×","÷","／")
 EXPECTED_ALP_MAP={
 'BK-IND-12-0001':['ALP-IND-12-0001','ALP-IND-12-0002','ALP-IND-12-0006'],
@@ -36,16 +44,16 @@ EXPECTED_ALP_MAP={
 'BK-IND-12-0015':['ALP-IND-12-0017','ALP-IND-12-0018'],
 'BK-IND-12-0016':['ALP-IND-12-0020']}
 REQUIRED={
-'BK-IND-12-0001':('{{c1::すべての製造原価}}','{{c1::変動製造原価のみ}}','{{c1::固定製造原価}}','{{c1::期間原価}}'),
+'BK-IND-12-0001':('{{c1::すべての}}製造原価','変動製造原価{{c1::のみ}}','{{c1::固定製造原価}}','{{c1::期間原価}}'),
 'BK-IND-12-0004':('{{c1::変動費}}','{{c1::固定費}}','{{c1::貢献利益}}','{{c1::営業利益}}'),
 'BK-IND-12-0005':('売上原価＝{{c1::期首製品棚卸高}}＋{{c1::当期製品製造原価}}－{{c1::期末製品棚卸高}}',),
 'BK-IND-12-0007':('変動売上原価＝{{c1::期首製品棚卸高}}（変動原価）＋{{c1::当期製品製造原価}}（変動原価）－{{c1::期末製品棚卸高}}（変動原価）',),
 'BK-IND-12-0008':('変動製造マージン＝{{c1::売上高}}－{{c1::変動売上原価}}',),
 'BK-IND-12-0009':('貢献利益＝{{c1::変動製造マージン}}－{{c1::変動販売費}}',),
 'BK-IND-12-0010':('営業利益＝{{c1::貢献利益}}－{{c1::固定費}}','{{c1::固定製造原価}}','{{c1::固定販売費及び一般管理費}}'),
-'BK-IND-12-0012':('＝{{c1::直接原価計算の固定製造費用化額}}＋{{c1::期首棚卸資産に含まれる製造固定費}}－{{c1::期末棚卸資産に含まれる製造固定費}}',),
-'BK-IND-12-0013':('全部原価計算営業利益＝{{c1::直接原価計算営業利益}}－{{c1::期首棚卸資産に含まれる製造固定費}}＋{{c1::期末棚卸資産に含まれる製造固定費}}',),
-'BK-IND-12-0014':('全部原価計算営業利益－直接原価計算営業利益＝{{c1::期末棚卸資産に含まれる製造固定費}}－{{c1::期首棚卸資産に含まれる製造固定費}}',),
+'BK-IND-12-0012':('＝{{c1::直接原価計算}}の固定製造費用化額＋{{c1::期首棚卸資産}}に含まれる製造固定費－{{c1::期末棚卸資産}}に含まれる製造固定費',),
+'BK-IND-12-0013':('全部原価計算営業利益＝{{c1::直接原価計算}}営業利益－{{c1::期首棚卸資産}}に含まれる製造固定費＋{{c1::期末棚卸資産}}に含まれる製造固定費',),
+'BK-IND-12-0014':('全部原価計算営業利益－直接原価計算営業利益＝{{c1::期末棚卸資産}}に含まれる製造固定費－{{c1::期首棚卸資産}}に含まれる製造固定費',),
 'BK-IND-12-0016':('{{c1::期末棚卸資産}}','{{c1::加算}}','{{c1::期首棚卸資産}}','{{c1::減算}}')}
 
 def main():
@@ -75,6 +83,7 @@ def main():
             a=a.strip()
             if len(a)>=2 and a in visible: errors.append(f'{nid}: visible leakage {a!r}')
             if a in BROAD: errors.append(f'{nid}: broad answer {a!r}')
+            if a in FORBIDDEN_BROAD_TARGETS: errors.append(f'{nid}: over-broad target {a!r}')
             if '・' in a: errors.append(f'{nid}: parallel phrase should use separate clozes {a!r}')
             if any(x in a for x in ARITH): errors.append(f'{nid}: operator hidden {a!r}')
         for req in REQUIRED.get(nid,()):
