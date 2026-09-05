@@ -72,7 +72,7 @@ REQUIRED = {
     "BK-IND-02-0003": ("（借）{{c1::仕掛品}}", "（借）{{c1::製造間接費}}", "材料勘定の貸方"),
     "BK-IND-02-0004": ("{{c1::直接材料費}}", "{{c1::間接材料費}}"),
     "BK-IND-02-0005": ("{{c1::主要材料費}}", "{{c1::買入部品費}}"),
-    "BK-IND-02-0006": ("{{c1::間接材料費}}",),
+    "BK-IND-02-0006": ("{{c1::補助材料費・工場消耗品費・消耗工具器具備品費}}",),
     "BK-IND-02-0007": ("{{c1::購入代価}}＋{{c1::材料副費}}",),
     "BK-IND-02-0008": ("（貸）{{c1::買掛金}}", "（貸）{{c1::現金}}"),
     "BK-IND-02-0009": ("（借）{{c1::買掛金}}／（貸）材料",),
@@ -96,12 +96,10 @@ REQUIRED = {
 
 def main() -> int:
     errors: list[str] = []
-
     with NOTES.open(encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f, delimiter="\t")
         header = list(reader.fieldnames or [])
         rows = list(reader)
-
     with INVENTORY.open(encoding="utf-8", newline="") as f:
         inventory = list(csv.DictReader(f, delimiter="\t"))
 
@@ -113,7 +111,6 @@ def main() -> int:
     included = [r["alp_id"] for r in included_rows]
     included_set = set(included)
     inv_by = {r["alp_id"]: r for r in included_rows}
-
     alp_to_notes: defaultdict[str, list[str]] = defaultdict(list)
     rendered = Counter()
     spans = 0
@@ -122,7 +119,6 @@ def main() -> int:
     for row in rows:
         nid = row["ID"]
         ids.append(nid)
-
         if not NOTE_RE.fullmatch(nid):
             errors.append(f"{nid}: invalid ID")
         if row["Status"] != "approved" or row["QA"] != "pass":
@@ -137,12 +133,9 @@ def main() -> int:
             errors.append(f"{nid}: difficulty")
 
         tags = sorted([
-            "bookkeeping::industrial",
-            "chapter::industrial::02",
-            f"difficulty::{row['Difficulty']}",
-            "status::approved",
-            f"topic::{row['Topic'].strip().replace(' ', '_')}",
-            f"type::{row['Type']}",
+            "bookkeeping::industrial", "chapter::industrial::02",
+            f"difficulty::{row['Difficulty']}", "status::approved",
+            f"topic::{row['Topic'].strip().replace(' ', '_')}", f"type::{row['Type']}",
         ])
         if row["Tags"].split() != tags:
             errors.append(f"{nid}: tags")
@@ -152,7 +145,6 @@ def main() -> int:
         spans += len(matches)
         if not matches or {int(i) for i, _ in matches} != {1}:
             errors.append(f"{nid}: c1-only")
-
         visible = CLOZE_RE.sub("", text)
         for _, answer in matches:
             answer = answer.strip()
@@ -164,14 +156,11 @@ def main() -> int:
                 errors.append(f"{nid}: journal syntax hidden")
             if any(x in answer for x in ARITH):
                 errors.append(f"{nid}: operator hidden {answer!r}")
-
         if any(x in text for x in FORBIDDEN_COMPACT):
             errors.append(f"{nid}: compact journal entry")
-
         for required in REQUIRED.get(nid, ()):
             if required not in text:
                 errors.append(f"{nid}: missing precision {required!r}")
-
         rendered[CLOZE_RE.sub("[…]", text)] += 1
 
         alps = row["ALP_IDs"].split()
@@ -182,7 +171,6 @@ def main() -> int:
                 errors.append(f"{nid}: invalid ALP {alp}")
             else:
                 alp_to_notes[alp].append(nid)
-
         if alps and inv_by.get(alps[0]) and row["Section"] != inv_by[alps[0]]["source_section"]:
             errors.append(f"{nid}: section")
 
@@ -196,17 +184,11 @@ def main() -> int:
         errors.append(f"included={len(included)}")
     if len(excluded_rows) != 1 or excluded_rows[0].get("exclude_reason") != "DECORATIVE_EXAMPLE":
         errors.append("exclusions")
-
     for alp in included:
         if len(alp_to_notes[alp]) != 1:
             errors.append(f"{alp} mapped {alp_to_notes[alp]}")
-
-    if any(
-        r.get("note_ids") not in ("", None) or r.get("qa_status") != "pending"
-        for r in inventory
-    ):
+    if any(r.get("note_ids") not in ("", None) or r.get("qa_status") != "pending" for r in inventory):
         errors.append("inventory mutated")
-
     if any(count > 1 for count in rendered.values()):
         errors.append("duplicate rendered text")
 
@@ -219,21 +201,10 @@ def main() -> int:
     multi = sum(len(v) > 1 for v in EXPECTED_ALP_MAP.values())
     journals = sum(r["Type"] == "journal_entry" for r in rows)
     formulas = sum(r["Type"] == "formula" for r in rows)
-
     print("IND-02 production validation: PASS")
-    print(
-        f"notes={len(rows)} cards={len(rows)} cloze_spans={spans} "
-        f"included_alps={len(included)} mapped={len(included)} unmapped=0"
-    )
-    print(
-        f"multi_alp_notes={multi} journal_entry_notes={journals} "
-        f"formula_notes={formulas} canonical_exclusions={len(excluded_rows)}"
-    )
-    print(
-        "account_level_journal_cloze=pass minimal_cloze_scope=pass "
-        "formula_atomicity=pass cost_accounting_treatment=pass "
-        "visible_answer_leakage=0 deterministic_order=pass"
-    )
+    print(f"notes={len(rows)} cards={len(rows)} cloze_spans={spans} included_alps={len(included)} mapped={len(included)} unmapped=0")
+    print(f"multi_alp_notes={multi} journal_entry_notes={journals} formula_notes={formulas} canonical_exclusions={len(excluded_rows)}")
+    print("account_level_journal_cloze=pass minimal_cloze_scope=pass formula_atomicity=pass cost_accounting_treatment=pass visible_answer_leakage=0 deterministic_order=pass")
     return 0
 
 
