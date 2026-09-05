@@ -110,11 +110,12 @@ Phase C generation is complete. All downstream normalization and QA use the **la
   - 31 / 31 batches; 735 / 735 active Notes; 748 generated cards; 2,008 Cloze spans
   - 6 active Notes corrected and rechecked; severe recall-load defects 0; unresolved recall-quality defects 0
   - report: `production/qa/ANKI-041.md`; validator: `scripts/validate_recall_production.py`
-- [ ] **ANKI-042** Final semantic coverage QA
-  - 100% source sections reviewed
-  - 100% included ALPs mapped/materially represented
-  - all exclusions justified
-  - no unresolved orphan/duplicate/conflict
+- [x] **ANKI-042** Final semantic coverage QA
+  - 31 / 31 source chapter files and 497 / 497 canonical source sections reviewed; source inventory coverage 100%
+  - 1,004 / 1,004 candidate propositions explicitly decided: 965 INCLUDE + 39 EXCLUDE
+  - 965 / 965 included ALPs mapped to approved production retrieval; unmapped ALPs / orphan Notes / source gaps = 0 / 0 / 0
+  - exclusions: `DECORATIVE_EXAMPLE` 38 + `DUPLICATE_EXACT` 1; unexplained exclusions 0
+  - report: `production/qa/ANKI-042.md`; validator: `scripts/validate_coverage_production.py`; CI #382 PASS
 
 ## Phase G — Export
 
