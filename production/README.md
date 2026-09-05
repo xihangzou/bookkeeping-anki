@@ -85,6 +85,8 @@ Cross-chapter semantic normalization is recorded in `production/qa/ANKI-038.md`.
 
 Corpus-level invariants are enforced by `scripts/validate_corpus_production.py`. Exact duplicates are blockers; semantic similarity candidates are reviewed under the retrieval-unit duplicate rule and either merged or documented as materially distinct retrieval contexts.
 
+The ANKI-038 full-validator gate passes across governance, all 31 production batches, and the corpus-level normalization validator.
+
 ## Validation
 
 Production validators live under `scripts/validate_*_production.py` and are wired into `.github/workflows/validate-production.yml`. The consolidated workflow includes every production batch validator plus the corpus-level normalization validator.
