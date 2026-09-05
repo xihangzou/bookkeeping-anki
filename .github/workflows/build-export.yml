@@ -8,6 +8,7 @@ on:
       - 'schema/note_schema.yaml'
       - 'rules/anki_card_rules.md'
       - 'scripts/build_anki_export.py'
+      - 'scripts/build_anki_export_styled.py'
       - 'scripts/validate_export_serialization.py'
       - 'scripts/validate_*_production.py'
       - 'requirements-export.txt'
@@ -20,6 +21,7 @@ on:
       - 'schema/note_schema.yaml'
       - 'rules/anki_card_rules.md'
       - 'scripts/build_anki_export.py'
+      - 'scripts/build_anki_export_styled.py'
       - 'scripts/validate_export_serialization.py'
       - 'scripts/validate_*_production.py'
       - 'requirements-export.txt'
@@ -55,8 +57,8 @@ jobs:
       - name: Build and round-trip validate twice
         run: |
           set -euo pipefail
-          python scripts/build_anki_export.py --output-dir export/build-a
-          python scripts/build_anki_export.py --output-dir export/build-b
+          python scripts/build_anki_export_styled.py --output-dir export/build-a
+          python scripts/build_anki_export_styled.py --output-dir export/build-b
           cmp export/build-a/bookkeeping-master.canonical.tsv export/build-b/bookkeeping-master.canonical.tsv
           cmp export/build-a/manifest.json export/build-b/manifest.json
 
