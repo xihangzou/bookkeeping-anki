@@ -199,6 +199,18 @@ Use different indices only if each generated card independently satisfies all of
 3. grammar/layout/parallel position does not determine the answer;
 4. the proposition is not already duplicated elsewhere.
 
+### 6.4 Retrieval-load and semantic chunking
+
+Same-index grouping prevents leakage; it does **not** justify bulk recall. A generated card should not require the learner to reproduce a long, weakly structured list or nearly every step of a workflow merely because all spans share one index.
+
+When several independently meaningful items must be covered:
+
+- keep a semantic cue, category, condition, or role visible for each answer where possible;
+- chunk the items into coherent subgroups with different Cloze indices or separate Notes/cards when the subgroups have independent retrieval value;
+- for long workflows, keep routine steps visible and test only sequence-critical transitions, named stages, exceptions, or outputs unless reproducing the full sequence is itself essential.
+
+Prefer cue-based discrimination over raw “name all items” recitation. If simultaneous recall of all items is structurally necessary, document that rationale in chapter QA.
+
 ---
 
 ## 7. Context sufficiency and retrieval-subject visibility
@@ -373,7 +385,23 @@ When a timing/relational modifier already uniquely fixes an operand's role, keep
 
 Repeated same-answer same-index spans are permitted where a formula family structurally reuses the same term and every occurrence must be hidden to prevent leakage.
 
-### 10.1 Formula recall vs application
+### 10.1 Selective operand recall
+
+Do not Cloze every operand mechanically. Hide only operands whose identity, role, basis, timing, or direction carries useful retrieval value. An obvious or repeated base amount may remain visible when the nontrivial target is the allocation basis, denominator, timing, or another discriminator.
+
+Preferred:
+
+`月末仕掛品直接材料費＝当月直接材料費×{{c1::月末仕掛品数量}}÷{{c1::当月投入数量}}`
+
+Avoid:
+
+`月末仕掛品直接材料費＝{{c1::当月直接材料費}}×{{c1::月末仕掛品数量}}÷{{c1::当月投入数量}}`
+
+when `当月直接材料費` is not a decision and hiding it only adds recall load.
+
+“Cloze individual operands” means that selected formula targets should be atomic operands rather than a whole expression; it does **not** require every operand to be hidden.
+
+### 10.2 Formula recall vs application
 
 A second card using the same formula needs a materially different retrieval operation, such as:
 
@@ -464,6 +492,8 @@ Do not turn a table mechanically into one Note or one card per cell.
 
 For parallel classification/comparison cells with multiple meaningful dimensions, Cloze each dimension separately rather than hiding a whole cell. Independently meaningful parallel terms within one dimension must also follow the parallel-term atomicity rule in §8.3.
 
+Long enumerations are additionally subject to retrieval-load chunking in §6.4; parallel-term atomicity alone does not make a many-item list a good card.
+
 ---
 
 ## 13. Visible-answer leakage and ambiguity QA
@@ -480,6 +510,7 @@ For every generated card, check:
 - no grammar/layout-only guessing;
 - no excessively broad or fragmentary answer;
 - no context-free boolean/shorthand answer whose meaning depends on an omitted timing, role, method, source, or destination qualifier;
+- no same-index group that degenerates into unstructured bulk-list or whole-workflow recitation when semantic chunking is available;
 - no cross-Note or sibling-card semantic duplicate;
 - no cue that becomes mechanically sufficient after repeated review.
 
@@ -658,7 +689,9 @@ ANKI-AUDIT-008 through ANKI-AUDIT-013 established the current precision rules in
 Later chapter review generalized additional precision rules:
 
 - context-qualified atomicity: shorthand, boolean, rate, or method answers must remain semantically self-identifying within the visible retrieval frame; treatment-changing timing/role qualifiers cannot be dropped merely to shorten a Cloze;
-- parallel-term atomicity: independently meaningful coordinate terms are separate Cloze spans even when they retain the same Cloze index and remain one generated card.
+- parallel-term atomicity: independently meaningful coordinate terms are separate Cloze spans even when they retain the same Cloze index and remain one generated card;
+- retrieval-load chunking: same-index grouping does not license unstructured multi-item recall; long lists/workflows should expose semantic cues and test coherent subgroups or key transitions;
+- selective formula-operand recall: only operands with useful retrieval value need be hidden; obvious base amounts may remain visible when another basis, role, or timing distinction is the actual target.
 
 ### 22.3 Explicit supersession decisions
 
