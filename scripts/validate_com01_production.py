@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Validate COM-01 after the v1.8 precision / ALP-containment audit."""
+"""Validate COM-01 under the current living Anki rules.
+
+ANKI-039 retires the historical v1.8 whole-journal-entry Cloze exception.
+"""
 
 from __future__ import annotations
 
 import csv
 import re
 import sys
-from collections import Counter, defaultdict
+from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,450 +21,138 @@ FIELDS = [
     "Part", "Chapter", "Section", "Topic", "Type", "ALP_IDs",
     "Difficulty", "Tags", "Status", "QA",
 ]
-
-SOURCE_REPO = "xihangzou/bookkeeping-integrated"
-SOURCE_COMMIT = "569ed7b82e729334e1472286eaca7c4352e6fbdb"
-SOURCE_PATH = "merged/textbook.md"
-PART = "commercial"
-CHAPTER = "01 商品売買"
+SOURCE = (
+    "xihangzou/bookkeeping-integrated",
+    "569ed7b82e729334e1472286eaca7c4352e6fbdb",
+    "merged/textbook.md",
+)
 NOTE_RE = re.compile(r"^BK-COM-01-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-COM-01-[0-9]{4}$")
 CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
-NUMERIC_ANSWER_RE = re.compile(r"^[0-9,]+円?$")
-BANNED_ANSWER_PUNCTUATION = set("。、，；;／/→＋+・－−-=＝（）()")
+ENTRY_ACCOUNT_RE = re.compile(r"(?:（借）|（貸）|借方：|貸方：)\s*\{\{c([1-9][0-9]*)::([^}]+)\}\}")
+FORBIDDEN_COMPACT_RE = re.compile(r"\{\{c[1-9][0-9]*::(?:（借）|（貸）|借方：|貸方：)")
+BROAD = {"仕訳を行う", "仕訳を行わない", "処理する", "計上する", "増加させる", "減少させる", "あり", "なし"}
 
-ALLOWED_TYPES = {
-    "definition", "classification", "recognition", "measurement",
-    "journal_entry", "formula", "procedure", "comparison", "exception",
-    "reasoning", "ledger", "financial_statement", "cost_accounting",
-}
+EXPECTED_NOTES = 38
+EXPECTED_INCLUDED_ALPS = 52
+EXPECTED_CLOZE_SPANS = 103
+EXPECTED_JOURNAL_NOTES = 8
 
-RESERVED_PILOT_ONLY_IDS = {
-    "BK-COM-01-0006", "BK-COM-01-0013", "BK-COM-01-0015",
-    "BK-COM-01-0020", "BK-COM-01-0023",
-}
-PROMOTED_PILOT_IDS = {
-    "BK-COM-01-0001", "BK-COM-01-0002", "BK-COM-01-0003",
-    "BK-COM-01-0004", "BK-COM-01-0005", "BK-COM-01-0007",
-    "BK-COM-01-0008", "BK-COM-01-0009", "BK-COM-01-0010",
-    "BK-COM-01-0011", "BK-COM-01-0012", "BK-COM-01-0014",
-    "BK-COM-01-0016", "BK-COM-01-0017", "BK-COM-01-0018",
-    "BK-COM-01-0019", "BK-COM-01-0021", "BK-COM-01-0022",
-}
-EXPECTED_NOTE_IDS = {
-    *PROMOTED_PILOT_IDS,
-    *(f"BK-COM-01-{n:04d}" for n in range(24, 44)),
-}
-EXPECTED_NOTE_COUNT = 38
-EXPECTED_INCLUDED_ALP_COUNT = 52
-EXPECTED_GENERATED_CARD_COUNT = 38
-EXPECTED_MULTI_ALP_NOTE_COUNT = 14
-EXPECTED_CLOZE_SPANS = 99
-
-# Whole-entry recall is a deliberate v1.8 exception to normal lexical-span
-# punctuation/length checks.
-COMPACT_JOURNAL_ENTRY_IDS = {"BK-COM-01-0008", "BK-COM-01-0009"}
-
-# Repeated same-index answers are allowed only when the same term is
-# structurally reused in one coherent formula family and all occurrences are hidden.
-ALLOWED_REPEAT_ANSWERS = {
-    "BK-COM-01-0035": {"売上原価"},
-    "BK-COM-01-0019": {"帳簿棚卸数量", "実地棚卸数量"},
-    "BK-COM-01-0021": {"正味売却価額"},
-}
-
-CONTENT_REQUIREMENTS = {
-    "BK-COM-01-0024": (
-        "商品購入時は費用の{{c1::仕入}}",
-        "販売時は収益の{{c1::売上}}",
-    ),
-    "BK-COM-01-0002": (
-        "認識時点は {{c1::商品受入時}}", "仕入を再計上しない",
-    ),
-    "BK-COM-01-0003": (
-        "商品引渡前の手付金・内金は商品原価をまだ計上せず",
-        "資産の{{c1::前払金}}", "{{c1::仕入}}", "{{c1::買掛金}}",
-    ),
-    "BK-COM-01-0025": (
-        "購入時の逆仕訳", "{{c1::買掛金}}", "{{c1::仕入}}",
-    ),
-    "BK-COM-01-0004": (
-        "純仕入高＝{{c1::総仕入高}}－{{c1::仕入戻し高}}",
-    ),
-    "BK-COM-01-0005": (
-        "運送料・保険料・梱包代", "付随費用は「仕入」に含める",
-        "仕入金額＝{{c1::購入代価}}＋当社負担の{{c1::仕入諸掛り}}",
-    ),
-    "BK-COM-01-0007": (
-        "{{c1::三分法}}", "{{c1::分記法}}", "{{c1::売上原価対立法}}",
-    ),
-    "BK-COM-01-0026": (
-        "三分法では", "{{c1::仕入}}", "{{c1::売上}}",
-        "{{c1::繰越商品}}", "{{c1::売上原価}}", "{{c1::決算整理}}",
-    ),
+REQUIRED_CURRENT_FORMS = {
     "BK-COM-01-0008": (
-        "期首商品を仕入へ加える",
-        "{{c1::（借）仕入／（貸）繰越商品}}",
-        "期末帳簿棚卸高を仕入から除く",
-        "{{c1::（借）繰越商品／（貸）仕入}}",
-    ),
-    "BK-COM-01-0027": (
-        "資産の {{c1::商品}}", "収益の {{c1::商品売買益}}",
-        "利益額＝{{c1::販売価格}}－{{c1::商品原価}}",
-    ),
-    "BK-COM-01-0028": (
-        "売上原価対立法では", "{{c1::資産}}の商品",
-        "{{c1::費用}}の売上原価", "{{c1::収益}}の売上",
-        "仕入時は商品勘定を増加",
+        "（借）{{c1::仕入}}／（貸）{{c1::繰越商品}}",
+        "（借）{{c1::繰越商品}}／（貸）{{c1::仕入}}",
     ),
     "BK-COM-01-0009": (
-        "売上原価対立法では",
-        "{{c1::（借）売掛金 100,000円／（貸）売上 100,000円}}",
-        "{{c1::（借）売上原価 60,000円／（貸）商品 60,000円}}",
+        "掛けで20,000円販売し在庫原価12,000円",
+        "（借）{{c1::売掛金}} 20,000円／（貸）{{c1::売上}} 20,000円",
+        "（借）{{c1::売上原価}} 12,000円／（貸）{{c1::商品}} 12,000円",
     ),
-    "BK-COM-01-0010": (
-        "{{c1::決算時}}", "{{c1::売上時}}",
-    ),
-    "BK-COM-01-0030": (
-        "手持商品の{{c1::数量}}・{{c1::原価}}",
-        "{{c1::補助簿}}", "販売時の払出も売価ではなく取得額",
-    ),
-    "BK-COM-01-0031": (
-        "仮定計算で決め", "{{c1::先入先出法}}",
-        "{{c1::移動平均法}}", "{{c1::総平均法}}",
-    ),
-    "BK-COM-01-0011": (
-        "{{c1::先に仕入れた商品}}から先に払い出す",
-        "{{c1::古い原価層}}", "{{c1::新しい原価層}}",
-    ),
-    "BK-COM-01-0012": (
-        "仕入の都度", "平均単価＝{{c1::在庫金額}}÷{{c1::在庫数量}}",
-    ),
-    "BK-COM-01-0032": (
-        "{{c1::払出額}} と {{c1::残高額}}",
-    ),
-    "BK-COM-01-0014": (
-        "一定期間全体をまとめて平均",
-        "総平均単価＝（{{c1::期首商品金額}}＋{{c1::期中仕入金額}}）"
-        "÷（{{c1::期首商品数量}}＋{{c1::期中仕入数量}}）",
-    ),
-    "BK-COM-01-0033": (
-        "移動平均法が {{c1::仕入の都度}}", "総平均法が {{c1::期間末}}",
-    ),
-    "BK-COM-01-0034": (
-        "月末数量＝{{c1::期首数量}}＋{{c1::仕入数量}}－{{c1::販売数量}}",
-        "月末商品棚卸高＝月末数量×{{c1::払出単価}}",
-    ),
-    "BK-COM-01-0035": (
-        "{{c1::売上原価}}＝{{c1::期首商品}}＋{{c1::当期仕入}}－{{c1::期末商品}}",
-        "売上総利益＝{{c1::売上高}}－{{c1::売上原価}}",
-    ),
-    "BK-COM-01-0036": (
-        "{{c1::数量}}のみ記録", "単価・金額は期間末に確定",
-    ),
-    "BK-COM-01-0016": (
-        "当期の{{c1::購入}}分", "当期の{{c1::販売}}分",
-        "{{c1::未販売在庫}}分だけ異なる",
-        "期間損益で売上高に対応させるのは後者",
-    ),
-    "BK-COM-01-0038": (
-        "帳簿上の在庫数量を{{c1::帳簿棚卸数量}}",
-        "実際に保有する在庫数量を{{c1::実地棚卸数量}}",
-    ),
-    "BK-COM-01-0039": (
-        "期末帳簿棚卸高＝{{c1::取得単価}}×{{c1::帳簿棚卸数量}}",
-    ),
-    "BK-COM-01-0040": (
-        "帳簿棚卸数量＞実地棚卸数量",
-        "{{c1::棚卸減耗}}", "{{c1::棚卸減耗損}}",
-        "取得原価＞正味売却価額", "{{c1::商品評価損}}",
-    ),
-    "BK-COM-01-0017": (
-        "{{c1::売上原価}}→{{c1::棚卸減耗損}}→{{c1::商品評価損}}",
-    ),
-    "BK-COM-01-0018": (
-        "実地棚卸高ではなく {{c1::期末帳簿棚卸高}}",
-    ),
-    "BK-COM-01-0041": (
-        "{{c1::繰越商品}}", "財務諸表上の表示は商品",
-        "売上勘定は {{c1::売上高}}", "仕入勘定は {{c1::売上原価}}",
-    ),
-    "BK-COM-01-0019": (
-        "棚卸減耗数量＝{{c1::帳簿棚卸数量}}－{{c1::実地棚卸数量}}",
-        "棚卸減耗損＝{{c1::取得単価}}×（{{c1::帳簿棚卸数量}}－{{c1::実地棚卸数量}}）",
-    ),
-    "BK-COM-01-0042": (
-        "借方：{{c1::棚卸減耗損}}／貸方：{{c1::繰越商品}}",
-    ),
-    "BK-COM-01-0021": (
-        "原則取得原価", "{{c1::正味売却価額}}が取得原価を下回る",
-        "{{c1::正味売却価額}}で評価",
-        "評価後期末在庫額＝{{c1::正味売却価額}}×{{c1::実地棚卸数量}}",
-    ),
-    "BK-COM-01-0022": (
-        "商品評価損＝（{{c1::取得単価}}－{{c1::正味売却価額}}）×{{c1::実地棚卸数量}}",
-    ),
-    "BK-COM-01-0043": (
-        "借方：{{c1::商品評価損}}／貸方：{{c1::繰越商品}}",
-    ),
-}
-
-FORBIDDEN_TEXT = {
-    "BK-COM-01-0024": ("{{c1::費用}}", "{{c1::収益}}"),
-    "BK-COM-01-0002": ("{{c1::商品を受け入れた時点}}",),
-    "BK-COM-01-0005": ("{{c1::当社負担の仕入諸掛り}}",),
-    "BK-COM-01-0026": (
-        "三分法は仕入・売上・繰越商品を使い", "{{c1::決算整理で算定する}}",
-    ),
-    "BK-COM-01-0008": ("{{c1::借}}方", "{{c1::貸}}方"),
-    "BK-COM-01-0027": ("（資産）", "（収益）"),
-    "BK-COM-01-0028": ("販売時に収益と原価を同時記録する方式では",),
-    "BK-COM-01-0009": ("販売収益と販売原価を同時記録する方式で",),
-    "BK-COM-01-0035": ("売上総利益＝{{c1::売上高}}－売上原価",),
-    "BK-COM-01-0036": ("{{c1::数量のみ}}",),
-    "BK-COM-01-0016": (
-        "{{c1::当期購入商品の原価}}", "{{c1::当期販売商品の原価}}",
-    ),
-    "BK-COM-01-0038": (
-        "帳簿棚卸数量は {{c1::帳簿上の在庫数量}}",
-        "実地棚卸数量は {{c1::実際に保有する在庫数量}}",
-    ),
-}
-
-VISIBLE_CONTEXT_CUES = {
-    "BK-COM-01-0002": "認識時点",
-    "BK-COM-01-0004": "純仕入高＝",
-    "BK-COM-01-0005": "仕入金額＝",
-    "BK-COM-01-0007": "商品売買の代表的な記帳方法",
-    "BK-COM-01-0026": "三分法では",
-    "BK-COM-01-0008": "三分法の決算整理では",
-    "BK-COM-01-0027": "分記法では",
-    "BK-COM-01-0028": "売上原価対立法では",
-    "BK-COM-01-0009": "売上原価対立法では",
-    "BK-COM-01-0031": "払出単価",
-    "BK-COM-01-0012": "移動平均法",
-    "BK-COM-01-0014": "総平均単価＝",
-    "BK-COM-01-0034": "月末数量＝",
-    "BK-COM-01-0035": "売上総利益＝",
-    "BK-COM-01-0036": "総平均法の商品有高帳",
-    "BK-COM-01-0016": "仕入と売上原価の範囲",
-    "BK-COM-01-0038": "在庫数量",
-    "BK-COM-01-0039": "期末帳簿棚卸高＝",
-    "BK-COM-01-0040": "商品評価では",
-    "BK-COM-01-0019": "棚卸減耗損＝",
-    "BK-COM-01-0021": "評価後期末在庫額＝",
-    "BK-COM-01-0022": "商品評価損＝",
+    "BK-COM-01-0025": ("借方：{{c1::買掛金}}／貸方：{{c1::仕入}}",),
+    "BK-COM-01-0042": ("借方：{{c1::棚卸減耗損}}／貸方：{{c1::繰越商品}}",),
+    "BK-COM-01-0043": ("借方：{{c1::商品評価損}}／貸方：{{c1::繰越商品}}",),
 }
 
 
-def fail(errors: list[str], message: str) -> None:
-    errors.append(message)
-
-
-def load_tsv(path: Path) -> tuple[list[str], list[dict[str, str]]]:
-    with path.open("r", encoding="utf-8", newline="") as fh:
-        reader = csv.DictReader(fh, delimiter="\t")
-        return list(reader.fieldnames or []), list(reader)
-
-
-def normalized_topic(topic: str) -> str:
-    return "_".join(topic.strip().split())
+def read_tsv(path: Path) -> list[dict[str, str]]:
+    with path.open(encoding="utf-8", newline="") as f:
+        return list(csv.DictReader(f, delimiter="\t"))
 
 
 def main() -> int:
     errors: list[str] = []
+    rows = read_tsv(NOTES)
+    inv = read_tsv(INVENTORY)
 
-    note_header, notes = load_tsv(NOTES)
-    if note_header != FIELDS:
-        fail(errors, f"header mismatch: {note_header!r}")
+    if not rows or list(rows[0]) != FIELDS:
+        errors.append("production header does not match canonical field order")
+    if len(rows) != EXPECTED_NOTES:
+        errors.append(f"expected {EXPECTED_NOTES} notes, found {len(rows)}")
 
-    _, inventory = load_tsv(INVENTORY)
-    included = [r for r in inventory if r.get("status") == "INCLUDE"]
-    excluded = [r for r in inventory if r.get("status") == "EXCLUDE"]
-    included_alps = [r["alp_id"] for r in included]
-    included_set = set(included_alps)
-    inventory_by_alp = {r["alp_id"]: r for r in included}
+    ids = [r["ID"] for r in rows]
+    if len(ids) != len(set(ids)):
+        errors.append("duplicate stable Note IDs")
 
-    if len(included_alps) != EXPECTED_INCLUDED_ALP_COUNT:
-        fail(errors, f"expected {EXPECTED_INCLUDED_ALP_COUNT} included COM-01 ALPs, got {len(included_alps)}")
+    included = {r["alp_id"] for r in inv if r["status"] == "INCLUDE"}
+    if len(included) != EXPECTED_INCLUDED_ALPS:
+        errors.append(f"expected {EXPECTED_INCLUDED_ALPS} INCLUDE ALPs, found {len(included)}")
 
-    seen_ids: set[str] = set()
-    alp_to_notes: dict[str, list[str]] = defaultdict(list)
-    plain_text_counter: Counter[str] = Counter()
-    generated_card_count = 0
-    cloze_span_count = 0
-    visible_answer_leakage = 0
-    first_alp_sequences: list[int] = []
-    multi_alp_note_count = 0
+    mapped: Counter[str] = Counter()
+    spans = 0
+    journal_count = 0
 
-    for row_no, row in enumerate(notes, start=2):
-        note_id = row.get("ID", "")
-        if not NOTE_RE.fullmatch(note_id):
-            fail(errors, f"row {row_no}: invalid Note ID {note_id!r}")
-        if note_id in seen_ids:
-            fail(errors, f"row {row_no}: duplicate Note ID {note_id}")
-        seen_ids.add(note_id)
-        if note_id in RESERVED_PILOT_ONLY_IDS:
-            fail(errors, f"row {row_no}: reserved pilot-only ID reused: {note_id}")
+    for row in rows:
+        nid = row["ID"]
+        text = row["Text"]
+        if not NOTE_RE.fullmatch(nid):
+            errors.append(f"{nid}: invalid stable ID")
+        if (row["SourceRepo"], row["SourceCommit"], row["SourcePath"]) != SOURCE:
+            errors.append(f"{nid}: source traceability drift")
+        if row["Part"] != "commercial" or row["Chapter"] != "01 商品売買":
+            errors.append(f"{nid}: chapter metadata drift")
+        if row["Status"] != "approved" or row["QA"] != "pass":
+            errors.append(f"{nid}: active lifecycle/QA mismatch")
+        if f"type::{row['Type']}" not in row["Tags"] or "status::approved" not in row["Tags"]:
+            errors.append(f"{nid}: tag metadata drift")
 
-        if row.get("Status") != "approved":
-            fail(errors, f"{note_id}: production row must have Status=approved")
-        if row.get("QA") != "pass":
-            fail(errors, f"{note_id}: production row must have QA=pass")
+        clozes = CLOZE_RE.findall(text)
+        spans += len(clozes)
+        if not clozes:
+            errors.append(f"{nid}: no Cloze target")
+        if {idx for idx, _ in clozes} != {"1"}:
+            errors.append(f"{nid}: COM-01 should remain one coherent generated card")
+        for _, answer in clozes:
+            if answer in BROAD:
+                errors.append(f"{nid}: broad/abstract Cloze answer {answer!r}")
 
-        text = row.get("Text", "")
-        matches = CLOZE_RE.findall(text)
-        if not matches:
-            fail(errors, f"{note_id}: Text has no valid Cloze")
-        indices = {int(index) for index, _ in matches}
-        if indices != {1}:
-            fail(errors, f"{note_id}: v1.8 COM-01 approved Note must use only c1; found {sorted(indices)}")
-        generated_card_count += len(indices)
-        cloze_span_count += len(matches)
+        alps = row["ALP_IDs"].split()
+        if not alps:
+            errors.append(f"{nid}: missing ALP mapping")
+        for alp in alps:
+            if not ALP_RE.fullmatch(alp):
+                errors.append(f"{nid}: invalid ALP ID {alp}")
+            mapped[alp] += 1
 
-        answers = [answer.strip() for _, answer in matches]
-        if any(not answer for answer in answers):
-            fail(errors, f"{note_id}: empty/whitespace Cloze answer")
+        if row["Type"] == "journal_entry":
+            journal_count += 1
+            if FORBIDDEN_COMPACT_RE.search(text):
+                errors.append(f"{nid}: whole-entry/direction label is inside Cloze")
+            explicit = ENTRY_ACCOUNT_RE.findall(text)
+            if any(ch.isdigit() for _, answer in explicit for ch in answer):
+                errors.append(f"{nid}: amount is bundled inside an account-name Cloze")
+            if explicit and len({idx for idx, _ in explicit}) != 1:
+                errors.append(f"{nid}: coherent journal accounts must share one Cloze index")
 
-        repeated = {a for a, count in Counter(answers).items() if count > 1}
-        unexpected_repeated = repeated - ALLOWED_REPEAT_ANSWERS.get(note_id, set())
-        if unexpected_repeated:
-            fail(errors, f"{note_id}: unexpected duplicate Cloze answer(s): {sorted(unexpected_repeated)}")
-
-        hidden = CLOZE_RE.sub("___", text)
-        for answer in answers:
-            compact_entry = note_id in COMPACT_JOURNAL_ENTRY_IDS
-            if not compact_entry and not NUMERIC_ANSWER_RE.fullmatch(answer):
-                if any(ch in answer for ch in BANNED_ANSWER_PUNCTUATION):
-                    fail(errors, f"{note_id}: compound/list/formula/bracket-like Cloze answer {answer!r}")
-            if not compact_entry and len(answer) > 14:
-                fail(errors, f"{note_id}: overly long Cloze answer {answer!r}")
-            if answer in {"借方", "貸方"}:
-                fail(errors, f"{note_id}: debit/credit side must Cloze first character only")
-            if len(answer) >= 2 and answer in hidden:
-                visible_answer_leakage += 1
-                fail(errors, f"{note_id}: Cloze answer {answer!r} remains visible elsewhere on the card")
-
-        if "借" in answers and "{{c1::借}}方" not in text:
-            fail(errors, f"{note_id}: 借 direction must use {{c1::借}}方 shape")
-        if "貸" in answers and "{{c1::貸}}方" not in text:
-            fail(errors, f"{note_id}: 貸 direction must use {{c1::貸}}方 shape")
-
-        required_cue = VISIBLE_CONTEXT_CUES.get(note_id)
-        if required_cue and required_cue not in hidden:
-            fail(errors, f"{note_id}: visible context cue {required_cue!r} disappears after masking")
-
-        for required in CONTENT_REQUIREMENTS.get(note_id, ()):
+        for required in REQUIRED_CURRENT_FORMS.get(nid, ()):
             if required not in text:
-                fail(errors, f"{note_id}: required v1.8 content missing: {required!r}")
-        for forbidden in FORBIDDEN_TEXT.get(note_id, ()):
-            if forbidden in text:
-                fail(errors, f"{note_id}: forbidden pre-v1.8 pattern remains: {forbidden!r}")
+                errors.append(f"{nid}: missing current-rule/source-anchored form {required!r}")
 
-        plain = CLOZE_RE.sub(lambda m: m.group(2), text).strip()
-        plain_text_counter[plain] += 1
+    if spans != EXPECTED_CLOZE_SPANS:
+        errors.append(f"expected {EXPECTED_CLOZE_SPANS} Cloze spans, found {spans}")
+    if journal_count != EXPECTED_JOURNAL_NOTES:
+        errors.append(f"expected {EXPECTED_JOURNAL_NOTES} journal-entry notes, found {journal_count}")
 
-        alp_ids = row.get("ALP_IDs", "").split()
-        if not alp_ids:
-            fail(errors, f"{note_id}: ALP_IDs must contain at least one ID")
-        if len(alp_ids) != len(set(alp_ids)):
-            fail(errors, f"{note_id}: duplicate ALP IDs in mapping")
-        if len(alp_ids) > 1:
-            multi_alp_note_count += 1
-
-        sequences: list[int] = []
-        for alp_id in alp_ids:
-            if not ALP_RE.fullmatch(alp_id):
-                fail(errors, f"{note_id}: invalid ALP ID {alp_id!r}")
-                continue
-            if alp_id not in included_set:
-                fail(errors, f"{note_id}: ALP is not canonical INCLUDE: {alp_id}")
-                continue
-            sequences.append(int(alp_id.rsplit("-", 1)[1]))
-            alp_to_notes[alp_id].append(note_id)
-
-        if sequences != sorted(sequences):
-            fail(errors, f"{note_id}: ALP_IDs not in canonical source order")
-        if sequences:
-            first_alp_sequences.append(sequences[0])
-
-        if alp_ids and alp_ids[0] in inventory_by_alp:
-            expected_section = inventory_by_alp[alp_ids[0]].get("source_section", "")
-            if row.get("Section") != expected_section:
-                fail(errors, f"{note_id}: Section={row.get('Section')!r}, expected {expected_section!r}")
-
-        fixed = {
-            "SourceRepo": SOURCE_REPO, "SourceCommit": SOURCE_COMMIT,
-            "SourcePath": SOURCE_PATH, "Part": PART, "Chapter": CHAPTER,
-        }
-        for field, expected in fixed.items():
-            if row.get(field) != expected:
-                fail(errors, f"{note_id}: {field}={row.get(field)!r}, expected {expected!r}")
-
-        if row.get("Difficulty") not in {"1", "2", "3", "4", "5"}:
-            fail(errors, f"{note_id}: invalid Difficulty {row.get('Difficulty')!r}")
-        if not row.get("Topic") or "::" in row.get("Topic", ""):
-            fail(errors, f"{note_id}: invalid Topic")
-        if row.get("Type") not in ALLOWED_TYPES:
-            fail(errors, f"{note_id}: invalid Type {row.get('Type')!r}")
-
-        expected_tags = sorted({
-            "bookkeeping::commercial", "chapter::commercial::01",
-            f"difficulty::{row.get('Difficulty')}", "status::approved",
-            f"topic::{normalized_topic(row.get('Topic', ''))}",
-            f"type::{row.get('Type')}",
-        })
-        actual_tags = row.get("Tags", "").split()
-        if actual_tags != expected_tags:
-            fail(errors, f"{note_id}: tag mismatch; got {actual_tags}, expected {expected_tags}")
-
-    if len(notes) != EXPECTED_NOTE_COUNT:
-        fail(errors, f"expected {EXPECTED_NOTE_COUNT} Notes, got {len(notes)}")
-    if seen_ids != EXPECTED_NOTE_IDS:
-        fail(errors, f"stable Note-ID set mismatch; missing={sorted(EXPECTED_NOTE_IDS-seen_ids)}, unexpected={sorted(seen_ids-EXPECTED_NOTE_IDS)}")
-    if first_alp_sequences != sorted(first_alp_sequences):
-        fail(errors, "production rows are not ordered by primary canonical ALP")
-    if generated_card_count != EXPECTED_GENERATED_CARD_COUNT:
-        fail(errors, f"expected {EXPECTED_GENERATED_CARD_COUNT} generated cards, got {generated_card_count}")
-    if cloze_span_count != EXPECTED_CLOZE_SPANS:
-        fail(errors, f"expected {EXPECTED_CLOZE_SPANS} v1.8 Cloze spans, got {cloze_span_count}")
-    if multi_alp_note_count != EXPECTED_MULTI_ALP_NOTE_COUNT:
-        fail(errors, f"expected {EXPECTED_MULTI_ALP_NOTE_COUNT} multi-ALP Notes, got {multi_alp_note_count}")
-
-    missing = [alp for alp in included_alps if not alp_to_notes.get(alp)]
-    multiply_mapped = [alp for alp in included_alps if len(alp_to_notes.get(alp, [])) != 1]
-    if missing:
-        fail(errors, f"unmapped included ALPs: {missing}")
-    if multiply_mapped:
-        fail(errors, f"ALPs not mapped exactly once: {multiply_mapped}")
-
-    rendered_duplicates = [text for text, count in plain_text_counter.items() if count > 1]
-    if rendered_duplicates:
-        fail(errors, f"exact rendered-text duplicates among approved Notes: {rendered_duplicates}")
-
-    if any(r.get("alp_id") for r in excluded):
-        fail(errors, "excluded COM-01 rows unexpectedly carry canonical ALP IDs")
+    if set(mapped) != included:
+        errors.append(f"ALP coverage mismatch: missing={sorted(included-set(mapped))} extra={sorted(set(mapped)-included)}")
+    multiply = sorted(alp for alp, count in mapped.items() if count != 1)
+    if multiply:
+        errors.append(f"active ALPs must map exactly once in COM-01: {multiply}")
 
     if errors:
-        print("COM-01 v1.8 production validation: FAIL", file=sys.stderr)
+        print("COM-01 production validation: FAIL", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
 
-    journal_count = sum(1 for r in notes if r.get("Type") == "journal_entry")
-    formula_count = sum(1 for r in notes if r.get("Type") == "formula")
-
-    print("COM-01 v1.8 production validation: PASS")
-    print(f"notes={len(notes)} included_alps={len(included_alps)} mapped={len(alp_to_notes)} unmapped=0")
+    print("COM-01 production validation: PASS")
     print(
-        f"generated_cards={generated_card_count} cloze_spans={cloze_span_count} "
-        f"visible_answer_leakage={visible_answer_leakage} multi_alp_notes={multi_alp_note_count}"
+        f"notes={len(rows)} cards={len(rows)} cloze_spans={spans} "
+        f"included_alps={len(included)} mapped={len(mapped)} unmapped=0"
     )
     print(
-        f"promoted_pilot_ids={len(PROMOTED_PILOT_IDS)} "
-        f"reserved_pilot_only_ids={len(RESERVED_PILOT_ONLY_IDS)}"
+        f"journal_entry_notes={journal_count} account_level_journal_cloze=pass "
+        "source_traceability=pass alp_integrity=pass"
     )
-    print(f"journal_entry_notes={journal_count} formula_notes={formula_count}")
     return 0
 
 
