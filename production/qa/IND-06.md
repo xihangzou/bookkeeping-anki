@@ -10,7 +10,7 @@ Canonical shard: `inventory/topic_inventory/IND-06.tsv`
 
 - production Notes: **23**
 - generated cards: **23**
-- Cloze spans: **46**
+- Cloze spans: **44**
 - included ALPs: **23**
 - mapped included ALPs: **23**
 - unmapped included ALPs: **0**
@@ -21,6 +21,7 @@ Canonical shard: `inventory/topic_inventory/IND-06.tsv`
 - visible-answer leakage for 2+ character answers: **0**
 - broad/non-atomic targeted action Clozes: **0**
 - parallel compound answers split into atomic Cloze spans
+- visible retrieval context preserved when targets are hidden
 - every approved Note uses only `c1`
 - lifecycle: all rows `Status=approved`, `QA=pass`
 
@@ -34,6 +35,20 @@ The chapter's worked numerical demonstrations remain excluded as `DECORATIVE_EXA
 
 ## Recall-design review
 
+### Review-driven Cloze refinements
+
+A post-production learner review identified several spans that technically preserved the proposition but hid more wording than necessary. The affected Notes were tightened without changing ALP mapping or source meaning:
+
+- `BK-IND-06-0002`: `正確な製品原価の計算` was narrowed to the canonical object `製品原価`; `正確な` and `の計算` remain visible.
+- `BK-IND-06-0010`: formula modifiers are visible: `各部門の` remains outside the `配賦基準量` span and the denominator is expressed as `その{{c1::合計}}`.
+- `BK-IND-06-0013`: the defining facts for direct allocation remain visible and only `直接配賦法` is hidden, so the prompt remains meaningful after Cloze removal.
+- `BK-IND-06-0016`: `他の` is visible and only the atomic category label `補助部門` is hidden.
+- `BK-IND-06-0020`: timing and department qualifiers remain visible around the actual-rate operands.
+- `BK-IND-06-0021`: department/product qualifiers remain visible around `実際配賦率` and `実際配賦基準数値`.
+- `BK-IND-06-0023`: long action phrases were replaced with atomic accounting objects (`予定配賦率`, `予定配賦額`, `実際部門費`, `配賦差異`) while the workflow verbs and timing remain visible.
+
+These changes implement the existing minimal lexical scope, context sufficiency, context-qualified atomicity, formula-operand, and parallel-term atomicity rules. No new global rule is required.
+
 ### Departmental-costing concepts
 
 The opening Notes retrieve the definition and purposes of departmental costing, distinguish `単純個別原価計算` from `部門別個別原価計算`, and test the core department classifications. Parallel classification labels such as `主経営部門`・`副経営部門` and `補助経営部門`・`工場管理部門` use separate same-index Cloze spans so the answers remain lexically atomic while still generating one coherent card.
@@ -46,17 +61,17 @@ The batch preserves the complete departmental-costing flow:
 2. `第2次集計`: service-department costs are allocated to manufacturing departments;
 3. `第3次集計`: manufacturing-department costs are allocated to products.
 
-Department-specific overhead and common departmental overhead are distinguished by whether the originating department can be identified. The common-cost allocation formula keeps arithmetic operators visible and Clozes only the individual operands.
+Department-specific overhead and common departmental overhead are distinguished by whether the originating department can be identified. The common-cost allocation formula keeps arithmetic operators and relational qualifiers visible and Clozes only atomic operands.
 
 ### Direct and reciprocal allocation
 
-Direct allocation retrieves the defining rule that reciprocal service between service departments is ignored and the denominator excludes service provided to other service departments.
+Direct allocation is now prompted by a fully visible defining sentence: reciprocal service between service departments is ignored and service-department costs are allocated only to manufacturing departments; the learner retrieves the method name `直接配賦法`. The denominator rule remains a separate Note that retrieves the exclusion treatment.
 
-The simplified reciprocal-allocation sequence separately retrieves the first allocation, self-consumption exclusion, and second allocation. In the first allocation, `製造部門` and `他の補助部門` are separate same-index spans rather than one compound answer. In the second allocation, amounts newly assigned to service departments are reallocated only to manufacturing departments.
+The simplified reciprocal-allocation sequence separately retrieves the first allocation, self-consumption exclusion, and second allocation. In the first allocation, `製造部門` and `補助部門` are separate same-index spans, with the qualifier `他の` left visible. In the second allocation, amounts newly assigned to service departments are reallocated only to manufacturing departments.
 
 ### Product allocation and planned allocation
 
-The third-stage Notes retrieve the departmental actual allocation rate and product allocation formulas using atomic operands. Planned allocation retrieves the beginning-of-period planned rate, actual activity base, and the ordered period workflow from rate setting through monthly variance calculation and year-end variance disposition.
+The third-stage Notes retrieve the departmental actual allocation rate and product allocation formulas using atomic operands while keeping timing, department, and product qualifiers visible. Planned allocation retrieves the beginning-of-period planned rate, actual activity base, and the ordered period workflow from rate setting through monthly variance calculation and year-end variance disposition.
 
 ### Journal-entry applicability
 
@@ -88,15 +103,16 @@ Exact chapter anchors remain recoverable through each mapped canonical ALP in `i
 - broad/non-atomic Cloze answers
 - atomic parallel-term Cloze spans
 - formula/operator atomicity and required precision forms
+- visible-context precision for the direct-allocation definition
 - direct-versus-reciprocal service-department allocation anchors
 - ordered three-stage and planned-allocation cost flow
 - exact canonical exclusion family
 
-Validated output:
+Expected output:
 
 ```text
 IND-06 production validation: PASS
-notes=23 cards=23 cloze_spans=46 included_alps=23 mapped=23 unmapped=0
+notes=23 cards=23 cloze_spans=44 included_alps=23 mapped=23 unmapped=0
 procedure_notes=7 formula_notes=3 canonical_exclusions=1
-minimal_cloze_scope=pass formula_atomicity=pass parallel_atomicity=pass cost_accounting_flow=pass journal_entry_check=not_applicable visible_answer_leakage=0 deterministic_order=pass
+minimal_cloze_scope=pass formula_atomicity=pass parallel_atomicity=pass visible_context=pass cost_accounting_flow=pass journal_entry_check=not_applicable visible_answer_leakage=0 deterministic_order=pass
 ```
