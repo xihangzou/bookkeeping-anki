@@ -67,6 +67,8 @@ jobs:
             scripts/validate_com09_production.py
             scripts/validate_com10_production.py
             scripts/validate_com11_production.py
+            scripts/validate_com12_production.py
+            scripts/validate_com13_production.py
             scripts/validate_com14_production.py
             scripts/validate_com15_production.py
             scripts/validate_com16_production.py
@@ -75,9 +77,16 @@ jobs:
             scripts/validate_ind03_production.py
             scripts/validate_ind04_production.py
             scripts/validate_ind05_production.py
+            scripts/validate_ind06_production.py
+            scripts/validate_ind07_production.py
             scripts/validate_ind08_production.py
+            scripts/validate_ind09_production.py
             scripts/validate_ind10_production.py
             scripts/validate_ind11_production.py
+            scripts/validate_ind12_production.py
+            scripts/validate_ind13_production.py
+            scripts/validate_ind14_production.py
+            scripts/validate_corpus_production.py
           )
 
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
@@ -99,7 +108,7 @@ jobs:
             while IFS= read -r file; do
               [[ -z "$file" ]] && continue
               case "$file" in
-                GOVERNANCE.md|README.md|SPEC.md|FREEZE.md|production/README.md|schema/*|rules/*|scripts/validate_governance.py|.github/workflows/validate-production.yml)
+                GOVERNANCE.md|README.md|SPEC.md|FREEZE.md|production/README.md|schema/*|rules/*|scripts/validate_governance.py|scripts/validate_corpus_production.py|.github/workflows/validate-production.yml)
                   run_all=1
                   ;;
               esac
@@ -113,8 +122,8 @@ jobs:
           else
             batches=(
               FND-00
-              COM-01 COM-02 COM-03 COM-04 COM-05 COM-06 COM-07 COM-08 COM-09 COM-10 COM-11 COM-14 COM-15 COM-16
-              IND-01 IND-02 IND-03 IND-04 IND-05 IND-08 IND-10 IND-11
+              COM-01 COM-02 COM-03 COM-04 COM-05 COM-06 COM-07 COM-08 COM-09 COM-10 COM-11 COM-12 COM-13 COM-14 COM-15 COM-16
+              IND-01 IND-02 IND-03 IND-04 IND-05 IND-06 IND-07 IND-08 IND-09 IND-10 IND-11 IND-12 IND-13 IND-14
             )
 
             for batch in "${batches[@]}"; do
@@ -126,6 +135,11 @@ jobs:
                 selected+=("$validator")
               fi
             done
+
+            # Any production-note change can affect cross-batch normalization.
+            if grep -Eq '^production/notes/.*\.tsv$' <<< "$changed_files"; then
+              selected+=(scripts/validate_corpus_production.py)
+            fi
           fi
 
           printf '%s\n' "${selected[@]}" | awk '!seen[$0]++' > /tmp/selected-validators.txt
