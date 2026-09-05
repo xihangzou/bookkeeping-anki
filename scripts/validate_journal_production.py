@@ -34,14 +34,18 @@ EXPLICIT_JOURNAL_RE = re.compile(r"(?:（借）|（貸）|借方：|貸方：)")
 ACCOUNT_AFTER_LABEL_RE = re.compile(
     r"(?:（借）|（貸）|借方：|貸方：)\s*\{\{c([1-9][0-9]*)::([^}]+)\}\}"
 )
-COMPACT_LABEL_RE = re.compile(
-    r"\{\{c[1-9][0-9]*::(?:（借）|（貸）|借方：|貸方：)"
+# A whole-entry Cloze is forbidden only when the hidden span itself contains
+# debit/credit journal labels. Generic slash-bearing Clozes such as ``1/12``
+# are not journal tuples.
+COMPACT_TUPLE_RE = re.compile(
+    r"\{\{c[1-9][0-9]*::[^}]*"
+    r"(?:（借）|借方：)[^}]*[／/][^}]*"
+    r"(?:（貸）|貸方：)[^}]*\}\}"
 )
-COMPACT_TUPLE_RE = re.compile(r"\{\{c[1-9][0-9]*::[^}]*[／/][^}]*\}\}")
-PAIR_WITH_AMOUNTS_RE = re.compile(
-    r"(?:（借）|借方：)\s*\{\{c[1-9][0-9]*::[^}]+\}\}\s*"
+ENTRY_PAIR_RE = re.compile(
+    r"(?:（借）|借方：)\s*\{\{c([1-9][0-9]*)::([^}]+)\}\}\s*"
     r"([0-9][0-9,]*円)?\s*[／/]\s*"
-    r"(?:（貸）|貸方：)\s*\{\{c[1-9][0-9]*::[^}]+\}\}\s*"
+    r"(?:（貸）|貸方：)\s*\{\{c([1-9][0-9]*)::([^}]+)\}\}\s*"
     r"([0-9][0-9,]*円)?"
 )
 BROAD_ANSWERS = {
@@ -97,6 +101,7 @@ def main() -> int:
 
     by_batch: Counter[str] = Counter(note_batch[nid] for nid in population)
     amount_pairs_checked = 0
+    entry_pairs_checked = 0
     explicit_notes = 0
     primary_journal_notes = 0
     mapped_journal_alps = set()
@@ -117,8 +122,6 @@ def main() -> int:
             primary_journal_notes += 1
         mapped_journal_alps.update(set(row.get("ALP_IDs", "").split()) & journal_alps)
 
-        if COMPACT_LABEL_RE.search(text):
-            errors.append(f"{nid}: debit/credit label is hidden inside a Cloze")
         if COMPACT_TUPLE_RE.search(text):
             errors.append(f"{nid}: whole debit/credit tuple is hidden inside one Cloze")
 
@@ -131,17 +134,21 @@ def main() -> int:
             explicit_notes += 1
             if not explicit:
                 errors.append(f"{nid}: explicit journal syntax lacks account-level Cloze")
-        if explicit:
-            indices = {idx for idx, _ in explicit}
-            if len(indices) != 1:
-                errors.append(f"{nid}: journal account targets do not use coherent same-index grouping")
-            for _, answer in explicit:
-                if any(ch.isdigit() for ch in answer) or "円" in answer:
-                    errors.append(f"{nid}: account Cloze improperly bundles a visible amount: {answer!r}")
-                if any(token in answer for token in ("（借）", "（貸）", "借方：", "貸方：", "／", "/")):
-                    errors.append(f"{nid}: account Cloze is broader than one account: {answer!r}")
+        for _, answer in explicit:
+            if any(ch.isdigit() for ch in answer) or "円" in answer:
+                errors.append(f"{nid}: account Cloze improperly bundles a visible amount: {answer!r}")
+            if any(token in answer for token in ("（借）", "（貸）", "借方：", "貸方：", "／", "/")):
+                errors.append(f"{nid}: account Cloze is broader than one account: {answer!r}")
 
-        for debit_amount, credit_amount in PAIR_WITH_AMOUNTS_RE.findall(text):
+        # Same-index grouping is evaluated per coherent journal pair. A Note may
+        # intentionally contain several independent entries with c1/c2/c3.
+        for debit_idx, _debit, debit_amount, credit_idx, _credit, credit_amount in ENTRY_PAIR_RE.findall(text):
+            entry_pairs_checked += 1
+            if debit_idx != credit_idx:
+                errors.append(
+                    f"{nid}: debit/credit accounts within one journal pair use different Cloze indices "
+                    f"(c{debit_idx}/c{credit_idx})"
+                )
             if debit_amount and credit_amount:
                 amount_pairs_checked += 1
                 if amount_value(debit_amount) != amount_value(credit_amount):
@@ -165,7 +172,8 @@ def main() -> int:
     print(
         f"audited_notes={len(population)} primary_journal_notes={primary_journal_notes} "
         f"journal_alps={len(journal_alps)} mapped_journal_alps={len(mapped_journal_alps)} "
-        f"explicit_journal_notes={explicit_notes} amount_pairs_checked={amount_pairs_checked}"
+        f"explicit_journal_notes={explicit_notes} entry_pairs_checked={entry_pairs_checked} "
+        f"amount_pairs_checked={amount_pairs_checked}"
     )
 
     if errors:
