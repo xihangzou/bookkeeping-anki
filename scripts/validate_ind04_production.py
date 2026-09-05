@@ -19,6 +19,7 @@ CLOZE_RE = re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE = re.compile(r"^BK-IND-04-[0-9]{4}$")
 ALP_RE = re.compile(r"^ALP-IND-04-[0-9]{4}$")
 EXPECTED_IDS = [f"BK-IND-04-{n:04d}" for n in range(1, 18)]
+EXPECTED_CARDS = 19
 EXPECTED_SPANS = 47
 SOURCE = (
     "xihangzou/bookkeeping-integrated",
@@ -41,13 +42,21 @@ FORBIDDEN_COMPACT = (
 EXPECTED_ALP_MAP = {
     f"BK-IND-04-{n:04d}": [f"ALP-IND-04-{n:04d}"] for n in range(1, 18)
 }
+EXPECTED_INDICES = {
+    **{f"BK-IND-04-{n:04d}": {1} for n in range(1, 18)},
+    "BK-IND-04-0003": {1, 2, 3},
+}
 REQUIRED = {
     "BK-IND-04-0001": ("{{c1::経費}}",),
     "BK-IND-04-0002": ("{{c1::直接経費}}", "{{c1::間接経費}}"),
     "BK-IND-04-0003": (
-        "{{c1::外注加工賃}}", "{{c1::特許権使用料}}", "{{c1::旅費交通費}}",
-        "{{c1::減価償却費}}", "{{c1::水道光熱費}}", "{{c1::賃借料}}",
-        "{{c1::棚卸減耗費}}",
+        "加工委託の対価＝{{c1::外注加工賃}}",
+        "特許使用の対価＝{{c1::特許権使用料}}",
+        "工場従業員の移動費＝{{c2::旅費交通費}}",
+        "工場設備の期間費用＝{{c2::減価償却費}}",
+        "工場の水道・電気等＝{{c3::水道光熱費}}",
+        "工場建物の家賃＝{{c3::賃借料}}",
+        "材料の帳簿在高と実際在高の差＝{{c3::棚卸減耗費}}",
     ),
     "BK-IND-04-0004": ("{{c1::外注加工賃}}", "{{c1::特許権使用料}}", "直接経費となる"),
     "BK-IND-04-0005": ("（借）{{c1::仕掛品}}", "（借）{{c1::製造間接費}}", "貸方は経費勘定"),
@@ -64,14 +73,14 @@ REQUIRED = {
     "BK-IND-04-0011": ("{{c1::測定経費}}", "{{c1::基本料金}}＋{{c1::当月測定量に基づく金額}}"),
     "BK-IND-04-0012": ("{{c1::発生経費}}", "{{c1::当月発生額}}"),
     "BK-IND-04-0013": (
-        "{{c1::経費に関する諸勘定を設ける方法}}",
-        "{{c1::経費勘定を設ける方法}}",
-        "{{c1::経費に関する勘定自体を設けない方法}}",
+        "経費に関する{{c1::諸勘定}}を設ける",
+        "{{c1::経費勘定}}を設ける",
+        "経費に関する勘定を{{c1::設けない}}",
     ),
     "BK-IND-04-0014": ("{{c1::各経費勘定}}", "{{c1::仕掛品}}", "{{c1::製造間接費}}"),
     "BK-IND-04-0015": ("{{c1::経費勘定}}", "{{c1::仕掛品}}", "{{c1::製造間接費}}"),
     "BK-IND-04-0016": ("（借）{{c1::仕掛品}}", "（借）{{c1::製造間接費}}", "直接計上する"),
-    "BK-IND-04-0017": ("{{c1::経費勘定の経由方法}}", "原価は同じ"),
+    "BK-IND-04-0017": ("原価は{{c1::同額}}になる",),
 }
 
 
@@ -95,6 +104,7 @@ def main() -> int:
     alp_to_notes: defaultdict[str, list[str]] = defaultdict(list)
     rendered = Counter()
     spans = 0
+    cards = 0
     ids: list[str] = []
 
     for row in rows:
@@ -124,8 +134,10 @@ def main() -> int:
         text = row["Text"]
         matches = CLOZE_RE.findall(text)
         spans += len(matches)
-        if not matches or {int(i) for i, _ in matches} != {1}:
-            errors.append(f"{nid}: c1-only")
+        indices = {int(i) for i, _ in matches}
+        cards += len(indices)
+        if not matches or indices != EXPECTED_INDICES.get(nid, {1}):
+            errors.append(f"{nid}: cloze indices {sorted(indices)}")
         visible = CLOZE_RE.sub("", text)
         for _, answer in matches:
             answer = answer.strip()
@@ -137,7 +149,7 @@ def main() -> int:
                 errors.append(f"{nid}: journal syntax hidden")
             if any(x in answer for x in ARITH):
                 errors.append(f"{nid}: operator hidden {answer!r}")
-            if "・" in answer and answer not in {"経費勘定の経由方法"}:
+            if "・" in answer:
                 errors.append(f"{nid}: non-atomic parallel answer {answer!r}")
         if any(x in text for x in FORBIDDEN_COMPACT):
             errors.append(f"{nid}: compact journal entry")
@@ -161,6 +173,8 @@ def main() -> int:
         errors.append("stable IDs/order")
     if len(rows) != 17:
         errors.append(f"notes={len(rows)}")
+    if cards != EXPECTED_CARDS:
+        errors.append(f"cards={cards}")
     if spans != EXPECTED_SPANS:
         errors.append(f"spans={spans}")
     if len(included) != 17:
@@ -184,7 +198,7 @@ def main() -> int:
     journals = sum(r["Type"] == "journal_entry" for r in rows)
     formulas = sum(r["Type"] == "formula" for r in rows)
     print("IND-04 production validation: PASS")
-    print(f"notes={len(rows)} cards={len(rows)} cloze_spans={spans} included_alps={len(included)} mapped={len(included)} unmapped=0")
+    print(f"notes={len(rows)} cards={cards} cloze_spans={spans} included_alps={len(included)} mapped={len(included)} unmapped=0")
     print(f"multi_alp_notes=0 journal_entry_notes={journals} formula_notes={formulas} canonical_exclusions={len(excluded_rows)}")
     print("account_level_journal_cloze=pass minimal_cloze_scope=pass formula_atomicity=pass cost_accounting_treatment=pass visible_answer_leakage=0 deterministic_order=pass")
     return 0
