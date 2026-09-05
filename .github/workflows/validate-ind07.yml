@@ -1,0 +1,37 @@
+name: Validate IND-07 production
+
+on:
+  push:
+    paths:
+      - 'GOVERNANCE.md'
+      - 'SPEC.md'
+      - 'rules/anki_card_rules.md'
+      - 'schema/note_schema.yaml'
+      - 'inventory/topic_inventory/IND-07.tsv'
+      - 'production/notes/IND-07.tsv'
+      - 'production/qa/IND-07.md'
+      - 'scripts/validate_ind07_production.py'
+      - '.github/workflows/validate-ind07.yml'
+  pull_request:
+    paths:
+      - 'GOVERNANCE.md'
+      - 'SPEC.md'
+      - 'rules/anki_card_rules.md'
+      - 'schema/note_schema.yaml'
+      - 'inventory/topic_inventory/IND-07.tsv'
+      - 'production/notes/IND-07.tsv'
+      - 'production/qa/IND-07.md'
+      - 'scripts/validate_ind07_production.py'
+      - '.github/workflows/validate-ind07.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-ind07:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate IND-07 production batch
+        run: python scripts/validate_ind07_production.py
