@@ -119,11 +119,14 @@ Phase C generation is complete. All downstream normalization and QA use the **la
 
 ## Phase G — Export
 
-- [ ] **ANKI-043** Deterministic export
-  - canonical TSV
-  - import/round-trip validation
-  - APKG where supported
-  - manifest records source baseline, schema identity, consolidated rule identity, Note/card/span counts
+- [x] **ANKI-043** Deterministic export
+  - 735 approved Notes / 748 generated cards / 2,008 Cloze spans / 965 mapped ALPs exported
+  - canonical 16-field TSV + Anki-compatible APKG + build manifest generated from canonical production data
+  - stable Note IDs and deterministic Anki GUIDs validated; duplicate Note IDs / GUID collisions = 0 / 0
+  - full APKG SQLite round-trip validates all fields, tags, ALP linkage, Cloze card ordinals, and Japanese Unicode
+  - synthetic Japanese + LF/CR/TAB/backslash serialization fixture PASS
+  - duplicate builds produce byte-identical canonical TSV + manifest and identical APKG semantic fingerprint
+  - report: `production/qa/ANKI-043.md`; builder: `scripts/build_anki_export.py`; workflow run `33945371171` PASS
 
 ## Completion gate
 
@@ -138,4 +141,4 @@ Project is complete only when all are true:
 - unresolved ambiguous/leaking Clozes: 0
 - unresolved semantic duplicates/orphans: 0
 - approved Notes with source traceability: 100%
-- export reproducible from canonical repository data
+- export reproducible from canonical repository data: PASS (`ANKI-043`)
