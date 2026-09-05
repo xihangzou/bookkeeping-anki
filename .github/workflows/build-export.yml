@@ -29,6 +29,9 @@ on:
       - '.github/workflows/build-export.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-export:
     runs-on: ubuntu-latest
@@ -69,3 +72,18 @@ jobs:
           path: export/build-a/
           if-no-files-found: error
           retention-days: 30
+
+      - name: Publish permanent GitHub release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="anki-export-${GITHUB_SHA::12}"
+          gh release create "$tag" \
+            export/build-a/bookkeeping-master.apkg \
+            export/build-a/bookkeeping-master.canonical.tsv \
+            export/build-a/manifest.json \
+            --target "$GITHUB_SHA" \
+            --title "Bookkeeping Anki export ${GITHUB_SHA::12}" \
+            --notes "Validated deterministic Bookkeeping Master export. Includes the APKG, canonical TSV, and manifest for commit $GITHUB_SHA."
