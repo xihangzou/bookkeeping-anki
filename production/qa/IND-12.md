@@ -44,7 +44,7 @@ The worked Case Study and Example 12-1 remain excluded as `DECORATIVE_EXAMPLE` b
 
 ### Direct versus full costing
 
-The comparison Note keeps the accounting frame visible and masks the smallest treatment-changing units: all manufacturing cost under full costing, variable manufacturing cost only under direct costing, fixed manufacturing cost, and period-cost treatment. Repeated `期間原価` occurrences share `c1` so visible sibling text cannot reveal the answer.
+The comparison Note keeps the accounting nouns visible where they already identify the retrieval frame. Following review feedback, `BK-IND-12-0001` masks only `すべての` in the full-costing branch and `のみ` in the direct-costing branch instead of masking the broader phrases `すべての製造原価` and `変動製造原価のみ`. The fixed-manufacturing-cost and period-cost treatment remains actively retrieved. Repeated `期間原価` occurrences share `c1` so visible sibling text cannot reveal the answer.
 
 Product cost and period cost are tested separately through the timing distinction: inventory deferral until sale versus full expense recognition in the period incurred.
 
@@ -64,6 +64,8 @@ The batch separately retrieves:
 - the equivalent operating-profit difference formula;
 - why fixed-cost adjustment is required for public reporting; and
 - the operational rule to add ending-inventory fixed manufacturing cost and subtract beginning-inventory fixed manufacturing cost.
+
+Following review feedback, formula Notes `BK-IND-12-0012`–`0014` keep shared formula descriptors such as `固定製造費用化額`, `営業利益`, and `に含まれる製造固定費` visible and mask only the discriminating operands: `直接原価計算`, `期首棚卸資産`, and `期末棚卸資産`. This preserves the formula relationship while reducing lexical Cloze scope.
 
 `ALP-IND-12-0015` and `ALP-IND-12-0019` are intentionally mapped to the same Note because they state the same quantitative relationship in different section contexts. Creating separate active Notes would create a semantic duplicate.
 
@@ -91,6 +93,7 @@ Exact chapter anchors remain recoverable through each mapped canonical ALP in `i
 - local duplicate rendered text
 - visible-answer leakage
 - broad/non-atomic Cloze answers
+- regression rejection for the reviewed over-broad IND-12 targets
 - parallel `・`-joined answer rejection
 - formula/operator atomicity
 - direct-costing formula precision
@@ -110,3 +113,5 @@ direct_costing_logic=pass fixed_cost_adjustment=pass formula_atomicity=pass mini
 
 - `8864b80ed9bc158f8bf2f40b3d1583bf143f4197` — add `production/notes/IND-12.tsv`
 - `d2c8cbb4cdb5f6d266702a423917fbc7bde53347` — add `scripts/validate_ind12_production.py`
+- `a991e9faf4ff40790b0069d495f8a928728e05b5` — refine reviewed Cloze spans in `IND-12.tsv`
+- `6d8510d712b88232d70a3a2d87a29d2fbdd331e7` — tighten chapter validator against regression to the reviewed broad targets
