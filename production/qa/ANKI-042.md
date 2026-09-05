@@ -78,7 +78,7 @@ The final corpus contains **0 exact duplicate active retrieval propositions**. T
 
 ## Validator / CI contract
 
-`script/validate_coverage_production.py` is not used; the canonical executable gate is:
+The canonical executable coverage gate is:
 
 - `scripts/validate_coverage_production.py`
 
