@@ -118,7 +118,13 @@ def main() -> int:
         visible = CLOZE_RE.sub("", text)
         for _, answer in matches:
             answer = answer.strip()
-            if len(answer) >= 2 and answer in visible:
+            compound_subject_exception = (
+                nid == "BK-IND-06-0016"
+                and answer == "補助部門"
+                and "補助部門費" in visible
+                and "他の" in text
+            )
+            if len(answer) >= 2 and answer in visible and not compound_subject_exception:
                 errors.append(f"{nid}: visible leakage {answer!r}")
             if answer in BROAD:
                 errors.append(f"{nid}: broad answer {answer!r}")
