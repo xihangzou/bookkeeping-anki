@@ -7,69 +7,12 @@ on:
       - 'README.md'
       - 'SPEC.md'
       - 'FREEZE.md'
-      - 'production/notes/**'
-      - 'production/qa/**'
-      - 'production/README.md'
-      - 'inventory/topic_inventory/FND-00.tsv'
-      - 'inventory/topic_inventory/COM-01.tsv'
-      - 'inventory/topic_inventory/COM-02.tsv'
-      - 'inventory/topic_inventory/COM-03.tsv'
-      - 'inventory/topic_inventory/COM-04.tsv'
-      - 'inventory/topic_inventory/COM-05.tsv'
-      - 'inventory/topic_inventory/COM-06.tsv'
-      - 'inventory/topic_inventory/COM-07.tsv'
-      - 'inventory/topic_inventory/COM-08.tsv'
-      - 'inventory/topic_inventory/COM-09.tsv'
-      - 'inventory/topic_inventory/COM-10.tsv'
-      - 'inventory/topic_inventory/COM-11.tsv'
-      - 'inventory/topic_inventory/COM-14.tsv'
-      - 'inventory/topic_inventory/COM-15.tsv'
-      - 'inventory/topic_inventory/COM-16.tsv'
-      - 'inventory/topic_inventory/IND-01.tsv'
-      - 'inventory/topic_inventory/IND-02.tsv'
-      - 'inventory/topic_inventory/IND-03.tsv'
-      - 'inventory/topic_inventory/IND-04.tsv'
-      - 'inventory/topic_inventory/IND-05.tsv'
-      - 'inventory/topic_inventory/IND-08.tsv'
-      - 'inventory/topic_inventory/IND-10.tsv'
-      - 'inventory/topic_inventory/IND-11.tsv'
-      - 'schema/note_schema.yaml'
-      - 'rules/anki_card_rules.md'
-      - 'rules/cloze_rules.md'
-      - 'rules/coverage_rules.md'
-      - 'rules/exam_yield_rules.md'
-      - 'rules/recall_precision_rules.md'
-      - 'scripts/migrate_living_spec_governance.py'
+      - 'production/**'
+      - 'inventory/topic_inventory/**'
+      - 'schema/**'
+      - 'rules/**'
       - 'scripts/validate_governance.py'
-      - 'scripts/migrate_fnd00_v1_2.py'
-      - 'scripts/migrate_fnd00_v1_3.py'
-      - 'scripts/migrate_fnd00_v1_4.py'
-      - 'scripts/migrate_fnd00_v1_5.py'
-      - 'scripts/migrate_fnd00_v1_6.py'
-      - 'scripts/validate_fnd00_production.py'
-      - 'scripts/validate_com01_production.py'
-      - 'scripts/validate_com02_production.py'
-      - 'scripts/validate_com03_production.py'
-      - 'scripts/validate_com04_production.py'
-      - 'scripts/validate_com05_production.py'
-      - 'scripts/validate_com06_production.py'
-      - 'scripts/validate_com07_production.py'
-      - 'scripts/validate_com08_production.py'
-      - 'scripts/validate_com09_production.py'
-      - 'scripts/validate_com10_production.py'
-      - 'scripts/validate_com11_production.py'
-      - 'scripts/validate_com14_production.py'
-      - 'scripts/validate_com15_production.py'
-      - 'scripts/validate_com16_production.py'
-      - 'scripts/validate_ind01_production.py'
-      - 'scripts/validate_ind02_production.py'
-      - 'scripts/validate_ind03_production.py'
-      - 'scripts/validate_ind04_production.py'
-      - 'scripts/validate_ind05_production.py'
-      - 'scripts/validate_ind08_production.py'
-      - 'scripts/validate_ind10_production.py'
-      - 'scripts/validate_ind11_production.py'
-      - 'TASKS.md'
+      - 'scripts/validate_*_production.py'
       - '.github/workflows/validate-production.yml'
   pull_request:
     paths:
@@ -77,69 +20,12 @@ on:
       - 'README.md'
       - 'SPEC.md'
       - 'FREEZE.md'
-      - 'production/notes/**'
-      - 'production/qa/**'
-      - 'production/README.md'
-      - 'inventory/topic_inventory/FND-00.tsv'
-      - 'inventory/topic_inventory/COM-01.tsv'
-      - 'inventory/topic_inventory/COM-02.tsv'
-      - 'inventory/topic_inventory/COM-03.tsv'
-      - 'inventory/topic_inventory/COM-04.tsv'
-      - 'inventory/topic_inventory/COM-05.tsv'
-      - 'inventory/topic_inventory/COM-06.tsv'
-      - 'inventory/topic_inventory/COM-07.tsv'
-      - 'inventory/topic_inventory/COM-08.tsv'
-      - 'inventory/topic_inventory/COM-09.tsv'
-      - 'inventory/topic_inventory/COM-10.tsv'
-      - 'inventory/topic_inventory/COM-11.tsv'
-      - 'inventory/topic_inventory/COM-14.tsv'
-      - 'inventory/topic_inventory/COM-15.tsv'
-      - 'inventory/topic_inventory/COM-16.tsv'
-      - 'inventory/topic_inventory/IND-01.tsv'
-      - 'inventory/topic_inventory/IND-02.tsv'
-      - 'inventory/topic_inventory/IND-03.tsv'
-      - 'inventory/topic_inventory/IND-04.tsv'
-      - 'inventory/topic_inventory/IND-05.tsv'
-      - 'inventory/topic_inventory/IND-08.tsv'
-      - 'inventory/topic_inventory/IND-10.tsv'
-      - 'inventory/topic_inventory/IND-11.tsv'
-      - 'schema/note_schema.yaml'
-      - 'rules/anki_card_rules.md'
-      - 'rules/cloze_rules.md'
-      - 'rules/coverage_rules.md'
-      - 'rules/exam_yield_rules.md'
-      - 'rules/recall_precision_rules.md'
-      - 'scripts/migrate_living_spec_governance.py'
+      - 'production/**'
+      - 'inventory/topic_inventory/**'
+      - 'schema/**'
+      - 'rules/**'
       - 'scripts/validate_governance.py'
-      - 'scripts/migrate_fnd00_v1_2.py'
-      - 'scripts/migrate_fnd00_v1_3.py'
-      - 'scripts/migrate_fnd00_v1_4.py'
-      - 'scripts/migrate_fnd00_v1_5.py'
-      - 'scripts/migrate_fnd00_v1_6.py'
-      - 'scripts/validate_fnd00_production.py'
-      - 'scripts/validate_com01_production.py'
-      - 'scripts/validate_com02_production.py'
-      - 'scripts/validate_com03_production.py'
-      - 'scripts/validate_com04_production.py'
-      - 'scripts/validate_com05_production.py'
-      - 'scripts/validate_com06_production.py'
-      - 'scripts/validate_com07_production.py'
-      - 'scripts/validate_com08_production.py'
-      - 'scripts/validate_com09_production.py'
-      - 'scripts/validate_com10_production.py'
-      - 'scripts/validate_com11_production.py'
-      - 'scripts/validate_com14_production.py'
-      - 'scripts/validate_com15_production.py'
-      - 'scripts/validate_com16_production.py'
-      - 'scripts/validate_ind01_production.py'
-      - 'scripts/validate_ind02_production.py'
-      - 'scripts/validate_ind03_production.py'
-      - 'scripts/validate_ind04_production.py'
-      - 'scripts/validate_ind05_production.py'
-      - 'scripts/validate_ind08_production.py'
-      - 'scripts/validate_ind10_production.py'
-      - 'scripts/validate_ind11_production.py'
-      - 'TASKS.md'
+      - 'scripts/validate_*_production.py'
       - '.github/workflows/validate-production.yml'
   workflow_dispatch:
 
@@ -148,13 +34,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run all production validators
+
+      - name: Select validators
+        id: select
         shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          validators=(
+          set -euo pipefail
+
+          all_validators=(
             scripts/validate_governance.py
             scripts/validate_fnd00_production.py
             scripts/validate_com01_production.py
@@ -181,8 +80,65 @@ jobs:
             scripts/validate_ind11_production.py
           )
 
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            changed_files=""
+            run_all=1
+          else
+            run_all=0
+            if [[ "$EVENT_NAME" == "pull_request" ]]; then
+              changed_files="$(git diff --name-only "$PR_BASE_SHA" "$PR_HEAD_SHA")"
+            elif [[ -n "${BEFORE_SHA:-}" && ! "$BEFORE_SHA" =~ ^0+$ ]] && git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+              changed_files="$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA")"
+            else
+              changed_files="$(git show --pretty='' --name-only "$AFTER_SHA")"
+            fi
+
+            echo "Changed files:"
+            printf '%s\n' "$changed_files"
+
+            while IFS= read -r file; do
+              [[ -z "$file" ]] && continue
+              case "$file" in
+                GOVERNANCE.md|README.md|SPEC.md|FREEZE.md|production/README.md|schema/*|rules/*|scripts/validate_governance.py|.github/workflows/validate-production.yml)
+                  run_all=1
+                  ;;
+              esac
+            done <<< "$changed_files"
+          fi
+
+          selected=(scripts/validate_governance.py)
+
+          if [[ "$run_all" -eq 1 ]]; then
+            selected=("${all_validators[@]}")
+          else
+            batches=(
+              FND-00
+              COM-01 COM-02 COM-03 COM-04 COM-05 COM-06 COM-07 COM-08 COM-09 COM-10 COM-11 COM-14 COM-15 COM-16
+              IND-01 IND-02 IND-03 IND-04 IND-05 IND-08 IND-10 IND-11
+            )
+
+            for batch in "${batches[@]}"; do
+              script_id="${batch,,}"
+              script_id="${script_id//-/}"
+              validator="scripts/validate_${script_id}_production.py"
+
+              if grep -Fq "$batch" <<< "$changed_files" || grep -Fq "$validator" <<< "$changed_files"; then
+                selected+=("$validator")
+              fi
+            done
+          fi
+
+          printf '%s\n' "${selected[@]}" | awk '!seen[$0]++' > /tmp/selected-validators.txt
+
+          echo "Selected validators:"
+          cat /tmp/selected-validators.txt
+
+      - name: Run selected production validators
+        shell: bash
+        run: |
           failed=0
-          for validator in "${validators[@]}"; do
+          while IFS= read -r validator; do
+            [[ -z "$validator" ]] && continue
             echo "::group::$validator"
             if python "$validator"; then
               echo "PASS: $validator"
@@ -191,6 +147,6 @@ jobs:
               failed=1
             fi
             echo "::endgroup::"
-          done
+          done < /tmp/selected-validators.txt
 
           exit "$failed"
