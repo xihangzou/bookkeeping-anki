@@ -295,6 +295,22 @@ Example:
 
 Do not reverse every definition mechanically. If timing, amount, or treatment is more exam-useful than the label, test that instead.
 
+### 8.3 Parallel-term atomicity
+
+When two or more **independently meaningful parallel terms** appear in one list or compound phrase, put each term in its own Cloze span rather than hiding the whole parallel phrase as one answer. This applies especially to terms joined by `・`, `／`, `、`, `and`, or `or`.
+
+If the terms belong to one coherent retrieval unit, they may use the same Cloze index so they are hidden together; separate spans enforce lexical atomicity and do **not** by themselves require separate cards.
+
+Preferred:
+
+`{{c1::利益管理}}・{{c1::原価管理}}`
+
+Avoid:
+
+`{{c1::利益管理・原価管理}}`
+
+Do not split a fixed canonical technical term merely because it contains a conjunction or separator. For example, `販売費及び一般管理費` remains one answer when that full canonical account/category label is the retrieval target.
+
 ---
 
 ## 9. Journal-entry rules
@@ -446,7 +462,7 @@ Do not turn a table mechanically into one Note or one card per cell.
 - split rows that require independent judgments;
 - exclude example rows that add no rule.
 
-For parallel classification/comparison cells with multiple meaningful dimensions, Cloze each dimension separately rather than hiding a whole cell.
+For parallel classification/comparison cells with multiple meaningful dimensions, Cloze each dimension separately rather than hiding a whole cell. Independently meaningful parallel terms within one dimension must also follow the parallel-term atomicity rule in §8.3.
 
 ---
 
@@ -639,9 +655,10 @@ ANKI-AUDIT-008 through ANKI-AUDIT-013 established the current precision rules in
 - decomposition of compound comparison cells;
 - minimal formula-operand scope with visible timing/relational modifiers.
 
-Later chapter review generalized an additional precision rule:
+Later chapter review generalized additional precision rules:
 
-- context-qualified atomicity: shorthand, boolean, rate, or method answers must remain semantically self-identifying within the visible retrieval frame; treatment-changing timing/role qualifiers cannot be dropped merely to shorten a Cloze.
+- context-qualified atomicity: shorthand, boolean, rate, or method answers must remain semantically self-identifying within the visible retrieval frame; treatment-changing timing/role qualifiers cannot be dropped merely to shorten a Cloze;
+- parallel-term atomicity: independently meaningful coordinate terms are separate Cloze spans even when they retain the same Cloze index and remain one generated card.
 
 ### 22.3 Explicit supersession decisions
 
