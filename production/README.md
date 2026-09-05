@@ -79,8 +79,14 @@ COM-01 through later commercial batches retain their chapter-local QA and issue/
 
 `Status=approved` rows constitute the active deck. `Status=deprecated` rows preserve immutable historical lineage and source traceability but are excluded from active export.
 
+## ANKI-038 normalized corpus
+
+Cross-chapter semantic normalization is recorded in `production/qa/ANKI-038.md`. The normalized corpus has 811 production rows, 735 approved active Notes, 76 deprecated lineage Notes, 743 generated active cards, 2,004 active Cloze spans, and 965 / 965 included ALPs actively mapped with zero orphan ALPs and zero exact duplicate active retrieval propositions.
+
+Corpus-level invariants are enforced by `scripts/validate_corpus_production.py`. Exact duplicates are blockers; semantic similarity candidates are reviewed under the retrieval-unit duplicate rule and either merged or documented as materially distinct retrieval contexts.
+
 ## Validation
 
-Production validators live under `scripts/validate_*_production.py` and are wired into `.github/workflows/validate-production.yml` as chapter batches are added.
+Production validators live under `scripts/validate_*_production.py` and are wired into `.github/workflows/validate-production.yml`. The consolidated workflow includes every production batch validator plus the corpus-level normalization validator.
 
-All new generation should validate against the current schema, `GOVERNANCE.md`, and `rules/anki_card_rules.md` semantics before merge.
+All new generation and later QA corrections should validate against the current schema, `GOVERNANCE.md`, and `rules/anki_card_rules.md` semantics before merge.
