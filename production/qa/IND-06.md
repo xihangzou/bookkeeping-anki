@@ -40,7 +40,7 @@ The chapter's worked numerical demonstrations remain excluded as `DECORATIVE_EXA
 A post-production learner review identified several spans that technically preserved the proposition but hid more wording than necessary. The affected Notes were tightened without changing ALP mapping or source meaning:
 
 - `BK-IND-06-0002`: `正確な製品原価の計算` was narrowed to the canonical object `製品原価`; `正確な` and `の計算` remain visible.
-- `BK-IND-06-0010`: formula modifiers are visible: `各部門の` remains outside the `配賦基準量` span and the denominator is expressed as `その{{c1::合計}}`.
+- `BK-IND-06-0010`: formula roles remain visible as `各部門の` versus `全部門の`; only the atomic operand `配賦基準量` is hidden in both positions.
 - `BK-IND-06-0013`: the defining facts for direct allocation remain visible and only `直接配賦法` is hidden, so the prompt remains meaningful after Cloze removal.
 - `BK-IND-06-0016`: `他の` is visible and only the atomic category label `補助部門` is hidden.
 - `BK-IND-06-0020`: timing and department qualifiers remain visible around the actual-rate operands.
