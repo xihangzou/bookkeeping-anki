@@ -79,7 +79,7 @@ Production audit Issues (ANKI-AUDIT-001 onward) remain historical evidence for w
 - [ ] **ANKI-030** Industrial chapter07
 - [ ] **ANKI-031** Industrial chapter08
 - [ ] **ANKI-032** Industrial chapter09
-- [ ] **ANKI-033** Industrial chapter10
+- [x] **ANKI-033** Industrial chapter10
 - [ ] **ANKI-034** Industrial chapter11
 - [ ] **ANKI-035** Industrial chapter12
 - [ ] **ANKI-036** Industrial chapter13
