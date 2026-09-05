@@ -10,7 +10,7 @@ Canonical shard: `inventory/topic_inventory/IND-08.tsv`
 
 - production Notes: **27**
 - generated cards: **27**
-- Cloze spans: **72**
+- Cloze spans: **70**
 - included ALPs: **33**
 - mapped included ALPs: **33**
 - unmapped included ALPs: **0**
@@ -54,13 +54,15 @@ Coherent multi-ALP Notes are used only where the propositions share one retrieva
 
 ### Formula atomicity
 
-演算子は常に可視とし、式のオペランドだけを個別に Cloze 化する。
+演算子は常に可視とし、式のうち自明な費用側オペランドは必要に応じて可視に残し、区別すべき配分比率のオペランドを短い Cloze として取得する。
 
 - `加工換算量＝実在量×加工進捗度`
-- `月末仕掛品材料費＝対象材料費×月末仕掛品数量÷対象投入数量`
-- `月末仕掛品加工費＝対象加工費×月末仕掛品加工換算量÷対象加工換算量合計`
+- `月末仕掛品直接材料費＝当月直接材料費×月末仕掛品数量÷当月投入数量`
+- `月末仕掛品加工費＝当月加工費×月末仕掛品加工換算量÷当月投入加工換算量`
 - `完成品原価＝月初仕掛品原価＋当月製造費用－月末仕掛品原価`
 - `正常仕損費＝仕損品原価－仕損品評価額`
+
+`BK-IND-08-0009` と `0010` はレビュー後、抽象的な `対象材料費` / `対象投入数量` / `対象加工換算量合計` を廃止した。材料は「実在量ベース」、加工費は「加工換算量ベース」という対比を visible cue にし、費用側を可視化して、覚える対象を配分比率に絞った。
 
 ### 先入先出法と平均法
 
@@ -80,9 +82,11 @@ Coherent multi-ALP Notes are used only where the propositions share one retrieva
 
 追加材料は投入点と加工進捗度の関係を判断軸にし、終点投入・途中点投入・平均投入を一つの比較可能な retrieval frame に統合する。
 
-- 終点投入: 完成品のみ
-- 途中点投入: 投入点を通過した加工品だけ
-- 平均投入: 加工換算量で按分
+- 終点投入: `完成品` のみ
+- 途中点投入: 加工進捗度が `投入点以上` の加工品
+- 平均投入: `加工換算量` で按分
+
+`BK-IND-08-0027` はレビュー後、`完成品のみ` → `完成品`、`投入点を通過した加工品` → `投入点以上` と Cloze scope を縮小した。条件・対象物を visible context に残し、関係を決める最小の識別子だけを隠す。
 
 ## Journal-entry and cost-accounting QA
 
@@ -126,7 +130,7 @@ Expected output:
 
 ```text
 IND-08 production validation: PASS
-notes=27 cards=27 cloze_spans=72 included_alps=33 mapped=33 unmapped=0
+notes=27 cards=27 cloze_spans=70 included_alps=33 mapped=33 unmapped=0
 multi_alp_notes=5 formula_notes=5 procedure_notes=7 measurement_notes=5 canonical_exclusions=1
 process_costing=pass spoilage_logic=pass added_materials=pass formula_atomicity=pass account_level_masking=pass minimal_cloze_scope=pass visible_answer_leakage=0 deterministic_order=pass
 ```
@@ -135,3 +139,8 @@ process_costing=pass spoilage_logic=pass added_materials=pass formula_atomicity=
 
 - `f1a3b3f631fb2afa7527c9f3c3a355302c0d3ee1` — add `production/notes/IND-08.tsv`
 - `bc79c0ec937a1a4cb93a34a99545d39eed978675` — add `scripts/validate_ind08_production.py`
+
+## Review refinement commits
+
+- `2e5ee3cb6ec376df948400f99ddda7dbd43caa12` — simplify `0009` / `0010` recall load and tighten `0027` Cloze scope
+- `3b5992981a431bf6be2ee5fc591940285fb278a3` — update chapter validator for 70 spans and refined precision checks
