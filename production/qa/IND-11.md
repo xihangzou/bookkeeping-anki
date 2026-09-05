@@ -10,7 +10,7 @@ Canonical shard: `inventory/topic_inventory/IND-11.tsv`
 
 - production Notes: **29**
 - generated cards: **29**
-- Cloze spans: **83**
+- Cloze spans: **77**
 - included ALPs: **31**
 - mapped included ALPs: **31**
 - unmapped included ALPs: **0**
@@ -45,7 +45,7 @@ Worked examples 11-1 through 11-5 remain excluded as `DECORATIVE_EXAMPLE` becaus
 
 The opening Notes distinguish actual costing from standard costing by the treatment-changing dimension: actual costing may use planned prices while retaining actual quantities, whereas standard costing also establishes quantity/work-time standards. Standard costing is tied directly to variance analysis and cost control rather than testing a generic definition in isolation.
 
-The production-flow Note keeps the standard-costing frame visible and uses separate same-index atomic spans for the sequence-critical stages: setting cost standards, calculating standard and actual cost, calculating/analyzing variances, reporting/improvement, and year-end variance disposal.
+The production-flow Note keeps the procedure frame visible instead of blanking every stage at once. It now retrieves only the sequence-critical nodes `標準原価差異` and year-end `差異処理`, while the surrounding path—cost-standard setting, standard/actual cost calculation, variance calculation/analysis, and reporting/improvement—remains visible as retrieval scaffolding. This follows the current rule that procedure frames should remain visible and only short sequence-critical labels should be hidden.
 
 `原価標準` and `標準原価` are retrieved on a single comparison axis: per-unit target cost versus the target manufacturing cost applied to the period's actual production.
 
@@ -59,7 +59,7 @@ The core formulas keep operators visible and Cloze only individual operands:
 - standard manufacturing overhead = standard allocation rate × standard operating level
 - completed-goods standard cost = per-unit cost standard × completed quantity
 
-For WIP, beginning-point material input retrieves actual physical units for materials and conversion-equivalent units for direct labor/manufacturing overhead. The average-input exception separately retrieves completed-unit equivalents for materials as well.
+For WIP, beginning-point material input retrieves actual physical units for materials and conversion-equivalent units for direct labor/manufacturing overhead. When materials are introduced evenly throughout the process, the material quantity must also reflect progress; the production Note retrieves `加工換算量` explicitly, while Extra preserves the source relationship to completed-unit equivalents.
 
 The standard-setting quality Note retrieves `客観的` and `達成可能` rather than broad explanatory clauses.
 
@@ -94,6 +94,7 @@ The batch applies the current consolidated rules:
 - each independently meaningful list/parallel term is a separate Cloze span even when all spans share `c1`;
 - formula operators remain visible and formulas mask individual operands;
 - broad targets such as `仕訳を行う`, `処理する`, `あり`, and `なし` are not used;
+- procedure frames remain visible, with only short sequence-critical labels hidden;
 - same-index grouping keeps tightly coupled formula/comparison operands on one generated card;
 - each card retains a visible accounting subject and answer class;
 - no 2+ character Cloze answer appears verbatim in the visible portion of the same rendered card.
@@ -130,7 +131,7 @@ Expected output:
 
 ```text
 IND-11 production validation: PASS
-notes=29 cards=29 cloze_spans=83 included_alps=31 mapped=31 unmapped=0
+notes=29 cards=29 cloze_spans=77 included_alps=31 mapped=31 unmapped=0
 multi_alp_notes=1 journal_entry_notes=0 formula_notes=17 canonical_exclusions=1
 minimal_cloze_scope=pass parallel_term_atomicity=pass formula_atomicity=pass cost_accounting_treatment=pass visible_answer_leakage=0 deterministic_order=pass
 ```
