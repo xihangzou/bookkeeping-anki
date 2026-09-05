@@ -13,7 +13,7 @@ CLOZE_RE=re.compile(r"\{\{c([1-9][0-9]*)::(.+?)\}\}")
 NOTE_RE=re.compile(r"^BK-IND-01-[0-9]{4}$")
 ALP_RE=re.compile(r"^ALP-IND-01-[0-9]{4}$")
 EXPECTED_IDS=[f"BK-IND-01-{n:04d}" for n in range(1,24)]
-EXPECTED_SPANS=58
+EXPECTED_SPANS=59
 SOURCE=("xihangzou/bookkeeping-integrated","569ed7b82e729334e1472286eaca7c4352e6fbdb","merged/textbook.md")
 ALLOWED_TYPES={"definition","classification","recognition","measurement","journal_entry","formula","procedure","comparison","exception","reasoning","ledger","financial_statement","cost_accounting"}
 ENTRY_ACCOUNT_RE=re.compile(r"（(?:借|貸)）\{\{c1::([^}]+)\}\}")
@@ -57,7 +57,7 @@ REQUIRED={
 'BK-IND-01-0013':('製造原価＝{{c1::材料費}}＋{{c1::労務費}}＋{{c1::経費}}＝{{c1::製造直接費}}＋{{c1::製造間接費}}',),
 'BK-IND-01-0014':('販売価格＝{{c1::総原価}}＋{{c1::利益}}',),
 'BK-IND-01-0015':('{{c1::変動費}}','{{c1::固定費}}'),
-'BK-IND-01-0016':('{{c1::財務諸表作成}}','{{c1::利益管理・原価管理}}'),
+'BK-IND-01-0016':('{{c1::財務諸表作成}}','{{c1::利益管理}}','{{c1::原価管理}}'),
 'BK-IND-01-0017':('{{c1::原価計算期間}}','{{c1::1か月}}'),
 'BK-IND-01-0018':('{{c1::材料}}','{{c1::労務費}}','{{c1::経費}}','直接費を{{c1::仕掛品}}へ賦課','間接費を{{c1::製造間接費}}へ集計後{{c1::仕掛品}}へ配賦','完成時に{{c1::製品}}','販売時に{{c1::売上原価}}'),
 'BK-IND-01-0019':('第1次{{c1::費目別計算}}→第2次{{c1::部門別計算}}→第3次{{c1::製品別計算}}',),
@@ -93,6 +93,7 @@ def main():
             a=a.strip()
             if len(a)>=2 and a in visible: errors.append(f'{nid}: visible leakage {a!r}')
             if a in BROAD: errors.append(f'{nid}: broad answer {a!r}')
+            if '・' in a: errors.append(f'{nid}: parallel phrase should use separate clozes {a!r}')
             if any(x in a for x in ('（借）','（貸）','借方：','貸方：')): errors.append(f'{nid}: journal syntax hidden')
             if any(x in a for x in ARITH): errors.append(f'{nid}: operator hidden {a!r}')
         if any(x in text for x in FORBIDDEN_COMPACT): errors.append(f'{nid}: compact entry')
