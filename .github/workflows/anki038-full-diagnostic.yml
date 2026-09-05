@@ -1,0 +1,53 @@
+name: ANKI-038 full validator diagnostic
+
+on:
+  push:
+    paths:
+      - '.github/workflows/anki038-full-diagnostic.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run all validators and report failures
+        shell: bash
+        run: |
+          set +e
+          : > /tmp/failures.txt
+          failed=0
+          for validator in scripts/validate_governance.py scripts/validate_fnd00_production.py scripts/validate_com*_production.py scripts/validate_ind*_production.py scripts/validate_corpus_production.py; do
+            out="$(python "$validator" 2>&1)"
+            code=$?
+            if [[ $code -ne 0 ]]; then
+              failed=$((failed+1))
+              {
+                echo "### $validator"
+                echo '```text'
+                printf '%s\n' "$out"
+                echo '```'
+                echo
+              } >> /tmp/failures.txt
+            fi
+          done
+          {
+            echo '<!-- ANKI-038-FULL-DIAGNOSTIC -->'
+            echo "## ANKI-038 full-validator diagnostic — failures=$failed"
+            echo
+            if [[ $failed -eq 0 ]]; then
+              echo 'All validators PASS.'
+            else
+              cat /tmp/failures.txt
+            fi
+          } > /tmp/comment.md
+          gh issue comment 39 --repo "$GITHUB_REPOSITORY" --body-file /tmp/comment.md
+          exit 0
+        env:
+          GH_TOKEN: ${{ github.token }}
