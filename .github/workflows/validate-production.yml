@@ -87,6 +87,7 @@ jobs:
             scripts/validate_ind13_production.py
             scripts/validate_ind14_production.py
             scripts/validate_corpus_production.py
+            scripts/validate_journal_production.py
           )
 
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
@@ -108,7 +109,7 @@ jobs:
             while IFS= read -r file; do
               [[ -z "$file" ]] && continue
               case "$file" in
-                GOVERNANCE.md|README.md|SPEC.md|FREEZE.md|production/README.md|schema/*|rules/*|scripts/validate_governance.py|scripts/validate_corpus_production.py|.github/workflows/validate-production.yml)
+                GOVERNANCE.md|README.md|SPEC.md|FREEZE.md|production/README.md|schema/*|rules/*|scripts/validate_governance.py|scripts/validate_corpus_production.py|scripts/validate_journal_production.py|.github/workflows/validate-production.yml)
                   run_all=1
                   ;;
               esac
@@ -136,9 +137,10 @@ jobs:
               fi
             done
 
-            # Any production-note change can affect cross-batch normalization.
+            # Any production-note change can affect normalization and journal-entry QA.
             if grep -Eq '^production/notes/.*\.tsv$' <<< "$changed_files"; then
               selected+=(scripts/validate_corpus_production.py)
+              selected+=(scripts/validate_journal_production.py)
             fi
           fi
 
