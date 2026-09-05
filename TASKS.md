@@ -83,7 +83,7 @@ Production audit Issues (ANKI-AUDIT-001 onward) remain historical evidence for w
 - [ ] **ANKI-034** Industrial chapter11
 - [x] **ANKI-035** Industrial chapter12
 - [x] **ANKI-036** Industrial chapter13
-- [ ] **ANKI-037** Industrial chapter14
+- [x] **ANKI-037** Industrial chapter14
 
 Every pending generation task must use the **latest merged** `rules/anki_card_rules.md` plus the current schema and pinned source/ALP shard. Historical v1.0 wording is not the active authoring contract.
 
