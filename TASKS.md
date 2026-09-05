@@ -98,14 +98,18 @@ Phase C generation is complete. All downstream normalization and QA use the **la
 - [x] **ANKI-039** Journal-entry QA
   - 167 audited Notes / 167 journal-entry ALPs; 2 Notes corrected and rechecked; unresolved accounting defects 0
   - report: `production/qa/ANKI-039.md`; validator: `scripts/validate_journal_production.py`
-- [ ] **ANKI-040** Formula/calculation QA
-  - formulas, derivations, allocation, inventory/cost flow, industrial calculations
-  - preserve visible operators and atomic operand masking
+- [x] **ANKI-040** Formula/calculation QA
+  - 395 audited Notes; 225 / 225 formula/measurement ALPs and 6 / 6 calculation-dependent cost-accounting ALPs audited
+  - 167 canonical explicit formula relations checked; 4 equivalent representations reconciled
+  - unresolved formula/calculation defects 0
+  - report: `production/qa/ANKI-040.md`; validator: `scripts/validate_formula_production.py`
 
 ## Phase F — Recall and coverage QA
 
-- [ ] **ANKI-041** Cloze / recall-quality QA
-  - ambiguity, visible context, minimal lexical scope, same-index grouping, answer leakage, over-deletion, recall value
+- [x] **ANKI-041** Cloze / recall-quality QA
+  - 31 / 31 batches; 735 / 735 active Notes; 748 generated cards; 2,008 Cloze spans
+  - 6 active Notes corrected and rechecked; severe recall-load defects 0; unresolved recall-quality defects 0
+  - report: `production/qa/ANKI-041.md`; validator: `scripts/validate_recall_production.py`
 - [ ] **ANKI-042** Final semantic coverage QA
   - 100% source sections reviewed
   - 100% included ALPs mapped/materially represented
