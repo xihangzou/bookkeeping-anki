@@ -140,233 +140,52 @@ on:
   workflow_dispatch:
 
 jobs:
-  validate-governance:
+  validate-production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Validate living-spec governance
-        run: python scripts/validate_governance.py
+      - name: Run all production validators
+        shell: bash
+        run: |
+          validators=(
+            scripts/validate_governance.py
+            scripts/validate_fnd00_production.py
+            scripts/validate_com01_production.py
+            scripts/validate_com02_production.py
+            scripts/validate_com03_production.py
+            scripts/validate_com04_production.py
+            scripts/validate_com05_production.py
+            scripts/validate_com06_production.py
+            scripts/validate_com07_production.py
+            scripts/validate_com08_production.py
+            scripts/validate_com09_production.py
+            scripts/validate_com10_production.py
+            scripts/validate_com11_production.py
+            scripts/validate_com14_production.py
+            scripts/validate_com16_production.py
+            scripts/validate_ind01_production.py
+            scripts/validate_ind02_production.py
+            scripts/validate_ind03_production.py
+            scripts/validate_ind04_production.py
+            scripts/validate_ind05_production.py
+            scripts/validate_ind08_production.py
+            scripts/validate_ind10_production.py
+            scripts/validate_ind11_production.py
+          )
 
-  validate-fnd00:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate FND-00 production batch
-        run: python scripts/validate_fnd00_production.py
+          failed=0
+          for validator in "${validators[@]}"; do
+            echo "::group::$validator"
+            if python "$validator"; then
+              echo "PASS: $validator"
+            else
+              echo "FAIL: $validator"
+              failed=1
+            fi
+            echo "::endgroup::"
+          done
 
-  validate-com01:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-01 production batch
-        run: python scripts/validate_com01_production.py
-
-  validate-com02:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-02 production batch
-        run: python scripts/validate_com02_production.py
-
-  validate-com03:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-03 production batch
-        run: python scripts/validate_com03_production.py
-
-  validate-com04:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-04 production batch
-        run: python scripts/validate_com04_production.py
-
-  validate-com05:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-05 production batch
-        run: python scripts/validate_com05_production.py
-
-  validate-com06:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-06 production batch
-        run: python scripts/validate_com06_production.py
-
-  validate-com07:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-07 production batch
-        run: python scripts/validate_com07_production.py
-
-  validate-com08:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-08 production batch
-        run: python scripts/validate_com08_production.py
-
-  validate-com09:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-09 production batch
-        run: python scripts/validate_com09_production.py
-
-  validate-com10:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-10 production batch
-        run: python scripts/validate_com10_production.py
-
-  validate-com11:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-11 production batch
-        run: python scripts/validate_com11_production.py
-
-  validate-com14:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-14 production batch
-        run: python scripts/validate_com14_production.py
-
-  validate-com16:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate COM-16 production batch
-        run: python scripts/validate_com16_production.py
-
-  validate-ind01:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate IND-01 production batch
-        run: python scripts/validate_ind01_production.py
-
-  validate-ind02:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate IND-02 production batch
-        run: python scripts/validate_ind02_production.py
-
-  validate-ind03:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate IND-03 production batch
-        run: python scripts/validate_ind03_production.py
-
-  validate-ind04:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate IND-04 production batch
-        run: python scripts/validate_ind04_production.py
-
-  validate-ind05:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate IND-05 production batch
-        run: python scripts/validate_ind05_production.py
-
-  validate-ind08:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate IND-08 production batch
-        run: python scripts/validate_ind08_production.py
-
-  validate-ind10:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate IND-10 production batch
-        run: python scripts/validate_ind10_production.py
-
-  validate-ind11:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate IND-11 production batch
-        run: python scripts/validate_ind11_production.py
-
+          exit "$failed"
